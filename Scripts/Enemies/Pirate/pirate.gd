@@ -6,7 +6,7 @@ extends Node2D
 
 var enemy_stats: Enemy_Resource = null
 
-var enemy_scene_path = "res://Scenes/Enemies/trogg.tscn"
+var enemy_scene_path = "res://Scenes/Enemies/pirate.tscn"
 
 func _ready():
 	set_stats(enemy_stats_resource)

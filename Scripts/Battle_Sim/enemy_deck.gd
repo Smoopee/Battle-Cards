@@ -15,3 +15,5 @@ func build_deck():
 		var new_resource = i
 		var new_instance = load(new_resource.card_scene_path).instantiate()
 		add_child(new_instance)
+	
+	enemy.position = $"../UI/enemy_health".position 

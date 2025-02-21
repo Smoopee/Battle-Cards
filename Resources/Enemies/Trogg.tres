@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Enemy_Resource" load_steps=2 format=3 uid="uid://jefsr26pv8bu"]
+
+[ext_resource type="Script" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_4d8f0"]
+
+[resource]
+script = ExtResource("1_4d8f0")
+enemy_art_path = "res://Resources/Art/Enemies/trogg.png"
+enemy_scene_path = "res://Scenes/Enemies/trogg.tscn"
+name = "Trogg"
+health = 110

@@ -7,6 +7,7 @@ const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
 var rock = preload("res://Resources/Cards/rock.tres")
 var dagger = preload("res://Resources/Cards/dagger.tres")
+var strengthen = preload("res://Resources/Cards/strengthen.tres")
 
 var inventory_db = []
 var inventory = []
@@ -31,7 +32,7 @@ func _ready():
 		add_card_to_hand(new_card)
 
 func fetch_inventory():
-	inventory_db = [rock, dagger, rock, dagger, dagger, rock, rock, rock, dagger, rock, dagger, dagger]
+	inventory_db = [strengthen, dagger, rock, dagger, dagger, rock, rock, rock, dagger, rock, dagger, dagger]
 
 func add_card_to_hand(card):
 	if card not in inventory:

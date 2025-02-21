@@ -5,8 +5,8 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_hc35b")
-card_art_path = ""
-card_scene_path = ""
+card_art_path = "res://Resources/Cards/CardArt/Strengthen_card.png"
+card_scene_path = "res://Scenes/Cards/strengthen.tscn"
 name = "Strengthen"
 dmg = 0
 position = 0

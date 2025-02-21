@@ -1,10 +1,11 @@
 extends Node2D
 
 var trogg = preload("res://Scenes/Enemies/trogg.tscn")
+var pirate = preload("res://Scenes/Enemies/pirate.tscn")
 @onready var card_slots = $"../Enemy_Cards"
 
 func _ready():
-	var enemy = trogg.instantiate()
+	var enemy = pirate.instantiate()
 	add_child(enemy)
 	
 	print(enemy.enemy_deck)

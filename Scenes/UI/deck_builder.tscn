@@ -87,6 +87,7 @@ offset_bottom = 491.0
 text = "Confirm"
 
 [node name="Enemy" type="Node2D" parent="."]
+position = Vector2(105, 111)
 script = ExtResource("5_bx4tr")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
