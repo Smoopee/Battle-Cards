@@ -29,6 +29,7 @@ offset_bottom = 40.0
 script = ExtResource("5_ppjxe")
 
 [node name="player_health" type="TextureProgressBar" parent="UI"]
+layout_mode = 0
 offset_left = 1653.0
 offset_top = 930.0
 offset_right = 1671.0

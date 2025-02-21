@@ -28,7 +28,7 @@ func change_enemy_card(path):
 
 func change_player_damage_number(value):
 	print("THE VALUE OF DAMAGE IS " + str(value))
-	player_damage_number.text = str(value)
+	player_damage_number.text = str(value) + " damage"
 
 func change_enemy_damage_number(value):
-	enemy_damage_number.text = str(value)
+	enemy_damage_number.text = str(value) + " damage"
