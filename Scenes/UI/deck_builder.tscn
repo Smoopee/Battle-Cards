@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://myjsxai04sm7"]
+
+[ext_resource type="Script" path="res://Scripts/UI/CardManager.gd" id="1_wsaiq"]
+[ext_resource type="Script" path="res://Scripts/UI/deck_builder.gd" id="1_xrkhi"]
+[ext_resource type="PackedScene" uid="uid://dh2gnyhxkimyc" path="res://Scenes/UI/card_slot.tscn" id="3_gst86"]
+[ext_resource type="Script" path="res://Scripts/UI/Inventory.gd" id="3_nnl46"]
+[ext_resource type="Script" path="res://Scripts/UI/Enemy.gd" id="5_bx4tr"]
+
+[node name="DeckBuilder" type="Node2D"]
+script = ExtResource("1_xrkhi")
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("1_wsaiq")
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("3_nnl46")
+
+[node name="CardSlots" type="Node2D" parent="."]
+
+[node name="CardSlot" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(357, 471)
+
+[node name="CardSlot2" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(488, 468)
+
+[node name="CardSlot3" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(618, 465)
+
+[node name="CardSlot4" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(754, 473)
+
+[node name="CardSlot5" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(886, 469)
+
+[node name="CardSlot6" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(1027, 473)
+
+[node name="CardSlot7" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(1155, 478)
+
+[node name="CardSlot8" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(1281, 480)
+
+[node name="CardSlot9" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(1398, 474)
+
+[node name="CardSlot10" parent="CardSlots" instance=ExtResource("3_gst86")]
+position = Vector2(1528, 479)
+
+[node name="Enemy_Cards" type="Node2D" parent="."]
+
+[node name="CardSlot" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(360, 215)
+
+[node name="CardSlot2" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(480, 212)
+
+[node name="CardSlot3" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(612, 214)
+
+[node name="CardSlot4" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(749, 212)
+
+[node name="CardSlot5" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(902, 218)
+
+[node name="CardSlot6" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(1040, 225)
+
+[node name="CardSlot7" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(1161, 220)
+
+[node name="CardSlot8" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(1284, 226)
+
+[node name="CardSlot9" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(1414, 228)
+
+[node name="CardSlot10" parent="Enemy_Cards" instance=ExtResource("3_gst86")]
+position = Vector2(1539, 233)
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1720.0
+offset_top = 440.0
+offset_right = 1823.0
+offset_bottom = 491.0
+text = "Confirm"
+
+[node name="Enemy" type="Node2D" parent="."]
+script = ExtResource("5_bx4tr")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

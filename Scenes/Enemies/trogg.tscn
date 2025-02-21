@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dswvx8admntjv"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_owa5p"]
+
+[node name="Trogg" type="Node2D"]
+script = ExtResource("1_owa5p")
+
+[node name="Deck" type="Node2D" parent="."]
+script = ExtResource("1_l5y18")

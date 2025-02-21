@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c28hv3h521nnh"]
+
+[ext_resource type="Script" path="res://Scenes/Buffs/double_up_buff.gd" id="1_h6lj6"]
+
+[node name="double_up_buff" type="Node2D" groups=["buff"]]
+script = ExtResource("1_h6lj6")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://x15kbbufxsjg"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/riposte.gd" id="1_jlxgw"]
+[ext_resource type="Resource" uid="uid://c6f6kkpd555s4" path="res://Resources/Cards/riposte.tres" id="2_rfcii"]
+
+[node name="riposte" type="Node2D"]
+script = ExtResource("1_jlxgw")
+card_stats_resource = ExtResource("2_rfcii")

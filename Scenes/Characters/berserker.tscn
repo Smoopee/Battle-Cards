@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dac2v2br3grnx"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/berserker.gd" id="1_2i22b"]
+
+[node name="berserker" type="Node2D"]
+script = ExtResource("1_2i22b")

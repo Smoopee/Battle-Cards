@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://ds4tkwaupm3he"]
+
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/enemy_deck.gd" id="3_7ul7h"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/player_character.gd" id="4_ql2t2"]
+[ext_resource type="Texture2D" uid="uid://cfuatscpo4eww" path="res://Resources/UI/LifeBarMiniUnder.png" id="5_guklw"]
+[ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
+[ext_resource type="Texture2D" uid="uid://bpnu386u0rjka" path="res://Resources/UI/LifeBarMiniProgress.png" id="6_t5303"]
+[ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="8_010y0"]
+
+[node name="battle_sim" type="Node2D"]
+script = ExtResource("1_mc5mi")
+
+[node name="player_deck" type="Node2D" parent="."]
+script = ExtResource("2_ti0s5")
+
+[node name="enemy_deck" type="Node2D" parent="."]
+script = ExtResource("3_7ul7h")
+
+[node name="player_character" type="Node2D" parent="."]
+script = ExtResource("4_ql2t2")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ppjxe")
+
+[node name="player_health" type="TextureProgressBar" parent="UI"]
+offset_left = 1653.0
+offset_top = 930.0
+offset_right = 1671.0
+offset_bottom = 934.0
+scale = Vector2(13.0004, 9.73088)
+texture_under = ExtResource("5_guklw")
+texture_progress = ExtResource("6_t5303")
+
+[node name="enemy_health" type="TextureProgressBar" parent="UI"]
+layout_mode = 0
+offset_left = 1714.0
+offset_top = 127.0
+offset_right = 1732.0
+offset_bottom = 131.0
+scale = Vector2(9.731, 9.731)
+texture_under = ExtResource("5_guklw")
+texture_progress = ExtResource("6_t5303")
+
+[node name="player_card" type="Sprite2D" parent="UI"]
+position = Vector2(961, 676)
+texture = ExtResource("8_010y0")
+
+[node name="enemy_card" type="Sprite2D" parent="UI"]
+position = Vector2(962, 478)
+texture = ExtResource("8_010y0")
+
+[node name="player_damage_number" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 1116.0
+offset_top = 670.0
+offset_right = 1156.0
+offset_bottom = 693.0
+
+[node name="enemy_damage_number" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 1119.0
+offset_top = 463.0
+offset_right = 1159.0
+offset_bottom = 486.0

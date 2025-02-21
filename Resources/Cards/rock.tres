@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://ck735y50rlmfv"]
+
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_fyxe4"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_fyxe4")
+card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
+card_scene_path = "res://Scenes/Cards/rocks.tscn"
+name = "Rock"
+dmg = 2
+position = 0
+burn_dmg = 0
+poison_dmg = 0
+shield = 0
+heal = 0
+critical_strike_chance = 0.0
+in_enemy_deck = false
+temp_buff = false
+block = 0

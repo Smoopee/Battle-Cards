@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://crfko4titbwro"]
+
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_7qf7f"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_7qf7f")
+card_art_path = ""
+name = "Health Potion"
+dmg = 0
+position = 0
+burn_dmg = 0
+poison_dmg = 0
+shield = 0
+heal = 2
+critical_strike_chance = 0.0
+in_enemy_deck = false
+temp_buff = false
+block = 0
