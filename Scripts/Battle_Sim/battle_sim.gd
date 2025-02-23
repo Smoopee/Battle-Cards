@@ -105,8 +105,12 @@ func death_checker():
 	
 	if Global.enemy_health <= 0: 
 		print("The enemy has been defeated!")
+		$BattleRewards.visible = true
 		return true
+		
 	else: false
+	
+	
 
 func crit_check(i):
 	var critical_strike_check = rng.randf_range(0, 1)

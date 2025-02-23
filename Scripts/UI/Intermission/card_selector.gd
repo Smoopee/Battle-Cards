@@ -5,9 +5,7 @@ const CARD_WIDTH = 150
 const HAND_Y_POSITION = 890
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
-var rock = preload("res://Resources/Cards/rock.tres")
-var dagger = preload("res://Resources/Cards/dagger.tres")
-var strengthen = preload("res://Resources/Cards/strengthen.tres")
+@onready var intermission = $".."
 
 var inventory_db = []
 var inventory = []
@@ -18,21 +16,13 @@ var center_screen_x
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	
-	fetch_inventory()
-	
 	var card = preload("res://Scenes/UI/card.tscn")
-	
-	for i in range(inventory_db.size()):
-		var card_scene = card
-		var new_card = card_scene.instantiate()
-		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
-		new_card.card_name = inventory_db[i].name
-		new_card.path = inventory_db[i].card_scene_path
-		$"../CardManager".add_child(new_card)
-		add_card_to_hand(new_card)
+	var card_scene = card
+	var new_card = card_scene.instantiate()
+	new_card.get_node("CardImage").texture = load("res://Resources/Art/UIElements/pointer.png")
+	intermission.call_deferred("add_child", new_card)
+	add_card_to_hand(new_card)
 
-func fetch_inventory():
-	inventory_db = [strengthen, strengthen, rock, dagger, dagger, rock, rock, rock, dagger, rock, dagger, dagger]
 
 func add_card_to_hand(card):
 	if card not in inventory:

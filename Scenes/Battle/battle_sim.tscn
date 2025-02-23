@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=10 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
 [ext_resource type="Texture2D" uid="uid://bpnu386u0rjka" path="res://Resources/UI/LifeBarMiniProgress.png" id="6_t5303"]
 [ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="8_010y0"]
+[ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_326y0"]
 
 [node name="battle_sim" type="Node2D"]
 script = ExtResource("1_mc5mi")
@@ -69,3 +70,6 @@ offset_left = 1119.0
 offset_top = 463.0
 offset_right = 1159.0
 offset_bottom = 486.0
+
+[node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
+visible = false

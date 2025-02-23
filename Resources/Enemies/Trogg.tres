@@ -8,3 +8,5 @@ enemy_art_path = "res://Resources/Art/Enemies/trogg.png"
 enemy_scene_path = "res://Scenes/Enemies/trogg.tscn"
 name = "Trogg"
 health = 110
+xp = 10
+gold = 2

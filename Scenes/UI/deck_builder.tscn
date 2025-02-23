@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/CardManager.gd" id="1_wsaiq"]
 [ext_resource type="Script" path="res://Scripts/UI/deck_builder.gd" id="1_xrkhi"]
+[ext_resource type="PackedScene" uid="uid://cdt7mohawro7i" path="res://Scenes/UI/Intermission/inventory.tscn" id="3_g2c2k"]
 [ext_resource type="PackedScene" uid="uid://dh2gnyhxkimyc" path="res://Scenes/UI/card_slot.tscn" id="3_gst86"]
-[ext_resource type="Script" path="res://Scripts/UI/Inventory.gd" id="3_nnl46"]
 [ext_resource type="Script" path="res://Scripts/UI/Enemy.gd" id="5_bx4tr"]
 
 [node name="DeckBuilder" type="Node2D"]
@@ -12,8 +12,7 @@ script = ExtResource("1_xrkhi")
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_wsaiq")
 
-[node name="Inventory" type="Node2D" parent="."]
-script = ExtResource("3_nnl46")
+[node name="Inventory" parent="." instance=ExtResource("3_g2c2k")]
 
 [node name="CardSlots" type="Node2D" parent="."]
 

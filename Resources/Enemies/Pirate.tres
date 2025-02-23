@@ -8,3 +8,5 @@ enemy_art_path = "res://Resources/Art/Enemies/pirate.png"
 enemy_scene_path = "res://Scenes/Enemies/pirate.tscn"
 name = "Pirate"
 health = 120
+xp = 20
+gold = 5
