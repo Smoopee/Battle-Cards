@@ -2,7 +2,7 @@ extends Node2D
 
 
 const CARD_WIDTH = 150
-const HAND_Y_POSITION = 890
+const HAND_Y_POSITION = 300
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
 var rock = preload("res://Resources/Cards/rock.tres")
@@ -18,7 +18,7 @@ var center_screen_x
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	
-	fetch_inventory()
+	fetch_merchant_inventory()
 	
 	var card = preload("res://Scenes/UI/card.tscn")
 	
@@ -28,13 +28,13 @@ func _ready():
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.card_name = inventory_db[i].name
 		new_card.path = inventory_db[i].card_scene_path
-		new_card.is_players = true
 		$"../CardManager".add_child(new_card)
 		add_card_to_hand(new_card)
 
-func fetch_inventory():
-	inventory_db = [strengthen, strengthen, rock, dagger, dagger, rock, rock, rock, dagger, rock, dagger, dagger]
-	
+func fetch_merchant_inventory():
+	inventory_db = $"../Merchant".get_inventory()
+	print("Merchant inventory is " + str(inventory_db))
+
 func add_card_to_hand(card):
 	if card not in inventory:
 		inventory.insert(0, card)

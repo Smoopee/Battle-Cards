@@ -1,6 +1,7 @@
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_MERCHANT = 2
 
 var screen_size
 var is_hoovering_on_card
@@ -29,7 +30,11 @@ func _input(event):
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
-	card_selector_reference.add_card_to_hand(card_being_dragged)
+	var merchant_found = raycast_check_for_merchant()
+	merchant_found.get_inventory()
+	
+	card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+	card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
@@ -70,6 +75,17 @@ func raycast_check_for_card():
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)
+	return null 
+
+func raycast_check_for_merchant():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_MERCHANT
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
 	return null 
 
 func get_card_with_highest_z_index(cards):

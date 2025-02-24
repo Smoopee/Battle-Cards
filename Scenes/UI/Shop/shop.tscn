@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbudyogspe5gy"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
+[ext_resource type="PackedScene" uid="uid://cdt7mohawro7i" path="res://Scenes/UI/Intermission/inventory.tscn" id="1_i4wqc"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_pggpx"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantCards.gd" id="3_82fbf"]
+[ext_resource type="PackedScene" uid="uid://tonccvwdlgy7" path="res://Scenes/UI/Intermission/merchant.tscn" id="4_ifmcq"]
+
+[node name="Shop" type="Node2D"]
+script = ExtResource("1_pggpx")
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("1_03fvr")
+
+[node name="Inventory" parent="." instance=ExtResource("1_i4wqc")]
+
+[node name="MerchantCards" type="Node2D" parent="."]
+script = ExtResource("3_82fbf")
+
+[node name="Merchant" parent="." instance=ExtResource("4_ifmcq")]
+position = Vector2(906, 98)

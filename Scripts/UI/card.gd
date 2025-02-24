@@ -7,6 +7,7 @@ var hand_position
 var card_slotted = false
 var card_name = ""
 var path = ""
+var is_players = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

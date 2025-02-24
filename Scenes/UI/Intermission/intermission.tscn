@@ -19,3 +19,4 @@ position = Vector2(962, 424)
 position = Vector2(1293, 428)
 
 [node name="CardSelector" parent="." instance=ExtResource("2_4mb0g")]
+visibility_layer = 3
