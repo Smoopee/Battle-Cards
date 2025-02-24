@@ -1,20 +1,28 @@
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_CARD_SLOT = 2
+const COLLISION_MASK_MERCHANT_CARD = 2
+
 
 var screen_size
 var card_being_dragged
 var is_hoovering_on_card
-var inventory_reference
+var merchant_inventory_reference
+var player_inventory_reference
 
-var card_slot_array = []
-var card_slot_reference = [null, null, null, null, null, null, null, null, null, null]
 
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	inventory_reference = $"../MerchantCards"
+	merchant_inventory_reference = $"../MerchantCards"
+	player_inventory_reference = $"../Inventory"
+	
+	print(get_children())
+	
+	for i in get_children():
+		if !i.is_players:
+			print("Merchant Inventory")
+	
 	
 func _process(delta):
 	if card_being_dragged:
@@ -25,7 +33,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			var card = raycast_check_for_card()
+			var card = raycast_check_for_merchant_card()
 			if card:
 				if card.is_players:
 					return
@@ -40,83 +48,18 @@ func start_drag(card):
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
-	var card_slot_found = raycast_check_for_card_slot()
-	var card_slot_index = card_slot_array.find(card_slot_found)
-	var card_slot_reference_index = card_slot_reference.find(card_being_dragged)
-	var card_being_replaced
-	var previous_card_slot
 	
-	if card_slot_reference_index  > -1 and card_slot_found != null:
-		previous_card_slot = card_slot_reference_index
-		if card_slot_found.card_in_slot:
-			card_being_replaced = card_slot_reference[card_slot_index]
-			
-		card_slot_reference[card_slot_reference_index] = null
-		card_slot_array[card_slot_reference_index].card_in_slot = false
+	var trade_found = raycast_check_for_card()
+	print(trade_found)
+	if trade_found.is_players:
+		trade_cards(card_being_dragged, trade_found)
 	
-	if card_slot_found and not card_slot_found.card_in_slot:
-		inventory_reference.remove_card_from_hand(card_being_dragged)
-		card_being_dragged.position = card_slot_found.position
-		card_slot_found.card_in_slot = true
-		card_slot_reference.remove_at(card_slot_index)
-		card_slot_reference.insert(card_slot_index, card_being_dragged)
-	elif card_slot_found and card_slot_found.card_in_slot:
-		inventory_reference.remove_card_from_hand(card_being_dragged)
-		card_being_dragged.position = card_slot_found.position
-		card_slot_found.card_in_slot = true 
-		
-		if card_slot_reference_index > -1:
-			#true for a down shift
-			var direction_shift = true
-			if card_slot_index < previous_card_slot:
-				direction_shift = false
-				
-			var loop_counter = 0
-			var temp_card = card_being_dragged
-			if direction_shift:
-				while loop_counter != 20:
-					inventory_reference.animate_card_to_position(temp_card, card_slot_array[card_slot_index-loop_counter].position)
-					#Checks to see if its taking over an occupied spot
-					if card_slot_reference[card_slot_index-loop_counter] == null:
-						card_slot_reference.remove_at(card_slot_index-loop_counter)
-						card_slot_reference.insert(card_slot_index-loop_counter, temp_card)
-						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
-						break
-					else: 
-						var second_temp = card_slot_reference[card_slot_index-loop_counter]
-						card_slot_reference.remove_at(card_slot_index-loop_counter)
-						card_slot_reference.insert(card_slot_index-loop_counter, temp_card)
-						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
-						temp_card = second_temp
-						loop_counter += 1
-			else:
-				while loop_counter != 20:
-					inventory_reference.animate_card_to_position(temp_card, card_slot_array[card_slot_index+loop_counter].position)
-					#Checks to see if its taking over an occupied spot
-					if card_slot_reference[card_slot_index+loop_counter] == null:
-						card_slot_reference.remove_at(card_slot_index+loop_counter)
-						card_slot_reference.insert(card_slot_index+loop_counter, temp_card)
-						card_slot_array[card_slot_index-loop_counter+1].card_in_slot = true
-						break
-					else: 
-						var second_temp = card_slot_reference[card_slot_index+loop_counter]
-						card_slot_reference.remove_at(card_slot_index+loop_counter)
-						card_slot_reference.insert(card_slot_index+loop_counter, temp_card)
-						card_slot_array[card_slot_index-loop_counter+1].card_in_slot = true
-						temp_card = second_temp
-						loop_counter += 1
-		else:
-			inventory_reference.add_card_to_hand(card_slot_reference[card_slot_index])
-			card_slot_reference.remove_at(card_slot_index)
-			card_slot_reference.insert(card_slot_index, card_being_dragged)
-	else: 
-		inventory_reference.add_card_to_hand(card_being_dragged)
-		if card_slot_reference_index  > -1:
-			card_slot_reference[card_slot_reference_index] = null
-			card_slot_array[card_slot_reference_index].card_in_slot = false
-
+	merchant_inventory_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
 	card_being_dragged = null
 
+func trade_cards(merchant_card, player_card):
+	print("Lets Trade!")
+	
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)
 	card.connect("hoovered_off", on_hoovered_off_card)
@@ -143,16 +86,6 @@ func highlight_card(card, hoovered):
 		card.scale = Vector2(1, 1)
 		card.z_index = 1
 
-func raycast_check_for_card_slot():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD_SLOT
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return result[0].collider.get_parent()
-	return null 
 
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
@@ -160,6 +93,17 @@ func raycast_check_for_card():
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	parameters.collision_mask = COLLISION_MASK_CARD
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return get_card_with_highest_z_index(result)
+	return null 
+
+func raycast_check_for_merchant_card():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_MERCHANT_CARD
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)

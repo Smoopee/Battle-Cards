@@ -8,6 +8,7 @@ extends Node
 
 @onready var player_deck = []
 @onready var current_enemy = ""
+@onready var player_inventory = []
 
 func _ready():
 	max_player_health = 100

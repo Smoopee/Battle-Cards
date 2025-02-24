@@ -26,6 +26,8 @@ func _ready():
 		var card_scene = card
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
+		new_card.get_node("Area2D").collision_layer = 2
+		new_card.get_node("Area2D").collision_mask = 2
 		new_card.card_name = inventory_db[i].name
 		new_card.path = inventory_db[i].card_scene_path
 		$"../CardManager".add_child(new_card)

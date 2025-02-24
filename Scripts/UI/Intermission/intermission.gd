@@ -31,10 +31,14 @@ func _input(event):
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var merchant_found = raycast_check_for_merchant()
-	merchant_found.get_inventory()
 	
-	card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
-	card_being_dragged = null
+	
+	if merchant_found:
+		merchant_found.get_inventory()
+		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
+	else:
+		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+		card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
