@@ -14,11 +14,11 @@ func _ready():
 	enemy_health_bar.max_value = Global.max_enemy_health
 	enemy_health_bar.value = Global.enemy_health
 
-func change_player_health(value):
-	player_health_bar.value = value
+func change_player_health():
+	player_health_bar.value = Global.player_health
 
-func change_enemy_health(value):
-	enemy_health_bar.value = value
+func change_enemy_health():
+	enemy_health_bar.value = Global.enemy_health
 
 func change_player_card(path):
 	player_card.texture = load(path)

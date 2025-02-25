@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4xyg1sf876sa"]
+[gd_scene load_steps=6 format=3 uid="uid://b4xyg1sf876sa"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Pirate/pirate.gd" id="1_7lxql"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Pirate/Deck.gd" id="2_c1l1j"]
 [ext_resource type="Resource" uid="uid://bcgli2ylina23" path="res://Resources/Enemies/Pirate.tres" id="2_yliys"]
 [ext_resource type="Texture2D" uid="uid://hiev4wenv477" path="res://Resources/Art/Enemies/pirate.png" id="3_mq8he"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Pirate/Skills.gd" id="5_xnkwx"]
 
 [node name="Pirate" type="Node2D"]
 script = ExtResource("1_7lxql")
@@ -14,3 +15,6 @@ texture = ExtResource("3_mq8he")
 
 [node name="Deck" type="Node2D" parent="."]
 script = ExtResource("2_c1l1j")
+
+[node name="Skills" type="Node2D" parent="."]
+script = ExtResource("5_xnkwx")

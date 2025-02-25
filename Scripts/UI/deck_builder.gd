@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @onready var card_manager = $CardManager
 
 var deck = []

@@ -1,25 +1,16 @@
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_MERCHANT_CARD = 2
-
+const COLLISION_MASK_ENEMY = 2
 
 var screen_size
-var card_being_dragged
 var is_hoovering_on_card
-var merchant_inventory_reference
-var player_inventory_reference
-
-
+var card_being_dragged
+var card_selector_reference
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	merchant_inventory_reference = $"../MerchantCards"
-	player_inventory_reference = $"../Inventory"
-	
-	for i in get_children():
-		if !i.is_players:
-			print("Merchant Inventory")
+	card_selector_reference = $CardSelector
 
 func _process(delta):
 	if card_being_dragged:
@@ -30,41 +21,27 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			var card = raycast_check_for_merchant_card()
+			var card = raycast_check_for_card()
 			if card:
-				if card.is_players:
-					return
 				start_drag(card)
 		else:
 			if card_being_dragged:
 				finish_drag()
 
+func finish_drag():
+	card_being_dragged.scale = Vector2(1.05, 1.05)
+	var enemy_found = raycast_check_for_enemy()
+	
+	if enemy_found:
+		enemy_found.get_inventory()
+		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
+	else:
+		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+		card_being_dragged = null
+
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
-
-func finish_drag():
-	card_being_dragged.scale = Vector2(1.05, 1.05)
-	
-	var trade_found = raycast_check_for_card()
-	print(trade_found)
-	if trade_found.is_players:
-		trade_cards(card_being_dragged, trade_found)
-		merchant_inventory_reference.animate_card_to_position(card_being_dragged, trade_found.hand_position)
-		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
-	else:
-		merchant_inventory_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
-	card_being_dragged = null
-	
-
-func trade_cards(merchant_card, player_card):
-	print("Lets Trade " + str(merchant_card.card_name) + " for " + str(player_card.card_name))
-	print(player_card.card_position)
-	print(Global.player_inventory)
-	Global.player_inventory.remove_at(player_card.card_position)
-	Global.player_inventory.insert(player_card.card_position, merchant_card.card_resource)
-	print(Global.player_inventory)
-	
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)
@@ -103,15 +80,15 @@ func raycast_check_for_card():
 		return get_card_with_highest_z_index(result)
 	return null 
 
-func raycast_check_for_merchant_card():
+func raycast_check_for_enemy():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_MERCHANT_CARD
+	parameters.collision_mask = COLLISION_MASK_ENEMY
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
-		return get_card_with_highest_z_index(result)
+		return result[0].collider.get_parent()
 	return null 
 
 func get_card_with_highest_z_index(cards):
@@ -124,5 +101,3 @@ func get_card_with_highest_z_index(cards):
 			highest_z_card = current_card
 			highest_z_index = current_card.z_index
 	return highest_z_card
-
-

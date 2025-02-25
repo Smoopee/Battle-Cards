@@ -1,60 +1,28 @@
 extends Node2D
 
 @onready var player_deck = $player_deck
-@onready var enemy_deck = $enemy_deck
+@onready var enemy = $Enemy
+@onready var player_skills = $PlayerSkills
 @onready var player_character = $player_character
 @onready var ui = $UI
 
 var rng = RandomNumberGenerator.new()
 
-var dmg_multiplier = 1
+var player_deck_list 
+var enemy_deck_list
+var player_skill_list = []
+var enemy_skill_list = []
+var player_armor = 0
+var enemy_armor = 0
 
 func _ready():
-	combat()
+	pass
 
-func build_deck():
-	var deck_array = []
-	var counter = 1
-	
-	player_deck.build_deck()
-	
-	for i in player_deck.get_children():
-		deck_array.push_back(i)
-	
-	for i in deck_array:
-		i.card_stats.position = counter
-		counter += 1
-	
-	return deck_array
-
-func build_enemy_deck():
-	var deck_array = []
-	var counter = 1
-	
-	enemy_deck.build_deck()
-	
-	for i in enemy_deck.get_children():
-		i.card_stats.in_enemy_deck = true
-		deck_array.push_back(i)
-	
-	for i in deck_array:
-		i.card_stats.position = counter
-		counter += 1
-	
-	return deck_array
-
-func combat():
-	var player_deck_list = build_deck()
-	var enemy_deck_list = build_enemy_deck()
-	#var both_deck_list = merge_deck_lists(player_deck_list, enemy_deck_list)
-	
+func combat(player_deck_list, enemy_deck_list):
 	var turn_counter = 1
 	var turn_incrementer = 1
 	var turn_end = 30
-	
-	var player_block = 0
-	var enemy_block = 0
-	
+
 	while turn_counter < turn_end:
 		print("It is turn " + str(turn_counter))
 		buff_keeper()
@@ -80,22 +48,14 @@ func combat():
 			if death_checker(): break
 		if death_checker(): break
 		
-		player_block = 0
-		enemy_block = 0
 		turn_counter += turn_incrementer
-		
-		
 
-#func merge_deck_lists(player_deck, enemy_deck):
-	#var merged_deck_list = []
-	#var counter = 0
-	#
-	#for i in player_deck:
-		#merged_deck_list.push_back(i)
-		#merged_deck_list.push_back(enemy_deck[counter])
-		#counter += 1
-	#
-	#return merged_deck_list
+func on_start_skill():
+	for i in player_skill_list:
+		i.effect()
+	
+	for i in enemy_skill_list:
+		i.effect()
 
 func death_checker():
 	if Global.player_health <= 0: 
@@ -109,8 +69,6 @@ func death_checker():
 		return true
 		
 	else: false
-	
-	
 
 func crit_check(i):
 	var critical_strike_check = rng.randf_range(0, 1)
@@ -121,62 +79,38 @@ func crit_check(i):
 
 func damage_func(i):
 	if i.card_stats.dmg <= 0: return
-	var crit = false
+	var player_card = true
+	if i.card_stats.in_enemy_deck: player_card = false
+	var armor = enemy_armor
+	if !player_card: armor = player_armor
+	
+	var damage = i.card_stats.dmg - armor
+	if damage < 0: damage = 0
+	
+	if crit_check(i): damage *= 2
+	print("THE DAMAGE IS " + str(damage) + " and the armor is " + str(armor))
+	change_health(player_card, damage)
 
-	
-	if crit_check(i): crit = true
-	
-	if crit == true:
-		if i.card_stats.in_enemy_deck:
-			Global.change_player_health(-i.card_stats.dmg*2)
-			ui.change_enemy_damage_number(i.card_stats.dmg*2)
-			print("Their " + str(i.card_stats.name) + " crit for " + str(i.card_stats.dmg * 2))
-			print("Player's health is " +  str(Global.player_health))
-		else:
-			Global.change_enemy_health(-i.card_stats.dmg*2)
-			ui.change_player_damage_number(i.card_stats.dmg*2)
-			print("Your " + str(i.card_stats.name) + " crit for " + str(i.card_stats.dmg * 2))
-			print("Enemy's health is " +  str(Global.enemy_health))
+func change_health(character, value):
+	if character:
+		Global.change_enemy_health(-value)
+		ui.change_player_damage_number(value)
+		ui.change_enemy_health()
 	else:
-		if i.card_stats.in_enemy_deck:
-			Global.change_player_health(-i.card_stats.dmg)
-			ui.change_enemy_damage_number(i.card_stats.dmg)
-			print("Their " + str(i.card_stats.name) + " hit for " + str(i.card_stats.dmg))
-			print("Players's health is " +  str(Global.player_health))
-		else:
-			Global.change_enemy_health(-i.card_stats.dmg)
-			ui.change_player_damage_number(i.card_stats.dmg)
-			print("IN THE LOOP THE DAMAGE IS " + str(i.card_stats.dmg))
-			print("Your " + str(i.card_stats.name) + " hit for " + str(i.card_stats.dmg))
-			print("Enemy's health is " +  str(Global.enemy_health))
-	
-	ui.change_player_health(Global.player_health)
-	ui.change_enemy_health(Global.enemy_health)
+		Global.change_player_health(-value)
+		ui.change_enemy_damage_number(value)
+		ui.change_player_health()
 
 func heal_func(i):
 	if i.card_stats.heal <= 0: return
-	var crit = false
+	var player_card = true
+	if i.card_stats.in_enemy_deck: player_card = false
 	
-	if crit_check(i): crit = true
+	var heal = i.card_stats.heal
 	
-	if crit == true:
-		if i.card_stats.in_enemy_deck:
-			Global.change_enemy_health(i.card_stats.heal*2)
-			print("Their " + str(i.card_stats.name) + " crit for " + str(i.card_stats.heal * 2))
-			print("Enemy's health is " +  str(Global.enemy_health))
-		else:
-			Global.change_player_health(i.card_stats.heal*2)
-			print("Your " + str(i.card_stats.name) + " crit for " + str(i.card_stats.heal * 2))
-			print("Players's health is " +  str(Global.player_health))
-	else:
-		if i.card_stats.in_enemy_deck:
-			Global.change_enemy_health(i.card_stats.heal)
-			print("Their " + str(i.card_stats.name) + " healed for " + str(i.card_stats.heal))
-			print("Enemy's health is " +  str(Global.enemy_health))
-		else:
-			Global.change_player_health(i.card_stats.heal)
-			print("Your " + str(i.card_stats.name) + " healed for " + str(i.card_stats.heal))
-			print("Player's health is " +  str(Global.player_health))
+	if crit_check(i): heal *= 2
+	change_health(!player_card, -heal)
+
 
 func buff_keeper():
 	var buffs = get_tree().get_nodes_in_group("buff")
@@ -184,3 +118,10 @@ func buff_keeper():
 		i.remove_counter()
 
 
+func _on_button_button_down():
+	player_deck_list = player_deck.build_deck()
+	enemy_deck_list = enemy.build_deck() 
+	player_skill_list = player_skills.add_skills()
+	enemy_skill_list = enemy.add_skills()
+	on_start_skill()
+	combat(player_deck_list, enemy_deck_list)

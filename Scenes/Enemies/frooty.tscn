@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://urupydnj75t0"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Frooty/frooty.gd" id="1_ewafx"]
+[ext_resource type="Texture2D" uid="uid://bpreuxhp222uu" path="res://Resources/Art/Enemies/frooty.png" id="2_58rye"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Deck.gd" id="3_llvby"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Skills.gd" id="4_2ao04"]
+
+[node name="Frooty" type="Node2D"]
+script = ExtResource("1_ewafx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_58rye")
+
+[node name="Deck" type="Node2D" parent="."]
+script = ExtResource("3_llvby")
+
+[node name="Skills" type="Node2D" parent="."]
+script = ExtResource("4_2ao04")

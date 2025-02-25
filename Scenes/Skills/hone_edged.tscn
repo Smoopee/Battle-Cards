@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckjh8vchgeoid"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/hone_edged.gd" id="1_1c4u3"]
+
+[node name="HoneEdged" type="Node2D"]
+script = ExtResource("1_1c4u3")

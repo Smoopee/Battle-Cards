@@ -5,10 +5,6 @@ const CARD_WIDTH = 150
 const HAND_Y_POSITION = 300
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
-var rock = preload("res://Resources/Cards/rock.tres")
-var dagger = preload("res://Resources/Cards/dagger.tres")
-var strengthen = preload("res://Resources/Cards/strengthen.tres")
-
 var inventory_db = []
 var inventory = []
 
@@ -30,12 +26,12 @@ func _ready():
 		new_card.get_node("Area2D").collision_mask = 2
 		new_card.card_name = inventory_db[i].name
 		new_card.path = inventory_db[i].card_scene_path
+		new_card.card_resource = inventory_db[i]
 		$"../CardManager".add_child(new_card)
 		add_card_to_hand(new_card)
 
 func fetch_merchant_inventory():
 	inventory_db = $"../Merchant".get_inventory()
-	print("Merchant inventory is " + str(inventory_db))
 
 func add_card_to_hand(card):
 	if card not in inventory:

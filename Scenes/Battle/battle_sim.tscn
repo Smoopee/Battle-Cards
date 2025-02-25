@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=11 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
-[ext_resource type="Script" path="res://Scripts/Battle_Sim/enemy_deck.gd" id="3_7ul7h"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerSkills.gd" id="2_uev3k"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="3_7ul7h"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/player_character.gd" id="4_ql2t2"]
 [ext_resource type="Texture2D" uid="uid://cfuatscpo4eww" path="res://Resources/UI/LifeBarMiniUnder.png" id="5_guklw"]
 [ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
@@ -13,10 +14,13 @@
 [node name="battle_sim" type="Node2D"]
 script = ExtResource("1_mc5mi")
 
+[node name="PlayerSkills" type="Node2D" parent="."]
+script = ExtResource("2_uev3k")
+
 [node name="player_deck" type="Node2D" parent="."]
 script = ExtResource("2_ti0s5")
 
-[node name="enemy_deck" type="Node2D" parent="."]
+[node name="Enemy" type="Node2D" parent="."]
 script = ExtResource("3_7ul7h")
 
 [node name="player_character" type="Node2D" parent="."]
@@ -73,3 +77,11 @@ offset_bottom = 486.0
 
 [node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
 visible = false
+
+[node name="Button" type="Button" parent="."]
+offset_left = 327.0
+offset_top = 691.0
+offset_right = 585.0
+offset_bottom = 817.0
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

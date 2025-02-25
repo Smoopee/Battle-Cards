@@ -32,7 +32,6 @@ func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var merchant_found = raycast_check_for_merchant()
 	
-	
 	if merchant_found:
 		merchant_found.get_inventory()
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
@@ -61,7 +60,7 @@ func on_hoovered_off_card(card):
 			highlight_card(new_card_hoovered, true)
 		else: 
 			is_hoovering_on_card = false
-			
+
 func highlight_card(card, hoovered):
 	if hoovered:
 		card.scale = Vector2(1.05, 1.05)
