@@ -13,7 +13,8 @@ var card_resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_parent().connect_card_signals(self)
+	var card_manager = (get_tree().get_nodes_in_group("card manager")[0])
+	card_manager.connect_card_signals(self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

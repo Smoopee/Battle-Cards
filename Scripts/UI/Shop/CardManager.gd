@@ -51,7 +51,7 @@ func finish_drag():
 	if trade_found.is_players:
 		trade_cards(card_being_dragged, trade_found)
 		merchant_inventory_reference.animate_card_to_position(card_being_dragged, trade_found.hand_position)
-		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
+		get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
 	else:
 		merchant_inventory_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
 	card_being_dragged = null

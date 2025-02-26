@@ -9,7 +9,7 @@
 [node name="DeckBuilder" type="Node2D"]
 script = ExtResource("1_xrkhi")
 
-[node name="CardManager" type="Node2D" parent="."]
+[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
 script = ExtResource("1_wsaiq")
 
 [node name="Inventory" parent="." instance=ExtResource("3_g2c2k")]

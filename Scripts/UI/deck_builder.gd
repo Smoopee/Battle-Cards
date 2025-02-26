@@ -5,7 +5,7 @@ extends Node2D
 var deck = []
 
 func _ready():
-	pass
+	print(Global.current_enemy)
 
 func _on_button_button_down():
 	for i in card_manager.card_slot_reference:
@@ -13,8 +13,6 @@ func _on_button_button_down():
 	
 	Global.player_deck = deck
 	Global.current_enemy = $Enemy.get_child(0).enemy_scene_path
-	
-	print(deck)
 	
 	get_tree().change_scene_to_file(("res://Scenes/Battle/battle_sim.tscn"))
 

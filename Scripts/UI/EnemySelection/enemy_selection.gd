@@ -33,8 +33,9 @@ func finish_drag():
 	var enemy_found = raycast_check_for_enemy()
 	
 	if enemy_found:
-		enemy_found.get_inventory()
-		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
+		print(enemy_found)
+		enemy_loader(enemy_found)
+		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
 		card_being_dragged = null
@@ -101,3 +102,7 @@ func get_card_with_highest_z_index(cards):
 			highest_z_card = current_card
 			highest_z_index = current_card.z_index
 	return highest_z_card
+
+func enemy_loader(enemy):
+	print(enemy.card_resource)
+	Global.current_enemy = enemy.card_resource

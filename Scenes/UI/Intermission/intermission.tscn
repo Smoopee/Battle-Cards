@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://tonccvwdlgy7" path="res://Scenes/UI/Intermission/merchant.tscn" id="1_tlo38"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
 
-[node name="Intermission" type="Node2D"]
+[node name="Intermission" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_147it")
 
 [node name="Merchant_organizer" type="Node2D" parent="."]
