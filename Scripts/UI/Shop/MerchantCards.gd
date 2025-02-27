@@ -25,6 +25,7 @@ func _ready():
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.get_node("Area2D").collision_layer = 2
 		new_card.get_node("Area2D").collision_mask = 2
+		new_card.buy_price = inventory_db[i].buy_price
 		new_card.card_name = inventory_db[i].name
 		new_card.path = inventory_db[i].card_scene_path
 		new_card.card_scene_path = inventory_db[i]
@@ -36,7 +37,7 @@ func fetch_merchant_inventory():
 
 func add_card_to_hand(card):
 	if card not in inventory:
-		inventory.insert(0, card)
+		inventory.push_back(card)
 		update_hand_positions()
 	else:
 		animate_card_to_position(card, card.hand_position)

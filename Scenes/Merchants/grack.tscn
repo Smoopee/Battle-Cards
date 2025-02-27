@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://tonccvwdlgy7"]
+[gd_scene load_steps=5 format=3 uid="uid://tonccvwdlgy7"]
 
 [ext_resource type="Script" path="res://Scripts/Merchants/grack.gd" id="1_aaplt"]
 [ext_resource type="Resource" uid="uid://bb64klt3ml4el" path="res://Resources/Merchants/grack.tres" id="2_ti66e"]
 [ext_resource type="Texture2D" uid="uid://dad63s03qox6y" path="res://Resources/Art/Merchants/grack_merchant.png" id="3_llepd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_520n0"]
+size = Vector2(98, 128)
 
 [node name="Grack" type="Node2D"]
 script = ExtResource("1_aaplt")
@@ -10,3 +13,10 @@ merchant_stats_resource = ExtResource("2_ti66e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_llepd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_520n0")

@@ -8,6 +8,8 @@ func _ready():
 	
 	var center_screen_x = get_viewport().size.x / 2
 	merchant.position = Vector2(center_screen_x, 150)
+	merchant.get_node("Area2D").collision_layer = 4
+	merchant.get_node("Area2D").collision_mask = 4
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

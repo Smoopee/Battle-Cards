@@ -14,7 +14,7 @@ extends Node
 @onready var player_inventory_db = []
 @onready var player_inventory = []
 
-var player_gold: int = 0
+var player_gold: int = 5
 var player_xp: int = 0
 
 var card_db_reference

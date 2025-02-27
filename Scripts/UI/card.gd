@@ -11,6 +11,8 @@ var is_players = false
 var card_position
 var card_resource_path
 var card_scene_path
+var sell_price: int
+var buy_price: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -29,6 +29,7 @@ func create_inventory():
 		new_card.card_name = inventory_db[i].name
 		new_card.path = inventory_db[i].card_scene_path
 		new_card.card_position = card_position
+		new_card.sell_price = inventory_db[i].sell_price
 		new_card.is_players = true
 		$"../CardManager".add_child(new_card)
 		add_card_to_hand(new_card)
@@ -38,8 +39,12 @@ func fetch_inventory():
 	inventory_db = Global.player_inventory
 
 func add_card_to_hand(card):
-	inventory.push_back(card)
-	update_hand_positions()
+	if card not in inventory:
+		#inventory.insert(0, card)
+		inventory.push_back(card)
+		update_hand_positions()
+	else:
+		animate_card_to_position(card, card.hand_position)
 
 func update_hand_positions():
 	for i in range(inventory.size()):
@@ -53,6 +58,11 @@ func calculate_card_position(index):
 	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
 	return x_offset
  
+func remove_card_from_hand(card):
+	if card in inventory:
+		inventory.erase(card)
+		update_hand_positions()
 
-
-
+func animate_card_to_position(card, new_position):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", new_position, 0.1)

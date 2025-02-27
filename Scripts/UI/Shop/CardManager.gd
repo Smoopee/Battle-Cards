@@ -2,6 +2,8 @@ extends Node2D
 
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_MERCHANT_CARD = 2
+const COLLISION_MASK_MERCHANT = 4
+const COLLISION_MASK_PLAYER = 8
 
 
 var screen_size
@@ -29,11 +31,14 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			var card = raycast_check_for_merchant_card()
-			if card:
-				if card.is_players:
+			var merchant_card = raycast_check_for_merchant_card()
+			var player_card = raycast_check_for_card()
+			if merchant_card:
+				if merchant_card.is_players:
 					return
-				start_drag(card)
+				start_drag(merchant_card)
+			if player_card:
+				start_drag(player_card)
 		else:
 			if card_being_dragged:
 				finish_drag()
@@ -45,20 +50,25 @@ func start_drag(card):
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	
-	var trade_found = raycast_check_for_card()
-	if !trade_found == null:
-		if trade_found.is_players:
-			trade_cards(card_being_dragged, trade_found)
-			merchant_inventory_reference.animate_card_to_position(card_being_dragged, trade_found.hand_position)
-	else:
-		merchant_inventory_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+	if raycast_check_for_player() and not card_being_dragged.is_players:
+		buy_card(card_being_dragged)
+		print("Buy card")
+		card_being_dragged = null
+		return
+	
+	if raycast_check_for_merchant() and card_being_dragged.is_players:
+		sell_card(card_being_dragged)
+		card_being_dragged = null
+		return
+		
+	if !card_being_dragged.is_players:
+		$"../MerchantCards".add_card_to_hand(card_being_dragged)
+		
+	if card_being_dragged.is_players:
+		$"../Inventory".add_card_to_hand(card_being_dragged)
+	
 	card_being_dragged = null
-	
 
-func trade_cards(merchant_card, player_card):
-	Global.player_inventory.remove_at(player_card.card_position)
-	Global.player_inventory.insert(player_card.card_position, merchant_card.card_scene_path)
-	
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)
@@ -108,6 +118,28 @@ func raycast_check_for_merchant_card():
 		return get_card_with_highest_z_index(result)
 	return null 
 
+func raycast_check_for_merchant():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_MERCHANT
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0]
+	return null 
+
+func raycast_check_for_player():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_PLAYER
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0]
+	return null 
+
 func get_card_with_highest_z_index(cards):
 	var highest_z_card = cards[0].collider.get_parent()
 	var highest_z_index = highest_z_card.z_index
@@ -119,4 +151,28 @@ func get_card_with_highest_z_index(cards):
 			highest_z_index = current_card.z_index
 	return highest_z_card
 
+func sell_card(card):
+	Global.player_gold += card.sell_price
+	merchant_inventory_reference.add_card_to_hand(card)
+	player_inventory_reference.remove_card_from_hand(card)
+	card.get_node("Area2D").collision_layer = 2
+	card.get_node("Area2D").collision_mask = 2
+	card.is_players = false
+	print(Global.player_gold)
 
+func buy_card(card):
+	if player_inventory_reference.inventory.size() >= 15:
+		merchant_inventory_reference.add_card_to_hand(card)
+		print("Not enough space")
+		return
+	if Global.player_gold < card.buy_price:
+		merchant_inventory_reference.add_card_to_hand(card)
+		print("Not enough gold")
+		return
+	Global.player_gold -= card.buy_price
+	player_inventory_reference.add_card_to_hand(card)
+	merchant_inventory_reference.remove_card_from_hand(card)
+	card.get_node("Area2D").collision_layer = 1
+	card.get_node("Area2D").collision_mask = 1
+	card.is_players = true
+	print(Global.player_gold)

@@ -18,4 +18,5 @@ critical_strike_chance = 0.0
 in_enemy_deck = false
 temp_buff = false
 block = 0
-sell_price = 5
+sell_price = 1
+buy_price = 2

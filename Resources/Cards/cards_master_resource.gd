@@ -16,3 +16,4 @@ class_name Cards_Resource
 @export var temp_buff: bool
 @export var block : int
 @export var sell_price: int
+@export var buy_price: int
