@@ -6,8 +6,6 @@ var deck = []
 
 func _ready():
 	var enemy = Global.current_enemy
-	print("The enemy is " + str(enemy))
-	#print(enemy.enemy_stats.health)
 
 func _on_button_button_down():
 	for i in card_manager.card_slot_reference:

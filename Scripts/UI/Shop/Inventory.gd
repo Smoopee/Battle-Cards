@@ -47,7 +47,6 @@ func update_hand_positions():
 		var card = inventory[i]
 		card.hand_position = new_position
 		card.position = new_position
-
  
 func calculate_card_position(index):
 	var total_width = (inventory.size() - 1) * CARD_WIDTH

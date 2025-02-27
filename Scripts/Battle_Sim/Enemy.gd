@@ -9,6 +9,9 @@ func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	add_child(enemy)
 	
+	var center_screen_x = get_viewport().size.x / 2
+	enemy.position = Vector2(center_screen_x, 150)
+	
 func build_deck():
 	enemy_deck = enemy.enemy_deck
 

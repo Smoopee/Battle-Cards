@@ -16,7 +16,6 @@ script = ExtResource("4_rrwd6")
 [node name="Inventory" parent="." instance=ExtResource("3_g2c2k")]
 
 [node name="Enemy" type="Node2D" parent="."]
-position = Vector2(105, 111)
 script = ExtResource("5_bx4tr")
 
 [node name="Enemy_Cards" type="Node2D" parent="."]

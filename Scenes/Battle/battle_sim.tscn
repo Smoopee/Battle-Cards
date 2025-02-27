@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=12 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bpnu386u0rjka" path="res://Resources/UI/LifeBarMiniProgress.png" id="6_t5303"]
 [ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="8_010y0"]
 [ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_326y0"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="11_njjdc"]
 
 [node name="battle_sim" type="Node2D"]
 script = ExtResource("1_mc5mi")
@@ -102,6 +103,9 @@ text = "Rearrange"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Continue"
+
+[node name="PlayerInventory" type="Node2D" parent="."]
+script = ExtResource("11_njjdc")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="HBoxContainer/RearrangeButton" to="." method="_on_rearrange_button_button_down"]

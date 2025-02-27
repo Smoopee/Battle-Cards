@@ -22,7 +22,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
-			if card:
+			if card and !card.is_players:
 				start_drag(card)
 		else:
 			if card_being_dragged:
@@ -107,3 +107,15 @@ func enemy_loader(enemy):
 	Global.current_enemy = enemy.card_resource_path
 	Global.max_enemy_health = Global.current_enemy.health
 	Global.enemy_health = Global.max_enemy_health
+
+
+func _on_inventory_button_down():
+	if !$PlayerInventory.visible:
+		$PlayerInventory.visible = true
+	else:
+		$PlayerInventory.visible = false
+		
+	if $EnemyOrganizer.visible:
+		$EnemyOrganizer.visible = false
+	else:
+		$EnemyOrganizer.visible = true

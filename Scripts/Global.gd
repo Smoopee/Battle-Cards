@@ -47,4 +47,4 @@ func set_player_inventory():
 func instantiate_player_inventory():
 	for i in player_inventory_db:
 		var card = load(card_db_reference.CARDS[i])
-		player_inventory.push_front(card)
+		player_inventory.push_back(card)
