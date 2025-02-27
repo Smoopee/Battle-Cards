@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" load_steps=2 format=3 uid="uid://bb64klt3ml4el"]
+
+[ext_resource type="Script" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_m0xov"]
+
+[resource]
+script = ExtResource("1_m0xov")
+merchant_art_path = "res://Resources/Art/Merchants/grack_merchant.png"
+merchant_scene_path = "res://Scenes/Merchants/grack.tscn"
+name = "Grack"

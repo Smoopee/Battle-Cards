@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://cajo7hmit3ltf"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/rat_king.gd" id="1_82k86"]
+[ext_resource type="Resource" uid="uid://c0j75g44vy3ke" path="res://Resources/Enemies/rat_king.tres" id="2_1niqj"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/Deck.gd" id="2_txpb8"]
+[ext_resource type="Texture2D" uid="uid://dj8rv03lse1d0" path="res://Resources/Art/Enemies/rat_king_enemy.png" id="3_c1a03"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/Skills.gd" id="3_exnht"]
+
+[node name="RatKing" type="Node2D"]
+script = ExtResource("1_82k86")
+enemy_stats_resource = ExtResource("2_1niqj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_c1a03")
+
+[node name="Deck" type="Node2D" parent="."]
+script = ExtResource("2_txpb8")
+
+[node name="Skills" type="Node2D" parent="."]
+script = ExtResource("3_exnht")

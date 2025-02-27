@@ -6,9 +6,9 @@ var enemy
 
 
 func _ready():
-	enemy = load(Global.current_enemy).instantiate()
+	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	add_child(enemy)
-
+	
 func build_deck():
 	enemy_deck = enemy.enemy_deck
 

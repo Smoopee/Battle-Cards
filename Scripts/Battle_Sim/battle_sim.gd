@@ -14,41 +14,39 @@ var player_skill_list = []
 var enemy_skill_list = []
 var player_armor = 0
 var enemy_armor = 0
+var turn_counter = 1
 
-func _ready():
-	pass
 
 func combat(player_deck_list, enemy_deck_list):
-	var turn_counter = 1
-	var turn_incrementer = 1
-	var turn_end = 30
 
-	while turn_counter < turn_end:
-		print("It is turn " + str(turn_counter))
-		buff_keeper()
+	var turn_incrementer = 1
+
+	print("It is turn " + str(turn_counter))
+	buff_keeper()
+	
+	for i in range(0, 10):
+		print(str(player_deck_list[i]))
+		print(str(enemy_deck_list[i]))
 		
-		for i in range(0, 10):
-			print(str(player_deck_list[i]))
-			print(str(enemy_deck_list[i]))
-			
-			ui.change_player_card(player_deck_list[i].card_stats.card_art_path)
-			ui.change_enemy_card(enemy_deck_list[i].card_stats.card_art_path)
-			
-			
-			player_deck_list[i].effect(player_deck_list, enemy_deck_list)
-			enemy_deck_list[i].effect(player_deck_list, enemy_deck_list)
-			
-			damage_func(player_deck_list[i])
-			damage_func(enemy_deck_list[i])
-			
-			heal_func(player_deck_list[i])
-			heal_func(enemy_deck_list[i])
-			
-			await get_tree().create_timer(1).timeout
-			if death_checker(): break
+		ui.change_player_card(player_deck_list[i].card_stats.card_art_path)
+		ui.change_enemy_card(enemy_deck_list[i].card_stats.card_art_path)
+		
+		player_deck_list[i].effect(player_deck_list, enemy_deck_list)
+		enemy_deck_list[i].effect(player_deck_list, enemy_deck_list)
+		
+		damage_func(player_deck_list[i])
+		damage_func(enemy_deck_list[i])
+		
+		heal_func(player_deck_list[i])
+		heal_func(enemy_deck_list[i])
+		
+		await get_tree().create_timer(1).timeout
+		
 		if death_checker(): break
 		
-		turn_counter += turn_incrementer
+		if i == 9:
+			turn_counter += turn_incrementer
+			$HBoxContainer.visible = true
 
 func on_start_skill():
 	for i in player_skill_list:
@@ -111,12 +109,10 @@ func heal_func(i):
 	if crit_check(i): heal *= 2
 	change_health(!player_card, -heal)
 
-
 func buff_keeper():
 	var buffs = get_tree().get_nodes_in_group("buff")
 	for i in buffs:
 		i.remove_counter()
-
 
 func _on_button_button_down():
 	player_deck_list = player_deck.build_deck()
@@ -125,3 +121,11 @@ func _on_button_button_down():
 	enemy_skill_list = enemy.add_skills()
 	on_start_skill()
 	combat(player_deck_list, enemy_deck_list)
+	$Button.visible = false
+
+func _on_continue_button_button_down():
+	$HBoxContainer.visible = false
+	combat(player_deck_list, enemy_deck_list)
+
+func _on_rearrange_button_button_down():
+	get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))

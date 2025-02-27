@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://byp55dv7ryt4m"]
+
+[ext_resource type="Script" path="res://Scripts/Merchants/rand_dom.gd" id="1_takds"]
+[ext_resource type="Resource" uid="uid://byefif56pfg4v" path="res://Resources/Merchants/rand_dom.tres" id="2_55d3q"]
+
+[node name="RandDom" type="Node2D"]
+script = ExtResource("1_takds")
+merchant_stats_resource = ExtResource("2_55d3q")

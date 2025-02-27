@@ -1,17 +1,15 @@
 extends Node2D
 
 @onready var card_slots = $"../Enemy_Cards"
+var enemy_deck
 
 func _ready():
-	var enemy = load(Global.current_enemy).instantiate()
+	var enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	add_child(enemy)
-	display_cards(enemy.enemy_deck)
+	enemy_deck = enemy.enemy_deck
+	
+	var center_screen_x = get_viewport().size.x / 2
+	enemy.position = Vector2(center_screen_x-100, 50)
 
-func display_cards(deck):
-	var counter = 0
-	for i in deck:
-		var temp = card_slots.get_child(counter)
-		temp.get_node("CardSlotImage").texture = load(i.card_art_path)
-		temp.get_node("Area2D/CollisionShape2D").disabled = true
-		counter += 1
+
 

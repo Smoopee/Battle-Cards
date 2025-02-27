@@ -1,22 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://u7bfx5wgbwtw"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
-[ext_resource type="PackedScene" uid="uid://tonccvwdlgy7" path="res://Scenes/UI/Intermission/merchant.tscn" id="1_tlo38"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
+[ext_resource type="Script" path="res://Scripts/UI/Intermission/Merchant_organizer.gd" id="3_23ndt"]
 
 [node name="Intermission" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_147it")
 
-[node name="Merchant_organizer" type="Node2D" parent="."]
-
-[node name="Merchant" parent="Merchant_organizer" instance=ExtResource("1_tlo38")]
-position = Vector2(644, 428)
-
-[node name="Merchant2" parent="Merchant_organizer" instance=ExtResource("1_tlo38")]
-position = Vector2(962, 424)
-
-[node name="Merchant3" parent="Merchant_organizer" instance=ExtResource("1_tlo38")]
-position = Vector2(1293, 428)
-
 [node name="CardSelector" parent="." instance=ExtResource("2_4mb0g")]
 visibility_layer = 3
+
+[node name="MerchantOrganizer" type="Node2D" parent="."]
+script = ExtResource("3_23ndt")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqdj2rtltitmv"]
+
+[ext_resource type="Script" path="res://Scripts/Merchants/buff.gd" id="1_eo2lr"]
+[ext_resource type="Resource" uid="uid://dmtq0tq725rtc" path="res://Resources/Merchants/buff.tres" id="2_05wnt"]
+
+[node name="Buff" type="Node2D"]
+script = ExtResource("1_eo2lr")
+merchant_stats_resource = ExtResource("2_05wnt")

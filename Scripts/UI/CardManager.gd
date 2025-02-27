@@ -9,7 +9,7 @@ var is_hoovering_on_card
 var inventory_reference
 
 var card_slot_array = []
-var card_slot_reference = [null, null, null, null, null, null, null, null, null, null]
+var card_slot_reference = []
 
 
 func _ready():
@@ -18,6 +18,9 @@ func _ready():
 	
 	for i in $"../CardSlots".get_children():
 		card_slot_array.push_back(i)
+	
+	card_slot_reference = $"../Inventory".card_slot_reference
+
 
 func _process(delta):
 	if card_being_dragged:
@@ -29,7 +32,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
-			if card:
+			if card and card.is_players:
 				start_drag(card)
 		else:
 			if card_being_dragged:

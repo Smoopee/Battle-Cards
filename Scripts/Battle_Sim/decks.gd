@@ -3,9 +3,6 @@ extends Node2D
 var player_deck = Global.player_deck
 
 
-func _ready():
-	pass
-
 func build_deck():
 	for i in player_deck:
 		var new_instance = load(i).instantiate()
@@ -15,7 +12,7 @@ func build_deck():
 	var counter = 1
 	
 	for i in get_children():
-		deck_array.push_back(i)
+		deck_array.push_front(i)
 	
 	for i in deck_array:
 		i.card_stats.position = counter

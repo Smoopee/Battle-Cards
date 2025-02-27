@@ -104,5 +104,6 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func enemy_loader(enemy):
-	print(enemy.card_resource)
-	Global.current_enemy = enemy.card_resource
+	Global.current_enemy = enemy.card_resource_path
+	Global.max_enemy_health = Global.current_enemy.health
+	Global.enemy_health = Global.max_enemy_health

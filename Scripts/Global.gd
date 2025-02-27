@@ -9,7 +9,8 @@ extends Node
 @onready var player_deck = []
 @onready var player_skills = []
 
-@onready var current_enemy = ""
+@onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
+@onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
 @onready var player_inventory_db = []
 @onready var player_inventory = []
 
@@ -41,7 +42,7 @@ func change_enemy_health(amount):
 
 func set_player_inventory():
 	player_inventory_db = ["Strengthen", "Strengthen", "Health Potion", "Health Potion", 
-	"Double Up", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger",]
+	"Double Up", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger",]
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:

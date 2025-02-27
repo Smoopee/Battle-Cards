@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Enemy_Resource" load_steps=2 format=3 uid="uid://c0j75g44vy3ke"]
+
+[ext_resource type="Script" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_xu8tp"]
+
+[resource]
+script = ExtResource("1_xu8tp")
+enemy_art_path = "res://Resources/Art/Enemies/rat_king_enemy.png"
+enemy_scene_path = "res://Scenes/Enemies/rat_king.tscn"
+name = "Rat King"
+health = 200
+xp = 30
+gold = 15
