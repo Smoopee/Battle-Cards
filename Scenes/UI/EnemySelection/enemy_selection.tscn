@@ -13,11 +13,21 @@ script = ExtResource("1_ijbvw")
 [node name="EnemyOrganizer" type="Node2D" parent="."]
 script = ExtResource("3_gsqul")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = 3
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(48.0007, 27.003)
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
 [node name="PlayerInventory" type="Node2D" parent="."]
 visible = false
+z_index = 3
 script = ExtResource("4_ic04f")
 
 [node name="Inventory" type="Button" parent="."]
+z_index = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

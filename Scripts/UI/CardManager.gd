@@ -17,7 +17,7 @@ func _ready():
 	inventory_reference = $"../Inventory"
 	
 	for i in $"../CardSlots".get_children():
-		card_slot_array.push_back(i)
+		card_slot_array.push_front(i)
 	
 	card_slot_reference = $"../Inventory".card_slot_reference
 
@@ -49,6 +49,7 @@ func finish_drag():
 	var card_slot_reference_index = card_slot_reference.find(card_being_dragged)
 	var card_being_replaced
 	var previous_card_slot
+	
 	
 	if card_slot_reference_index  > -1 and card_slot_found != null:
 		previous_card_slot = card_slot_reference_index
@@ -93,6 +94,7 @@ func finish_drag():
 						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
 						temp_card = second_temp
 						loop_counter += 1
+						
 			else:
 				while loop_counter != 20:
 					inventory_reference.animate_card_to_position(temp_card, card_slot_array[card_slot_index+loop_counter].position)
@@ -100,7 +102,7 @@ func finish_drag():
 					if card_slot_reference[card_slot_index+loop_counter] == null:
 						card_slot_reference.remove_at(card_slot_index+loop_counter)
 						card_slot_reference.insert(card_slot_index+loop_counter, temp_card)
-						card_slot_array[card_slot_index-loop_counter+1].card_in_slot = true
+						card_slot_array[card_slot_index+loop_counter].card_in_slot = true
 						break
 					else: 
 						var second_temp = card_slot_reference[card_slot_index+loop_counter]

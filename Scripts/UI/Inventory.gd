@@ -30,7 +30,6 @@ func _ready():
 func create_inventory():
 	fetch_inventory()
 	
-	print("My inventory is " + str(inventory_db))
 	var card = preload("res://Scenes/UI/card.tscn")
 	var card_position = 0
 	for i in range(inventory_db.size()):
@@ -84,6 +83,6 @@ func remove_card_from_hand(card):
 		update_hand_positions()
 
 func fill_card_slots(new_card, index):
-	card_slot_reference.push_front(new_card)
+	card_slot_reference.push_back(new_card)
 	new_card.position = card_slot_array[index].position
 	card_slot_array[index].card_in_slot = true

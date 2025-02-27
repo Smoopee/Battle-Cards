@@ -115,7 +115,8 @@ func _on_inventory_button_down():
 	else:
 		$PlayerInventory.visible = false
 		
-	if $EnemyOrganizer.visible:
-		$EnemyOrganizer.visible = false
+	if !$ColorRect.visible:
+		$ColorRect.visible = true
 	else:
-		$EnemyOrganizer.visible = true
+		$ColorRect.visible = false
+	

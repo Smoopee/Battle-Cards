@@ -38,7 +38,7 @@ func fetch_inventory():
 	inventory_db = Global.player_inventory
 
 func add_card_to_hand(card):
-	inventory.push_front(card)
+	inventory.push_back(card)
 	update_hand_positions()
 
 func update_hand_positions():

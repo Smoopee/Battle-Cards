@@ -129,3 +129,17 @@ func _on_continue_button_button_down():
 
 func _on_rearrange_button_button_down():
 	get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
+
+
+func _on_inventory_button_button_down():
+	if !$PlayerInventory.visible:
+		$PlayerInventory.visible = true
+	else:
+		$PlayerInventory.visible = false
+	
+	if !$ColorRect.visible:
+		$ColorRect.visible = true
+	else:
+		$ColorRect.visible = false
+		
+	
