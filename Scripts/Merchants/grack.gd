@@ -15,7 +15,7 @@ func set_stats(stats = Merchant_Resource) -> void:
 	merchant_stats = stats
 
 func get_inventory():
-	for i in range(0,10):
+	for i in range(0,5):
 		inventory.push_front(rock)
 		
 	return inventory

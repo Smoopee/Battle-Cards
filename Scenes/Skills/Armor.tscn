@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccuxxwbymr25"]
+[gd_scene load_steps=3 format=3 uid="uid://ccuxxwbymr25"]
 
 [ext_resource type="Script" path="res://Scripts/Skills/Armor.gd" id="1_pxpae"]
+[ext_resource type="Texture2D" uid="uid://cu5o4iudghma6" path="res://Resources/Art/Skills/armor_skill.png" id="2_a3aem"]
 
 [node name="Armor" type="Node2D"]
 script = ExtResource("1_pxpae")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_a3aem")

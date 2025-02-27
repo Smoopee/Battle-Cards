@@ -14,6 +14,8 @@ extends Node
 @onready var player_inventory_db = []
 @onready var player_inventory = []
 
+var player_gold: int = 0
+var player_xp: int = 0
 
 var card_db_reference
 
@@ -42,7 +44,7 @@ func change_enemy_health(amount):
 
 func set_player_inventory():
 	player_inventory_db = ["Strengthen", "Strengthen", "Health Potion", "Health Potion", 
-	"Double Up", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger",]
+	"Double Up", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Exodia",]
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:

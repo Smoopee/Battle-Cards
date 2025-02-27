@@ -6,3 +6,7 @@ extends Node2D
 func _ready():
 	pass # Replace with function body.
 
+
+
+func _on_exit_button_button_down():
+	get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))

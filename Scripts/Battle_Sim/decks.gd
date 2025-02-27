@@ -9,10 +9,10 @@ func build_deck():
 		add_child(new_instance)
 	
 	var deck_array = []
-	var counter = 1
+	var counter = 0
 	
 	for i in get_children():
-		deck_array.push_front(i)
+		deck_array.push_back(i)
 	
 	for i in deck_array:
 		i.card_stats.position = counter

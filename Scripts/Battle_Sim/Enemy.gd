@@ -35,12 +35,16 @@ func add_skills():
 	var skill_array = []
 	print("Skill array is " + str(enemy_skills))
 	
+	var skill_x_position = 0 
 	for i in enemy_skills:
 		var new_instance = i.instantiate()
 		add_child(new_instance)
 		print("This new skill is added! " + str(i))
 		new_instance.player_skill = false
 		skill_array.push_back(new_instance)
+		new_instance.position = Vector2(1400 + skill_x_position, 50)
+		skill_x_position += 70
+		
 
 	return skill_array
 

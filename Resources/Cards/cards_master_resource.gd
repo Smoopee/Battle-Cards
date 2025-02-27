@@ -15,3 +15,4 @@ class_name Cards_Resource
 @export var in_enemy_deck: bool
 @export var temp_buff: bool
 @export var block : int
+@export var sell_price: int

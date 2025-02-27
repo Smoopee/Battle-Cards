@@ -23,24 +23,75 @@ offset_bottom = 93.2847
 scale = Vector2(20.146, 4.45868)
 text = "VICTORY!"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
-layout_mode = 0
-offset_left = 616.285
-offset_top = 333.519
-offset_right = 797.285
-offset_bottom = 383.519
-scale = Vector2(2.99239, 4.63159)
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
+offset_left = 398.331
+offset_top = 298.922
+offset_right = 588.331
+offset_bottom = 474.922
+scale = Vector2(4.12293, 2.80043)
 
-[node name="Xp" type="Label" parent="TextureRect/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.55
+
+[node name="GoldReward" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-text = "XP"
+text = "Gold Reward
+"
+horizontal_alignment = 2
 
-[node name="Gold" type="Label" parent="TextureRect/VBoxContainer"]
+[node name="XpReward" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "XP Reward"
+horizontal_alignment = 2
+
+[node name="Gold" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Gold
 "
+horizontal_alignment = 2
+
+[node name="Xp" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "XP"
+horizontal_alignment = 2
+
+[node name="VariableContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.45
+
+[node name="GoldReward" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="XpReward" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="Gold" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="Xp" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0"
+horizontal_alignment = 2
 
 [node name="Button" type="Button" parent="."]
 offset_left = 951.0

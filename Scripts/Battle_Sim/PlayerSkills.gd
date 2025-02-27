@@ -10,7 +10,10 @@ func add_skills():
 	
 	var skill_array = []
 	
+	var skill_x_position = 0 
 	for i in get_children():
 		skill_array.push_back(i)
+		i.position = Vector2(1400 + skill_x_position, 970)
+		skill_x_position += 70
 	
 	return skill_array

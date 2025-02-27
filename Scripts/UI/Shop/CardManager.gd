@@ -50,19 +50,14 @@ func finish_drag():
 		if trade_found.is_players:
 			trade_cards(card_being_dragged, trade_found)
 			merchant_inventory_reference.animate_card_to_position(card_being_dragged, trade_found.hand_position)
-			get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
 	else:
 		merchant_inventory_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
 	card_being_dragged = null
 	
 
 func trade_cards(merchant_card, player_card):
-	print("Lets Trade " + str(merchant_card.card_name) + " for " + str(player_card.card_name))
-	print(player_card.card_position)
-	print(Global.player_inventory)
 	Global.player_inventory.remove_at(player_card.card_position)
 	Global.player_inventory.insert(player_card.card_position, merchant_card.card_scene_path)
-	print(Global.player_inventory)
 	
 
 func connect_card_signals(card):

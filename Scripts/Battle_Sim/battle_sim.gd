@@ -62,7 +62,9 @@ func death_checker():
 	else: false
 	
 	if Global.enemy_health <= 0: 
-		print("The enemy has been defeated!")
+		Global.player_gold += Global.current_enemy.gold
+		Global.player_xp += Global.current_enemy.xp
+		$BattleRewards.update_rewards()
 		$BattleRewards.visible = true
 		return true
 		

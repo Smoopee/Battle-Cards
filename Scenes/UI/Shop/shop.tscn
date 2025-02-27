@@ -20,3 +20,12 @@ script = ExtResource("3_82fbf")
 
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("5_5052o")
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 1744.0
+offset_top = 936.0
+offset_right = 1797.0
+offset_bottom = 967.0
+text = "Leave"
+
+[connection signal="button_down" from="ExitButton" to="." method="_on_exit_button_button_down"]

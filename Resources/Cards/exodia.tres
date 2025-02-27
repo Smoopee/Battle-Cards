@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://b13kuvjp30it3"]
+
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_b3bi8"]
+
+[resource]
+script = ExtResource("1_b3bi8")
+card_art_path = "res://Resources/Cards/CardArt/exodia.png"
+card_scene_path = "res://Scenes/Cards/exodia.tscn"
+name = "Exodia"
+dmg = 1000000
+position = 0
+burn_dmg = 0
+poison_dmg = 0
+shield = 0
+heal = 0
+critical_strike_chance = 0.0
+in_enemy_deck = false
+temp_buff = false
+block = 0
