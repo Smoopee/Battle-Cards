@@ -12,6 +12,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 
+
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -110,6 +111,8 @@ func enemy_loader(enemy):
 
 
 func _on_inventory_button_down():
+	$PlayerInventory.create_inventory()
+	
 	if !$PlayerInventory.visible:
 		$PlayerInventory.visible = true
 	else:

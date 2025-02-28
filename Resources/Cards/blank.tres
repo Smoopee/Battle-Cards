@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://dcaphg5m6kep7"]
+
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_hw64c"]
+
+[resource]
+script = ExtResource("1_hw64c")
+card_art_path = "res://Resources/Cards/CardArt/blank_card.png"
+card_art_path2 = ""
+card_scene_path = "res://Scenes/Cards/blank_card.tscn"
+name = "Blank"
+dmg = 0
+position = 0
+upgrade_level = 0
+burn_dmg = 0
+poison_dmg = 0
+shield = 0
+heal = 0
+critical_strike_chance = 0.0
+in_enemy_deck = false
+temp_buff = false
+block = 0
+sell_price = 0
+buy_price = 0
+is_players = false
+hand_position = 0

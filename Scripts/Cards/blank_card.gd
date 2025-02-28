@@ -1,17 +1,15 @@
 extends Node2D
 
-
 @export var card_stats_resource: Cards_Resource
 
-var card_stats: Cards_Resource = null
-
-var rng = RandomNumberGenerator.new()
+@onready var card_stats 
 
 func _ready():
 	set_stats(card_stats_resource)
 
 func set_stats(stats = Cards_Resource) -> void:
-	card_stats = stats 
+	var card_stats_resource: Cards_Resource = preload("res://Resources/Cards/blank.tres")
+	card_stats = card_stats_resource
 
 func on_start(board):
 	pass
@@ -19,7 +17,7 @@ func on_start(board):
 func effect(player_deck, enemy_deck):
 	pass
 
-func item_level(num):
+func upgrade_card(num):
 	pass
 
 func item_enchantment(enchant):

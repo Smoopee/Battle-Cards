@@ -210,8 +210,9 @@ func upgrade_card(upgrade_card, base_card):
 		upgrade_card.queue_free()
 		var temp = load(base_card.card_scene_path).instantiate()
 		temp.set_stats()
-		temp.upgrade_card(base_card.upgrade_level + 1)
+		temp.upgrade_card(base_card.card_resource_path.upgrade_level + 1)
 		base_card.get_node("CardImage").texture = load(temp.card_stats.card_art_path)
-		base_card.upgrade_level = temp.card_stats.upgrade_level
+		base_card.card_resource_path.upgrade_level = temp.card_stats.upgrade_level
+		print("base card is " + str(base_card.card_resource_path))
 	else:
 		player_inventory_reference.add_card_to_hand(upgrade_card)

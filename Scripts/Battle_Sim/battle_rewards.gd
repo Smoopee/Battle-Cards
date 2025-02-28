@@ -14,4 +14,8 @@ func update_rewards():
 	player_xp_label.text = str(Global.player_xp)
 
 func _on_button_button_down():
+	for i in Global.player_deck:
+		if i == "res://Scenes/Cards/blank_card.tscn":
+			Global.player_deck.erase(i)
+	
 	get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))

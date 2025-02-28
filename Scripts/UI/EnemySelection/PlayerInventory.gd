@@ -15,7 +15,7 @@ var center_screen_x
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
-	create_inventory()
+	
 
 func create_inventory():
 	fetch_inventory()
@@ -36,6 +36,7 @@ func create_inventory():
 		
 func fetch_inventory():
 	inventory_db = Global.player_inventory
+	print(Global.player_inventory)
 
 func add_card_to_hand(card):
 	inventory.push_back(card)

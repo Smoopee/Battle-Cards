@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqydhp0q2rk7l"]
+
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/PlayerInventory.gd" id="4_ic04f"]
+
+[node name="EnemySelection" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_ijbvw")
+
+[node name="CardSelector" parent="." instance=ExtResource("1_gdsmo")]
+
+[node name="EnemyOrganizer" type="Node2D" parent="."]
+script = ExtResource("3_gsqul")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = 3
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(48.0007, 27.003)
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[node name="PlayerInventory" type="Node2D" parent="."]
+visible = false
+z_index = 3
+script = ExtResource("4_ic04f")
+
+[node name="Inventory" type="Button" parent="."]
+z_index = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1707.0
+offset_top = 848.0
+offset_right = 1790.0
+offset_bottom = 879.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inventory"
+
+[connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]

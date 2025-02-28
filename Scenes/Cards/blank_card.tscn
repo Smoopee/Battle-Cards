@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddjg00al66e1w"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/blank_card.gd" id="1_uughc"]
+[ext_resource type="Resource" uid="uid://dcaphg5m6kep7" path="res://Resources/Cards/blank.tres" id="2_ly0h3"]
+
+[node name="BlankCard" type="Node2D"]
+script = ExtResource("1_uughc")
+card_stats_resource = ExtResource("2_ly0h3")
