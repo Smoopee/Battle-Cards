@@ -105,14 +105,12 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func enemy_loader(enemy):
-	Global.current_enemy = enemy.card_resource_path
+	Global.current_enemy = enemy.card_resource
 	Global.max_enemy_health = Global.current_enemy.health
 	Global.enemy_health = Global.max_enemy_health
 
 
 func _on_inventory_button_down():
-	$PlayerInventory.create_inventory()
-	
 	if !$PlayerInventory.visible:
 		$PlayerInventory.visible = true
 	else:

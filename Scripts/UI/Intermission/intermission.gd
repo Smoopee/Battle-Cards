@@ -33,7 +33,8 @@ func finish_drag():
 	var merchant_found = raycast_check_for_merchant()
 	
 	if merchant_found:
-		Global.current_merchant = merchant_found.card_scene_path
+		print(merchant_found)
+		Global.current_merchant = merchant_found.card_resource.merchant_scene_path
 		print(Global.current_merchant)
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
 	else:

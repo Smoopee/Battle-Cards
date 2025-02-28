@@ -19,7 +19,7 @@ func _ready():
 	player_inventory_reference = $"../Inventory"
 	
 	for i in get_children():
-		if !i.is_players:
+		if !i.card_resource.is_players:
 			print("Merchant Inventory")
 
 func _process(delta):
@@ -34,8 +34,6 @@ func _input(event):
 			var merchant_card = raycast_check_for_merchant_card()
 			var player_card = raycast_check_for_card()
 			if merchant_card:
-				if merchant_card.is_players:
-					return
 				start_drag(merchant_card)
 			if player_card:
 				start_drag(player_card)
@@ -50,26 +48,27 @@ func start_drag(card):
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	
-	if raycast_check_for_player() and not card_being_dragged.is_players:
+	if raycast_check_for_player() and not card_being_dragged.card_resource.is_players:
 		buy_card(card_being_dragged)
 		print("Buy card")
 		card_being_dragged = null
 		return
 	
-	if raycast_check_for_merchant() and card_being_dragged.is_players:
+	if raycast_check_for_merchant() and card_being_dragged.card_resource.is_players:
 		sell_card(card_being_dragged)
 		card_being_dragged = null
 		return
 	
-	if raycast_check_for_card() and card_being_dragged.is_players:
+	if raycast_check_for_card() and card_being_dragged.card_resource.is_players:
 		upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
+		print("Upgrade card")
 		card_being_dragged = null
 		return
 		
-	if !card_being_dragged.is_players:
+	if !card_being_dragged.card_resource.is_players:
 		$"../MerchantCards".add_card_to_hand(card_being_dragged)
 		
-	if card_being_dragged.is_players:
+	if card_being_dragged.card_resource.is_players:
 		$"../Inventory".add_card_to_hand(card_being_dragged)
 	
 	card_being_dragged = null
@@ -179,12 +178,12 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func sell_card(card):
-	Global.player_gold += card.sell_price
+	Global.player_gold += card.card_resource.sell_price
 	merchant_inventory_reference.add_card_to_hand(card)
 	player_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = 2
 	card.get_node("Area2D").collision_mask = 2
-	card.is_players = false
+	card.card_resource.is_players = false
 	print(Global.player_gold)
 
 func buy_card(card):
@@ -192,27 +191,31 @@ func buy_card(card):
 		merchant_inventory_reference.add_card_to_hand(card)
 		print("Not enough space")
 		return
-	if Global.player_gold < card.buy_price:
+	if Global.player_gold < card.card_resource.buy_price:
 		merchant_inventory_reference.add_card_to_hand(card)
 		print("Not enough gold")
 		return
-	Global.player_gold -= card.buy_price
+	Global.player_gold -= card.card_resource.buy_price
 	player_inventory_reference.add_card_to_hand(card)
 	merchant_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = 1
 	card.get_node("Area2D").collision_mask = 1
-	card.is_players = true
+	card.card_resource.is_players = true
 	print(Global.player_gold)
 
 func upgrade_card(upgrade_card, base_card):
-	if upgrade_card.card_scene_path == base_card.card_scene_path and upgrade_card.position != base_card.position and upgrade_card.upgrade_level == base_card.upgrade_level:
+	print("Upgrade card level is " + str(upgrade_card))
+	print("Base card level is " + str(base_card))
+	if  upgrade_card.position != base_card.position and upgrade_card.card_resource.upgrade_level == base_card.card_resource.upgrade_level:
 		player_inventory_reference.remove_card_from_hand(upgrade_card)
 		upgrade_card.queue_free()
-		var temp = load(base_card.card_scene_path).instantiate()
+		var temp = load(base_card.card_resource.card_scene_path).instantiate()
 		temp.set_stats()
-		temp.upgrade_card(base_card.card_resource_path.upgrade_level + 1)
+		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
 		base_card.get_node("CardImage").texture = load(temp.card_stats.card_art_path)
-		base_card.card_resource_path.upgrade_level = temp.card_stats.upgrade_level
-		print("base card is " + str(base_card.card_resource_path))
+		base_card.card_resource.card_art_path = temp.card_stats.card_art_path
+		base_card.card_resource.upgrade_level = temp.card_stats.upgrade_level
+		print("base card is " + str(base_card.card_resource))
 	else:
 		player_inventory_reference.add_card_to_hand(upgrade_card)
+	pass

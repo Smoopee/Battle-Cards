@@ -25,11 +25,7 @@ func _ready():
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.get_node("Area2D").collision_layer = 2
 		new_card.get_node("Area2D").collision_mask = 2
-		new_card.buy_price = inventory_db[i].buy_price
-		new_card.card_name = inventory_db[i].name
-		new_card.card_scene_path = inventory_db[i].card_scene_path
-		new_card.upgrade_level = inventory_db[i].upgrade_level
-		new_card.card_resource_path = inventory_db[i]
+		new_card.card_resource = inventory_db[i].duplicate()
 		$"../CardManager".add_child(new_card)
 		add_card_to_hand(new_card)
 
@@ -41,13 +37,13 @@ func add_card_to_hand(card):
 		inventory.push_back(card)
 		update_hand_positions()
 	else:
-		animate_card_to_position(card, card.hand_position)
+		animate_card_to_position(card, card.card_resource.screen_position)
 
 func update_hand_positions():
 	for i in range(inventory.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card = inventory[i]
-		card.hand_position = new_position
+		card.card_resource.screen_position = new_position
 		if animation_canel:
 			card.position = new_position
 		else:
@@ -63,6 +59,7 @@ func animate_card_to_position(card, new_position):
 	tween.tween_property(card, "position", new_position, 0.1)
 
 func remove_card_from_hand(card):
+	print("Remvoing card from hand")
 	if card in inventory:
 		inventory.erase(card)
 		update_hand_positions()

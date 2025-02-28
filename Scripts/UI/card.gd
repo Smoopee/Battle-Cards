@@ -9,11 +9,7 @@ var card_name = ""
 var path = ""
 var is_players = false
 var card_position
-var card_resource_path
-var card_scene_path
-var sell_price: int
-var buy_price: int
-var upgrade_level: int
+var card_resource
 
 func _ready():
 	var card_manager = (get_tree().get_nodes_in_group("card manager")[0])

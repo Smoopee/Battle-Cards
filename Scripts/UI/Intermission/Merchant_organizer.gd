@@ -36,7 +36,7 @@ func create_encounter(merchant_array):
 		new_merchant.get_node("CardImage").texture = load(merchant_array[i].merchant_art_path)
 		new_merchant.get_node("Area2D").collision_layer = 2
 		new_merchant.get_node("Area2D").collision_mask = 2
-		new_merchant.card_scene_path = merchant_array[i].merchant_scene_path
+		new_merchant.card_resource = merchant_array[i]
 		add_child(new_merchant)
 		merchant_selection.push_front(new_merchant)
 		update_merchant_positions()

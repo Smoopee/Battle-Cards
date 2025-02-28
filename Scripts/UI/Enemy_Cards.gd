@@ -25,10 +25,9 @@ func create_enemy_cards():
 		var card_scene = card
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(enemy_cards_db[i].card_art_path)
-		new_card.card_name = enemy_cards_db[i].name
-		new_card.card_scene_path = enemy_cards_db[i].card_scene_path
-		new_card.card_position = card_position
-		new_card.is_players = false
+		new_card.card_resource = enemy_cards_db[i]
+		new_card.card_resource.inventory_position = card_position
+		new_card.card_resource.is_players = false
 		add_child(new_card)
 		add_card_to_hand(new_card)
 		card_position += 1
@@ -44,7 +43,7 @@ func update_hand_positions():
 	for i in range(enemy_inventory.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card = enemy_inventory[i]
-		card.hand_position = new_position
+		card.card_resource.screen_position = new_position
 		card.position = new_position
  
 func calculate_card_position(index):

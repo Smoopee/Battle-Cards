@@ -12,7 +12,7 @@ func _on_button_button_down():
 	print(card_manager.card_slot_reference)
 	for i in card_manager.card_slot_reference:
 		if i != null:
-			deck.push_back(i.card_scene_path)
+			deck.push_back(i.card_resource.card_scene_path)
 		else:
 			deck.push_back("res://Scenes/Cards/blank_card.tscn")
 	Global.player_deck = deck

@@ -5,9 +5,12 @@ class_name Cards_Resource
 @export var card_art_path: String
 @export var card_art_path2: String
 @export var card_scene_path: String
+@export var card_art: Texture2D
 @export var name: String
 @export var dmg: int
 @export var position: int
+@export var screen_position: Vector2
+@export var inventory_position: int
 @export var upgrade_level: int
 @export var burn_dmg: int
 @export var poison_dmg: int
@@ -20,4 +23,4 @@ class_name Cards_Resource
 @export var sell_price: int
 @export var buy_price: int
 @export var is_players: bool
-@export var hand_position: int
+

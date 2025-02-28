@@ -36,8 +36,7 @@ func create_encounter(enemy_array):
 		new_enemy.get_node("CardImage").texture = load(enemy_array[i].enemy_art_path)
 		new_enemy.get_node("Area2D").collision_layer = 2
 		new_enemy.get_node("Area2D").collision_mask = 2
-		new_enemy.card_resource_path = enemy_array[i]
-		new_enemy.card_scene_path = enemy_array[i].enemy_scene_path
+		new_enemy.card_resource = enemy_array[i]
 		add_child(new_enemy)
 		enemy_selection.push_front(new_enemy)
 		update_enemy_positions()

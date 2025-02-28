@@ -27,10 +27,9 @@ func create_inventory():
 		var card_scene = card
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
-		new_card.card_name = inventory_db[i].name
-		new_card.path = inventory_db[i].card_scene_path
-		new_card.card_position = card_position
-		new_card.is_players = true
+		new_card.card_resource = inventory_db[i]
+		new_card.card_resource.inventory_position = card_position
+		new_card.card_resource.is_players = true
 		add_child(new_card)
 		add_card_to_hand(new_card)
 		card_position += 1
@@ -46,7 +45,7 @@ func update_hand_positions():
 	for i in range(inventory.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card = inventory[i]
-		card.hand_position = new_position
+		card.card_resource.screen_position = new_position
 		card.position = new_position
  
 func calculate_card_position(index):

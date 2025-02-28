@@ -32,7 +32,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
-			if card and card.is_players:
+			if card and card.card_resource.is_players:
 				start_drag(card)
 		else:
 			if card_being_dragged:
