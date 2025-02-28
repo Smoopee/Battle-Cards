@@ -11,7 +11,6 @@ var inventory = []
 
 var center_screen_x
 
-
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
@@ -27,14 +26,16 @@ func create_inventory():
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.card_name = inventory_db[i].name
-		new_card.path = inventory_db[i].card_scene_path
+		new_card.card_scene_path = inventory_db[i].card_scene_path
 		new_card.card_position = card_position
 		new_card.sell_price = inventory_db[i].sell_price
+		new_card.card_resource_path = inventory_db[i]
+		new_card.upgrade_level = inventory_db[i].upgrade_level
 		new_card.is_players = true
 		$"../CardManager".add_child(new_card)
 		add_card_to_hand(new_card)
 		card_position += 1
-		
+	
 func fetch_inventory():
 	inventory_db = Global.player_inventory
 

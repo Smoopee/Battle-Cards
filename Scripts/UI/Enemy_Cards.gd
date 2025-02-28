@@ -26,7 +26,7 @@ func create_enemy_cards():
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(enemy_cards_db[i].card_art_path)
 		new_card.card_name = enemy_cards_db[i].name
-		new_card.path = enemy_cards_db[i].card_scene_path
+		new_card.card_scene_path = enemy_cards_db[i].card_scene_path
 		new_card.card_position = card_position
 		new_card.is_players = false
 		add_child(new_card)

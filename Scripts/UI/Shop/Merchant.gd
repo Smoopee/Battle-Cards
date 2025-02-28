@@ -1,7 +1,6 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	var merchant = load(Global.current_merchant).instantiate()
 	add_child(merchant)
@@ -11,6 +10,3 @@ func _ready():
 	merchant.get_node("Area2D").collision_layer = 4
 	merchant.get_node("Area2D").collision_mask = 4
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

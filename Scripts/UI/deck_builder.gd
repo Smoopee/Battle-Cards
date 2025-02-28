@@ -9,7 +9,7 @@ func _ready():
 
 func _on_button_button_down():
 	for i in card_manager.card_slot_reference:
-		deck.push_back(i.path)
+		deck.push_back(i.card_scene_path)
 	
 	Global.player_deck = deck
 	

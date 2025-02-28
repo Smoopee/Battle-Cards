@@ -27,8 +27,9 @@ func _ready():
 		new_card.get_node("Area2D").collision_mask = 2
 		new_card.buy_price = inventory_db[i].buy_price
 		new_card.card_name = inventory_db[i].name
-		new_card.path = inventory_db[i].card_scene_path
-		new_card.card_scene_path = inventory_db[i]
+		new_card.card_scene_path = inventory_db[i].card_scene_path
+		new_card.upgrade_level = inventory_db[i].upgrade_level
+		new_card.card_resource_path = inventory_db[i]
 		$"../CardManager".add_child(new_card)
 		add_card_to_hand(new_card)
 

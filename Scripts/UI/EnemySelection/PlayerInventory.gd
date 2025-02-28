@@ -27,7 +27,7 @@ func create_inventory():
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.card_name = inventory_db[i].name
-		new_card.path = inventory_db[i].card_scene_path
+		new_card.card_scene_path = inventory_db[i].card_scene_path
 		new_card.card_position = card_position
 		new_card.is_players = true
 		add_child(new_card)

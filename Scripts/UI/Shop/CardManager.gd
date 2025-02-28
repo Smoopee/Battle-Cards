@@ -60,6 +60,11 @@ func finish_drag():
 		sell_card(card_being_dragged)
 		card_being_dragged = null
 		return
+	
+	if raycast_check_for_card() and card_being_dragged.is_players:
+		upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
+		card_being_dragged = null
+		return
 		
 	if !card_being_dragged.is_players:
 		$"../MerchantCards".add_card_to_hand(card_being_dragged)
@@ -107,6 +112,17 @@ func raycast_check_for_card():
 		return get_card_with_highest_z_index(result)
 	return null 
 
+func raycast_check_for_upgrade_card():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_CARD
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return get_card_with_lowest_z_index(result)
+	return null 
+
 func raycast_check_for_merchant_card():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
@@ -151,6 +167,17 @@ func get_card_with_highest_z_index(cards):
 			highest_z_index = current_card.z_index
 	return highest_z_card
 
+func get_card_with_lowest_z_index(cards):
+	var lowest_z_card = cards[0].collider.get_parent()
+	var lowest_z_index = lowest_z_card.z_index
+	
+	for i in range(1, cards.size()):
+		var current_card = cards[i].collider.get_parent()
+		if current_card.z_index < lowest_z_index:
+			lowest_z_card = current_card
+			lowest_z_index = current_card.z_index
+	return lowest_z_card
+
 func sell_card(card):
 	Global.player_gold += card.sell_price
 	merchant_inventory_reference.add_card_to_hand(card)
@@ -176,3 +203,15 @@ func buy_card(card):
 	card.get_node("Area2D").collision_mask = 1
 	card.is_players = true
 	print(Global.player_gold)
+
+func upgrade_card(upgrade_card, base_card):
+	if upgrade_card.card_scene_path == base_card.card_scene_path and upgrade_card.position != base_card.position and upgrade_card.upgrade_level == base_card.upgrade_level:
+		player_inventory_reference.remove_card_from_hand(upgrade_card)
+		upgrade_card.queue_free()
+		var temp = load(base_card.card_scene_path).instantiate()
+		temp.set_stats()
+		temp.upgrade_card(base_card.upgrade_level + 1)
+		base_card.get_node("CardImage").texture = load(temp.card_stats.card_art_path)
+		base_card.upgrade_level = temp.card_stats.upgrade_level
+	else:
+		player_inventory_reference.add_card_to_hand(upgrade_card)

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://byp55dv7ryt4m"]
+[gd_scene load_steps=5 format=3 uid="uid://byp55dv7ryt4m"]
 
 [ext_resource type="Script" path="res://Scripts/Merchants/rand_dom.gd" id="1_takds"]
 [ext_resource type="Resource" uid="uid://byefif56pfg4v" path="res://Resources/Merchants/rand_dom.tres" id="2_55d3q"]
 [ext_resource type="Texture2D" uid="uid://c0mgmjhyb30ps" path="res://Resources/Art/Merchants/rand_dom_merchant.png" id="3_lk2nk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtt5r"]
+size = Vector2(98, 128)
 
 [node name="RandDom" type="Node2D"]
 script = ExtResource("1_takds")
@@ -10,3 +13,10 @@ merchant_stats_resource = ExtResource("2_55d3q")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_lk2nk")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_gtt5r")

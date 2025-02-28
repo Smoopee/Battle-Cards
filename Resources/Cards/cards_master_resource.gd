@@ -3,10 +3,12 @@ extends Resource
 class_name Cards_Resource
 
 @export var card_art_path: String
+@export var card_art_path2: String
 @export var card_scene_path: String
 @export var name: String
 @export var dmg: int
 @export var position: int
+@export var upgrade_level: int
 @export var burn_dmg: int
 @export var poison_dmg: int
 @export var shield: int
@@ -17,3 +19,5 @@ class_name Cards_Resource
 @export var block : int
 @export var sell_price: int
 @export var buy_price: int
+@export var is_players: bool
+@export var hand_position: int
