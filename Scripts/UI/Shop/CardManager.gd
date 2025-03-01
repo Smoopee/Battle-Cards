@@ -216,6 +216,7 @@ func upgrade_card(upgrade_card, base_card):
 		base_card.card_resource.card_art_path = temp.card_stats.card_art_path
 		base_card.card_resource.upgrade_level = temp.card_stats.upgrade_level
 		print("base card is " + str(base_card.card_resource))
+		temp.upgrade_card(1)
 	else:
 		player_inventory_reference.add_card_to_hand(upgrade_card)
 	pass

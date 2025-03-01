@@ -20,14 +20,21 @@ func effect(player_deck, enemy_deck):
 
 func upgrade_card(num):
 	match num:
+		1:
+			print("level 1!")
+			self.card_stats.card_art_path = "res://Resources/Cards/CardArt/Dagger_card.png"
+			self.card_stats.upgrade_level = 1
+			self.card_stats.dmg = 3
 		2: 
 			print("level 2!")
 			self.card_stats.card_art_path = "res://Resources/Cards/CardArt/dagger2_card.png"
 			self.card_stats.upgrade_level = 2
+			self.card_stats.dmg = 6
 		3:
 			print("level 3!")
 			self.card_stats.card_art_path = "res://Resources/Cards/CardArt/dagger3_card.png"
 			self.card_stats.upgrade_level = 3
+			self.card_stats.dmg = 12
 
 func item_enchantment(enchant):
 	pass

@@ -25,12 +25,13 @@ func create_enemy_cards():
 		var card_scene = card
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(enemy_cards_db[i].card_art_path)
-		new_card.card_resource = enemy_cards_db[i]
+		new_card.card_resource = enemy_cards_db[i].duplicate()
 		new_card.card_resource.inventory_position = card_position
 		new_card.card_resource.is_players = false
 		add_child(new_card)
 		add_card_to_hand(new_card)
 		card_position += 1
+		print(new_card.card_resource.upgrade_level)
 		
 func fetch_enemy_cards():
 	enemy_cards_db = $"../Enemy".enemy_deck
