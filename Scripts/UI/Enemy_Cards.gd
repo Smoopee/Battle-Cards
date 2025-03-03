@@ -19,19 +19,26 @@ func _ready():
 func create_enemy_cards():
 	fetch_enemy_cards()
 	
+	
 	var card = preload("res://Scenes/UI/card.tscn")
 	var card_position = 0
 	for i in range(enemy_cards_db.size()):
 		var card_scene = card
 		var new_card = card_scene.instantiate()
-		new_card.get_node("CardImage").texture = load(enemy_cards_db[i].card_art_path)
-		new_card.card_resource = enemy_cards_db[i].duplicate()
-		new_card.card_resource.inventory_position = card_position
-		new_card.card_resource.is_players = false
 		add_child(new_card)
+		var new_node = load(enemy_cards_db[i].card_scene_path).instantiate()
+		get_child(i).add_child(new_node)
+		new_card.card_resource = enemy_cards_db[i].duplicate()
+		new_node.upgrade_card(enemy_cards_db[i].upgrade_level)
+		new_card.get_node("CardImage").texture = load(new_card.card_resource.card_art_path)
+		print("The Texture is " + str(new_card.card_resource.dmg))
+		new_card.card_resource.is_players = false
+		new_card.card_resource.in_enemy_deck = true
+		new_card.card_resource.inventory_position = card_position
+		new_node.queue_free()
+		
 		add_card_to_hand(new_card)
 		card_position += 1
-		print(new_card.card_resource.upgrade_level)
 		
 func fetch_enemy_cards():
 	enemy_cards_db = $"../Enemy".enemy_deck

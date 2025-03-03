@@ -64,6 +64,13 @@ func finish_drag():
 		print("Upgrade card")
 		card_being_dragged = null
 		return
+	
+	if raycast_check_for_card() and not card_being_dragged.card_resource.is_players:
+		upgrade_from_merchant(card_being_dragged, raycast_check_for_upgrade_card())
+		print("Upgrade from merchant")
+		card_being_dragged = null
+		return
+	
 		
 	if !card_being_dragged.card_resource.is_players:
 		$"../MerchantCards".add_card_to_hand(card_being_dragged)
@@ -204,19 +211,38 @@ func buy_card(card):
 	print(Global.player_gold)
 
 func upgrade_card(upgrade_card, base_card):
-	print("Upgrade card level is " + str(upgrade_card))
-	print("Base card level is " + str(base_card))
 	if  upgrade_card.position != base_card.position and upgrade_card.card_resource.upgrade_level == base_card.card_resource.upgrade_level:
+		if base_card.card_resource.upgrade_level >= 4:
+			player_inventory_reference.add_card_to_hand(upgrade_card)
+			return
 		player_inventory_reference.remove_card_from_hand(upgrade_card)
 		upgrade_card.queue_free()
 		var temp = load(base_card.card_resource.card_scene_path).instantiate()
-		temp.set_stats()
+		base_card.add_child(temp)
 		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
-		base_card.get_node("CardImage").texture = load(temp.card_stats.card_art_path)
-		base_card.card_resource.card_art_path = temp.card_stats.card_art_path
-		base_card.card_resource.upgrade_level = temp.card_stats.upgrade_level
-		print("base card is " + str(base_card.card_resource))
-		temp.upgrade_card(1)
+		base_card.get_node("CardImage").texture = load(base_card.card_resource.card_art_path)
 	else:
 		player_inventory_reference.add_card_to_hand(upgrade_card)
+	pass
+
+func upgrade_from_merchant(upgrade_card, base_card):
+	if  upgrade_card.position != base_card.position and upgrade_card.card_resource.upgrade_level == base_card.card_resource.upgrade_level:
+		if Global.player_gold < upgrade_card.card_resource.buy_price:
+			merchant_inventory_reference.add_card_to_hand(upgrade_card)
+			print("Not enough gold")
+			return
+		if base_card.card_resource.card_scene_path != upgrade_card.card_resource.card_scene_path:
+			merchant_inventory_reference.add_card_to_hand(upgrade_card)
+			return
+		if base_card.card_resource.upgrade_level >= 4:
+			merchant_inventory_reference.add_card_to_hand(upgrade_card)
+			return
+		merchant_inventory_reference.remove_card_from_hand(upgrade_card)
+		upgrade_card.queue_free()
+		var temp = load(base_card.card_resource.card_scene_path).instantiate()
+		base_card.add_child(temp)
+		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
+		base_card.get_node("CardImage").texture = load(base_card.card_resource.card_art_path)
+	else:
+		merchant_inventory_reference.add_card_to_hand(upgrade_card)
 	pass

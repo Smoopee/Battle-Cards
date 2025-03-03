@@ -19,7 +19,7 @@ func on_start(board):
 func effect(player_deck, enemy_deck):
 	pass
 
-func item_level(num):
+func upgrade_card(num):
 	pass
 
 func item_enchantment(enchant):

@@ -5,6 +5,7 @@ extends Node2D
 
 var inventory = []
 var double_up = preload("res://Resources/Cards/double_up.tres")
+var strengthen = preload("res://Resources/Cards/strengthen.tres")
 
 var merchant_stats: Merchant_Resource = null
 var merchant_scene_path = "res://Scenes/Merchants/buff.tscn"
@@ -16,7 +17,10 @@ func set_stats(stats = Merchant_Resource) -> void:
 	merchant_stats = stats
 
 func get_inventory():
-	for i in range(0,10):
+	for i in range(0,2):
 		inventory.push_front(double_up)
+	
+	for i in range(0,2):
+		inventory.push_front(strengthen)
 		
 	return inventory

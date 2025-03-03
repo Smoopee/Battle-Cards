@@ -15,7 +15,8 @@ func _ready():
 
 func build_deck():
 	deck_db = Global.player_deck
-	print("DECK DB IS " + str(deck_db))
+	
+	var counter = 0
 	
 	var card = preload("res://Scenes/UI/card.tscn")
 	var card_position = 0
@@ -23,12 +24,21 @@ func build_deck():
 		var card_scene = card
 		var new_card = card_scene.instantiate()
 		new_card.get_node("CardImage").texture = load(deck_db[i].card_art_path)
-		new_card.card_resource = deck_db[i].duplicate()
-		new_card.card_resource.is_players = true
+		new_card.visible = false
 		add_child(new_card)
 		deck.push_back(new_card)
 		var new_node = load(deck_db[i].card_scene_path).instantiate()
+		new_node.visible = false
 		get_child(i).add_child(new_node)
+		new_card.card_resource = deck_db[i]
+		new_node.upgrade_card(deck_db[i].upgrade_level)
+		new_card.card_resource = deck_db[i].duplicate()
+		new_card.card_resource.is_players = true
+		new_card.hand_position = counter
+		counter += 1
+	
+	for i in deck:
+		i.get_child(2).upgrade_card(i.card_resource.upgrade_level)
 	
 	return deck
-
+	

@@ -34,7 +34,6 @@ func finish_drag():
 	var enemy_found = raycast_check_for_enemy()
 	
 	if enemy_found:
-		print(enemy_found)
 		enemy_loader(enemy_found)
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:

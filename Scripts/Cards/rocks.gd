@@ -19,8 +19,28 @@ func on_start(board):
 func effect(player_deck, enemy_deck):
 	pass
 
-func item_level(num):
-	pass
+func upgrade_card(num):
+	match num:
+		1:
+			print("level 1!")
+			get_parent().card_resource.card_art_path= "res://Resources/Cards/CardArt/Rock_card.png"
+			get_parent().card_resource.upgrade_level = 1
+			get_parent().card_resource.dmg = 2
+		2: 
+			print("level 2!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/rock2_card.png"
+			get_parent().card_resource.upgrade_level = 2
+			get_parent().card_resource.dmg = 4
+		3:
+			print("level 3!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/rock3_card.png"
+			get_parent().card_resource.upgrade_level = 3
+			get_parent().card_resource.dmg = 8
+		4:
+			print("level 4!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/rock4_card.png"
+			get_parent().card_resource.upgrade_level = 4
+			get_parent().card_resource.dmg = 16
 
 func item_enchantment(enchant):
 	pass

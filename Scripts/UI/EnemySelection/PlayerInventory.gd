@@ -36,7 +36,6 @@ func create_inventory():
 		
 func fetch_inventory():
 	inventory_db = Global.player_inventory
-	print(Global.player_inventory)
 
 func add_card_to_hand(card):
 	inventory.push_back(card)

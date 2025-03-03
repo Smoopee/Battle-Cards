@@ -15,7 +15,12 @@ func _on_button_button_down():
 			deck.push_back(i.card_resource)
 		else:
 			deck.push_back(blank)
+	
+	while deck.size() < 10:
+		deck.push_back(blank)
+		
 	Global.player_deck = deck
+
 
 	get_tree().change_scene_to_file(("res://Scenes/Battle/battle_sim.tscn"))
 

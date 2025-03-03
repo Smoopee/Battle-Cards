@@ -48,8 +48,8 @@ func change_enemy_health(amount):
 		enemy_health = max_enemy_health
 
 func set_player_inventory():
-	player_inventory_db = ["Exodia", "Dagger", "Dagger", "Dagger", "Dagger", 
-	"Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger", "Dagger"]
+	player_inventory_db = ["Exodia", "Rock", "Rock", "Rock", "Rock", 
+	"Rock", "Rock", "Rock", "Rock", "Rock", "Rock", "Rock"]
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:

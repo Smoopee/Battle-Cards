@@ -25,15 +25,14 @@ func combat(player_deck_list, enemy_deck_list):
 	buff_keeper()
 	
 	for i in range(0, 10):
-		print(str(player_deck_list[i]))
-		print(str(enemy_deck_list[i]))
+		print(str(player_deck_list[i].card_resource.name))
+		print(str(enemy_deck_list[i].card_resource.name))
 		
 		ui.change_player_card(player_deck_list[i].card_resource.card_art_path)
 		ui.change_enemy_card(enemy_deck_list[i].card_resource.card_art_path)
 		
 		#                  Child 2 is where the card Node is at 
 		player_deck_list[i].get_child(2).effect(player_deck_list, enemy_deck_list)
-		print("Enemy deck card is " + str(enemy_deck_list[i].get_children()))
 		enemy_deck_list[i].get_child(2).effect(player_deck_list, enemy_deck_list)
 		
 		damage_func(player_deck_list[i])

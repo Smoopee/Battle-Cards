@@ -13,6 +13,7 @@ dmg = 2
 position = 0
 screen_position = Vector2(0, 0)
 inventory_position = 0
+hand_position = 0
 upgrade_level = 1
 burn_dmg = 0
 poison_dmg = 0

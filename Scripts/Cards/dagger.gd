@@ -26,19 +26,25 @@ func upgrade_card(num):
 	match num:
 		1:
 			print("level 1!")
-			self.card_stats.card_art_path = "res://Resources/Cards/CardArt/Dagger_card.png"
-			self.card_stats.upgrade_level = 1
-			self.card_stats.dmg = 3
+			get_parent().card_resource.card_art_path= "res://Resources/Cards/CardArt/Dagger_card.png"
+			get_parent().card_resource.upgrade_level = 1
+			get_parent().card_resource.dmg = 3
 		2: 
 			print("level 2!")
-			self.card_stats.card_art_path = "res://Resources/Cards/CardArt/dagger2_card.png"
-			self.card_stats.upgrade_level = 2
-			self.card_stats.dmg = 6
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/dagger2_card.png"
+			get_parent().card_resource.upgrade_level = 2
+			get_parent().card_resource.dmg = 6
 		3:
 			print("level 3!")
-			self.card_stats.card_art_path = "res://Resources/Cards/CardArt/dagger3_card.png"
-			self.card_stats.upgrade_level = 3
-			self.card_stats.dmg = 12
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/dagger3_card.png"
+			get_parent().card_resource.upgrade_level = 3
+			get_parent().card_resource.dmg = 12
+		4:
+			print("level 4!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/dagger3_card.png"
+			get_parent().card_resource.upgrade_level = 4
+			get_parent().card_resource.dmg = 24
+			
 
 func item_enchantment(enchant):
 	pass

@@ -7,6 +7,8 @@ var card_stats: Cards_Resource = null
 
 var rng = RandomNumberGenerator.new()
 
+var upgrade_effect 
+
 func _ready():
 	set_stats(card_stats_resource)
 
@@ -19,16 +21,35 @@ func on_start(board):
 func effect(player_deck, enemy_deck):
 	var deck = player_deck
 	
-	if self.card_stats.in_enemy_deck == true:
+	if get_parent().card_resource.in_enemy_deck == true:
 		deck = enemy_deck
 		
-	print("Strength activated!")
 	for i in deck:
-		if i.is_in_group("weapon"):
-			i.card_stats.dmg += 1
+		if i.get_child(2).is_in_group("weapon"):
+			i.card_resource.dmg += upgrade_effect
 
-func item_level(num):
-	pass
+func upgrade_card(num):
+	match num:
+		1:
+			print("level 1!")
+			get_parent().card_resource.card_art_path= "res://Resources/Cards/CardArt/Strengthen_card.png"
+			get_parent().card_resource.upgrade_level = 1
+			upgrade_effect = 1
+		2: 
+			print("level 2!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/strengthen2_card.png"
+			get_parent().card_resource.upgrade_level = 2
+			upgrade_effect = 2
+		3:
+			print("level 3!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/strengthen3_card.png"
+			get_parent().card_resource.upgrade_level = 3
+			upgrade_effect = 3
+		4:
+			print("level 4!")
+			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/strengthen4_card.png"
+			get_parent().card_resource.upgrade_level = 4
+			upgrade_effect = 4
 
 func item_enchantment(enchant):
 	pass
