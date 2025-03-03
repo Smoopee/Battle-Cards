@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://cf2dgphrb6nxx"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://buy5pd52m4ws8"]
 
 [ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_6o81l"]
 
@@ -8,7 +8,7 @@ script = ExtResource("1_6o81l")
 card_art_path = "res://Resources/Cards/CardArt/Dagger_card.png"
 card_art_path2 = "res://Resources/Cards/CardArt/dagger2_card.png"
 card_scene_path = "res://Scenes/Cards/dagger.tscn"
-name = "Dagger"
+name = ""
 dmg = 3
 position = 0
 screen_position = Vector2(0, 0)
@@ -18,10 +18,10 @@ burn_dmg = 0
 poison_dmg = 0
 shield = 0
 heal = 0
-critical_strike_chance = 0.5
+critical_strike_chance = 0.25
 in_enemy_deck = false
 temp_buff = false
 block = 0
-sell_price = 2
+sell_price = 0
 buy_price = 0
 is_players = false

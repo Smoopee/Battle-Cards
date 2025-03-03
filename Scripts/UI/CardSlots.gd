@@ -16,12 +16,11 @@ func _ready():
 		var card_slot = load("res://Scenes/UI/card_slot.tscn").instantiate()
 		add_child(card_slot)
 		add_card_to_hand(card_slot)
-		
 
 func add_card_to_hand(card_slot):
 	card_slot_array.push_front(card_slot)
 	update_hand_positions()
-		
+
 func update_hand_positions():
 	for i in range(card_slot_array.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)

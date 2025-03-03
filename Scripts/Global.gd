@@ -1,5 +1,9 @@
 extends Node
 
+var save_file_path = "user://SaveData/"
+var save_file_name = "PlayerSave.tres"
+var playerData = PlayerData.new()
+
 @onready var player_health: int
 @onready var max_player_health: int
 
@@ -21,13 +25,14 @@ var card_db_reference
 
 func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
-	max_player_health = 100
+	max_player_health = 10000
 	player_health = max_player_health
 	
 	max_enemy_health = 100
 	enemy_health = max_enemy_health
-	set_player_inventory()
-	instantiate_player_inventory()
+	
+	load_data()
+	player_inventory = playerData.player_inventory
 	
 	player_skills.push_front("res://Scenes/Skills/hone_edged.tscn")
 	player_skills.push_front("res://Scenes/Skills/Armor.tscn")
@@ -50,3 +55,8 @@ func instantiate_player_inventory():
 	for i in player_inventory_db:
 		var card = load(card_db_reference.CARDS[i])
 		player_inventory.push_back(card)
+
+func load_data():
+	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
+	print("loaded")
+	

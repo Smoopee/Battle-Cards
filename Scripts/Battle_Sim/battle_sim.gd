@@ -28,11 +28,13 @@ func combat(player_deck_list, enemy_deck_list):
 		print(str(player_deck_list[i]))
 		print(str(enemy_deck_list[i]))
 		
-		ui.change_player_card(player_deck_list[i].card_stats.card_art_path)
-		ui.change_enemy_card(enemy_deck_list[i].card_stats.card_art_path)
+		ui.change_player_card(player_deck_list[i].card_resource.card_art_path)
+		ui.change_enemy_card(enemy_deck_list[i].card_resource.card_art_path)
 		
-		player_deck_list[i].effect(player_deck_list, enemy_deck_list)
-		enemy_deck_list[i].effect(player_deck_list, enemy_deck_list)
+		#                  Child 2 is where the card Node is at 
+		player_deck_list[i].get_child(2).effect(player_deck_list, enemy_deck_list)
+		print("Enemy deck card is " + str(enemy_deck_list[i].get_children()))
+		enemy_deck_list[i].get_child(2).effect(player_deck_list, enemy_deck_list)
 		
 		damage_func(player_deck_list[i])
 		damage_func(enemy_deck_list[i])
@@ -73,18 +75,19 @@ func death_checker():
 func crit_check(i):
 	var critical_strike_check = rng.randf_range(0, 1)
 	
-	if critical_strike_check <= i.card_stats.critical_strike_chance:
+	if critical_strike_check <= i.card_resource.critical_strike_chance:
+		print("CRIT!")
 		return true
 	else: return false
 
 func damage_func(i):
-	if i.card_stats.dmg <= 0: return
+	if i.card_resource.dmg <= 0: return
 	var player_card = true
-	if i.card_stats.in_enemy_deck: player_card = false
+	if i.card_resource.in_enemy_deck: player_card = false
 	var armor = enemy_armor
 	if !player_card: armor = player_armor
 	
-	var damage = i.card_stats.dmg - armor
+	var damage = i.card_resource.dmg - armor
 	if damage < 0: damage = 0
 	
 	if crit_check(i): damage *= 2
@@ -102,11 +105,11 @@ func change_health(character, value):
 		ui.change_player_health()
 
 func heal_func(i):
-	if i.card_stats.heal <= 0: return
+	if i.card_resource.heal <= 0: return
 	var player_card = true
-	if i.card_stats.in_enemy_deck: player_card = false
+	if i.card_resource.in_enemy_deck: player_card = false
 	
-	var heal = i.card_stats.heal
+	var heal = i.card_resource.heal
 	
 	if crit_check(i): heal *= 2
 	change_health(!player_card, -heal)
@@ -117,8 +120,14 @@ func buff_keeper():
 		i.remove_counter()
 
 func _on_button_button_down():
+	
 	player_deck_list = player_deck.build_deck()
+	
+	for i in player_deck_list:
+		print(i.card_resource.upgrade_level)
 	enemy_deck_list = enemy.build_deck() 
+	
+	
 	player_skill_list = player_skills.add_skills()
 	enemy_skill_list = enemy.add_skills()
 	on_start_skill()

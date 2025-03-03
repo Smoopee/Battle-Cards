@@ -24,3 +24,8 @@ class_name Cards_Resource
 @export var buy_price: int
 @export var is_players: bool
 
+func effect():
+	pass
+
+func on_start():
+	pass

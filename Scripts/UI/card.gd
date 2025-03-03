@@ -18,6 +18,5 @@ func _ready():
 func _on_area_2d_mouse_entered():
 	emit_signal("hoovered", self)
 
-
 func _on_area_2d_mouse_exited():
 	emit_signal("hoovered_off", self)

@@ -15,19 +15,26 @@ func _ready():
 func build_deck():
 	enemy_deck = enemy.enemy_deck
 
-	var deck_array = []
+	var deck = []
 	var counter = 1
 	
-	for i in enemy_deck:
-		var new_resource = i
-		var new_instance = load(new_resource.card_scene_path).instantiate()
-		add_child(new_instance)
-		new_instance.card_stats.in_enemy_deck = true
-		new_instance.card_stats.position = counter
+	var card = preload("res://Scenes/UI/card.tscn")
+	var card_position = 0
+	for i in range(enemy_deck.size()):
+		var card_scene = card
+		var new_card = card_scene.instantiate()
+		new_card.get_node("CardImage").texture = load(enemy_deck[i].card_art_path)
+		new_card.card_resource = enemy_deck[i].duplicate()
+		new_card.card_resource.is_players = false
+		new_card.card_resource.in_enemy_deck = true
+		add_child(new_card)
+		deck.push_back(new_card)
+		var new_node = load(enemy_deck[i].card_scene_path).instantiate()
+		#     it is i+1 to get the current card to attach the Node 
+		get_child(i+1).add_child(new_node)
 		counter += 1
-		deck_array.push_back(new_instance)
 	
-	return deck_array
+	return deck
 
 func add_skills():
 	enemy_skills = enemy.enemy_skills

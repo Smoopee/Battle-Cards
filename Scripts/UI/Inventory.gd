@@ -46,7 +46,7 @@ func create_inventory():
 			card_position += 1
 		else:
 			add_card_to_hand(new_card)
-		
+
 func fetch_inventory():
 	inventory_db = Global.player_inventory
 

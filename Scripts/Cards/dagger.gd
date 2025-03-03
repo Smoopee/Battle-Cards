@@ -1,15 +1,19 @@
 extends Node2D
 
+signal hoovered
+signal hoovered_off
 
 @export var card_stats_resource: Cards_Resource
 
 @onready var card_stats 
 
 func _ready():
+	var card_manager = (get_tree().get_nodes_in_group("card manager")[0])
+	card_manager.connect_card_signals(self)
 	set_stats(card_stats_resource)
 
 func set_stats(stats = Cards_Resource) -> void:
-	var card_stats_resource: Cards_Resource = preload("res://Resources/Cards/dagger.tres")
+	var  card_stats_resource: Cards_Resource = preload("res://Resources/Cards/dagger.tres")
 	card_stats = card_stats_resource
 
 func on_start(board):
@@ -38,3 +42,9 @@ func upgrade_card(num):
 
 func item_enchantment(enchant):
 	pass
+
+func _on_area_2d_mouse_entered():
+	emit_signal("hoovered", self)
+
+func _on_area_2d_mouse_exited():
+	emit_signal("hoovered_off", self)

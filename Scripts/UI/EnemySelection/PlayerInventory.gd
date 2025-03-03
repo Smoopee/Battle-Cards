@@ -1,5 +1,6 @@
 extends Node2D
 
+var playerData = PlayerData.new()
 
 const CARD_WIDTH = 130
 const HAND_Y_POSITION = 530
