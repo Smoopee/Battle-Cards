@@ -20,5 +20,5 @@ func effect(player_deck, enemy_deck):
 func upgrade_card(num):
 	pass
 
-func item_enchantment(enchant):
+func item_enchant(enchant):
 	pass

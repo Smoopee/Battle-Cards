@@ -21,6 +21,10 @@ script = ExtResource("2_uev3k")
 [node name="player_deck" type="Node2D" parent="."]
 script = ExtResource("2_ti0s5")
 
+[node name="PlayerInventory" type="Node2D" parent="." groups=["card manager"]]
+visible = false
+script = ExtResource("11_njjdc")
+
 [node name="Enemy" type="Node2D" parent="."]
 script = ExtResource("3_7ul7h")
 
@@ -93,10 +97,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(48.0007, 27.003)
 color = Color(0.233925, 0.233925, 0.233925, 1)
-
-[node name="PlayerInventory" type="Node2D" parent="." groups=["card manager"]]
-visible = false
-script = ExtResource("11_njjdc")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 visible = false

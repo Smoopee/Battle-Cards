@@ -26,10 +26,10 @@ func create_inventory():
 	for i in range(inventory_db.size()):
 		var card_scene = card
 		var new_card = card_scene.instantiate()
-		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.card_resource = inventory_db[i]
 		new_card.card_resource.inventory_position = card_position
 		new_card.card_resource.is_players = true
+		new_card.update_card_ui()
 		add_child(new_card)
 		add_card_to_hand(new_card)
 		card_position += 1

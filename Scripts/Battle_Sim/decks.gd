@@ -32,13 +32,14 @@ func build_deck():
 		get_child(i).add_child(new_node)
 		new_card.card_resource = deck_db[i]
 		new_node.upgrade_card(deck_db[i].upgrade_level)
+		new_node.item_enchant(deck_db[i].item_enchant)
 		new_card.card_resource = deck_db[i].duplicate()
 		new_card.card_resource.is_players = true
 		new_card.hand_position = counter
 		counter += 1
 	
 	for i in deck:
-		i.get_child(2).upgrade_card(i.card_resource.upgrade_level)
+		i.get_child(3).upgrade_card(i.card_resource.upgrade_level)
 	
 	return deck
 	

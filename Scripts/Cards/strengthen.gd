@@ -25,7 +25,7 @@ func effect(player_deck, enemy_deck):
 		deck = enemy_deck
 		
 	for i in deck:
-		if i.get_child(2).is_in_group("weapon"):
+		if i.get_child(Global.card_node_reference).is_in_group("weapon"):
 			i.card_resource.dmg += upgrade_effect
 
 func upgrade_card(num):
@@ -51,5 +51,5 @@ func upgrade_card(num):
 			get_parent().card_resource.upgrade_level = 4
 			upgrade_effect = 4
 
-func item_enchantment(enchant):
+func item_enchant(enchant):
 	pass

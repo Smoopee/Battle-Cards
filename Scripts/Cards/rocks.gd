@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @export var card_stats_resource: Cards_Resource
 
 var card_stats: Cards_Resource = null
@@ -42,5 +41,8 @@ func upgrade_card(num):
 			get_parent().card_resource.upgrade_level = 4
 			get_parent().card_resource.dmg = 16
 
-func item_enchantment(enchant):
-	pass
+func item_enchant(enchant):
+	match enchant:
+		"Bleed":
+			get_parent().card_resource.bleed_dmg = 6
+			print("Bleeding for " + str(get_parent().card_resource.bleed_dmg))

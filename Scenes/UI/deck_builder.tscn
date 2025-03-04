@@ -13,16 +13,16 @@ script = ExtResource("1_xrkhi")
 [node name="CardSlots" type="Node2D" parent="."]
 script = ExtResource("4_rrwd6")
 
-[node name="Inventory" parent="." instance=ExtResource("3_g2c2k")]
+[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
+script = ExtResource("1_wsaiq")
 
 [node name="Enemy" type="Node2D" parent="."]
 script = ExtResource("5_bx4tr")
 
+[node name="Inventory" parent="." instance=ExtResource("3_g2c2k")]
+
 [node name="Enemy_Cards" type="Node2D" parent="."]
 script = ExtResource("5_ogxm3")
-
-[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
-script = ExtResource("1_wsaiq")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 1720.0

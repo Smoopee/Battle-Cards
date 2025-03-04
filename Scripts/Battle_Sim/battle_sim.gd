@@ -16,6 +16,9 @@ var player_armor = 0
 var enemy_armor = 0
 var turn_counter = 1
 
+var player_bleed_dmg = 0
+var enemy_bleed_dmg = 0
+
 
 func combat(player_deck_list, enemy_deck_list):
 
@@ -28,18 +31,24 @@ func combat(player_deck_list, enemy_deck_list):
 		print(str(player_deck_list[i].card_resource.name))
 		print(str(enemy_deck_list[i].card_resource.name))
 		
+		
 		ui.change_player_card(player_deck_list[i].card_resource.card_art_path)
 		ui.change_enemy_card(enemy_deck_list[i].card_resource.card_art_path)
 		
 		#                  Child 2 is where the card Node is at 
-		player_deck_list[i].get_child(2).effect(player_deck_list, enemy_deck_list)
-		enemy_deck_list[i].get_child(2).effect(player_deck_list, enemy_deck_list)
+		player_deck_list[i].get_child(Global.card_node_reference).effect(player_deck_list, enemy_deck_list)
+		enemy_deck_list[i].get_child(Global.card_node_reference).effect(player_deck_list, enemy_deck_list)
 		
 		damage_func(player_deck_list[i])
 		damage_func(enemy_deck_list[i])
 		
+		bleed_func(player_deck_list[i])
+		bleed_func(enemy_deck_list[i])
+		
 		heal_func(player_deck_list[i])
 		heal_func(enemy_deck_list[i])
+		
+		bleed_damage_keeper()
 		
 		await get_tree().create_timer(1).timeout
 		
@@ -92,6 +101,22 @@ func damage_func(i):
 	if crit_check(i): damage *= 2
 	print("THE DAMAGE IS " + str(damage) + " and the armor is " + str(armor))
 	change_health(player_card, damage)
+
+func bleed_func(i):
+	if i.card_resource.bleed_dmg <= 0: return
+	var player_card = true
+	if i.card_resource.in_enemy_deck: player_card = false
+	
+	if player_card: enemy_bleed_dmg += i.card_resource.bleed_dmg
+	else: player_bleed_dmg += i.card_resource.bleed_dmg
+	
+func bleed_damage_keeper():
+	var player = true
+	change_health(player, enemy_bleed_dmg)
+	if enemy_bleed_dmg > 0: enemy_bleed_dmg -= 1
+	
+	change_health(!player, player_bleed_dmg)
+	if player_bleed_dmg > 0: player_bleed_dmg -= 1
 
 func change_health(character, value):
 	if character:

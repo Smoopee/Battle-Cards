@@ -25,14 +25,14 @@ func effect(player_deck, enemy_deck):
 	
 	while switch == false:
 		if get_parent().card_resource.in_enemy_deck == true:
-			if enemy_deck[card_position].get_child(2).is_in_group("weapon"):
-				enemy_deck[card_position].get_child(2).add_child(new_instance)
+			if enemy_deck[card_position].get_child(Global.card_node_reference).is_in_group("weapon"):
+				enemy_deck[card_position].get_child(Global.card_node_reference).add_child(new_instance)
 				switch = true
 			else:
 				card_position += 1
 		else:
-			if player_deck[card_position].get_child(2).is_in_group("weapon"):
-				player_deck[card_position].get_child(2).add_child(new_instance)
+			if player_deck[card_position].get_child(Global.card_node_reference).is_in_group("weapon"):
+				player_deck[card_position].get_child(Global.card_node_reference).add_child(new_instance)
 				switch = true
 			else:
 				card_position += 1
@@ -61,5 +61,5 @@ func upgrade_card(num):
 			upgrade_effect = 3.5
 
 
-func item_enchantment(enchant):
+func item_enchant(enchant):
 	pass

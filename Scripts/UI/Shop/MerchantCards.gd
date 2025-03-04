@@ -22,11 +22,11 @@ func _ready():
 	for i in range(inventory_db.size()):
 		var card_scene = card
 		var new_card = card_scene.instantiate()
-		new_card.get_node("CardImage").texture = load(inventory_db[i].card_art_path)
 		new_card.get_node("Area2D").collision_layer = 2
 		new_card.get_node("Area2D").collision_mask = 2
 		new_card.card_resource = inventory_db[i].duplicate()
 		$"../CardManager".add_child(new_card)
+		new_card.update_card_ui()
 		add_card_to_hand(new_card)
 
 func fetch_merchant_inventory():

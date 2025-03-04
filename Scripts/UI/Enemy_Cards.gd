@@ -30,11 +30,10 @@ func create_enemy_cards():
 		get_child(i).add_child(new_node)
 		new_card.card_resource = enemy_cards_db[i].duplicate()
 		new_node.upgrade_card(enemy_cards_db[i].upgrade_level)
-		new_card.get_node("CardImage").texture = load(new_card.card_resource.card_art_path)
-		print("The Texture is " + str(new_card.card_resource.dmg))
 		new_card.card_resource.is_players = false
 		new_card.card_resource.in_enemy_deck = true
 		new_card.card_resource.inventory_position = card_position
+		new_card.update_card_ui()
 		new_node.queue_free()
 		
 		add_card_to_hand(new_card)

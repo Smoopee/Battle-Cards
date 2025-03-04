@@ -22,6 +22,7 @@ var player_gold: int = 5
 var player_xp: int = 0
 
 var card_db_reference
+var card_node_reference = 3
 
 func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
