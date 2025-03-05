@@ -24,6 +24,10 @@ class_name Cards_Resource
 @export var is_players: bool
 @export var item_enchant: String
 @export var screen_position: Vector2
+@export var is_enchanted : bool
+@export var is_enchantment: bool
+@export var enchanting_with: String
+
 
 func effect():
 	pass

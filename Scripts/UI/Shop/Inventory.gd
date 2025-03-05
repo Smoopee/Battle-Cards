@@ -29,6 +29,7 @@ func create_inventory():
 		new_card.card_resource.is_players = true
 		$"../CardManager".add_child(new_card)
 		new_card.update_card_ui()
+		new_card.card_shop_ui()
 		add_card_to_hand(new_card)
 		card_position += 1
 	

@@ -43,21 +43,29 @@ func upgrade_card(num):
 			print("level 1!")
 			get_parent().card_resource.card_art_path= "res://Resources/Cards/CardArt/double_up_card.png"
 			get_parent().card_resource.upgrade_level = 1
+			get_parent().card_resource.sell_price = 3
+			get_parent().card_resource.buy_price = 6
 			upgrade_effect = 2
 		2: 
 			print("level 2!")
 			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/double_up2_card.png"
 			get_parent().card_resource.upgrade_level = 2
+			get_parent().card_resource.sell_price = 6
+			get_parent().card_resource.buy_price = 12
 			upgrade_effect = 2.5
 		3:
 			print("level 3!")
 			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/double_up3_card.png"
 			get_parent().card_resource.upgrade_level = 3
+			get_parent().card_resource.sell_price = 12
+			get_parent().card_resource.buy_price = 24
 			upgrade_effect = 3
 		4:
 			print("level 4!")
 			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/double_up4_card.png"
 			get_parent().card_resource.upgrade_level = 4
+			get_parent().card_resource.sell_price = 24
+			get_parent().card_resource.buy_price = 48
 			upgrade_effect = 3.5
 
 

@@ -34,21 +34,29 @@ func upgrade_card(num):
 			print("level 1!")
 			get_parent().card_resource.card_art_path= "res://Resources/Cards/CardArt/Strengthen_card.png"
 			get_parent().card_resource.upgrade_level = 1
+			get_parent().card_resource.sell_price = 2
+			get_parent().card_resource.buy_price = 4
 			upgrade_effect = 1
 		2: 
 			print("level 2!")
 			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/strengthen2_card.png"
 			get_parent().card_resource.upgrade_level = 2
+			get_parent().card_resource.sell_price = 4
+			get_parent().card_resource.buy_price = 8
 			upgrade_effect = 2
 		3:
 			print("level 3!")
 			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/strengthen3_card.png"
 			get_parent().card_resource.upgrade_level = 3
+			get_parent().card_resource.sell_price = 8
+			get_parent().card_resource.buy_price = 16
 			upgrade_effect = 3
 		4:
 			print("level 4!")
 			get_parent().card_resource.card_art_path = "res://Resources/Cards/CardArt/strengthen4_card.png"
 			get_parent().card_resource.upgrade_level = 4
+			get_parent().card_resource.sell_price = 16
+			get_parent().card_resource.buy_price = 32
 			upgrade_effect = 4
 
 func item_enchant(enchant):

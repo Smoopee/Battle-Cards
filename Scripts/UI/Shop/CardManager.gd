@@ -18,6 +18,8 @@ func _ready():
 	merchant_inventory_reference = $"../MerchantCards"
 	player_inventory_reference = $"../Inventory"
 	
+	update_player_gold()
+	
 	for i in get_children():
 		if !i.card_resource.is_players:
 			print("Merchant Inventory")
@@ -47,6 +49,12 @@ func start_drag(card):
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
+	
+	if raycast_check_for_card() and card_being_dragged.card_resource.is_enchantment:
+		enchant_from_merchant(card_being_dragged, raycast_check_for_card())
+		print("Enchant card")
+		card_being_dragged = null
+		return
 	
 	if raycast_check_for_player() and not card_being_dragged.card_resource.is_players:
 		buy_card(card_being_dragged)
@@ -191,7 +199,8 @@ func sell_card(card):
 	card.get_node("Area2D").collision_layer = 2
 	card.get_node("Area2D").collision_mask = 2
 	card.card_resource.is_players = false
-	print(Global.player_gold)
+	card.card_shop_ui()
+	update_player_gold()
 
 func buy_card(card):
 	if player_inventory_reference.inventory.size() >= 15:
@@ -208,7 +217,8 @@ func buy_card(card):
 	card.get_node("Area2D").collision_layer = 1
 	card.get_node("Area2D").collision_mask = 1
 	card.card_resource.is_players = true
-	print(Global.player_gold)
+	card.card_shop_ui()
+	update_player_gold()
 
 func upgrade_card(upgrade_card, base_card):
 	if  upgrade_card.position != base_card.position and upgrade_card.card_resource.upgrade_level == base_card.card_resource.upgrade_level:
@@ -220,7 +230,8 @@ func upgrade_card(upgrade_card, base_card):
 		var temp = load(base_card.card_resource.card_scene_path).instantiate()
 		base_card.add_child(temp)
 		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
-		base_card.get_node("CardImage").texture = load(base_card.card_resource.card_art_path)
+		base_card.update_card_ui()
+		base_card.card_shop_ui()
 	else:
 		player_inventory_reference.add_card_to_hand(upgrade_card)
 	pass
@@ -237,12 +248,33 @@ func upgrade_from_merchant(upgrade_card, base_card):
 		if base_card.card_resource.upgrade_level >= 4:
 			merchant_inventory_reference.add_card_to_hand(upgrade_card)
 			return
+		Global.player_gold -= base_card.card_resource.buy_price
 		merchant_inventory_reference.remove_card_from_hand(upgrade_card)
 		upgrade_card.queue_free()
 		var temp = load(base_card.card_resource.card_scene_path).instantiate()
 		base_card.add_child(temp)
 		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
-		base_card.get_node("CardImage").texture = load(base_card.card_resource.card_art_path)
+		base_card.update_card_ui()
+		base_card.card_shop_ui()
+		update_player_gold()
 	else:
 		merchant_inventory_reference.add_card_to_hand(upgrade_card)
 	pass
+
+func enchant_from_merchant(enchant_card, base_card):
+	if Global.player_gold < enchant_card.card_resource.buy_price:
+			merchant_inventory_reference.add_card_to_hand(enchant_card)
+			print("Not enough gold")
+			return
+	Global.player_gold -= enchant_card.card_resource.buy_price
+	merchant_inventory_reference.remove_card_from_hand(enchant_card)
+	var temp = load(base_card.card_resource.card_scene_path).instantiate()
+	enchant_card.queue_free()
+	base_card.add_child(temp)
+	temp.item_enchant(enchant_card.card_resource.enchanting_with)
+	base_card.update_card_ui()
+	base_card.card_shop_ui()
+	update_player_gold()
+
+func update_player_gold():
+	$"../ShopUI/PlayerGold".text = str(Global.player_gold) + " gold"

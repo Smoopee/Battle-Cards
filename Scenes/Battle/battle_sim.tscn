@@ -21,10 +21,6 @@ script = ExtResource("2_uev3k")
 [node name="player_deck" type="Node2D" parent="."]
 script = ExtResource("2_ti0s5")
 
-[node name="PlayerInventory" type="Node2D" parent="." groups=["card manager"]]
-visible = false
-script = ExtResource("11_njjdc")
-
 [node name="Enemy" type="Node2D" parent="."]
 script = ExtResource("3_7ul7h")
 
@@ -82,6 +78,10 @@ offset_bottom = 903.0
 
 [node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
 visible = false
+
+[node name="PlayerInventory" type="Node2D" parent="." groups=["card manager"]]
+visible = false
+script = ExtResource("11_njjdc")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 891.0

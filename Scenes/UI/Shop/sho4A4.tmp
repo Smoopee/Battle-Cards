@@ -22,36 +22,18 @@ script = ExtResource("3_82fbf")
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("5_5052o")
 
-[node name="Player" parent="." instance=ExtResource("6_52iue")]
-
-[node name="ShopUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="RerollButton" type="Button" parent="ShopUI"]
-layout_mode = 0
-offset_left = 1691.0
-offset_top = 181.0
-offset_right = 1759.0
-offset_bottom = 212.0
-text = "Refresh"
-
-[node name="ExitButton" type="Button" parent="ShopUI"]
-layout_mode = 0
+[node name="ExitButton" type="Button" parent="."]
 offset_left = 1744.0
 offset_top = 936.0
 offset_right = 1797.0
 offset_bottom = 967.0
 text = "Leave"
 
-[node name="PlayerGold" type="Label" parent="ShopUI"]
-layout_mode = 0
-offset_left = 1080.0
-offset_top = 909.0
-offset_right = 1120.0
-offset_bottom = 932.0
+[node name="Player" parent="." instance=ExtResource("6_52iue")]
 
-[connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
-[connection signal="button_down" from="ShopUI/ExitButton" to="." method="_on_exit_button_button_down"]
+[node name="RerollButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="button_down" from="ExitButton" to="." method="_on_exit_button_button_down"]
+[connection signal="button_down" from="RerollButton" to="." method="_on_reroll_button_button_down"]

@@ -36,9 +36,25 @@ offset_bottom = 126.0
 [node name="ItemEnchantImage" type="Sprite2D" parent="CardUI/HBoxContainer"]
 position = Vector2(69, 19)
 
-[node name="Label" type="Label" parent="CardUI/HBoxContainer"]
+[node name="CardDamage" type="Label" parent="CardUI/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.335604, 0.318622, 0.303977, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SellPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = -27.0
+offset_right = 39.0
+offset_bottom = -4.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="BuyPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 127.0
+offset_right = 41.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

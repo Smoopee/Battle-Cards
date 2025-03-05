@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4q6ux8w205oh"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/CardEnchants/bleed_enchant_card.gd" id="1_y5db4"]
+[ext_resource type="Resource" uid="uid://51c3e81dpckp" path="res://Resources/Cards/CardEnchants/bleed_enchant_card.tres" id="2_2diq0"]
+
+[node name="BleedEnchantCard" type="Node2D"]
+script = ExtResource("1_y5db4")
+card_stats_resource = ExtResource("2_2diq0")

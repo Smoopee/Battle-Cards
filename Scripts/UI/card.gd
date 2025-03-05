@@ -32,7 +32,16 @@ func change_item_enchant_image():
 		$CardUI/HBoxContainer/ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
 
 func change_card_dmg_text():
-	$CardUI/HBoxContainer/Label.text = str(card_resource.dmg)
+	$CardUI/HBoxContainer/CardDamage.text = str(card_resource.dmg)
+
+func card_shop_ui():
+	if card_resource.is_players:
+		$CardUI/SellPrice.text = str(card_resource.sell_price) + "g"
+		$CardUI/BuyPrice.text = ""
+	
+	if !card_resource.is_players:
+		$CardUI/BuyPrice.text = "- " + str(card_resource.buy_price) + "g"
+		$CardUI/SellPrice.text = ""
 
 func update_card_ui():
 	update_card_image()

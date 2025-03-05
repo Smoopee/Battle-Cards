@@ -3,6 +3,7 @@ extends Node2D
 var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"
 var playerData = PlayerData.new()
+@onready var merchant_cards = $MerchantCards
 
 @onready var player_inventory = $Inventory
 
@@ -13,7 +14,7 @@ func _ready():
 	
 	$Player.get_node("Area2D").collision_mask = 8
 	$Player.get_node("Area2D").collision_layer = 8
-	
+
 
 func verify_save_directory(path: String):
 	DirAccess.make_dir_absolute(path)
@@ -31,4 +32,15 @@ func _on_exit_button_button_down():
 	save()
 	get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
 
+
+func _on_reroll_button_button_down():
+	merchant_cards.inventory = []
+	
+	for i in $CardManager.get_children():
+		if i.card_resource.is_players == false:
+			i.queue_free()
+	
+	merchant_cards.inventory_db = []
+	
+	merchant_cards.create_merchant_inventory()
 
