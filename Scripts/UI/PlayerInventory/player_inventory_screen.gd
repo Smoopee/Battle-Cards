@@ -82,6 +82,7 @@ func remove_card_from_hand(card):
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, 0.1)
+
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -95,6 +96,7 @@ func _input(event):
 
 func start_drag(card):
 	print("Start drag")
+	print(card)
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 
@@ -102,6 +104,11 @@ func finish_drag():
 	if raycast_check_for_card() and card_being_dragged.card_resource.is_players:
 		upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 		print("Upgrade card")
+		
+		var temp = []
+		for i in inventory:
+			temp.push_back(i.card_resource)
+			Global.player_inventory = temp
 		card_being_dragged = null
 		return
 	

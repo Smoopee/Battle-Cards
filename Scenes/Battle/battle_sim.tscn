@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=11 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_th71o"]
 [ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_326y0"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manger.tscn" id="10_1g37w"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="11_njjdc"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="11_rvgss"]
 
@@ -94,6 +95,8 @@ offset_right = 1920.0
 offset_bottom = 1079.0
 mouse_filter = 2
 texture = ExtResource("11_rvgss")
+
+[node name="ConsumableManger" parent="." instance=ExtResource("10_1g37w")]
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="HBoxContainer/RearrangeButton" to="." method="_on_rearrange_button_button_down"]

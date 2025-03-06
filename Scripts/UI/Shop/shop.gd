@@ -9,11 +9,6 @@ var playerData = PlayerData.new()
 
 func _ready():
 	verify_save_directory(save_file_path)
-	
-	$Player.get_node("Area2D").collision_mask = 8
-	$Player.get_node("Area2D").collision_layer = 8
-
-
 func verify_save_directory(path: String):
 	DirAccess.make_dir_absolute(path)
 func save():
