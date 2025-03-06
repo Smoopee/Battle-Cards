@@ -2,7 +2,7 @@ extends Node2D
 
 
 const CARD_WIDTH = 130
-const HAND_Y_POSITION = 890
+const HAND_Y_POSITION = 730
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
 var card_db_reference

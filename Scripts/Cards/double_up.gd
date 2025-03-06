@@ -18,7 +18,7 @@ func on_start(board):
 
 func effect(player_deck, enemy_deck):
 	var buff = preload("res://Scenes/Buffs/double_up_buff.tscn")
-	var card_position = get_parent().card_resource.hand_position
+	var card_position = get_parent().card_resource.deck_position
 	var new_instance = buff.instantiate()
 	new_instance.multiplier = upgrade_effect
 	var switch = false

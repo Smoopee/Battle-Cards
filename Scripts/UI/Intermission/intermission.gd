@@ -106,12 +106,11 @@ func get_card_with_highest_z_index(cards):
 
 
 func _on_inventory_button_button_down():
-	if !$PlayerInventory.visible:
-		$PlayerInventory.visible = true
+	if !$PlayerInventoryScreen.visible:
+		$PlayerInventoryScreen.visible = true
 	else:
-		$PlayerInventory.visible = false
+		$PlayerInventoryScreen.visible = false
 		
-	if !$ColorRect.visible:
-		$ColorRect.visible = true
-	else:
-		$ColorRect.visible = false
+	$CardSelector.card_selector_collision_toggle()
+	
+	$PlayerInventoryScreen.inventory_collision_toggle()

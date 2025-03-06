@@ -58,6 +58,8 @@ func connect_card_signals(card):
 	card.connect("hoovered_off", on_hoovered_off_card)
 
 func on_hoovered_over_card(card):
+	if card.is_discarded == true:
+		return
 	if !is_hoovering_on_card:
 		is_hoovering_on_card = true
 		highlight_card(card, true)

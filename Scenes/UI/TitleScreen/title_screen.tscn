@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cm74upg60eq4p"]
+[gd_scene load_steps=7 format=3 uid="uid://cm74upg60eq4p"]
 
 [ext_resource type="Script" path="res://Scripts/UI/TitleScreen/title_screen.gd" id="1_0vmbg"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_8veqb"]
 [ext_resource type="Script" path="res://Scripts/UI/TitleScreen/Start.gd" id="2_siocb"]
 [ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="3_2k0xr"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_s6psa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0131"]
 size = Vector2(98, 127)
@@ -35,3 +36,9 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_r0131")
 
 [node name="CardSelector" parent="." instance=ExtResource("1_8veqb")]
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 1920.0
+offset_bottom = 1079.0
+texture = ExtResource("5_s6psa")

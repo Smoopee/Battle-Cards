@@ -2,7 +2,7 @@ extends Node2D
 
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 const CARD_WIDTH = 150
-const ENEMY_Y_POSITION = 590
+const ENEMY_Y_POSITION = 490
 
 var rng = RandomNumberGenerator.new()
 var enemy_db_reference

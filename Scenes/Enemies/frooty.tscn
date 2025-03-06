@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://urupydnj75t0"]
+[gd_scene load_steps=6 format=3 uid="uid://urupydnj75t0"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/frooty.gd" id="1_ewafx"]
 [ext_resource type="Texture2D" uid="uid://bpreuxhp222uu" path="res://Resources/Art/Enemies/frooty.png" id="2_58rye"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Deck.gd" id="3_llvby"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Skills.gd" id="4_2ao04"]
+[ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="5_5n141"]
 
 [node name="Frooty" type="Node2D"]
 script = ExtResource("1_ewafx")
@@ -16,3 +17,11 @@ script = ExtResource("3_llvby")
 
 [node name="Skills" type="Node2D" parent="."]
 script = ExtResource("4_2ao04")
+
+[node name="EnemyHealthBar" type="TextureProgressBar" parent="."]
+offset_left = -47.0
+offset_top = 48.0
+offset_right = 47.0
+offset_bottom = 62.0
+value = 100.0
+texture_progress = ExtResource("5_5n141")

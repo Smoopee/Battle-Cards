@@ -3,8 +3,8 @@ extends Node2D
 @onready var player_deck = $player_deck
 @onready var enemy = $Enemy
 @onready var player_skills = $PlayerSkills
-@onready var player_character = $player_character
 @onready var ui = $UI
+@onready var player = $Player
 
 var rng = RandomNumberGenerator.new()
 
@@ -26,14 +26,16 @@ func combat(player_deck_list, enemy_deck_list):
 
 	print("It is turn " + str(turn_counter))
 	buff_keeper()
+	player_deck.build_deck_position()
+	enemy.build_deck_position()
 	
 	for i in range(0, 10):
 		print(str(player_deck_list[i].card_resource.name))
 		print(str(enemy_deck_list[i].card_resource.name))
 		
-		
-		ui.change_player_card(player_deck_list[i].card_resource.card_art_path)
-		ui.change_enemy_card(enemy_deck_list[i].card_resource.card_art_path)
+		player_deck.play_card(player_deck_list[i])
+		print("enemy card is " + str(enemy_deck_list[i]))
+		enemy.play_card(enemy_deck_list[i])
 		
 		#                  Child 2 is where the card Node is at 
 		player_deck_list[i].get_child(Global.card_node_reference).effect(player_deck_list, enemy_deck_list)
@@ -50,7 +52,10 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		bleed_damage_keeper()
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1.5).timeout
+		
+		player_deck.discard(player_deck_list[i])
+		enemy.discard(enemy_deck_list[i])
 		
 		if death_checker(): break
 		
@@ -122,11 +127,11 @@ func change_health(character, value):
 	if character:
 		Global.change_enemy_health(-value)
 		ui.change_player_damage_number(value)
-		ui.change_enemy_health()
+		enemy.change_enemy_health()
 	else:
 		Global.change_player_health(-value)
 		ui.change_enemy_damage_number(value)
-		ui.change_player_health()
+		player.change_player_health()
 
 func heal_func(i):
 	if i.card_resource.heal <= 0: return

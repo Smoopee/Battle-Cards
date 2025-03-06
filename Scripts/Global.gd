@@ -26,7 +26,7 @@ var card_node_reference = 3
 
 func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
-	max_player_health = 10000
+	max_player_health = 200
 	player_health = max_player_health
 	
 	max_enemy_health = 100

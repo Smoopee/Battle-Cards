@@ -12,5 +12,5 @@ func _ready():
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = stats 
 
-func upgrade_card():
+func upgrade_card(card):
 	pass

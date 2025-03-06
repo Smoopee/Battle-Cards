@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg8o1xmo3tpdj"]
+[gd_scene load_steps=7 format=3 uid="uid://cg8o1xmo3tpdj"]
 
 [ext_resource type="Script" path="res://Scripts/UI/StartScreen/start_screen.gd" id="1_hd3kb"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_1chac"]
 [ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="3_dsfx2"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="4_7wkrm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e27j"]
 size = Vector2(97, 126)
@@ -59,3 +60,9 @@ offset_bottom = 12.0
 text = "Load Game
 "
 horizontal_alignment = 1
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 1920.0
+offset_bottom = 1079.0
+texture = ExtResource("4_7wkrm")

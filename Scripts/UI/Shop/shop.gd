@@ -9,8 +9,6 @@ var playerData = PlayerData.new()
 
 func _ready():
 	verify_save_directory(save_file_path)
-	var center_screen_x = get_viewport().size.x / 2
-	$Player.position = Vector2(center_screen_x, 900)
 	
 	$Player.get_node("Area2D").collision_mask = 8
 	$Player.get_node("Area2D").collision_layer = 8

@@ -1,21 +1,31 @@
 extends Node2D
 
+const DECK_Y_POSITION = 100
+const DECK_X_POSITION = 650
+
+var center_screen_x
+var center_screen_y
+var discard_offset = 0
+
 var enemy_deck = []
 var enemy_skills = []
 var enemy
-
+var deck = []
 
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	add_child(enemy)
-	
-	var center_screen_x = get_viewport().size.x / 2
+	center_screen_y = get_viewport().size.y / 2
+	center_screen_x = get_viewport().size.x / 2
 	enemy.position = Vector2(center_screen_x, 150)
+	
+	get_child(0).get_node("EnemyHealthBar").max_value = Global.max_enemy_health
+	get_child(0).get_node("EnemyHealthBar").value = Global.enemy_health
 	
 func build_deck():
 	enemy_deck = enemy.enemy_deck
 
-	var deck = []
+	deck = []
 	var counter = 0
 	
 	var card = preload("res://Scenes/UI/card.tscn")
@@ -23,23 +33,49 @@ func build_deck():
 	for i in range(enemy_deck.size()):
 		var card_scene = card
 		var new_card = card_scene.instantiate()
-		new_card.get_node("CardImage").texture = load(enemy_deck[i].card_art_path)
-		new_card.visible = false
 		add_child(new_card)
 		deck.push_back(new_card)
 		var new_node = load(enemy_deck[i].card_scene_path).instantiate()
 		#     it is i+1 to get the current card to attach the Node 
 		get_child(i+1).add_child(new_node)
-		new_node.visible = false
 		new_card.card_resource = enemy_deck[i]
 		new_node.upgrade_card(enemy_deck[i].upgrade_level)
 		new_card.card_resource = enemy_deck[i].duplicate()
 		new_card.card_resource.is_players = false
 		new_card.card_resource.in_enemy_deck = true
+		new_card.card_resource.deck_position = counter
+		new_card.update_card_ui()
 		
 		counter += 1
 	
 	return deck
+
+func build_deck_position():
+	for i in deck:
+		discard_offset = 0
+		i.is_discarded = false
+		i.scale =  Vector2(1, 1)
+		i.position = Vector2(DECK_X_POSITION, DECK_Y_POSITION)
+ 
+func play_card(card):
+	if card.card_resource.deck_position < deck.size()-1:
+		deck[card.card_resource.deck_position+1].z_index = 3
+	animate_card_to_active_position(card)
+
+func animate_card_to_active_position(card):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", Vector2(center_screen_x, center_screen_y - 150), 0.2)
+
+func discard(card):
+	card.is_discarded = true
+	card.z_index = 1
+	card.scale = Vector2(.55, .55)
+	animate_card_to_discard_position(card)
+
+func animate_card_to_discard_position(card):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", Vector2(1250 - discard_offset, 100), 0.1)
+	discard_offset += 20
 
 func add_skills():
 	enemy_skills = enemy.enemy_skills
@@ -60,3 +96,5 @@ func add_skills():
 
 	return skill_array
 
+func change_enemy_health():
+	get_child(0).get_node("EnemyHealthBar").value = Global.enemy_health

@@ -10,6 +10,8 @@ var path = ""
 var is_players = false
 var card_position
 var card_resource
+var is_discarded = false
+var disabled_collision = false
 
 
 func _ready():
@@ -49,3 +51,9 @@ func update_card_ui():
 	change_card_dmg_text()
 	
 
+func disable_collision():
+	$Area2D/CollisionShape2D.disabled = true
+	disabled_collision = true
+func enable_collision():
+	$Area2D/CollisionShape2D.disabled = false
+	disabled_collision = false

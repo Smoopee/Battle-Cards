@@ -8,7 +8,7 @@ class_name Cards_Resource
 @export var dmg: int
 @export var position: int
 @export var inventory_position: int
-@export var hand_position: int
+@export var deck_position: int
 @export var upgrade_level: int
 @export var burn_dmg: int
 @export var poison_dmg: int
