@@ -1,7 +1,7 @@
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_ENEMY = 2
+const COLLISION_MASK_CARD_SELECTOR = 16
+const COLLISION_MASK_ENEMY = 4
 
 var screen_size
 var is_hoovering_on_card
@@ -22,8 +22,8 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			var card = raycast_check_for_card()
-			if card and !card.is_players:
+			var card = raycast_check_for_card_selector()
+			if card:
 				start_drag(card)
 		else:
 			if card_being_dragged:
@@ -37,7 +37,7 @@ func finish_drag():
 		enemy_loader(enemy_found)
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:
-		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
 func start_drag(card):
@@ -56,7 +56,7 @@ func on_hoovered_over_card(card):
 func on_hoovered_off_card(card):
 	if !card_being_dragged:
 		highlight_card(card, false)
-		var new_card_hoovered = raycast_check_for_card()
+		var new_card_hoovered = raycast_check_for_card_selector()
 		if new_card_hoovered:
 			highlight_card(new_card_hoovered, true)
 		else: 
@@ -70,12 +70,12 @@ func highlight_card(card, hoovered):
 		card.scale = Vector2(1, 1)
 		card.z_index = 1
 
-func raycast_check_for_card():
+func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD
+	parameters.collision_mask = COLLISION_MASK_CARD_SELECTOR
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)
@@ -104,7 +104,7 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func enemy_loader(enemy):
-	Global.current_enemy = enemy.card_resource
+	Global.current_enemy = enemy.enemy_stats
 	Global.max_enemy_health = Global.current_enemy.health
 	Global.enemy_health = Global.max_enemy_health
 

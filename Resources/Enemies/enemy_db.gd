@@ -1,6 +1,6 @@
 const ENEMIES = {
-	"Trogg" : "res://Resources/Enemies/Trogg.tres",
-	"Pirate" : "res://Resources/Enemies/Pirate.tres",
-	"Frooty" : "res://Resources/Enemies/frooty.tres",
+	"Trogg" : "res://Scenes/Enemies/trogg.tscn",
+	"Pirate" : "res://Scenes/Enemies/pirate.tscn",
+	"Frooty" : "res://Scenes/Enemies/frooty.tscn",
 	#"Rat King" : "res://Resources/Enemies/rat_king.tres"
 }

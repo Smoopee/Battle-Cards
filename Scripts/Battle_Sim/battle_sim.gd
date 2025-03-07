@@ -30,16 +30,16 @@ func combat(player_deck_list, enemy_deck_list):
 	enemy.build_deck_position()
 	
 	for i in range(0, 10):
-		print(str(player_deck_list[i].card_resource.name))
-		print(str(enemy_deck_list[i].card_resource.name))
+		print(str(player_deck_list[i].card_stats.name))
+		print(str(enemy_deck_list[i].card_stats.name))
 		
 		player_deck.play_card(player_deck_list[i])
 		print("enemy card is " + str(enemy_deck_list[i]))
 		enemy.play_card(enemy_deck_list[i])
 		
 		#                  Child 2 is where the card Node is at 
-		player_deck_list[i].get_child(Global.card_node_reference).effect(player_deck_list, enemy_deck_list)
-		enemy_deck_list[i].get_child(Global.card_node_reference).effect(player_deck_list, enemy_deck_list)
+		player_deck_list[i].effect(player_deck_list, enemy_deck_list)
+		enemy_deck_list[i].effect(player_deck_list, enemy_deck_list)
 		
 		damage_func(player_deck_list[i])
 		damage_func(enemy_deck_list[i])
@@ -88,19 +88,19 @@ func death_checker():
 func crit_check(i):
 	var critical_strike_check = rng.randf_range(0, 1)
 	
-	if critical_strike_check <= i.card_resource.critical_strike_chance:
+	if critical_strike_check <= i.card_stats.critical_strike_chance:
 		print("CRIT!")
 		return true
 	else: return false
 
 func damage_func(i):
-	if i.card_resource.dmg <= 0: return
+	if i.card_stats.dmg <= 0: return
 	var player_card = true
-	if i.card_resource.in_enemy_deck: player_card = false
+	if i.card_stats.in_enemy_deck: player_card = false
 	var armor = enemy_armor
 	if !player_card: armor = player_armor
 	
-	var damage = i.card_resource.dmg - armor
+	var damage = i.card_stats.dmg - armor
 	if damage < 0: damage = 0
 	
 	if crit_check(i): damage *= 2
@@ -108,12 +108,12 @@ func damage_func(i):
 	change_health(player_card, damage)
 
 func bleed_func(i):
-	if i.card_resource.bleed_dmg <= 0: return
+	if i.card_stats.bleed_dmg <= 0: return
 	var player_card = true
-	if i.card_resource.in_enemy_deck: player_card = false
+	if i.card_stats.in_enemy_deck: player_card = false
 	
-	if player_card: enemy_bleed_dmg += i.card_resource.bleed_dmg
-	else: player_bleed_dmg += i.card_resource.bleed_dmg
+	if player_card: enemy_bleed_dmg += i.card_stats.bleed_dmg
+	else: player_bleed_dmg += i.card_stats.bleed_dmg
 	
 func bleed_damage_keeper():
 	var player = true
@@ -134,11 +134,11 @@ func change_health(character, value):
 		player.change_player_health()
 
 func heal_func(i):
-	if i.card_resource.heal <= 0: return
+	if i.card_stats.heal <= 0: return
 	var player_card = true
-	if i.card_resource.in_enemy_deck: player_card = false
+	if i.card_stats.in_enemy_deck: player_card = false
 	
-	var heal = i.card_resource.heal
+	var heal = i.card_stats.heal
 	
 	if crit_check(i): heal *= 2
 	change_health(!player_card, -heal)
@@ -151,9 +151,7 @@ func buff_keeper():
 func _on_button_button_down():
 	
 	player_deck_list = player_deck.build_deck()
-	
-	for i in player_deck_list:
-		print(i.card_resource.upgrade_level)
+
 	enemy_deck_list = enemy.build_deck() 
 	
 	

@@ -1,14 +1,13 @@
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_MERCHANT_CARD = 2
-const COLLISION_MASK_MERCHANT = 4
+const COLLISION_MASK_MERCHANT_CARD = 64
+const COLLISION_MASK_MERCHANT = 32
 const COLLISION_MASK_PLAYER = 8
 
 
 var screen_size
 var card_being_dragged
-var is_hoovering_on_card
 var merchant_inventory_reference
 var player_inventory_reference
 
@@ -21,7 +20,7 @@ func _ready():
 	update_player_gold()
 	
 	for i in get_children():
-		if !i.card_resource.is_players:
+		if !i.card_stats.is_players:
 			print("Merchant Inventory")
 
 func _process(delta):
@@ -45,75 +44,47 @@ func _input(event):
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	card_being_dragged.scale = Vector2(1.1, 1.1)
+	card_being_dragged.z_index = 2
 
 func finish_drag():
-	card_being_dragged.scale = Vector2(1.05, 1.05)
-	
-	if raycast_check_for_card() and card_being_dragged.card_resource.is_enchantment:
+	if raycast_check_for_card() and card_being_dragged.card_stats.is_enchantment:
 		enchant_from_merchant(card_being_dragged, raycast_check_for_card())
 		print("Enchant card")
 		card_being_dragged = null
 		return
 	
-	if raycast_check_for_player() and not card_being_dragged.card_resource.is_players:
+	if raycast_check_for_player() and not card_being_dragged.card_stats.is_players:
 		buy_card(card_being_dragged)
 		print("Buy card")
 		card_being_dragged = null
 		return
 	
-	if raycast_check_for_merchant() and card_being_dragged.card_resource.is_players:
+	if raycast_check_for_merchant() and card_being_dragged.card_stats.is_players:
 		sell_card(card_being_dragged)
 		card_being_dragged = null
 		return
 	
-	if raycast_check_for_card() and card_being_dragged.card_resource.is_players:
+	if raycast_check_for_card() and card_being_dragged.card_stats.is_players:
 		upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 		print("Upgrade card")
 		card_being_dragged = null
 		return
 	
-	if raycast_check_for_card() and not card_being_dragged.card_resource.is_players:
+	if raycast_check_for_card() and not card_being_dragged.card_stats.is_players:
 		upgrade_from_merchant(card_being_dragged, raycast_check_for_upgrade_card())
 		print("Upgrade from merchant")
 		card_being_dragged = null
 		return
 	
 		
-	if !card_being_dragged.card_resource.is_players:
+	if !card_being_dragged.card_stats.is_players:
 		$"../MerchantCards".add_card_to_hand(card_being_dragged)
 		
-	if card_being_dragged.card_resource.is_players:
+	if card_being_dragged.card_stats.is_players:
 		$"../Inventory".add_card_to_hand(card_being_dragged)
 	
 	card_being_dragged = null
-
-
-func connect_card_signals(card):
-	card.connect("hoovered", on_hoovered_over_card)
-	card.connect("hoovered_off", on_hoovered_off_card)
-
-func on_hoovered_over_card(card):
-	if !is_hoovering_on_card:
-		is_hoovering_on_card = true
-		highlight_card(card, true)
-
-func on_hoovered_off_card(card):
-	if !card_being_dragged:
-		highlight_card(card, false)
-		var new_card_hoovered = raycast_check_for_card()
-		if new_card_hoovered:
-			highlight_card(new_card_hoovered, true)
-		else: 
-			is_hoovering_on_card = false
-
-func highlight_card(card, hoovered):
-	if hoovered:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
-	else:
-		card.scale = Vector2(1, 1)
-		card.z_index = 1
 
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
@@ -193,12 +164,12 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func sell_card(card):
-	Global.player_gold += card.card_resource.sell_price
+	Global.player_gold += card.card_stats.sell_price
 	merchant_inventory_reference.add_card_to_hand(card)
 	player_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = 2
 	card.get_node("Area2D").collision_mask = 2
-	card.card_resource.is_players = false
+	card.card_stats.is_players = false
 	card.card_shop_ui()
 	update_player_gold()
 
@@ -207,29 +178,27 @@ func buy_card(card):
 		merchant_inventory_reference.add_card_to_hand(card)
 		print("Not enough space")
 		return
-	if Global.player_gold < card.card_resource.buy_price:
+	if Global.player_gold < card.card_stats.buy_price:
 		merchant_inventory_reference.add_card_to_hand(card)
 		print("Not enough gold")
 		return
-	Global.player_gold -= card.card_resource.buy_price
+	Global.player_gold -= card.card_stats.buy_price
 	player_inventory_reference.add_card_to_hand(card)
 	merchant_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = 1
 	card.get_node("Area2D").collision_mask = 1
-	card.card_resource.is_players = true
+	card.card_stats.is_players = true
 	card.card_shop_ui()
 	update_player_gold()
 
 func upgrade_card(upgrade_card, base_card):
-	if  upgrade_card.position != base_card.position and upgrade_card.card_resource.upgrade_level == base_card.card_resource.upgrade_level:
-		if base_card.card_resource.upgrade_level >= 4:
+	if  upgrade_card.position != base_card.position and upgrade_card.card_stats.upgrade_level == base_card.card_stats.upgrade_level:
+		if base_card.card_stats.upgrade_level >= 4:
 			player_inventory_reference.add_card_to_hand(upgrade_card)
 			return
 		player_inventory_reference.remove_card_from_hand(upgrade_card)
 		upgrade_card.queue_free()
-		var temp = load(base_card.card_resource.card_scene_path).instantiate()
-		base_card.add_child(temp)
-		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
+		base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 		base_card.update_card_ui()
 		base_card.card_shop_ui()
 	else:
@@ -237,23 +206,21 @@ func upgrade_card(upgrade_card, base_card):
 	pass
 
 func upgrade_from_merchant(upgrade_card, base_card):
-	if  upgrade_card.position != base_card.position and upgrade_card.card_resource.upgrade_level == base_card.card_resource.upgrade_level:
-		if Global.player_gold < upgrade_card.card_resource.buy_price:
+	if  upgrade_card.position != base_card.position and upgrade_card.card_stats.upgrade_level == base_card.card_stats.upgrade_level:
+		if Global.player_gold < upgrade_card.card_stats.buy_price:
 			merchant_inventory_reference.add_card_to_hand(upgrade_card)
 			print("Not enough gold")
 			return
-		if base_card.card_resource.card_scene_path != upgrade_card.card_resource.card_scene_path:
+		if base_card.card_stats.card_scene_path != upgrade_card.card_stats.card_scene_path:
 			merchant_inventory_reference.add_card_to_hand(upgrade_card)
 			return
-		if base_card.card_resource.upgrade_level >= 4:
+		if base_card.card_stats.upgrade_level >= 4:
 			merchant_inventory_reference.add_card_to_hand(upgrade_card)
 			return
-		Global.player_gold -= base_card.card_resource.buy_price
+		Global.player_gold -= base_card.card_stats.buy_price
 		merchant_inventory_reference.remove_card_from_hand(upgrade_card)
 		upgrade_card.queue_free()
-		var temp = load(base_card.card_resource.card_scene_path).instantiate()
-		base_card.add_child(temp)
-		temp.upgrade_card(base_card.card_resource.upgrade_level + 1)
+		base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 		base_card.update_card_ui()
 		base_card.card_shop_ui()
 		update_player_gold()
@@ -262,16 +229,16 @@ func upgrade_from_merchant(upgrade_card, base_card):
 	pass
 
 func enchant_from_merchant(enchant_card, base_card):
-	if Global.player_gold < enchant_card.card_resource.buy_price:
+	if Global.player_gold < enchant_card.card_stats.buy_price:
 			merchant_inventory_reference.add_card_to_hand(enchant_card)
 			print("Not enough gold")
 			return
-	Global.player_gold -= enchant_card.card_resource.buy_price
+	Global.player_gold -= enchant_card.card_stats.buy_price
 	merchant_inventory_reference.remove_card_from_hand(enchant_card)
-	var temp = load(base_card.card_resource.card_scene_path).instantiate()
+	var temp = load(base_card.card_stats.card_scene_path).instantiate()
 	enchant_card.queue_free()
 	base_card.add_child(temp)
-	temp.item_enchant(enchant_card.card_resource.enchanting_with)
+	temp.item_enchant(enchant_card.card_stats.enchanting_with)
 	base_card.update_card_ui()
 	base_card.card_shop_ui()
 	update_player_gold()

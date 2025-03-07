@@ -22,3 +22,6 @@ func upgrade_card(num):
 
 func item_enchant(enchant):
 	pass
+
+func update_card_ui():
+	pass

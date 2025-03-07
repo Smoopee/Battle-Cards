@@ -28,15 +28,9 @@ func _ready():
 	create_encounter(enemy_array)
 
 func create_encounter(enemy_array):
-	var card = preload("res://Scenes/UI/card.tscn")
 	
 	for i in range(enemy_array.size()):
-		var enemy_scene = card
-		var new_enemy = enemy_scene.instantiate()
-		new_enemy.get_node("CardImage").texture = load(enemy_array[i].enemy_art_path)
-		new_enemy.get_node("Area2D").collision_layer = 2
-		new_enemy.get_node("Area2D").collision_mask = 2
-		new_enemy.card_resource = enemy_array[i].duplicate()
+		var new_enemy = enemy_array[i].instantiate()
 		add_child(new_enemy)
 		enemy_selection.push_front(new_enemy)
 		update_enemy_positions()

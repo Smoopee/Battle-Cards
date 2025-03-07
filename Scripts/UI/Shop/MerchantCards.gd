@@ -19,22 +19,22 @@ func _ready():
 
 func create_merchant_inventory():
 	fetch_merchant_inventory()
-	var card = preload("res://Scenes/UI/card.tscn")
 	
 	for i in range(inventory_db.size()):
-		var card_scene = card
-		var new_card = card_scene.instantiate()
-		$"../CardManager".add_child(new_card)
-		var new_node = load(inventory_db[i].card_scene_path).instantiate()
-		new_card.add_child(new_node)
-		new_card.card_resource = inventory_db[i].duplicate()
-		new_node.upgrade_card(inventory_db[i].upgrade_level)
-		new_card.get_node("Area2D").collision_layer = 2
-		new_card.get_node("Area2D").collision_mask = 2
-		new_card.update_card_ui()
-		new_card.card_shop_ui()
-		add_card_to_hand(new_card)
-		new_node.queue_free()
+		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
+		card_scene.set_stats()
+		add_child(card_scene)
+		add_card_to_hand(card_scene)
+	
+	var card_position = 0
+	for i in inventory:
+		i.get_node("Area2D").collision_mask = 64
+		i.get_node("Area2D").collision_layer = 64
+		i.update_card_ui()
+		i.card_shop_ui()
+		i.card_stats.inventory_position = card_position
+		i.card_stats.is_players = false
+		card_position += 1
 
 func fetch_merchant_inventory():
 	inventory_db = $"../Merchant".get_child(0).get_inventory()
@@ -44,28 +44,25 @@ func add_card_to_hand(card):
 		inventory.push_back(card)
 		update_hand_positions()
 	else:
-		animate_card_to_position(card, card.card_resource.screen_position)
+		animate_card_to_position(card, card.card_stats.screen_position)
 
 func update_hand_positions():
 	for i in range(inventory.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card = inventory[i]
-		card.card_resource.screen_position = new_position
-		if animation_canel:
-			card.position = new_position
-		else:
-			animate_card_to_position(card, new_position)
+		card.card_stats.screen_position = new_position
+		card.position = new_position
  
 func calculate_card_position(index):
 	var total_width = (inventory.size() - 1) * CARD_WIDTH
 	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
 	return x_offset
- 
-func animate_card_to_position(card, new_position):
-	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", new_position, 0.1)
 
 func remove_card_from_hand(card):
 	if card in inventory:
 		inventory.erase(card)
 		update_hand_positions()
+
+func animate_card_to_position(card, new_position):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", new_position, 0.1)

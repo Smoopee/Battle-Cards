@@ -15,8 +15,8 @@ merchant_stats_resource = ExtResource("2_05wnt")
 texture = ExtResource("3_drvva")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 32
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_1o67p")

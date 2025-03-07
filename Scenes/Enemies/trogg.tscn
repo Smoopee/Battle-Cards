@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dswvx8admntjv"]
+[gd_scene load_steps=8 format=3 uid="uid://dswvx8admntjv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_owa5p"]
@@ -7,12 +7,22 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Skills.gd" id="5_te5x3"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_dl2cu"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq8io"]
+size = Vector2(98, 128)
+
 [node name="Trogg" type="Node2D"]
 script = ExtResource("1_owa5p")
 enemy_stats_resource = ExtResource("2_ngcah")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_lm8mr")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_iq8io")
 
 [node name="Deck" type="Node2D" parent="."]
 script = ExtResource("1_l5y18")

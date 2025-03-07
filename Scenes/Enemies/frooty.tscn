@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://urupydnj75t0"]
+[gd_scene load_steps=7 format=3 uid="uid://urupydnj75t0"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/frooty.gd" id="1_ewafx"]
 [ext_resource type="Texture2D" uid="uid://bpreuxhp222uu" path="res://Resources/Art/Enemies/frooty.png" id="2_58rye"]
@@ -6,11 +6,21 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Skills.gd" id="4_2ao04"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="5_5n141"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lciwg"]
+size = Vector2(98, 128)
+
 [node name="Frooty" type="Node2D"]
 script = ExtResource("1_ewafx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_58rye")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lciwg")
 
 [node name="Deck" type="Node2D" parent="."]
 script = ExtResource("3_llvby")

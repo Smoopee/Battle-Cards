@@ -2,25 +2,17 @@ extends Node2D
 
 
 const CARD_WIDTH = 150
-const HAND_Y_POSITION = 690
-const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
+const Y_POSITION = 690
 
-@onready var intermission = $".."
-
+var is_hoovering_on_card
+var disabled_collision = false
 var center_screen_x
+var home_position
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	
-	var card = preload("res://Scenes/UI/card.tscn")
-	var card_scene = card
-	var new_card = card_scene.instantiate()
-	new_card.get_node("CardImage").texture = load("res://Resources/Art/UIElements/pointer.png")
-	#intermission.call_deferred("add_child", new_card)
-	add_child(new_card)
-	var new_position = Vector2(center_screen_x, HAND_Y_POSITION)
-	new_card.hand_position = new_position
-	new_card.position = new_position
+	home_position = Vector2(center_screen_x, Y_POSITION)
+	self.position = home_position
 
  
 func animate_card_to_position(card, new_position):
@@ -29,11 +21,36 @@ func animate_card_to_position(card, new_position):
 	
 
 func card_selector_collision_toggle():
-	print("Children are " + str(get_children()))
-	for i in get_children():
-			if i.disabled_collision:
-				i.enable_collision()
-				print("enabled")
-			else:
-				i.disable_collision()
-				print("disabled")
+	if disabled_collision:
+		enable_collision()
+		print("Card selector collision enabled")
+	else:
+		disable_collision()
+		print("Card selector collision disabled")
+
+func disable_collision():
+	$Area2D/CollisionShape2D.disabled = true
+	disabled_collision = true
+func enable_collision():
+	$Area2D/CollisionShape2D.disabled = false
+	disabled_collision = false
+
+func on_hoovered_over_card():
+	highlight_card(true)
+
+func on_hoovered_off_card():
+	highlight_card(false)
+
+func highlight_card(hoovered):
+	if hoovered:
+		scale = Vector2(1.05, 1.05)
+		z_index = 2
+	else:
+		scale = Vector2(1, 1)
+		z_index = 1
+
+func _on_area_2d_mouse_entered():
+	on_hoovered_over_card()
+
+func _on_area_2d_mouse_exited():
+	on_hoovered_off_card()

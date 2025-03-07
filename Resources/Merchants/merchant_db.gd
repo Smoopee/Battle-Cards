@@ -1,6 +1,6 @@
 const MERCHANTS = {
-	"Grack" : "res://Resources/Merchants/grack.tres",
-	"Buff" : "res://Resources/Merchants/buff.tres",
-	"Well" : "res://Resources/Merchants/well.tres"
-	#"Rand Dom" : "res://Resources/Merchants/rand_dom.tres"
+	"Grack" : "res://Scenes/Merchants/grack.tscn",
+	"Buff" : "res://Scenes/Merchants/buff.tscn",
+	"Well" : "res://Scenes/Merchants/well.tscn"
+	#"Rand Dom" : "res://Scenes/Merchants/rand_dom.tscn"
 }

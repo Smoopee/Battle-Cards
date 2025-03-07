@@ -3,8 +3,6 @@ extends Node2D
 const CARD_WIDTH = 130
 const HAND_Y_POSITION = 550
 
-var card_db_reference
-
 
 var center_screen_x
 var card_slot_array = []

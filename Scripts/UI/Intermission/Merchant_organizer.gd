@@ -28,15 +28,8 @@ func _ready():
 	create_encounter(merchant_array)
 
 func create_encounter(merchant_array):
-	var card = preload("res://Scenes/UI/card.tscn")
-	
 	for i in range(merchant_array.size()):
-		var merchant_scene = card
-		var new_merchant = merchant_scene.instantiate()
-		new_merchant.get_node("CardImage").texture = load(merchant_array[i].merchant_art_path)
-		new_merchant.get_node("Area2D").collision_layer = 2
-		new_merchant.get_node("Area2D").collision_mask = 2
-		new_merchant.card_resource = merchant_array[i]
+		var new_merchant = merchant_array[i].instantiate()
 		add_child(new_merchant)
 		merchant_selection.push_front(new_merchant)
 		update_merchant_positions()

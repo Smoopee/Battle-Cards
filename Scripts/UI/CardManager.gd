@@ -5,7 +5,6 @@ const COLLISION_MASK_CARD_SLOT = 2
 
 var screen_size
 var card_being_dragged
-var is_hoovering_on_card
 var inventory_reference
 
 var card_slot_array = []
@@ -20,8 +19,7 @@ func _ready():
 		card_slot_array.push_front(i)
 	
 	card_slot_reference = $"../Inventory".card_slot_reference
-
-
+	
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -32,7 +30,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
-			if card and card.card_resource.is_players:
+			if card and card.card_stats.is_players:
 				start_drag(card)
 		else:
 			if card_being_dragged:
@@ -40,17 +38,17 @@ func _input(event):
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	card.scale = Vector2(1.05, 1.05)
+	card.z_index = 2
 
 func finish_drag():
-	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var card_slot_found = raycast_check_for_card_slot()
 	var card_slot_index = card_slot_array.find(card_slot_found)
 	var card_slot_reference_index = card_slot_reference.find(card_being_dragged)
 	var card_being_replaced
 	var previous_card_slot
 	
-	
+	#If the card being is from a card slot and is landing on an occupied card slot
 	if card_slot_reference_index  > -1 and card_slot_found != null:
 		previous_card_slot = card_slot_reference_index
 		if card_slot_found.card_in_slot:
@@ -65,6 +63,7 @@ func finish_drag():
 		card_slot_found.card_in_slot = true
 		card_slot_reference.remove_at(card_slot_index)
 		card_slot_reference.insert(card_slot_index, card_being_dragged)
+		print("I am Here 1")
 	elif card_slot_found and card_slot_found.card_in_slot:
 		inventory_reference.remove_card_from_hand(card_being_dragged)
 		card_being_dragged.position = card_slot_found.position
@@ -86,6 +85,7 @@ func finish_drag():
 						card_slot_reference.remove_at(card_slot_index-loop_counter)
 						card_slot_reference.insert(card_slot_index-loop_counter, temp_card)
 						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
+						print("I am Here 2")
 						break
 					else: 
 						var second_temp = card_slot_reference[card_slot_index-loop_counter]
@@ -94,6 +94,7 @@ func finish_drag():
 						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
 						temp_card = second_temp
 						loop_counter += 1
+						print("I am Here 3")
 						
 			else:
 				while loop_counter != 20:
@@ -103,6 +104,7 @@ func finish_drag():
 						card_slot_reference.remove_at(card_slot_index+loop_counter)
 						card_slot_reference.insert(card_slot_index+loop_counter, temp_card)
 						card_slot_array[card_slot_index+loop_counter].card_in_slot = true
+						print("I am Here 4")
 						break
 					else: 
 						var second_temp = card_slot_reference[card_slot_index+loop_counter]
@@ -111,43 +113,23 @@ func finish_drag():
 						card_slot_array[card_slot_index-loop_counter+1].card_in_slot = true
 						temp_card = second_temp
 						loop_counter += 1
+						print("I am Here 5")
 		else:
 			inventory_reference.add_card_to_hand(card_slot_reference[card_slot_index])
 			card_slot_reference.remove_at(card_slot_index)
 			card_slot_reference.insert(card_slot_index, card_being_dragged)
+			print("I am Here 6")
 	else: 
 		inventory_reference.add_card_to_hand(card_being_dragged)
+		print("I am Here 7")
 		if card_slot_reference_index  > -1:
 			card_slot_reference[card_slot_reference_index] = null
 			card_slot_array[card_slot_reference_index].card_in_slot = false
 
+	card_being_dragged.scale = Vector2(1, 1)
+	card_being_dragged.z_index = 1
 	card_being_dragged = null
 
-func connect_card_signals(card):
-	card.connect("hoovered", on_hoovered_over_card)
-	card.connect("hoovered_off", on_hoovered_off_card)
-
-func on_hoovered_over_card(card):
-	if !is_hoovering_on_card:
-		is_hoovering_on_card = true
-		highlight_card(card, true)
-
-func on_hoovered_off_card(card):
-	if !card_being_dragged:
-		highlight_card(card, false)
-		var new_card_hoovered = raycast_check_for_card()
-		if new_card_hoovered:
-			highlight_card(new_card_hoovered, true)
-		else: 
-			is_hoovering_on_card = false
-
-func highlight_card(card, hoovered):
-	if hoovered:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
-	else:
-		card.scale = Vector2(1, 1)
-		card.z_index = 1
 
 func raycast_check_for_card_slot():
 	var space_state = get_world_2d().direct_space_state

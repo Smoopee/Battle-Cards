@@ -19,7 +19,7 @@ func save():
 func _on_exit_button_button_down():
 	var temp = []
 	for i in player_inventory.inventory:
-		temp.push_back(i.card_resource)
+		temp.push_back(i.card_stats)
 	playerData.player_inventory = temp
 	Global.player_inventory = temp
 	save()
@@ -30,7 +30,7 @@ func _on_reroll_button_button_down():
 	merchant_cards.inventory = []
 	
 	for i in $CardManager.get_children():
-		if i.card_resource.is_players == false:
+		if i.card_stats.is_players == false:
 			i.queue_free()
 	
 	merchant_cards.inventory_db = []

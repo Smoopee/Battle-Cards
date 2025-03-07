@@ -1,10 +1,9 @@
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_MERCHANT = 2
+const COLLISION_MASK_CARD_SELECTOR = 16
+const COLLISION_MASK_MERCHANT = 32
 
 var screen_size
-var is_hoovering_on_card
 var card_being_dragged
 var card_selector_reference
 
@@ -21,7 +20,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			var card = raycast_check_for_card()
+			var card = raycast_check_for_card_selector()
 			if card:
 				start_drag(card)
 		else:
@@ -34,49 +33,23 @@ func finish_drag():
 	
 	if merchant_found:
 		print(merchant_found)
-		Global.current_merchant = merchant_found.card_resource.merchant_scene_path
+		Global.current_merchant = merchant_found.merchant_scene_path
 		print(Global.current_merchant)
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
 	else:
-		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 
-func connect_card_signals(card):
-	card.connect("hoovered", on_hoovered_over_card)
-	card.connect("hoovered_off", on_hoovered_off_card)
-
-func on_hoovered_over_card(card):
-	if !is_hoovering_on_card:
-		is_hoovering_on_card = true
-		highlight_card(card, true)
-
-func on_hoovered_off_card(card):
-	if !card_being_dragged:
-		highlight_card(card, false)
-		var new_card_hoovered = raycast_check_for_card()
-		if new_card_hoovered:
-			highlight_card(new_card_hoovered, true)
-		else: 
-			is_hoovering_on_card = false
-
-func highlight_card(card, hoovered):
-	if hoovered:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
-	else:
-		card.scale = Vector2(1, 1)
-		card.z_index = 1
-
-func raycast_check_for_card():
+func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD
+	parameters.collision_mask = COLLISION_MASK_CARD_SELECTOR
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)

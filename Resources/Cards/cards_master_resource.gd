@@ -28,7 +28,7 @@ class_name Cards_Resource
 @export var is_enchantment: bool
 @export var enchanting_with: String
 @export var card_type: String
-
+@export var is_discarded: bool
 
 func effect():
 	pass

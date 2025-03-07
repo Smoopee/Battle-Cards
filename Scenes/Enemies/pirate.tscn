@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4xyg1sf876sa"]
+[gd_scene load_steps=8 format=3 uid="uid://b4xyg1sf876sa"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Pirate/pirate.gd" id="1_7lxql"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Pirate/Deck.gd" id="2_c1l1j"]
@@ -7,12 +7,22 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/Pirate/Skills.gd" id="5_xnkwx"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_54kny"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0yc"]
+size = Vector2(98, 128)
+
 [node name="Pirate" type="Node2D"]
 script = ExtResource("1_7lxql")
 enemy_stats_resource = ExtResource("2_yliys")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_mq8he")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dj0yc")
 
 [node name="Deck" type="Node2D" parent="."]
 script = ExtResource("2_c1l1j")

@@ -13,7 +13,7 @@ var playerData = PlayerData.new()
 @onready var player_deck = []
 @onready var player_skills = []
 
-@onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
+@onready var current_merchant = load("res://Scenes/Merchants/grack.tscn")
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
 @onready var player_inventory_db = []
 @onready var player_inventory = []
@@ -35,8 +35,6 @@ func _ready():
 	load_data()
 	player_inventory = playerData.player_inventory
 	
-	player_skills.push_front("res://Scenes/Skills/hone_edged.tscn")
-	player_skills.push_front("res://Scenes/Skills/Armor.tscn")
 
 func change_player_health(amount):
 	player_health += amount
@@ -49,7 +47,7 @@ func change_enemy_health(amount):
 		enemy_health = max_enemy_health
 
 func set_player_inventory():
-	player_inventory_db = ["Exodia", "Rock", "Rock", "Rock", "Rock", 
+	player_inventory_db = ["Rock", "Rock", "Rock", "Rock", "Rock", 
 	"Rock", "Rock", "Rock", "Rock", "Rock", "Rock", "Rock"]
 
 func instantiate_player_inventory():

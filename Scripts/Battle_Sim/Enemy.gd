@@ -28,22 +28,17 @@ func build_deck():
 	deck = []
 	var counter = 0
 	
-	var card = preload("res://Scenes/UI/card.tscn")
 	var card_position = 0
 	for i in range(enemy_deck.size()):
-		var card_scene = card
-		var new_card = card_scene.instantiate()
+		var new_card = load(enemy_deck[i].card_scene_path).instantiate()
 		add_child(new_card)
 		deck.push_back(new_card)
-		var new_node = load(enemy_deck[i].card_scene_path).instantiate()
-		#     it is i+1 to get the current card to attach the Node 
-		get_child(i+1).add_child(new_node)
-		new_card.card_resource = enemy_deck[i]
-		new_node.upgrade_card(enemy_deck[i].upgrade_level)
-		new_card.card_resource = enemy_deck[i].duplicate()
-		new_card.card_resource.is_players = false
-		new_card.card_resource.in_enemy_deck = true
-		new_card.card_resource.deck_position = counter
+		new_card.card_stats = enemy_deck[i]
+		new_card.upgrade_card(new_card.card_stats.upgrade_level)
+		new_card.item_enchant(new_card.card_stats.item_enchant)
+		new_card.card_stats.is_players = false
+		new_card.card_stats.in_enemy_deck = true
+		new_card.card_stats.deck_position = counter
 		new_card.update_card_ui()
 		
 		counter += 1
@@ -58,8 +53,8 @@ func build_deck_position():
 		i.position = Vector2(DECK_X_POSITION, DECK_Y_POSITION)
  
 func play_card(card):
-	if card.card_resource.deck_position < deck.size()-1:
-		deck[card.card_resource.deck_position+1].z_index = 3
+	if card.card_stats.deck_position < deck.size()-1:
+		deck[card.card_stats.deck_position+1].z_index = 3
 	animate_card_to_active_position(card)
 
 func animate_card_to_active_position(card):

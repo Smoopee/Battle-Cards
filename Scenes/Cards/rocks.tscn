@@ -1,8 +1,133 @@
-[gd_scene load_steps=3 format=3 uid="uid://bryd511tswp4i"]
+[gd_scene load_steps=9 format=3 uid="uid://bryd511tswp4i"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/rocks.gd" id="1_l5vns"]
-[ext_resource type="Resource" uid="uid://ck735y50rlmfv" path="res://Resources/Cards/rock.tres" id="2_eclkh"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="2_u5eub"]
+[ext_resource type="Texture2D" uid="uid://bw55uim6h6nfn" path="res://Resources/Cards/CardArt/Rock_card.png" id="3_bvf6a"]
 
-[node name="rocks" type="Node2D" groups=["weapon"]]
+[sub_resource type="Resource" id="Resource_bebfw"]
+resource_local_to_scene = true
+script = ExtResource("2_u5eub")
+card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
+card_scene_path = "res://Scenes/Cards/rocks.tscn"
+name = "Rock"
+dmg = 2
+position = 0
+inventory_position = 0
+deck_position = 0
+upgrade_level = 1
+burn_dmg = 0
+poison_dmg = 0
+bleed_dmg = 0
+shield = 0
+heal = 0
+critical_strike_chance = 0.0
+in_enemy_deck = false
+temp_buff = false
+block = 0
+sell_price = 1
+buy_price = 2
+is_players = false
+item_enchant = ""
+screen_position = Vector2(0, 0)
+is_enchanted = false
+is_enchantment = false
+enchanting_with = ""
+card_type = "Weapon"
+is_discarded = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dmh4b"]
+size = Vector2(98, 128)
+
+[sub_resource type="Animation" id="Animation_18cg3"]
+resource_name = "card_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -81), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0v5gp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -81)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjxqk"]
+_data = {
+"RESET": SubResource("Animation_0v5gp"),
+"card_attack": SubResource("Animation_18cg3")
+}
+
+[node name="Rock" type="Node2D" groups=["card", "weapon"]]
+texture_filter = 1
+position = Vector2(0, -81)
 script = ExtResource("1_l5vns")
-card_stats_resource = ExtResource("2_eclkh")
+card_stats_resource = SubResource("Resource_bebfw")
+
+[node name="CardImage" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_bvf6a")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dmh4b")
+
+[node name="CardUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardUI"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 94.0
+offset_right = 95.0
+offset_bottom = 126.0
+
+[node name="ItemEnchantImage" type="Sprite2D" parent="CardUI/HBoxContainer"]
+position = Vector2(69, 19)
+
+[node name="CardDamage" type="Label" parent="CardUI/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SellPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = -27.0
+offset_right = 39.0
+offset_bottom = -4.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="BuyPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 127.0
+offset_right = 41.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rjxqk")
+}

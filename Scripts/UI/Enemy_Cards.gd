@@ -5,7 +5,7 @@ const CARD_WIDTH = 130
 const HAND_Y_POSITION = 370
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
-var card_db_reference
+
 var enemy_cards_db = []
 var enemy_inventory = []
 
@@ -13,30 +13,23 @@ var center_screen_x
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 	create_enemy_cards()
 
 func create_enemy_cards():
 	fetch_enemy_cards()
-	
-	
-	var card = preload("res://Scenes/UI/card.tscn")
-	var card_position = 0
+
 	for i in range(enemy_cards_db.size()):
-		var card_scene = card
-		var new_card = card_scene.instantiate()
-		add_child(new_card)
-		var new_node = load(enemy_cards_db[i].card_scene_path).instantiate()
-		get_child(i).add_child(new_node)
-		new_card.card_resource = enemy_cards_db[i].duplicate()
-		new_node.upgrade_card(enemy_cards_db[i].upgrade_level)
-		new_card.card_resource.is_players = false
-		new_card.card_resource.in_enemy_deck = true
-		new_card.card_resource.inventory_position = card_position
-		new_card.update_card_ui()
-		new_node.queue_free()
-		
-		add_card_to_hand(new_card)
+		var card_scene = load(enemy_cards_db[i].card_scene_path).instantiate()
+		card_scene.card_stats = enemy_cards_db[i]
+		add_child(card_scene)
+		add_card_to_hand(card_scene)
+	
+	var card_position = 0
+	for i in enemy_inventory:
+		i.upgrade_card(i.card_stats.upgrade_level)
+		i.update_card_ui()
+		i.card_stats.inventory_position = card_position
+		i.card_stats.is_players = false
 		card_position += 1
 		
 func fetch_enemy_cards():
@@ -50,7 +43,7 @@ func update_hand_positions():
 	for i in range(enemy_inventory.size()):
 		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card = enemy_inventory[i]
-		card.card_resource.screen_position = new_position
+		card.card_stats.screen_position = new_position
 		card.position = new_position
  
 func calculate_card_position(index):
