@@ -4,19 +4,10 @@ extends Node2D
 
 var card_stats: Cards_Resource = null
 
-var hand_position
 var card_slotted = false
-var card_name = ""
-var path = ""
-var is_players = false
-var card_position
-var card_resource
 var is_discarded = false
 var disabled_collision = false
-var is_hoovering_on_card
 
-func _ready():
-	pass
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/rock.tres").duplicate()
@@ -55,14 +46,14 @@ func upgrade_card(num):
 			card_stats.buy_price = 16
 
 func item_enchant(enchant):
+	print(card_stats)
 	match enchant:
 		"Bleed":
-			get_parent().card_resource.item_enchant = "Bleed"
-			get_parent().card_resource.bleed_dmg = 6
-			get_parent().card_resource.sell_price *= 2
-			get_parent().card_resource.buy_price *= 2
-			print("Bleeding for " + str(get_parent().card_resource.bleed_dmg))
-
+			card_stats.item_enchant = "Bleed"
+			card_stats.bleed_dmg = 6
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
+			print("Bleeding for " + str(card_stats.bleed_dmg))
 
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------

@@ -1,8 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4q6ux8w205oh"]
+[gd_scene load_steps=5 format=3 uid="uid://b4q6ux8w205oh"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/CardEnchants/bleed_enchant_card.gd" id="1_y5db4"]
 [ext_resource type="Resource" uid="uid://51c3e81dpckp" path="res://Resources/Cards/CardEnchants/bleed_enchant_card.tres" id="2_2diq0"]
+[ext_resource type="Texture2D" uid="uid://djgxqlpt171wb" path="res://Resources/Art/Enchants/bleed_enchant.png" id="3_g4iit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_055v2"]
+size = Vector2(98, 128)
 
 [node name="BleedEnchantCard" type="Node2D"]
 script = ExtResource("1_y5db4")
 card_stats_resource = ExtResource("2_2diq0")
+
+[node name="CardImage" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_g4iit")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_055v2")
+
+[node name="CardUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardUI"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 94.0
+offset_right = 95.0
+offset_bottom = 126.0
+
+[node name="ItemEnchantImage" type="Sprite2D" parent="CardUI/HBoxContainer"]
+position = Vector2(69, 19)
+
+[node name="CardDamage" type="Label" parent="CardUI/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SellPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = -27.0
+offset_right = 39.0
+offset_bottom = -4.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="BuyPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 127.0
+offset_right = 41.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)

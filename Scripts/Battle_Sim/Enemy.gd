@@ -92,4 +92,7 @@ func add_skills():
 	return skill_array
 
 func change_enemy_health():
-	get_child(0).get_node("EnemyHealthBar").value = Global.enemy_health
+	var enemy_health_bar = get_child(0).get_node("EnemyHealthBar")
+	enemy_health_bar.value = Global.enemy_health
+	enemy_health_bar.get_child(0).text = str(Global.enemy_health)
+	

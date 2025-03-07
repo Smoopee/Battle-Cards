@@ -36,8 +36,6 @@ func create_inventory():
 	
 func fetch_inventory():
 	inventory_db = Global.player_inventory
-	for i in inventory_db:
-		print("dafsd " + str(i.upgrade_level))
 
 func add_card_to_hand(card):
 	if card not in inventory:

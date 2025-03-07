@@ -30,32 +30,33 @@ func combat(player_deck_list, enemy_deck_list):
 	enemy.build_deck_position()
 	
 	for i in range(0, 10):
-		print(str(player_deck_list[i].card_stats.name))
-		print(str(enemy_deck_list[i].card_stats.name))
+		var player_card = player_deck_list[i]
+		var enemy_card = enemy_deck_list[i]
 		
-		player_deck.play_card(player_deck_list[i])
-		print("enemy card is " + str(enemy_deck_list[i]))
-		enemy.play_card(enemy_deck_list[i])
+		player_deck.play_card(player_card)
+		enemy.play_card(enemy_card)
 		
-		#                  Child 2 is where the card Node is at 
-		player_deck_list[i].effect(player_deck_list, enemy_deck_list)
-		enemy_deck_list[i].effect(player_deck_list, enemy_deck_list)
+		player_card.get_node("AnimationPlayer").play("attack_animation")
+		enemy_card.get_node("AnimationPlayer").play("enemy_attack_animation")
 		
-		damage_func(player_deck_list[i])
-		damage_func(enemy_deck_list[i])
+		player_card.effect(player_deck_list, enemy_deck_list)
+		enemy_card.effect(player_deck_list, enemy_deck_list)
 		
-		bleed_func(player_deck_list[i])
-		bleed_func(enemy_deck_list[i])
+		damage_func(player_card)
+		damage_func(enemy_card)
 		
-		heal_func(player_deck_list[i])
-		heal_func(enemy_deck_list[i])
+		bleed_func(player_card)
+		bleed_func(enemy_card)
+		
+		heal_func(player_card)
+		heal_func(enemy_card)
 		
 		bleed_damage_keeper()
 		
 		await get_tree().create_timer(1.5).timeout
 		
-		player_deck.discard(player_deck_list[i])
-		enemy.discard(enemy_deck_list[i])
+		player_deck.discard(player_card)
+		enemy.discard(enemy_card)
 		
 		if death_checker(): break
 		

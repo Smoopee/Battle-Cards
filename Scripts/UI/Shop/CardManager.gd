@@ -235,10 +235,8 @@ func enchant_from_merchant(enchant_card, base_card):
 			return
 	Global.player_gold -= enchant_card.card_stats.buy_price
 	merchant_inventory_reference.remove_card_from_hand(enchant_card)
-	var temp = load(base_card.card_stats.card_scene_path).instantiate()
 	enchant_card.queue_free()
-	base_card.add_child(temp)
-	temp.item_enchant(enchant_card.card_stats.enchanting_with)
+	base_card.item_enchant(enchant_card.card_stats.enchanting_with)
 	base_card.update_card_ui()
 	base_card.card_shop_ui()
 	update_player_gold()
