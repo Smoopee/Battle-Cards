@@ -88,6 +88,3 @@ func use_consumable(consumable):
 	if consumable in consumable_slots:
 		consumable_slots.erase(consumable)
 
-	
-
-	

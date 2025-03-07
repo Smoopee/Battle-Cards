@@ -31,3 +31,4 @@ is_enchanted = false
 is_enchantment = false
 enchanting_with = ""
 card_type = ""
+is_discarded = false

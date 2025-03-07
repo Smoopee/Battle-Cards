@@ -1,8 +1,192 @@
-[gd_scene load_steps=3 format=3 uid="uid://t55s3wygylsv"]
+[gd_scene load_steps=10 format=3 uid="uid://t55s3wygylsv"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/double_up.gd" id="1_enafl"]
 [ext_resource type="Resource" uid="uid://dutxthefeba6d" path="res://Resources/Cards/double_up.tres" id="2_67q3w"]
+[ext_resource type="Texture2D" uid="uid://cjuqhgveos1fk" path="res://Resources/Cards/CardArt/double_up_card.png" id="3_diukl"]
+[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_uelqd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r3q8"]
+size = Vector2(98, 128)
+
+[sub_resource type="Animation" id="Animation_0v5gp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardImage:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CardUI/HBoxContainer:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, 94)]
+}
+
+[sub_resource type="Animation" id="Animation_crxlj"]
+resource_name = "attack_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardImage:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -64), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardUI/HBoxContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(11, 94), Vector2(11, 31), Vector2(11, 94)]
+}
+
+[sub_resource type="Animation" id="Animation_ye5s6"]
+resource_name = "enemy_attack_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardImage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 64), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardUI/HBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(11, 94), Vector2(11, 158), Vector2(11, 94)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjxqk"]
+_data = {
+"RESET": SubResource("Animation_0v5gp"),
+"attack_animation": SubResource("Animation_crxlj"),
+"enemy_attack_animation": SubResource("Animation_ye5s6")
+}
 
 [node name="double_up" type="Node2D"]
 script = ExtResource("1_enafl")
 card_stats_resource = ExtResource("2_67q3w")
+
+[node name="CardImage" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_diukl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2r3q8")
+
+[node name="CardUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -48.0
+offset_top = -64.0
+offset_right = 48.0
+offset_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardUI"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 94.0
+offset_right = 95.0
+offset_bottom = 126.0
+
+[node name="ItemEnchantImage" type="Sprite2D" parent="CardUI/HBoxContainer"]
+position = Vector2(69, 19)
+
+[node name="CardDamage" type="Label" parent="CardUI/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SellPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 38.0
+offset_top = -27.0
+offset_right = 39.0
+offset_bottom = -4.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="BuyPrice" type="Label" parent="CardUI"]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 127.0
+offset_right = 41.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rjxqk")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_uelqd")

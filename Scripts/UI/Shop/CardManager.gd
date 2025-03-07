@@ -167,8 +167,8 @@ func sell_card(card):
 	Global.player_gold += card.card_stats.sell_price
 	merchant_inventory_reference.add_card_to_hand(card)
 	player_inventory_reference.remove_card_from_hand(card)
-	card.get_node("Area2D").collision_layer = 2
-	card.get_node("Area2D").collision_mask = 2
+	card.get_node("Area2D").collision_layer = COLLISION_MASK_MERCHANT_CARD
+	card.get_node("Area2D").collision_mask = COLLISION_MASK_MERCHANT_CARD
 	card.card_stats.is_players = false
 	card.card_shop_ui()
 	update_player_gold()
@@ -185,8 +185,8 @@ func buy_card(card):
 	Global.player_gold -= card.card_stats.buy_price
 	player_inventory_reference.add_card_to_hand(card)
 	merchant_inventory_reference.remove_card_from_hand(card)
-	card.get_node("Area2D").collision_layer = 1
-	card.get_node("Area2D").collision_mask = 1
+	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
+	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
 	card.card_stats.is_players = true
 	card.card_shop_ui()
 	update_player_gold()

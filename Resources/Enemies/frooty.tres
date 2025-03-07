@@ -9,4 +9,4 @@ enemy_scene_path = "res://Scenes/Enemies/frooty.tscn"
 name = "Frooty"
 health = 140
 xp = 5
-gold = 5
+gold = 10

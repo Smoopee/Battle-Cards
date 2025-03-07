@@ -45,13 +45,14 @@ func upgrade_card(num):
 			
 
 func item_enchant(enchant):
+	print(card_stats)
 	match enchant:
 		"Bleed":
-			get_parent().card_resource.item_enchant = "Bleed"
-			get_parent().card_resource.bleed_dmg = 6
-			get_parent().card_resource.sell_price *= 2
-			get_parent().card_resource.buy_price *= 2
-			print("Bleeding for " + str(get_parent().card_resource.bleed_dmg))
+			card_stats.item_enchant = "Bleed"
+			card_stats.bleed_dmg = 8
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
+			print("Bleeding for " + str(card_stats.bleed_dmg))
 
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------

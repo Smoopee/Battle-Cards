@@ -37,3 +37,13 @@ offset_right = 47.0
 offset_bottom = 62.0
 value = 100.0
 texture_progress = ExtResource("6_dl2cu")
+
+[node name="EnemyHealthText" type="Label" parent="EnemyHealthBar"]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 72.0
+offset_bottom = 23.0
+scale = Vector2(0.760001, 0.52)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "120/120"
+horizontal_alignment = 1

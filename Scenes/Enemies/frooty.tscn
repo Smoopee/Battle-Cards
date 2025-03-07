@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://urupydnj75t0"]
+[gd_scene load_steps=8 format=3 uid="uid://urupydnj75t0"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/frooty.gd" id="1_ewafx"]
 [ext_resource type="Texture2D" uid="uid://bpreuxhp222uu" path="res://Resources/Art/Enemies/frooty.png" id="2_58rye"]
+[ext_resource type="Resource" uid="uid://bpkhklrf7fqwp" path="res://Resources/Enemies/frooty.tres" id="2_w2lo1"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Deck.gd" id="3_llvby"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Frooty/Skills.gd" id="4_2ao04"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="5_5n141"]
@@ -11,6 +12,7 @@ size = Vector2(98, 128)
 
 [node name="Frooty" type="Node2D"]
 script = ExtResource("1_ewafx")
+enemy_stats_resource = ExtResource("2_w2lo1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_58rye")
@@ -35,3 +37,13 @@ offset_right = 47.0
 offset_bottom = 62.0
 value = 100.0
 texture_progress = ExtResource("5_5n141")
+
+[node name="EnemyHealthText" type="Label" parent="EnemyHealthBar"]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 72.0
+offset_bottom = 23.0
+scale = Vector2(0.760001, 0.52)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "120/120"
+horizontal_alignment = 1
