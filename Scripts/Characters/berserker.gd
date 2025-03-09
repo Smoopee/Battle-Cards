@@ -1,11 +1,12 @@
 extends Node2D
 
+@export var character_stats_resource: Character_Resource
+
+var player_stats: Character_Resource = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	set_stats(character_stats_resource)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func set_stats(stats = Character_Resource) -> void:
+	player_stats = load("res://Resources/Character/berserker.tres").duplicate()

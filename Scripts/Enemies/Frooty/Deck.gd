@@ -19,6 +19,7 @@ func _ready():
 	var item9 = health_potion.duplicate()
 	var item10 = health_potion.duplicate()
 	
+	item3.item_enchant = "Bleed"
 	item3.upgrade_level = 2
 	item7.upgrade_level = 3
 	

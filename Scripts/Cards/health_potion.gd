@@ -16,7 +16,7 @@ func set_stats(stats = Cards_Resource) -> void:
 func on_start(board):
 	pass
 
-func effect(player_deck, enemy_deck):
+func effect(player_deck, enemy_deck, player, enemy):
 	pass
 
 func upgrade_card(num):
@@ -51,7 +51,6 @@ func item_enchant(enchant):
 			card_stats.bleed_dmg = 6
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
-			print("Bleeding for " + str(card_stats.bleed_dmg))
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():

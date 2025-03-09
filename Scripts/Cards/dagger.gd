@@ -13,7 +13,7 @@ func set_stats(stats = Cards_Resource) -> void:
 func on_start(board):
 	pass
 
-func effect(player_deck, enemy_deck):
+func effect(player_deck, enemy_deck, player, enemy):
 	pass
 
 func upgrade_card(num):
@@ -45,7 +45,6 @@ func upgrade_card(num):
 			
 
 func item_enchant(enchant):
-	print(card_stats)
 	match enchant:
 		"Bleed":
 			card_stats.item_enchant = "Bleed"

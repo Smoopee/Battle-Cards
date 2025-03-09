@@ -17,28 +17,46 @@ func set_stats(stats = Cards_Resource) -> void:
 func on_start(board):
 	pass
 
-func effect(player_deck, enemy_deck):
+func effect(player_deck, enemy_deck, player, enemy):
 	var buff = preload("res://Scenes/Buffs/double_up_buff.tscn")
 	var card_position = card_stats.deck_position
 	var new_instance = buff.instantiate()
 	new_instance.multiplier = upgrade_effect
 	var switch = false
 	
-	
+	var combat_log_selection
+	var combat_log_bleed_return
 	
 	while switch == false:
 		if card_stats.in_enemy_deck == true:
 			if enemy_deck[card_position].is_in_group("weapon"):
 				enemy_deck[card_position].add_child(new_instance)
+				combat_log_selection = enemy_deck[card_position]
 				switch = true
 			else:
 				card_position += 1
+				if card_position >= enemy_deck.size(): return
 		else:
 			if player_deck[card_position].is_in_group("weapon"):
 				player_deck[card_position].add_child(new_instance)
+				combat_log_selection = player_deck[card_position]
 				switch = true
 			else:
 				card_position += 1
+				if card_position >= player_deck.size(): return
+	
+	if card_stats.item_enchant == "Bleed":
+		if card_stats.in_enemy_deck == true:
+			player.player_stats.bleeding_dmg *= 2
+			combat_log_bleed_return = " and doubled your bleeding damage to " + str(player.player_stats.bleeding_dmg)
+		else:
+			enemy.enemy_stats.bleeding_dmg *= 2
+			combat_log_bleed_return = " and doubled the enemy's bleeding damage to " + str(enemy.enemy_stats.bleeding_dmg)
+			
+	var combat_log_return = "Double Up multiplied " + str(combat_log_selection.card_stats.name) + " damage by " + str(upgrade_effect)
+	if combat_log_bleed_return: combat_log_return += combat_log_bleed_return
+	
+	return combat_log_return
 
 func upgrade_card(num):
 	match num:
@@ -73,7 +91,11 @@ func upgrade_card(num):
 
 
 func item_enchant(enchant):
-	pass
+	match enchant:
+		"Bleed":
+			card_stats.item_enchant = "Bleed"
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():

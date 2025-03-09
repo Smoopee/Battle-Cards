@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_4d8f0"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_4d8f0")
 enemy_art_path = "res://Resources/Art/Enemies/trogg.png"
 enemy_scene_path = "res://Scenes/Enemies/trogg.tscn"
@@ -10,3 +11,6 @@ name = "Trogg"
 health = 110
 xp = 10
 gold = 2
+bleeding_dmg = 0
+burning_dmg = 0
+poisoning_dmg = 0

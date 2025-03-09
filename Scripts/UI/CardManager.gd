@@ -70,7 +70,7 @@ func finish_drag():
 		card_slot_found.card_in_slot = true 
 		
 		if card_slot_reference_index > -1:
-			#true for a down shift
+			#true for a left shift
 			var direction_shift = true
 			if card_slot_index < previous_card_slot:
 				direction_shift = false
@@ -86,15 +86,20 @@ func finish_drag():
 						card_slot_reference.insert(card_slot_index-loop_counter, temp_card)
 						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
 						print("I am Here 2")
+						for i in card_slot_array:
+							print(i.card_in_slot)
 						break
 					else: 
 						var second_temp = card_slot_reference[card_slot_index-loop_counter]
 						card_slot_reference.remove_at(card_slot_index-loop_counter)
 						card_slot_reference.insert(card_slot_index-loop_counter, temp_card)
 						card_slot_array[card_slot_index-loop_counter].card_in_slot = true
+						print("Not bug " + str(card_slot_index-loop_counter))
 						temp_card = second_temp
 						loop_counter += 1
 						print("I am Here 3")
+						for i in card_slot_array:
+							print(i.card_in_slot)
 						
 			else:
 				while loop_counter != 20:
@@ -110,7 +115,7 @@ func finish_drag():
 						var second_temp = card_slot_reference[card_slot_index+loop_counter]
 						card_slot_reference.remove_at(card_slot_index+loop_counter)
 						card_slot_reference.insert(card_slot_index+loop_counter, temp_card)
-						card_slot_array[card_slot_index-loop_counter+1].card_in_slot = true
+						card_slot_array[card_slot_index+loop_counter].card_in_slot = true
 						temp_card = second_temp
 						loop_counter += 1
 						print("I am Here 5")
@@ -125,6 +130,9 @@ func finish_drag():
 		if card_slot_reference_index  > -1:
 			card_slot_reference[card_slot_reference_index] = null
 			card_slot_array[card_slot_reference_index].card_in_slot = false
+			print("I am Here 8")
+			for i in card_slot_array:
+				print(i.card_in_slot)
 
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1

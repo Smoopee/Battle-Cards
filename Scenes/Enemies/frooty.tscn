@@ -10,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lciwg"]
 size = Vector2(98, 128)
 
-[node name="Frooty" type="Node2D"]
+[node name="Frooty" type="Node2D" groups=["enemy"]]
 script = ExtResource("1_ewafx")
 enemy_stats_resource = ExtResource("2_w2lo1")
 

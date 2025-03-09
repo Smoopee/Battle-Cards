@@ -18,6 +18,7 @@ func _ready():
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
 	enemy.position = Vector2(center_screen_x, 150)
+	enemy.set_stats()
 	
 	get_child(0).get_node("EnemyHealthBar").max_value = Global.max_enemy_health
 	get_child(0).get_node("EnemyHealthBar").value = Global.enemy_health

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Character_Resource" load_steps=2 format=3 uid="uid://cyhj5ybc2b5yp"]
+
+[ext_resource type="Script" path="res://Resources/Character/character_master_resource.gd" id="1_g0ibu"]
+
+[resource]
+script = ExtResource("1_g0ibu")
+character_art_path = "res://Resources/Art/UIElements/player.png"
+character_scene_path = "res://Scenes/Characters/berserker.tscn"
+name = "Berserker"
+health = 120
+xp = 0
+gold = 0
+bleeding_dmg = 0
+burning_dmg = 0
+poisoning_dmg = 0

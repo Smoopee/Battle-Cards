@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=12 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="3_7ul7h"]
 [ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_th71o"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/berserker.tscn" id="6_otqk3"]
 [ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_326y0"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manger.tscn" id="10_1g37w"]
 [ext_resource type="AudioStream" uid="uid://cxtsqm0vys3fa" path="res://Resources/Sound/Background/BattleBackground.wav" id="10_pbym1"]
@@ -25,6 +26,8 @@ script = ExtResource("3_7ul7h")
 
 [node name="Player" parent="." instance=ExtResource("5_th71o")]
 
+[node name="berserker" parent="Player" instance=ExtResource("6_otqk3")]
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -32,19 +35,48 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("5_ppjxe")
 
-[node name="player_damage_number" type="Label" parent="UI"]
+[node name="ColorRect" type="ColorRect" parent="UI"]
+layout_mode = 0
+offset_left = 1529.0
+offset_top = 426.0
+offset_right = 1917.0
+offset_bottom = 670.0
+color = Color(0.254902, 0.254902, 0.254902, 0.752941)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/ColorRect"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -1.0
+offset_right = 374.0
+offset_bottom = 243.0
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
+
+[node name="PlayerDamageNumber" type="Label" parent="UI"]
 layout_mode = 0
 offset_left = 1792.0
 offset_top = 193.0
 offset_right = 1832.0
 offset_bottom = 216.0
 
-[node name="enemy_damage_number" type="Label" parent="UI"]
+[node name="EnemyDamageNumber" type="Label" parent="UI"]
 layout_mode = 0
 offset_left = 1774.0
 offset_top = 880.0
 offset_right = 1814.0
 offset_bottom = 903.0
+theme_override_colors/font_color = Color(0.618989, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+
+[node name="EnemyBleedTaken" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 
 [node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
 visible = false

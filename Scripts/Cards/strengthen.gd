@@ -18,8 +18,9 @@ func set_stats(stats = Cards_Resource) -> void:
 func on_start(board):
 	pass
 
-func effect(player_deck, enemy_deck):
+func effect(player_deck, enemy_deck, player, enemy):
 	var deck = player_deck
+	var combat_log_bleed_return
 	
 	if card_stats.in_enemy_deck == true:
 		deck = enemy_deck
@@ -28,6 +29,16 @@ func effect(player_deck, enemy_deck):
 		if i.is_in_group("weapon"):
 			i.card_stats.dmg += upgrade_effect
 			i.update_card_ui()
+	
+	if card_stats.item_enchant == "Bleed":
+		for i in deck:
+			if i.is_in_group("weapon"):
+				i.card_stats.bleed_dmg += 2
+		combat_log_bleed_return = " and weapons bleed damage by 2"
+		
+	var combat_log_return = "Strengthen increased all weapon damage by " + str(upgrade_effect)
+	if combat_log_bleed_return: combat_log_return += combat_log_bleed_return
+	return combat_log_return
 
 func upgrade_card(num):
 	match num:
@@ -61,7 +72,12 @@ func upgrade_card(num):
 			upgrade_effect = 4
 
 func item_enchant(enchant):
-	pass
+	match enchant:
+		"Bleed":
+			card_stats.item_enchant = "Bleed"
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
+			
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():

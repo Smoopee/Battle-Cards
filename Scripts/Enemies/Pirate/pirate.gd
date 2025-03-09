@@ -14,4 +14,4 @@ func _ready():
 	set_stats(enemy_stats_resource)
 
 func set_stats(stats = Enemy_Resource) -> void:
-	enemy_stats = stats
+	enemy_stats = load("res://Resources/Enemies/Pirate.tres").duplicate()
