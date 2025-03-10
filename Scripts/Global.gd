@@ -18,6 +18,8 @@ var playerData = PlayerData.new()
 @onready var player_inventory_db = []
 @onready var player_inventory = []
 
+var intermission_tracker = 0
+
 var player_gold: int = 5
 var player_xp: int = 0
 

@@ -59,6 +59,8 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		bleed_damage_keeper()
 		
+		player_node.get_node("Berserker").change_rage(-3)
+		
 		ui.combat_log_break()
 		await get_tree().create_timer(1.5).timeout
 		
@@ -103,7 +105,7 @@ func crit_check(i):
 func damage_func(i):
 	if i.card_stats.dmg <= 0: return
 	var crit = false
-	var damage = i.card_stats.dmg
+	var damage = i.card_stats.dmg + player.player_stats.attack
 	if crit_check(i): 
 		damage *= 2
 		crit = true
@@ -111,9 +113,12 @@ func damage_func(i):
 	if i.card_stats.in_enemy_deck: 
 		change_health(false, damage)
 		ui.update_combat_log_damage_taken(damage, player, enemy, true, i, crit)
+		ui.change_enemy_damage_number(damage, crit)
+		
 	else:
 		change_health(true, damage)
 		ui.update_combat_log_damage_taken(damage, player, enemy, false, i, crit)
+		ui.change_player_damage_number(damage, crit)
 		
 func bleed_func(i):
 	if i.card_stats.bleed_dmg <= 0: return
@@ -139,13 +144,13 @@ func bleed_damage_keeper():
 func change_health(character, value):
 	if character:
 		Global.change_enemy_health(-value)
+		player_node.get_node("Berserker").change_rage(value)
 		enemy.enemy_stats.health -= value
-		ui.change_player_damage_number(value)
 		enemy_node.change_enemy_health()
 	else:
 		Global.change_player_health(-value)
+		player_node.get_node("Berserker").change_rage(value)
 		player.player_stats.health -= value
-		ui.change_enemy_damage_number(value)
 		player_node.change_player_health()
 
 func heal_func(i):

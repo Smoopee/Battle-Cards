@@ -17,8 +17,6 @@ func _ready():
 	merchant_inventory_reference = $"../MerchantCards"
 	player_inventory_reference = $"../Inventory"
 	
-	update_player_gold()
-	
 	for i in get_children():
 		if !i.card_stats.is_players:
 			print("Merchant Inventory")
@@ -242,4 +240,5 @@ func enchant_from_merchant(enchant_card, base_card):
 	update_player_gold()
 
 func update_player_gold():
-	$"../ShopUI/PlayerGold".text = str(Global.player_gold) + " gold"
+	pass
+	$"../PlayerUI".change_player_gold() 

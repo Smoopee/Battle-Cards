@@ -10,6 +10,7 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
+	Global.intermission_tracker += 1
 
 func _process(delta):
 	if card_being_dragged:

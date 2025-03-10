@@ -11,3 +11,5 @@ class_name Character_Resource
 @export var bleeding_dmg: int
 @export var burning_dmg: int
 @export var poisoning_dmg: int
+@export var attack: int
+@export var amror: int

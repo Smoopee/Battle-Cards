@@ -23,7 +23,10 @@ func _on_exit_button_button_down():
 	playerData.player_inventory = temp
 	Global.player_inventory = temp
 	save()
-	get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
+	if Global.intermission_tracker <= 1: get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))
+	else: 
+		Global.intermission_tracker = 0
+		get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
 
 
 func _on_reroll_button_button_down():

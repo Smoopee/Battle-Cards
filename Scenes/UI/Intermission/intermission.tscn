@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://u7bfx5wgbwtw"]
+[gd_scene load_steps=8 format=3 uid="uid://u7bfx5wgbwtw"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_ts7er"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_3txuy"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_i1rkl"]
+[ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_w67wi"]
 
 [node name="Intermission" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_147it")
@@ -35,5 +36,7 @@ texture = ExtResource("5_3txuy")
 
 [node name="PlayerInventoryScreen" parent="." instance=ExtResource("6_i1rkl")]
 visible = false
+
+[node name="PlayerUI" parent="." instance=ExtResource("7_w67wi")]
 
 [connection signal="button_down" from="InventoryButton" to="." method="_on_inventory_button_button_down"]

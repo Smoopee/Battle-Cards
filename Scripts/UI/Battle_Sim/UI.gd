@@ -1,16 +1,40 @@
 extends Control
 
+
 @onready var player_damage_number = $PlayerDamageNumber
 @onready var enemy_damage_number = $EnemyDamageNumber
 @onready var combat_log = $ColorRect/RichTextLabel
+
+var center_screen_x
+var center_screen_y
+
 func _ready():
 	$EnemyBleedTaken.position = $"../Enemy".enemy.position + Vector2(10, 60)
 	$EnemyBleedTaken.text = ""
-func change_player_damage_number(value):
-	player_damage_number.text = str(value) + " damage"
+	
+	center_screen_x = get_viewport().size.x / 2
+	center_screen_y = get_viewport().size.y / 2
+	
+func change_player_damage_number(value, crit):
+	player_damage_number.modulate.a = 1
+	var new_position =  Vector2(center_screen_x, center_screen_y + 60)
+	player_damage_number.position = new_position
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_damage_number, "position", new_position + Vector2(150, 0), 0.4)
+	tween.tween_property(player_damage_number, "modulate:a", 0, .5)
+	player_damage_number.text = str(value) 
 
-func change_enemy_damage_number(value):
-	enemy_damage_number.text = str(value) + " damage"
+func change_enemy_damage_number(value, crit):
+	enemy_damage_number.set("theme_override_font_sizes/font_size", 33)
+	enemy_damage_number.modulate.a = 1
+	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
+	enemy_damage_number.position = new_position
+	var tween = get_tree().create_tween()
+	if crit:
+		tween.tween_property(enemy_damage_number, "theme_override_font_sizes/font_size", 60, 0)
+	tween.tween_property(enemy_damage_number, "position", new_position + Vector2(150, 0), 0.4)
+	tween.tween_property(enemy_damage_number, "modulate:a", 0, .5)
+	enemy_damage_number.text = str(value) 
 
 func change_enemy_bleed_taken(value):
 	$EnemyBleedTaken.text = str(value)

@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dac2v2br3grnx"]
+[gd_scene load_steps=5 format=3 uid="uid://dac2v2br3grnx"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/berserker.gd" id="1_2i22b"]
 [ext_resource type="Resource" uid="uid://cyhj5ybc2b5yp" path="res://Resources/Character/berserker.tres" id="2_85j04"]
+[ext_resource type="Texture2D" uid="uid://gb3vedweny2f" path="res://Resources/Art/UIElements/rage_bar_under.png" id="3_mcllw"]
+[ext_resource type="Texture2D" uid="uid://cm8or4yet6qac" path="res://Resources/Art/UIElements/rage_bar.png" id="3_svegv"]
 
-[node name="berserker" type="Node2D" groups=["character"]]
+[node name="Berserker" type="Node2D" groups=["character"]]
 script = ExtResource("1_2i22b")
 character_stats_resource = ExtResource("2_85j04")
 
-[node name="RageBar" type="ProgressBar" parent="."]
-offset_right = 4.0
-offset_bottom = 27.0
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = -9.0
+offset_top = -64.0
+offset_right = 9.0
+offset_bottom = 65.0
+fill_mode = 3
+texture_under = ExtResource("3_mcllw")
+texture_progress = ExtResource("3_svegv")
+texture_progress_offset = Vector2(2, 0)

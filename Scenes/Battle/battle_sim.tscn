@@ -26,7 +26,7 @@ script = ExtResource("3_7ul7h")
 
 [node name="Player" parent="." instance=ExtResource("5_th71o")]
 
-[node name="berserker" parent="Player" instance=ExtResource("6_otqk3")]
+[node name="Berserker" parent="Player" instance=ExtResource("6_otqk3")]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -59,6 +59,7 @@ offset_left = 1792.0
 offset_top = 193.0
 offset_right = 1832.0
 offset_bottom = 216.0
+theme_override_font_sizes/font_size = 33
 
 [node name="EnemyDamageNumber" type="Label" parent="UI"]
 layout_mode = 0
@@ -66,9 +67,7 @@ offset_left = 1774.0
 offset_top = 880.0
 offset_right = 1814.0
 offset_bottom = 903.0
-theme_override_colors/font_color = Color(0.618989, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
 
 [node name="EnemyBleedTaken" type="Label" parent="UI"]
 layout_mode = 0

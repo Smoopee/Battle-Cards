@@ -11,3 +11,5 @@ class_name Enemy_Resource
 @export var bleeding_dmg: int
 @export var burning_dmg: int
 @export var poisoning_dmg: int
+@export var armor: int
+@export var attack: int
