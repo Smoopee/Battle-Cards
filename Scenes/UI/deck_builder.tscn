@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://myjsxai04sm7"]
+[gd_scene load_steps=10 format=3 uid="uid://myjsxai04sm7"]
 
 [ext_resource type="Script" path="res://Scripts/UI/CardManager.gd" id="1_wsaiq"]
 [ext_resource type="Script" path="res://Scripts/UI/deck_builder.gd" id="1_xrkhi"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Enemy_Cards.gd" id="5_ogxm3"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_uerh6"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="8_mjsl0"]
+[ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="9_qtx1v"]
 
 [node name="DeckBuilder" type="Node2D"]
 script = ExtResource("1_xrkhi")
@@ -41,5 +42,7 @@ mouse_filter = 2
 texture = ExtResource("7_uerh6")
 
 [node name="Player" parent="." instance=ExtResource("8_mjsl0")]
+
+[node name="PlayerUI" parent="." instance=ExtResource("9_qtx1v")]
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

@@ -14,3 +14,5 @@ gold = 2
 bleeding_dmg = 0
 burning_dmg = 0
 poisoning_dmg = 0
+armor = 0
+attack = 0

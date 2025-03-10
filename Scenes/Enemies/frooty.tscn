@@ -30,7 +30,13 @@ script = ExtResource("3_llvby")
 [node name="Skills" type="Node2D" parent="."]
 script = ExtResource("4_2ao04")
 
-[node name="EnemyHealthBar" type="TextureProgressBar" parent="."]
+[node name="EnemyUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
 offset_left = -47.0
 offset_top = 48.0
 offset_right = 47.0
@@ -38,7 +44,7 @@ offset_bottom = 62.0
 value = 100.0
 texture_progress = ExtResource("5_5n141")
 
-[node name="EnemyHealthText" type="Label" parent="EnemyHealthBar"]
+[node name="EnemyHealthText" type="Label" parent="EnemyUI/EnemyHealthBar"]
 layout_mode = 0
 offset_left = 32.0
 offset_right = 72.0
@@ -47,3 +53,19 @@ scale = Vector2(0.760001, 0.52)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "120/120"
 horizontal_alignment = 1
+
+[node name="GoldAndXPBox" type="HBoxContainer" parent="EnemyUI"]
+offset_left = -37.0
+offset_top = 62.0
+offset_right = 50.0
+offset_bottom = 102.0
+
+[node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2g"
+
+[node name="EnemyXP" type="Label" parent="EnemyUI/GoldAndXPBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2xp"

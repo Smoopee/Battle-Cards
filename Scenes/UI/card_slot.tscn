@@ -18,3 +18,10 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_uddow")
+
+[node name="SlotNumber" type="Label" parent="."]
+offset_left = -6.0
+offset_top = 67.0
+offset_right = 34.0
+offset_bottom = 90.0
+text = "1"

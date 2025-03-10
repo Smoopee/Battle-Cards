@@ -42,6 +42,8 @@ func finish_drag():
 		Global.player_inventory = []
 		Global.set_player_inventory()
 		Global.instantiate_player_inventory()
+		Global.set_player_deck()
+		Global.instantiate_player_deck()
 		
 		print("Let's Begin")
 		await get_tree().create_timer(2).timeout

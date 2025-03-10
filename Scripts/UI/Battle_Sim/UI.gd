@@ -11,7 +11,8 @@ var center_screen_y
 func _ready():
 	$EnemyBleedTaken.position = $"../Enemy".enemy.position + Vector2(10, 60)
 	$EnemyBleedTaken.text = ""
-	
+	combat_log.set_scroll_follow(true)
+		
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
 	

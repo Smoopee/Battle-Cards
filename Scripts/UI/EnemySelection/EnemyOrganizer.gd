@@ -32,6 +32,7 @@ func create_encounter(enemy_array):
 	for i in range(enemy_array.size()):
 		var new_enemy = enemy_array[i].instantiate()
 		add_child(new_enemy)
+		new_enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = true
 		enemy_selection.push_front(new_enemy)
 		update_enemy_positions()
 

@@ -12,6 +12,9 @@ var enemy_skills = []
 var enemy
 var deck = []
 
+var enemy_health_bar
+
+
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	add_child(enemy)
@@ -20,8 +23,11 @@ func _ready():
 	enemy.position = Vector2(center_screen_x, 150)
 	enemy.set_stats()
 	
-	get_child(0).get_node("EnemyHealthBar").max_value = Global.max_enemy_health
-	get_child(0).get_node("EnemyHealthBar").value = Global.enemy_health
+	enemy_health_bar = enemy.get_node("EnemyUI").get_node("EnemyHealthBar")
+	enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
+	
+	enemy_health_bar.max_value = Global.max_enemy_health
+	enemy_health_bar.value = Global.enemy_health
 	
 func build_deck():
 	enemy_deck = enemy.enemy_deck
@@ -88,12 +94,9 @@ func add_skills():
 		skill_array.push_back(new_instance)
 		new_instance.position = Vector2(1400 + skill_x_position, 50)
 		skill_x_position += 70
-		
-
 	return skill_array
 
 func change_enemy_health():
-	var enemy_health_bar = get_child(0).get_node("EnemyHealthBar")
 	enemy_health_bar.value = Global.enemy_health
 	enemy_health_bar.get_child(0).text = str(Global.enemy_health)
 	

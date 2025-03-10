@@ -12,11 +12,14 @@ var playerData = PlayerData.new()
 
 @onready var player_deck = []
 @onready var player_skills = []
+@onready var player_inventory_db = []
+@onready var player_deck_db
+@onready var player_inventory = []
+@onready var all_player_cards = []
 
 @onready var current_merchant = load("res://Scenes/Merchants/grack.tscn")
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
-@onready var player_inventory_db = []
-@onready var player_inventory = []
+
 
 var intermission_tracker = 0
 
@@ -49,13 +52,22 @@ func change_enemy_health(amount):
 		enemy_health = max_enemy_health
 
 func set_player_inventory():
-	player_inventory_db = ["Rock", "Rock", "Rock", "Rock", "Rock", 
-	"Rock", "Rock", "Rock", "Rock", "Rock", "Rock", "Rock"]
+	player_inventory_db = ["Rock", "Rock"]
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:
 		var card = load(card_db_reference.CARDS[i]).duplicate()
 		player_inventory.push_back(card)
+
+
+func set_player_deck():
+	player_deck_db = ["Rock", "Rock", "Rock", "Rock", "Rock", 
+	"Rock", "Rock", "Rock", "Rock", "Rock"]
+
+func instantiate_player_deck():
+	for i in player_deck_db:
+		var card = load(card_db_reference.CARDS[i]).duplicate()
+		player_deck.push_back(card)
 
 func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)

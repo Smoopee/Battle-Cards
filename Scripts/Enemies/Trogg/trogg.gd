@@ -12,6 +12,14 @@ var enemy_resource_path = "res://Resources/Enemies/Trogg.tres"
 
 func _ready():
 	set_stats(enemy_stats_resource)
+	set_enemy_gold()
+	set_enemy_xp()
 
 func set_stats(stats = Enemy_Resource) -> void:
 	enemy_stats = load("res://Resources/Enemies/Trogg.tres").duplicate()
+
+func set_enemy_gold():
+	$EnemyUI/GoldAndXPBox/EnemyGold.text = str(enemy_stats.gold) + "g"
+
+func set_enemy_xp():
+	$EnemyUI/GoldAndXPBox/EnemyXP.text = str(enemy_stats.xp) + "xp"
