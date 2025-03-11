@@ -71,6 +71,7 @@ func finish_drag():
 	var deck_card_slot_index = deck_card_slot_array.find(deck_card_slot_found)
 	var deck_card_slot_reference_index = deck_card_slot_reference.find(card_being_dragged)
 	
+	
 	var inventory_card_slot_index = inventory_card_slot_array.find(inventory_card_slot_found)
 	var inventory_card_slot_reference_index =  inventory_card_slot_reference.find(card_being_dragged)
 	
@@ -78,16 +79,12 @@ func finish_drag():
 	var previous_card_slot
 	
 	if sell_zone_found:
-		var temp_inventory_reference = inventory_card_slot_reference.find(card_being_dragged)
-		var temp_inventory_card = inventory_card_slot_reference[inventory_card_slot_index]
-		if temp_inventory_reference > 0:
-			inventory_card_slot_reference[temp_inventory_reference] = null
-			inventory_card_slot_array[temp_inventory_reference].card_in_slot = false
-		var temp_deck_reference = deck_card_slot_reference.find(card_being_dragged)
-		var temp_deck_card = deck_card_slot_reference[deck_card_slot_index]
-		if temp_deck_reference > 0:
-			deck_card_slot_reference[temp_deck_reference] = null
-			deck_card_slot_array[temp_deck_reference].card_in_slot = false
+		if inventory_card_slot_reference_index >= 0:
+			inventory_card_slot_reference[inventory_card_slot_reference_index] = null
+			inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
+		if deck_card_slot_reference_index >= 0:
+			deck_card_slot_reference[deck_card_slot_reference_index] = null
+			deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
 		sell_card(card_being_dragged)
 
 	
@@ -123,10 +120,9 @@ func finish_drag():
 		deck_card_slot_found.card_in_slot = true
 		deck_card_slot_reference.remove_at(deck_card_slot_index)
 		deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
-		var temp_reference = inventory_card_slot_reference.find(card_being_dragged)
-		if temp_reference >= 0:
-			inventory_card_slot_reference[temp_reference] = null
-			inventory_card_slot_array[temp_reference].card_in_slot = false
+		if inventory_card_slot_reference_index >= 0:
+			inventory_card_slot_reference[inventory_card_slot_reference_index] = null
+			inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
 		print("I am Here 1")
 
 	elif deck_card_slot_found and deck_card_slot_found.card_in_slot and !upgrade_mode:
@@ -296,7 +292,6 @@ func finish_drag():
 func upgrade_card(upgrade_card, base_card):
 		upgrade_card.queue_free()
 		base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
-		base_card.update_card_ui()
 		print("Upgrade card end")
 
 	
@@ -385,7 +380,7 @@ func get_card_with_lowest_z_index(cards):
 
 func update_player_gold():
 	pass
-	$"../PlayerUI".change_player_gold() 
+	#$"../PlayerUI".change_player_gold() 
 
 
 func _on_upgrade_button_toggled(toggled_on):

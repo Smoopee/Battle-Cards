@@ -44,6 +44,8 @@ func upgrade_card(num):
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
 			card_stats.buy_price = 16
+		
+	update_card_ui()
 
 func item_enchant(enchant):
 	print(card_stats)
@@ -55,7 +57,8 @@ func item_enchant(enchant):
 			card_stats.buy_price *= 2
 			print("Bleeding for " + str(card_stats.bleed_dmg))
 
-
+	update_card_ui()
+	
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$CardImage.texture = load(card_stats.card_art_path)

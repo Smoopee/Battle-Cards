@@ -88,7 +88,7 @@ func upgrade_card(num):
 			card_stats.sell_price = 24
 			card_stats.buy_price = 48
 			upgrade_effect = 3.5
-
+	update_card_ui()
 
 func item_enchant(enchant):
 	match enchant:
@@ -96,7 +96,7 @@ func item_enchant(enchant):
 			card_stats.item_enchant = "Bleed"
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
-
+	update_card_ui()
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$CardImage.texture = load(card_stats.card_art_path)

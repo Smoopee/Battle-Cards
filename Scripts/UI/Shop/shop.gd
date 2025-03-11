@@ -5,7 +5,7 @@ var save_file_name = "PlayerSave.tres"
 var playerData = PlayerData.new()
 @onready var merchant_cards = $MerchantCards
 
-@onready var player_inventory = $Inventory
+@onready var player_inventory = $PlayerInventory
 
 func _ready():
 	verify_save_directory(save_file_path)
@@ -23,10 +23,12 @@ func _on_exit_button_button_down():
 	playerData.player_inventory = temp
 	Global.player_inventory = temp
 	save()
-	if Global.intermission_tracker <= 1: get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))
-	else: 
+	if Global.intermission_tracker <= 1: 
+		Global.intermission_tracker += 1
+		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+	else:
 		Global.intermission_tracker = 0
-		get_tree().change_scene_to_file(("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
+		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 
 
 func _on_reroll_button_button_down():
@@ -39,4 +41,3 @@ func _on_reroll_button_button_down():
 	merchant_cards.inventory_db = []
 	
 	merchant_cards.create_merchant_inventory()
-

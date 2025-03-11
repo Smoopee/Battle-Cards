@@ -41,7 +41,7 @@ func upgrade_card(num):
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/health_potion4_card.png"
 			card_stats.upgrade_level = 4
 			card_stats.heal = 24
-			
+	update_card_ui()
 
 func item_enchant(enchant):
 	print(card_stats)
@@ -51,7 +51,7 @@ func item_enchant(enchant):
 			card_stats.bleed_dmg = 6
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
-
+	update_card_ui()
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$CardImage.texture = load(card_stats.card_art_path)

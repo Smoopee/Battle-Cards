@@ -1,6 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/Merchant.gd" id="2_wrfdt"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantCards.gd" id="3_82fbf"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/InventoryCardSlots.gd" id="4_vhc0b"]
@@ -11,64 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_b14l4"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_ldslr"]
 
-[sub_resource type="GDScript" id="GDScript_775hw"]
-script/source = "
-extends Node2D
-
-var save_file_path = \"user://SaveData/\"
-var save_file_name = \"PlayerSave.tres\"
-var playerData = PlayerData.new()
-@onready var merchant_cards = $MerchantCards
-
-@onready var player_inventory = $Inventory
-
-func _ready():
-	verify_save_directory(save_file_path)
-func verify_save_directory(path: String):
-	DirAccess.make_dir_absolute(path)
-func save():
-	ResourceSaver.save(playerData, save_file_path + save_file_name)
-	print(\"save\")
-
-
-func _on_exit_button_button_down():
-	var temp = []
-	for i in player_inventory.inventory:
-		temp.push_back(i.card_stats)
-	playerData.player_inventory = temp
-	Global.player_inventory = temp
-	save()
-	if Global.intermission_tracker <= 1: 
-		Global.intermission_tracker += 1
-		get_tree().change_scene_to_file(\"res://Scenes/UI/Intermission/intermission.tscn\")
-	else:
-		Global.intermission_tracker = 0
-		get_tree().change_scene_to_file(\"res://Scenes/UI/EnemySelection/enemy_selection.tscn\")
-
-
-func _on_reroll_button_button_down():
-	merchant_cards.inventory = []
-	
-	for i in $CardManager.get_children():
-		if i.card_stats.is_players == false:
-			i.queue_free()
-	
-	merchant_cards.inventory_db = []
-	
-	merchant_cards.create_merchant_inventory()
-"
-
 [node name="Shop" type="Node2D"]
-script = SubResource("GDScript_775hw")
+script = ExtResource("1_ujm55")
 
 [node name="Merchant" type="Node2D" parent="."]
 script = ExtResource("2_wrfdt")
-
-[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
-script = ExtResource("1_03fvr")
-
-[node name="MerchantCards" type="Node2D" parent="."]
-script = ExtResource("3_82fbf")
 
 [node name="InventorySlots" type="Node2D" parent="."]
 script = ExtResource("4_vhc0b")
@@ -79,8 +27,14 @@ script = ExtResource("5_de2mv")
 [node name="PlayerInventory" type="Node2D" parent="."]
 script = ExtResource("5_5052o")
 
+[node name="MerchantCards" type="Node2D" parent="."]
+script = ExtResource("3_82fbf")
+
 [node name="PlayerDeck" type="Node2D" parent="."]
 script = ExtResource("5_r3th3")
+
+[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
+script = ExtResource("1_03fvr")
 
 [node name="Player" parent="." instance=ExtResource("6_52iue")]
 
@@ -106,6 +60,14 @@ offset_right = 1797.0
 offset_bottom = 967.0
 text = "Leave"
 
+[node name="UpgradeButton" type="CheckButton" parent="ShopUI"]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 830.0
+offset_right = 414.0
+offset_bottom = 861.0
+text = "Upgrade Mode"
+
 [node name="Background" type="TextureRect" parent="."]
 z_index = -1
 offset_right = 1920.0
@@ -117,3 +79,4 @@ texture = ExtResource("7_ldslr")
 
 [connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
 [connection signal="button_down" from="ShopUI/ExitButton" to="." method="_on_exit_button_button_down"]
+[connection signal="toggled" from="ShopUI/UpgradeButton" to="CardManager" method="_on_upgrade_button_toggled"]
