@@ -4,6 +4,8 @@ const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_MERCHANT_CARD = 64
 const COLLISION_MASK_MERCHANT = 32
 const COLLISION_MASK_PLAYER = 8
+const COLLISION_MASK_DECK_SLOT = 2
+const COLLISION_MASK_INVENTORY_SLOT = 4
 
 
 var screen_size
@@ -15,7 +17,7 @@ var player_inventory_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	merchant_inventory_reference = $"../MerchantCards"
-	player_inventory_reference = $"../Inventory"
+	player_inventory_reference = $"../PlayerInventory"
 	
 	for i in get_children():
 		if !i.card_stats.is_players:

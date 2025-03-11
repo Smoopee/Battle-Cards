@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbudyogspe5gy"]
+[gd_scene load_steps=12 format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/Merchant.gd" id="2_wrfdt"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantCards.gd" id="3_82fbf"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/InventoryCardSlots.gd" id="4_vhc0b"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/Inventory.gd" id="5_5052o"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/DeckCardSlots.gd" id="5_de2mv"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/PlayerDeck.gd" id="5_r3th3"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="6_52iue"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_b14l4"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_ldslr"]
@@ -67,8 +70,17 @@ script = ExtResource("1_03fvr")
 [node name="MerchantCards" type="Node2D" parent="."]
 script = ExtResource("3_82fbf")
 
-[node name="Inventory" type="Node2D" parent="."]
+[node name="InventorySlots" type="Node2D" parent="."]
+script = ExtResource("4_vhc0b")
+
+[node name="DeckCardSlots" type="Node2D" parent="."]
+script = ExtResource("5_de2mv")
+
+[node name="PlayerInventory" type="Node2D" parent="."]
 script = ExtResource("5_5052o")
+
+[node name="PlayerDeck" type="Node2D" parent="."]
+script = ExtResource("5_r3th3")
 
 [node name="Player" parent="." instance=ExtResource("6_52iue")]
 

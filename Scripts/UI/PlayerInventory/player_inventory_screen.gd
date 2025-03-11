@@ -101,16 +101,12 @@ func finish_drag():
 					inventory_card_slot_array[temp_inventory_reference].card_in_slot = false
 				var temp_deck_reference = deck_card_slot_reference.find(card_being_dragged)
 				var temp_deck_card = deck_card_slot_reference[deck_card_slot_index]
-				print(temp_deck_reference)
 				if temp_deck_reference >= 0:
 					deck_card_slot_reference[temp_deck_reference] = null
 					deck_card_slot_array[temp_deck_reference].card_in_slot = false
 				upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 				print("Upgrade card")
 				card_being_dragged = null
-				
-				for i in deck_card_slot_array:
-					print(i.card_in_slot)
 				return
 	
 	#If the card being dragged is from a card slot and is landing on an occupied card slot
@@ -173,9 +169,6 @@ func finish_drag():
 						deck_card_slot_reference.insert(deck_card_slot_index+loop_counter, temp_card)
 						deck_card_slot_array[deck_card_slot_index+loop_counter].card_in_slot = true
 						print("I am Here 4")
-						
-						for i in deck_card_slot_array:
-							print(i.card_in_slot)
 						break
 					else: 
 						var second_temp = deck_card_slot_reference[deck_card_slot_index+loop_counter]
@@ -295,7 +288,10 @@ func finish_drag():
 		card_being_dragged.z_index = 1
 		card_being_dragged = null
 	
-	card_being_dragged = null
+	if card_being_dragged != null:
+		card_being_dragged.scale = Vector2(1, 1)
+		card_being_dragged.z_index = 1
+		card_being_dragged = null
 
 func upgrade_card(upgrade_card, base_card):
 		upgrade_card.queue_free()

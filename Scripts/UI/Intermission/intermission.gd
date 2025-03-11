@@ -1,8 +1,13 @@
 extends Node2D
 
+var save_file_path = "user://SaveData/"
+var save_file_name = "PlayerSave.tres"
+var playerData = PlayerData.new()
+
 const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_MERCHANT = 32
 
+@onready var player_inventory = $PlayerInventoryScreen
 var screen_size
 var card_being_dragged
 var card_selector_reference
@@ -11,6 +16,13 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	Global.intermission_tracker += 1
+	verify_save_directory(save_file_path)
+
+func verify_save_directory(path: String):
+	DirAccess.make_dir_absolute(path)
+func save():
+	ResourceSaver.save(playerData, save_file_path + save_file_name)
+	print("save")
 
 func _process(delta):
 	if card_being_dragged:
@@ -36,6 +48,27 @@ func finish_drag():
 		print(merchant_found)
 		Global.current_merchant = merchant_found.merchant_scene_path
 		print(Global.current_merchant)
+		
+		var temp_inventory = []
+		for i in player_inventory.inventory_card_slot_reference:
+			if i != null:
+				temp_inventory.push_back(i.card_stats)
+			else:
+				temp_inventory.push_back(null)
+		playerData.player_inventory = temp_inventory
+		Global.player_inventory = temp_inventory
+	
+		var temp_deck = []
+		for i in player_inventory.deck_card_slot_reference:
+			if i != null:
+				temp_deck.push_back(i.card_stats)
+			else:
+				temp_deck.push_back(null)
+		playerData.player_deck = temp_deck
+		Global.player_deck = temp_deck
+		save()
+		
+		
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
@@ -88,3 +121,5 @@ func _on_inventory_button_button_down():
 	$CardSelector.card_selector_collision_toggle()
 	
 	$PlayerInventoryScreen.inventory_collision_toggle()
+	
+

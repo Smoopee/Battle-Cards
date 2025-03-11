@@ -15,7 +15,6 @@ z_index = 4
 script = ExtResource("1_ek0gf")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 z_index = -1
 offset_right = 40.0
 offset_bottom = 40.0

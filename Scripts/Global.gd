@@ -39,6 +39,7 @@ func _ready():
 	
 	load_data()
 	player_inventory = playerData.player_inventory
+	player_deck = playerData.player_deck
 	
 
 func change_player_health(amount):

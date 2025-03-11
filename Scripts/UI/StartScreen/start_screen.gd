@@ -40,6 +40,7 @@ func finish_drag():
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
 		Global.player_inventory = []
+		Global.player_deck = []
 		Global.set_player_inventory()
 		Global.instantiate_player_inventory()
 		Global.set_player_deck()

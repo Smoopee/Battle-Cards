@@ -3,6 +3,7 @@ extends Node2D
 
 const CARD_WIDTH = 130
 const HAND_Y_POSITION = 730
+const NUMBER_OF_INVENTORY_SLOTS = 5
 
 var inventory_db = []
 var inventory = []
@@ -21,7 +22,7 @@ func _ready():
 		card_slot_array.push_front(i)
 		
 	create_inventory()
-	while card_slot_reference.size() < 10:
+	while card_slot_reference.size() < NUMBER_OF_INVENTORY_SLOTS:
 		card_slot_reference.push_back(null)
 		
 	animation_cancel = false
@@ -31,6 +32,10 @@ func create_inventory():
 	
 	var card_position = 0
 	for i in range(inventory_db.size()):
+		if inventory_db[i] == null:
+			fill_card_slots(inventory_db[i], card_position)
+			card_position += 1
+			continue
 		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
 		card_scene.card_stats = inventory_db[i]
 		add_child(card_scene)
@@ -59,7 +64,9 @@ func animate_card_to_position(card, new_position):
 	tween.tween_property(card, "position", new_position, 0.1)
 
 func fill_card_slots(new_card, index):
-	print(new_card.card_stats.name)
 	card_slot_reference.push_back(new_card)
+	if new_card == null: 
+		card_slot_array[index].card_in_slot = false
+		return
 	new_card.position = card_slot_array[index].position
 	card_slot_array[index].card_in_slot = true
