@@ -49,24 +49,7 @@ func finish_drag():
 		Global.current_merchant = merchant_found.merchant_scene_path
 		print(Global.current_merchant)
 		
-		var temp_inventory = []
-		for i in player_inventory.inventory_card_slot_reference:
-			if i != null:
-				temp_inventory.push_back(i.card_stats)
-			else:
-				temp_inventory.push_back(null)
-		playerData.player_inventory = temp_inventory
-		Global.player_inventory = temp_inventory
-	
-		var temp_deck = []
-		for i in player_inventory.deck_card_slot_reference:
-			if i != null:
-				temp_deck.push_back(i.card_stats)
-			else:
-				temp_deck.push_back(null)
-		playerData.player_deck = temp_deck
-		Global.player_deck = temp_deck
-		save()
+		inventory_and_deck_save()
 		
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
 	else:
@@ -120,5 +103,24 @@ func _on_inventory_button_button_down():
 	$CardSelector.card_selector_collision_toggle()
 	
 	$PlayerInventoryScreen.inventory_collision_toggle()
-	
 
+
+func inventory_and_deck_save():
+	var temp_inventory = []
+	for i in player_inventory.inventory_card_slot_reference:
+		if i != null:
+			temp_inventory.push_back(i.card_stats)
+		else:
+			temp_inventory.push_back(null)
+	playerData.player_inventory = temp_inventory
+	Global.player_inventory = temp_inventory
+
+	var temp_deck = []
+	for i in player_inventory.deck_card_slot_reference:
+		if i != null:
+			temp_deck.push_back(i.card_stats)
+		else:
+			temp_deck.push_back(null)
+	playerData.player_deck = temp_deck
+	Global.player_deck = temp_deck
+	save()

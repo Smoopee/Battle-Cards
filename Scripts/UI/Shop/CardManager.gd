@@ -69,10 +69,12 @@ func start_drag(card):
 	card_being_dragged = card
 	card_being_dragged.scale = Vector2(1.1, 1.1)
 	card_being_dragged.z_index = 2
+	card_previous_position = card.position
 
 func finish_drag():
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
+	var card_sorted = false
 	
 	deck_card_slot_index = deck_card_slot_array.find(deck_card_slot_found)
 	deck_card_slot_reference_index = deck_card_slot_reference.find(card_being_dragged)
@@ -85,6 +87,12 @@ func finish_drag():
 	var can_sort_deck =  deck_card_slot_found and deck_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players
 	var can_sort_inventory =  inventory_card_slot_found and inventory_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players
 	
+	if raycast_check_for_card() and card_being_dragged.card_stats.is_enchantment and card_being_dragged.card_stats.is_players and raycast_check_for_card() != raycast_check_for_upgrade_card()	:
+		enchant_from_inventory(raycast_check_for_upgrade_card())
+		print("Enchant card from inventory")
+		card_reset()
+		return
+	
 	if deck_card_slot_reference_index  > -1 and deck_card_slot_found != null:
 		previous_card_slot = deck_card_slot_reference_index
 		deck_card_slot_reference[deck_card_slot_reference_index] = null
@@ -92,11 +100,13 @@ func finish_drag():
 	
 	if deck_card_slot_found and not deck_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players:
 		move_from_inventory_to_deck(card_being_dragged, deck_card_slot_found)
+		card_sorted = true
 	elif can_sort_deck:
 		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card())):
 			if deck_card_slot_reference_index > -1:
 				deck_sorting(card_being_dragged, deck_card_slot_found)
 			else: inventory_to_deck_swap()
+		card_sorted = true
 
 	if inventory_card_slot_reference_index  > -1 and inventory_card_slot_found != null:
 		previous_card_slot = inventory_card_slot_reference_index
@@ -105,58 +115,56 @@ func finish_drag():
 	
 	if inventory_card_slot_found and not inventory_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players:
 		move_from_deck_to_inventory(card_being_dragged, inventory_card_slot_found)
+		card_sorted = true
 	elif can_sort_inventory:
 		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card())):
 			if inventory_card_slot_reference_index > -1:
 				inventory_sorting(card_being_dragged, inventory_card_slot_found)
 			else: deck_to_inventory_swap()
+		card_sorted = true
 	
-	if raycast_check_for_card() and card_being_dragged.card_stats.is_enchantment:
+	if raycast_check_for_card() and card_being_dragged.card_stats.is_enchantment and not card_being_dragged.card_stats.is_players:
 		enchant_from_merchant(card_being_dragged, raycast_check_for_card())
-		print("Enchant card")
+		print("Enchant card from merchant")
 		card_reset()
-		card_being_dragged = null
 		return
 	
 	if raycast_check_for_deck_slot() and not deck_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_deck(card_being_dragged, deck_card_slot_found)
 		print("Buy card for Deck")
 		card_reset()
-		card_being_dragged = null
 		return
 	
 	if raycast_check_for_inventory_slot() and not inventory_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_inventory(card_being_dragged, inventory_card_slot_found)
 		print("Buy card for Inventory")
 		card_reset()
-		card_being_dragged = null
 		return
 	
 	if raycast_check_for_merchant() and card_being_dragged.card_stats.is_players:
 		sell_card(card_being_dragged)
+		print("Sell Card")
 		card_reset()
-		card_being_dragged = null
 		return
 	
 	if raycast_check_for_card() and card_being_dragged.card_stats.is_players and upgrade_mode:
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card()):
 			upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 			print("Upgrade card")
-
 			card_reset()
-			card_being_dragged = null
 			return
 	
 	if raycast_check_for_card() and not card_being_dragged.card_stats.is_players:
 		upgrade_from_merchant(card_being_dragged, raycast_check_for_upgrade_card())
 		print("Upgrade from merchant")
 		card_reset()
-		card_being_dragged = null
 		return
 	
 	if !card_being_dragged.card_stats.is_players:
 		$"../MerchantCards".add_card_to_hand(card_being_dragged)
-	
+
+	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
+	card_sorted = false
 	card_reset()
 	card_being_dragged = null
 
@@ -274,6 +282,7 @@ func sell_card(card):
 	card.get_node("Area2D").collision_mask = COLLISION_MASK_MERCHANT_CARD
 	card.card_stats.is_players = false
 	card.card_shop_ui()
+	card.reparent($"../MerchantCards")
 	update_player_gold()
 
 func buy_card_for_deck(card, deck_slot):
@@ -319,6 +328,12 @@ func upgrade_card(upgrade_card, base_card):
 	if deck_card_slot_reference_index >= 0:
 		deck_card_slot_reference[deck_card_slot_reference_index] = null
 		deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
+	var temp_enchant = base_card.card_stats.item_enchant
+	var temp_enchant2 = upgrade_card.card_stats.item_enchant
+	if temp_enchant != null:
+		base_card.card_stats.item_enchant = temp_enchant
+	if temp_enchant2 != null:
+		base_card.card_stats.item_enchant = temp_enchant2
 	upgrade_card.queue_free()
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 	print("Upgrade card end")
@@ -348,6 +363,12 @@ func upgrade_from_merchant(upgrade_card, base_card):
 			merchant_inventory_reference.add_card_to_hand(upgrade_card)
 			return
 		Global.player_gold -= base_card.card_stats.buy_price
+		var temp_enchant = base_card.card_stats.item_enchant
+		var temp_enchant2 = upgrade_card.card_stats.item_enchant
+		if temp_enchant != null:
+			base_card.card_stats.item_enchant = temp_enchant
+		if temp_enchant2 != null:
+			base_card.card_stats.item_enchant = temp_enchant2
 		merchant_inventory_reference.remove_card_from_hand(upgrade_card)
 		upgrade_card.queue_free()
 		base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
@@ -370,6 +391,12 @@ func enchant_from_merchant(enchant_card, base_card):
 	base_card.update_card_ui()
 	base_card.card_shop_ui()
 	update_player_gold()
+
+func enchant_from_inventory(base_card):
+	base_card.item_enchant(card_being_dragged.card_stats.enchanting_with)
+	card_being_dragged.queue_free()
+	base_card.update_card_ui()
+	base_card.card_shop_ui()
 
 func move_from_inventory_to_deck(card_being_dragged, deck_slot):
 	card_being_dragged.position = deck_slot.position
@@ -510,6 +537,7 @@ func deck_to_inventory_swap():
 	deck_card_slot_reference.remove_at(deck_card_slot_reference_index)
 	deck_card_slot_reference.insert(deck_card_slot_reference_index, temp_card)
 	print("I am Here 12")
+
 func update_player_gold():
 	pass
 	$"../PlayerUI".change_player_gold() 
@@ -517,6 +545,7 @@ func update_player_gold():
 func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
+	card_being_dragged = null
 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on

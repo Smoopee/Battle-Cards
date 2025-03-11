@@ -17,7 +17,7 @@ var playerData = PlayerData.new()
 @onready var player_inventory = []
 @onready var all_player_cards = []
 
-@onready var current_merchant = load("res://Scenes/Merchants/grack.tscn")
+@onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
 
 
@@ -40,6 +40,9 @@ func _ready():
 	load_data()
 	player_inventory = playerData.player_inventory
 	player_deck = playerData.player_deck
+	if player_inventory == null:
+		instantiate_player_deck()
+		instantiate_player_inventory()
 	
 
 func change_player_health(amount):

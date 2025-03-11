@@ -7,15 +7,12 @@ const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
 var inventory_db = []
 var inventory = []
-
 var center_screen_x
-
 var animation_canel = true
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	create_merchant_inventory()
-	
 
 func create_merchant_inventory():
 	fetch_merchant_inventory()
@@ -54,8 +51,13 @@ func update_hand_positions():
 		card.position = new_position
  
 func calculate_card_position(index):
-	var total_width = (inventory.size() - 1) * CARD_WIDTH
-	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
+	var more_space = 0
+	if get_children().size() > 6:
+		more_space = 30
+	if get_children().size() > 12:
+		more_space = 50
+	var total_width = (inventory.size() - 1) * (CARD_WIDTH - more_space)
+	var x_offset = center_screen_x + (index * (CARD_WIDTH - more_space)) - (total_width / 2)
 	return x_offset
 
 func remove_card_from_hand(card):

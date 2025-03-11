@@ -40,10 +40,7 @@ func update_card_ui():
 	change_card_dmg_text()
 
 func change_item_enchant_image():
-	var enchant = card_stats.item_enchant
-	
-	if enchant == "Bleed":
-		$CardUI/HBoxContainer/ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
+	pass
 
 func change_card_dmg_text():
 	pass

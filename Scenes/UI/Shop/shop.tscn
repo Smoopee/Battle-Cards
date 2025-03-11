@@ -52,6 +52,14 @@ offset_right = 1759.0
 offset_bottom = 212.0
 text = "Refresh"
 
+[node name="RerollPrice" type="Label" parent="ShopUI/RerollButton"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 30.0
+offset_right = 65.0
+offset_bottom = 53.0
+text = "5g"
+
 [node name="ExitButton" type="Button" parent="ShopUI"]
 layout_mode = 0
 offset_left = 1744.0

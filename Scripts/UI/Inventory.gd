@@ -28,7 +28,7 @@ func _ready():
 	
 func create_inventory():
 	fetch_inventory()
-	
+	print(Global.player_inventory)
 	var card_position = 0
 	for i in range(inventory_db.size()):
 		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
