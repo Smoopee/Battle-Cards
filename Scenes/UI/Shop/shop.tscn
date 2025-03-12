@@ -24,11 +24,11 @@ script = ExtResource("4_vhc0b")
 [node name="DeckCardSlots" type="Node2D" parent="."]
 script = ExtResource("5_de2mv")
 
-[node name="PlayerInventory" type="Node2D" parent="."]
-script = ExtResource("5_5052o")
-
 [node name="MerchantCards" type="Node2D" parent="."]
 script = ExtResource("3_82fbf")
+
+[node name="PlayerInventory" type="Node2D" parent="."]
+script = ExtResource("5_5052o")
 
 [node name="PlayerDeck" type="Node2D" parent="."]
 script = ExtResource("5_r3th3")

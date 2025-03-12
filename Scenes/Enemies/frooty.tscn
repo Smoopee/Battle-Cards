@@ -18,8 +18,8 @@ enemy_stats_resource = ExtResource("2_w2lo1")
 texture = ExtResource("2_58rye")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 32
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_lciwg")
@@ -37,6 +37,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
+layout_mode = 0
 offset_left = -47.0
 offset_top = 48.0
 offset_right = 47.0
@@ -55,6 +56,7 @@ text = "120/120"
 horizontal_alignment = 1
 
 [node name="GoldAndXPBox" type="HBoxContainer" parent="EnemyUI"]
+layout_mode = 0
 offset_left = -37.0
 offset_top = 62.0
 offset_right = 50.0

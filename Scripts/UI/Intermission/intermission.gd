@@ -17,9 +17,11 @@ func _ready():
 	card_selector_reference = $CardSelector
 	Global.intermission_tracker += 1
 	verify_save_directory(save_file_path)
+	
 
 func verify_save_directory(path: String):
 	DirAccess.make_dir_absolute(path)
+
 func save():
 	ResourceSaver.save(playerData, save_file_path + save_file_name)
 	print("save")
@@ -45,12 +47,8 @@ func finish_drag():
 	var merchant_found = raycast_check_for_merchant()
 	
 	if merchant_found:
-		print(merchant_found)
 		Global.current_merchant = merchant_found.merchant_scene_path
-		print(Global.current_merchant)
-		
 		inventory_and_deck_save()
-		
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)

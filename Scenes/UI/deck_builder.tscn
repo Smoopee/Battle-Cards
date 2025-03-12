@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://myjsxai04sm7"]
+[gd_scene load_steps=12 format=3 uid="uid://myjsxai04sm7"]
 
-[ext_resource type="Script" path="res://Scripts/UI/CardManager.gd" id="1_wsaiq"]
-[ext_resource type="Script" path="res://Scripts/UI/deck_builder.gd" id="1_xrkhi"]
-[ext_resource type="PackedScene" uid="uid://cdt7mohawro7i" path="res://Scenes/UI/Intermission/inventory.tscn" id="3_g2c2k"]
-[ext_resource type="Script" path="res://Scripts/UI/CardSlots.gd" id="4_rrwd6"]
-[ext_resource type="Script" path="res://Scripts/UI/Enemy.gd" id="5_bx4tr"]
-[ext_resource type="Script" path="res://Scripts/UI/Enemy_Cards.gd" id="5_ogxm3"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/CardManager.gd" id="1_wsaiq"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/deck_builder.gd" id="1_xrkhi"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/InventorySlots.gd" id="4_fix4o"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/DeckCardSlots.gd" id="5_5wci1"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/Enemy.gd" id="5_bx4tr"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/Enemy_Cards.gd" id="5_ogxm3"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/PlayerInventory.gd" id="6_yjorp"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/PlayerDeck.gd" id="7_s26ac"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_uerh6"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="8_mjsl0"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="9_qtx1v"]
@@ -13,21 +15,32 @@
 [node name="DeckBuilder" type="Node2D"]
 script = ExtResource("1_xrkhi")
 
-[node name="CardSlots" type="Node2D" parent="."]
-script = ExtResource("4_rrwd6")
-
-[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
-script = ExtResource("1_wsaiq")
-
 [node name="Enemy" type="Node2D" parent="."]
 script = ExtResource("5_bx4tr")
-
-[node name="Inventory" parent="." instance=ExtResource("3_g2c2k")]
 
 [node name="Enemy_Cards" type="Node2D" parent="."]
 script = ExtResource("5_ogxm3")
 
-[node name="Button" type="Button" parent="."]
+[node name="InventorySlots" type="Node2D" parent="."]
+script = ExtResource("4_fix4o")
+
+[node name="DeckCardSlots" type="Node2D" parent="."]
+script = ExtResource("5_5wci1")
+
+[node name="PlayerInventory" type="Node2D" parent="."]
+script = ExtResource("6_yjorp")
+
+[node name="PlayerDeck" type="Node2D" parent="."]
+script = ExtResource("7_s26ac")
+
+[node name="Player" parent="." instance=ExtResource("8_mjsl0")]
+
+[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
+script = ExtResource("1_wsaiq")
+
+[node name="PlayerUI" parent="CardManager" instance=ExtResource("9_qtx1v")]
+
+[node name="ConfirmButton" type="Button" parent="."]
 offset_left = 1720.0
 offset_top = 440.0
 offset_right = 1823.0
@@ -41,8 +54,4 @@ offset_bottom = 1079.0
 mouse_filter = 2
 texture = ExtResource("7_uerh6")
 
-[node name="Player" parent="." instance=ExtResource("8_mjsl0")]
-
-[node name="PlayerUI" parent="." instance=ExtResource("9_qtx1v")]
-
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="ConfirmButton" to="." method="_on_button_button_down"]

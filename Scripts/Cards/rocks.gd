@@ -44,7 +44,6 @@ func upgrade_card(num):
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
 			card_stats.buy_price = 16
-		
 	update_card_ui()
 
 func item_enchant(enchant):

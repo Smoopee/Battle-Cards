@@ -18,8 +18,8 @@ func _ready():
 	center_screen_y = get_viewport().size.y / 2
 
 func build_deck():
-	deck_db = Global.player_deck
-	
+	deck_db = Global.player_active_deck
+
 	var counter = 0
 	
 	var card_position = 0

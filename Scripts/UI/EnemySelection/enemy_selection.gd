@@ -1,8 +1,13 @@
 extends Node2D
 
-const COLLISION_MASK_CARD_SELECTOR = 16
-const COLLISION_MASK_ENEMY = 4
+var save_file_path = "user://SaveData/"
+var save_file_name = "PlayerSave.tres"
+var playerData = PlayerData.new()
 
+const COLLISION_MASK_CARD_SELECTOR = 16
+const COLLISION_MASK_ENEMY = 32
+
+@onready var player_inventory = $PlayerInventoryScreen
 var screen_size
 var is_hoovering_on_card
 var card_being_dragged
@@ -11,7 +16,14 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
+	verify_save_directory(save_file_path)
 
+func verify_save_directory(path: String):
+	DirAccess.make_dir_absolute(path)
+
+func save():
+	ResourceSaver.save(playerData, save_file_path + save_file_name)
+	print("save")
 
 func _process(delta):
 	if card_being_dragged:
@@ -35,6 +47,7 @@ func finish_drag():
 	
 	if enemy_found:
 		enemy_loader(enemy_found)
+		inventory_and_deck_save()
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
@@ -43,32 +56,6 @@ func finish_drag():
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
-
-func connect_card_signals(card):
-	card.connect("hoovered", on_hoovered_over_card)
-	card.connect("hoovered_off", on_hoovered_off_card)
-
-func on_hoovered_over_card(card):
-	if !is_hoovering_on_card:
-		is_hoovering_on_card = true
-		highlight_card(card, true)
-
-func on_hoovered_off_card(card):
-	if !card_being_dragged:
-		highlight_card(card, false)
-		var new_card_hoovered = raycast_check_for_card_selector()
-		if new_card_hoovered:
-			highlight_card(new_card_hoovered, true)
-		else: 
-			is_hoovering_on_card = false
-
-func highlight_card(card, hoovered):
-	if hoovered:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
-	else:
-		card.scale = Vector2(1, 1)
-		card.z_index = 1
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
@@ -108,7 +95,6 @@ func enemy_loader(enemy):
 	Global.max_enemy_health = Global.current_enemy.health
 	Global.enemy_health = Global.max_enemy_health
 
-
 func _on_inventory_button_down():
 	if !$PlayerInventoryScreen.visible:
 		$PlayerInventoryScreen.visible = true
@@ -118,4 +104,23 @@ func _on_inventory_button_down():
 	$CardSelector.card_selector_collision_toggle()
 	
 	$PlayerInventoryScreen.inventory_collision_toggle()
-	
+
+func inventory_and_deck_save():
+	var temp_inventory = []
+	for i in player_inventory.inventory_card_slot_reference:
+		if i != null:
+			temp_inventory.push_back(i.card_stats)
+		else:
+			temp_inventory.push_back(null)
+	playerData.player_inventory = temp_inventory
+	Global.player_inventory = temp_inventory
+
+	var temp_deck = []
+	for i in player_inventory.deck_card_slot_reference:
+		if i != null:
+			temp_deck.push_back(i.card_stats)
+		else:
+			temp_deck.push_back(null)
+	playerData.player_deck = temp_deck
+	Global.player_deck = temp_deck
+	save()

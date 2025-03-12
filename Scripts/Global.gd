@@ -10,6 +10,7 @@ var playerData = PlayerData.new()
 @onready var enemy_health: int
 @onready var max_enemy_health: int
 
+@onready var player_active_deck = []
 @onready var player_deck = []
 @onready var player_skills = []
 @onready var player_inventory_db = []

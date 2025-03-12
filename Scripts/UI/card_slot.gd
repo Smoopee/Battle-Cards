@@ -6,4 +6,3 @@ var card_in_slot = false
 
 func change_slot_number(value):
 	$SlotNumber.text = str(value)
-

@@ -14,7 +14,7 @@ func set_stats(stats = Character_Resource) -> void:
 
 func change_rage(value):
 	$TextureProgressBar.value += value
-	if 	$TextureProgressBar.value 	 >= 100:
+	if 	$TextureProgressBar.value  >= 100:
 		player_stats.attack += 3
 		$TextureProgressBar.value = 0
 		print("Rage activated!")

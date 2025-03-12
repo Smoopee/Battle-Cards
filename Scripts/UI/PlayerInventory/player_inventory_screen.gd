@@ -219,9 +219,9 @@ func upgrade_card(upgrade_card, base_card):
 	var temp_enchant = base_card.card_stats.item_enchant
 	var temp_enchant2 = upgrade_card.card_stats.item_enchant
 	if temp_enchant != null:
-		base_card.card_stats.item_enchant = temp_enchant
+		base_card.item_enchant(temp_enchant) 
 	if temp_enchant2 != null:
-		base_card.card_stats.item_enchant = temp_enchant2
+		base_card.item_enchant(temp_enchant2) 
 	upgrade_card.queue_free()
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 	print("Upgrade card end")
