@@ -127,7 +127,7 @@ func finish_drag():
 	card_sorted = false
 	card_reset()
 	card_being_dragged = null
-	
+
 func raycast_check_for_deck_slot():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()

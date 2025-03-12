@@ -26,7 +26,7 @@ func _ready():
 		card_slot_reference.push_back(null)
 		
 	animation_cancel = false
-	
+
 func create_inventory():
 	fetch_inventory()
 	
@@ -45,7 +45,6 @@ func create_inventory():
 		card_scene.card_stats.is_players = true
 		fill_card_slots(card_scene, card_position)
 		card_position += 1
-
 
 func fetch_inventory():
 	inventory_db = Global.player_inventory

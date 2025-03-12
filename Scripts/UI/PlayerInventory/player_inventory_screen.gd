@@ -98,7 +98,7 @@ func finish_drag():
 		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card())):
 			if deck_card_slot_reference_index > -1:
 				deck_sorting(card_being_dragged, deck_card_slot_found)
-			else: inventory_to_deck_swap()
+			else: inventory_to_deck_swap(card_being_dragged, deck_card_slot_found)
 		card_sorted = true
 
 	if inventory_card_slot_reference_index  > -1 and inventory_card_slot_found != null:
@@ -113,7 +113,7 @@ func finish_drag():
 		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card())):
 			if inventory_card_slot_reference_index > -1:
 				inventory_sorting(card_being_dragged, inventory_card_slot_found)
-			else: deck_to_inventory_swap()
+			else: deck_to_inventory_swap(card_being_dragged, inventory_card_slot_found)
 		card_sorted = true
 	
 	if raycast_check_for_card() and upgrade_mode:
@@ -127,7 +127,7 @@ func finish_drag():
 	card_sorted = false
 	card_reset()
 	card_being_dragged = null
-	
+
 func raycast_check_for_deck_slot():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
@@ -277,6 +277,7 @@ func deck_sorting(card_being_dragged, deck_slot):
 			
 		var loop_counter = 0
 		var temp_card = card_being_dragged
+	
 		if direction_shift:
 			while loop_counter != 20:
 				deck_reference.animate_card_to_position(temp_card, deck_card_slot_array[deck_card_slot_index-loop_counter].position)
@@ -286,6 +287,7 @@ func deck_sorting(card_being_dragged, deck_slot):
 					deck_card_slot_reference.insert(deck_card_slot_index-loop_counter, temp_card)
 					deck_card_slot_array[deck_card_slot_index-loop_counter].card_in_slot = true
 					print("I am Here 2")
+					
 					break
 				else: 
 					var second_temp = deck_card_slot_reference[deck_card_slot_index-loop_counter]
@@ -315,15 +317,77 @@ func deck_sorting(card_being_dragged, deck_slot):
 					loop_counter += 1
 					print("I am Here 5")
 
-func inventory_to_deck_swap():
-	var temp_card = deck_card_slot_reference[deck_card_slot_index]
-	deck_reference.animate_card_to_position(card_being_dragged, deck_card_slot_array[deck_card_slot_index].position)
-	deck_card_slot_reference.remove_at(deck_card_slot_index)
-	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
-	inventory_reference.animate_card_to_position(temp_card, inventory_card_slot_array[inventory_card_slot_reference_index].position)
-	inventory_card_slot_reference.remove_at(inventory_card_slot_reference_index)
-	inventory_card_slot_reference.insert(inventory_card_slot_reference_index, temp_card)
-	print("I am Here 6")
+func inventory_to_deck_swap(card_being_dragged, deck_slot):
+	var deck_full = true
+	for i in deck_card_slot_array:
+		if i.card_in_slot == false:
+			deck_full = false
+	
+	var null_index = deck_card_slot_reference.find(null)
+
+	if !deck_full:
+		card_being_dragged.position = deck_slot.position
+		deck_slot.card_in_slot = true 
+		
+			#true card_being_dragged going to the right
+		var direction_shift = true
+		print("Null index is  " + str(null_index))
+		if deck_card_slot_index < null_index:
+			direction_shift = false
+			
+		var loop_counter = 0
+		var temp_card = card_being_dragged
+		if inventory_card_slot_reference_index >= 0:
+			inventory_card_slot_reference[inventory_card_slot_reference_index] = null
+			inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
+		if direction_shift:
+			while loop_counter != 20:
+				deck_reference.animate_card_to_position(temp_card, deck_card_slot_array[deck_card_slot_index-loop_counter].position)
+				#Checks to see if its taking over an occupied spot
+				if deck_card_slot_reference[deck_card_slot_index-loop_counter] == null:
+					deck_card_slot_reference.remove_at(deck_card_slot_index-loop_counter)
+					deck_card_slot_reference.insert(deck_card_slot_index-loop_counter, temp_card)
+					deck_card_slot_array[deck_card_slot_index-loop_counter].card_in_slot = true
+					print("I am Here 13")
+					for i in deck_card_slot_array:
+						print(i.card_in_slot)
+					break
+				else: 
+					var second_temp = deck_card_slot_reference[deck_card_slot_index-loop_counter]
+					deck_card_slot_reference.remove_at(deck_card_slot_index-loop_counter)
+					deck_card_slot_reference.insert(deck_card_slot_index-loop_counter, temp_card)
+					deck_card_slot_array[deck_card_slot_index-loop_counter].card_in_slot = true
+					temp_card = second_temp
+					loop_counter += 1
+					print("I am Here 14")
+
+		else:
+			while loop_counter != 20:
+				deck_reference.animate_card_to_position(temp_card, deck_card_slot_array[deck_card_slot_index+loop_counter].position)
+				#Checks to see if its taking over an occupied spot
+				if deck_card_slot_reference[deck_card_slot_index+loop_counter] == null:
+					deck_card_slot_reference.remove_at(deck_card_slot_index+loop_counter)
+					deck_card_slot_reference.insert(deck_card_slot_index+loop_counter, temp_card)
+					deck_card_slot_array[deck_card_slot_index+loop_counter].card_in_slot = true
+					print("I am Here 15")
+					break
+				else: 
+					var second_temp = deck_card_slot_reference[deck_card_slot_index+loop_counter]
+					deck_card_slot_reference.remove_at(deck_card_slot_index+loop_counter)
+					deck_card_slot_reference.insert(deck_card_slot_index+loop_counter, temp_card)
+					deck_card_slot_array[deck_card_slot_index+loop_counter].card_in_slot = true
+					temp_card = second_temp
+					loop_counter += 1
+					print("I am Here 16")
+	else:
+		var temp_card = deck_card_slot_reference[deck_card_slot_index]
+		deck_reference.animate_card_to_position(card_being_dragged, deck_card_slot_array[deck_card_slot_index].position)
+		deck_card_slot_reference.remove_at(deck_card_slot_index)
+		deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
+		inventory_reference.animate_card_to_position(temp_card, inventory_card_slot_array[inventory_card_slot_reference_index].position)
+		inventory_card_slot_reference.remove_at(inventory_card_slot_reference_index)
+		inventory_card_slot_reference.insert(inventory_card_slot_reference_index, temp_card)
+		print("I am Here 17")
 
 func inventory_sorting(card_being_dragged, inventory_card_slot_found):
 	card_being_dragged.position = inventory_card_slot_found.position
@@ -375,15 +439,74 @@ func inventory_sorting(card_being_dragged, inventory_card_slot_found):
 					loop_counter += 1
 					print("I am Here 11")
 
-func deck_to_inventory_swap():
-	var temp_card = inventory_card_slot_reference[inventory_card_slot_index]
-	inventory_reference.animate_card_to_position(card_being_dragged, inventory_card_slot_array[inventory_card_slot_index].position)
-	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
-	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
-	deck_reference.animate_card_to_position(temp_card, deck_card_slot_array[deck_card_slot_reference_index].position)
-	deck_card_slot_reference.remove_at(deck_card_slot_reference_index)
-	deck_card_slot_reference.insert(deck_card_slot_reference_index, temp_card)
-	print("I am Here 12")
+func deck_to_inventory_swap(card_being_dragged, inventory_slot):
+	var inventory_full = true
+	for i in inventory_card_slot_array:
+		if i.card_in_slot == false:
+			inventory_full = false
+	
+	var null_index= inventory_card_slot_reference.find(null)
+
+	if !inventory_full:
+		card_being_dragged.position = inventory_slot.position
+		inventory_slot.card_in_slot = true 
+		
+		#true card_being_dragged to the right
+		var direction_shift = true
+		if inventory_card_slot_index < null_index:
+			direction_shift = false
+			
+		var loop_counter = 0
+		var temp_card = card_being_dragged
+		if deck_card_slot_reference_index >= 0:
+			deck_card_slot_reference[deck_card_slot_reference_index] = null
+			deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
+		if direction_shift:
+			while loop_counter != 20:
+				inventory_reference.animate_card_to_position(temp_card, inventory_card_slot_array[inventory_card_slot_index-loop_counter].position)
+				#Checks to see if its taking over an occupied spot
+				if inventory_card_slot_reference[inventory_card_slot_index-loop_counter] == null:
+					inventory_card_slot_reference.remove_at(inventory_card_slot_index-loop_counter)
+					inventory_card_slot_reference.insert(inventory_card_slot_index-loop_counter, temp_card)
+					inventory_card_slot_array[inventory_card_slot_index-loop_counter].card_in_slot = true
+					print("I am Here 8")
+					break
+				else: 
+					var second_temp = inventory_card_slot_reference[inventory_card_slot_index-loop_counter]
+					inventory_card_slot_reference.remove_at(inventory_card_slot_index-loop_counter)
+					inventory_card_slot_reference.insert(inventory_card_slot_index-loop_counter, temp_card)
+					inventory_card_slot_array[inventory_card_slot_index-loop_counter].card_in_slot = true
+					temp_card = second_temp
+					loop_counter += 1
+					print("I am Here 9")
+
+		else:
+			while loop_counter != 20:
+				inventory_reference.animate_card_to_position(temp_card, inventory_card_slot_array[inventory_card_slot_index+loop_counter].position)
+				#Checks to see if its taking over an occupied spot
+				if inventory_card_slot_reference[inventory_card_slot_index+loop_counter] == null:
+					inventory_card_slot_reference.remove_at(inventory_card_slot_index+loop_counter)
+					inventory_card_slot_reference.insert(inventory_card_slot_index+loop_counter, temp_card)
+					inventory_card_slot_array[inventory_card_slot_index+loop_counter].card_in_slot = true
+					print("I am Here 10")
+					break
+				else: 
+					var second_temp = inventory_card_slot_reference[inventory_card_slot_index+loop_counter]
+					inventory_card_slot_reference.remove_at(inventory_card_slot_index+loop_counter)
+					inventory_card_slot_reference.insert(inventory_card_slot_index+loop_counter, temp_card)
+					inventory_card_slot_array[inventory_card_slot_index+loop_counter].card_in_slot = true
+					temp_card = second_temp
+					loop_counter += 1
+					print("I am Here 11")
+	else:
+		var temp_card = inventory_card_slot_reference[inventory_card_slot_index]
+		inventory_reference.animate_card_to_position(card_being_dragged, inventory_card_slot_array[inventory_card_slot_index].position)
+		inventory_card_slot_reference.remove_at(inventory_card_slot_index)
+		inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
+		deck_reference.animate_card_to_position(temp_card, deck_card_slot_array[deck_card_slot_reference_index].position)
+		deck_card_slot_reference.remove_at(deck_card_slot_reference_index)
+		deck_card_slot_reference.insert(deck_card_slot_reference_index, temp_card)
+		print("I am Here 12")
 
 func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)

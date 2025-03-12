@@ -23,7 +23,7 @@ func _ready():
 		card_slot_reference.push_back(null)
 		
 	animation_cancel = false
-	
+
 func create_inventory():
 	fetch_inventory()
 	
@@ -52,7 +52,6 @@ func fetch_inventory():
 func remove_card(card):
 	if card in Global.player_deck:
 		Global.player_deck.erase(card)
-
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()

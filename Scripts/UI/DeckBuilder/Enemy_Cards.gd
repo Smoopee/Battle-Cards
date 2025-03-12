@@ -34,7 +34,7 @@ func create_enemy_cards():
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
 		card_position += 1
-		
+
 func fetch_enemy_cards():
 	enemy_cards_db = $"../Enemy".enemy_deck
 
