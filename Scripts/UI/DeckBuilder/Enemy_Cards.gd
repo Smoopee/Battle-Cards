@@ -6,7 +6,6 @@ const ENEMY_CARD_COLLISION_LAYER = 64
 const HAND_Y_POSITION = 370
 
 
-
 var enemy_cards_db = []
 var enemy_inventory = []
 

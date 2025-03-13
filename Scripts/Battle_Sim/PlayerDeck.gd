@@ -66,3 +66,4 @@ func fill_card_slots(new_card, index):
 		return
 	new_card.position = card_slot_array[index].position
 	card_slot_array[index].card_in_slot = true
+

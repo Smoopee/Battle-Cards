@@ -206,9 +206,6 @@ func update_player_gold():
 	pass
 	#$"../PlayerUI".change_player_gold() 
 
-func _on_upgrade_button_toggled(toggled_on):
-	upgrade_mode = toggled_on
-
 func upgrade_check(upgrade_card, base_card):
 	if upgrade_card.position == base_card.position: return false
 	if upgrade_card.card_stats.upgrade_level != base_card.card_stats.upgrade_level: return false
@@ -510,3 +507,6 @@ func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
+
+func _on_upgrade_button_toggled(toggled_on):
+	upgrade_mode = toggled_on

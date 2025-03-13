@@ -54,4 +54,12 @@ offset_bottom = 1079.0
 mouse_filter = 2
 texture = ExtResource("7_uerh6")
 
+[node name="UpgradeButton" type="CheckButton" parent="."]
+offset_left = 480.0
+offset_top = 730.0
+offset_right = 524.0
+offset_bottom = 754.0
+text = "Upgrade Mode"
+
 [connection signal="button_down" from="ConfirmButton" to="." method="_on_button_button_down"]
+[connection signal="toggled" from="UpgradeButton" to="CardManager" method="_on_upgrade_button_toggled"]

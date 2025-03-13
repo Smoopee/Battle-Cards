@@ -161,5 +161,13 @@ script = ExtResource("18_ixhpw")
 [node name="CardManager" type="Node2D" parent="NextTurn/DeckBuilder"]
 script = ExtResource("19_7tton")
 
+[node name="UpgradeButton" type="CheckButton" parent="NextTurn/DeckBuilder"]
+offset_left = 445.0
+offset_top = 816.0
+offset_right = 608.0
+offset_bottom = 847.0
+text = "Upgrade Mode"
+
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="HBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
+[connection signal="toggled" from="NextTurn/DeckBuilder/UpgradeButton" to="NextTurn/DeckBuilder/CardManager" method="_on_upgrade_button_toggled"]

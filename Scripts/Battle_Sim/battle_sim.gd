@@ -71,7 +71,7 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		if death_checker(): break
 		
-
+	if death_checker(): return
 	turn_counter += turn_incrementer
 	store_active_decks()
 	next_turn_handler()
@@ -95,6 +95,11 @@ func death_checker():
 		Global.player_xp += Global.current_enemy.xp
 		$BattleRewards.update_rewards()
 		$BattleRewards.visible = true
+		Global.enemy_active_deck = []
+		for i in $player_deck.get_children():
+			if i.is_in_group("card"): i.queue_free()
+		for i in enemy_node.get_children():
+			if i.is_in_group("card"): i.queue_free()
 		return true
 		
 	else: false
@@ -191,8 +196,10 @@ func build_enemy_deck_list():
 	return enemy_node.build_deck() 
 func build_player_inventory_list():
 	return player_inventory.build_inventory()
-	
+
 func _on_continue_button_button_down():
+	for i in $NextTurn/DeckBuilder/EnemyCards.get_children():
+		i.queue_free()
 	recall_active_decks()
 	
 	for i in $Enemy.get_children():
@@ -236,15 +243,17 @@ func store_active_decks():
 
 func next_turn_handler():
 	$NextTurn.next_turn()
+
 	
 	$NextTurn.visible = true
 	$HBoxContainer.visible = true
-	for i in $Enemy.get_children():
-		i.visible = false
-		if i.is_in_group("card"): i.queue_free()
 	for i in $player_deck.get_children():
 		i.visible = false
 		if i.is_in_group("card"): i.queue_free()
+	for i in enemy_node.get_children():
+		if i.is_in_group("card"): i.queue_free()
+
+	enemy_node.create_enemy_cards()
 
 func recall_active_decks():
 	var blank = load("res://Resources/Cards/blank.tres")
@@ -267,5 +276,5 @@ func recall_active_decks():
 		else:
 			temp_deck.push_back(blank)
 	Global.player_active_deck = temp_deck
-	
+
 

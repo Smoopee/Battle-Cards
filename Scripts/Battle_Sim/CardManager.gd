@@ -44,10 +44,6 @@ func create_references():
 	deck_card_slot_reference = $"../PlayerDeck".card_slot_reference
 	inventory_card_slot_reference = $"../PlayerInventory".card_slot_reference
 	
-	for i in deck_card_slot_reference:
-		if i == null: continue
-		print("FUCK")
-		print(i.card_stats.dmg)
 
 func _process(delta):
 	if card_being_dragged:
