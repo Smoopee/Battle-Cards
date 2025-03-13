@@ -5,12 +5,13 @@ const CARD_WIDTH = 130
 const DECK_Y_POSITION = 900
 const DECK_X_POSITION = 650
 
-var card_db_reference
+
 var deck_db = []
 var deck = []
 var center_screen_x
 var center_screen_y
 var discard_offset = 0
+var first_test = true
 
 
 func _ready():
@@ -18,8 +19,10 @@ func _ready():
 	center_screen_y = get_viewport().size.y / 2
 
 func build_deck():
+	clear_cards()
+	deck = []
 	deck_db = Global.player_active_deck
-
+	
 	var counter = 0
 	
 	var card_position = 0
@@ -28,14 +31,19 @@ func build_deck():
 		add_child(new_card)
 		deck.push_back(new_card)
 		new_card.card_stats = deck_db[i]
-		new_card.upgrade_card(new_card.card_stats.upgrade_level)
+		if first_test: new_card.upgrade_card(new_card.card_stats.upgrade_level)
 		new_card.item_enchant(new_card.card_stats.item_enchant)
 		new_card.card_stats.is_players = true
 		new_card.card_stats.deck_position = counter
-		new_card.update_card_ui()
 		counter += 1
 	
+	first_test = false
 	return deck
+	
+func clear_cards():
+	for i in get_children():
+		if i.is_in_group("card"):
+			i.queue_free()
 
 func build_deck_position():
 	for i in deck:

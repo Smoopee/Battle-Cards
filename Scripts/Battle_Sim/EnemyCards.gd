@@ -36,7 +36,7 @@ func create_enemy_cards():
 		card_position += 1
 
 func fetch_enemy_cards():
-	enemy_cards_db = $"../Enemy".enemy_deck
+	enemy_cards_db = Global.enemy_active_deck
 
 func add_card_to_hand(card):
 	enemy_inventory.push_back(card)

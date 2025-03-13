@@ -32,3 +32,5 @@ is_enchantment = false
 enchanting_with = ""
 card_type = ""
 is_discarded = false
+is_blank = false
+temp_dmg = 0

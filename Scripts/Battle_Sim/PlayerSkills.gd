@@ -6,7 +6,6 @@ func add_skills():
 	for i in player_skills:
 		var new_instance = load(i).instantiate()
 		add_child(new_instance)
-		print("This new skill is added! " + str(i))
 	
 	var skill_array = []
 	

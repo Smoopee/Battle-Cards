@@ -44,17 +44,17 @@ func upgrade_card(num):
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
 			card_stats.buy_price = 16
+
 	update_card_ui()
 
 func item_enchant(enchant):
-	print(card_stats)
 	match enchant:
 		"Bleed":
 			card_stats.item_enchant = "Bleed"
 			card_stats.bleed_dmg = 6
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
-			print("Bleeding for " + str(card_stats.bleed_dmg))
+
 
 	update_card_ui()
 	

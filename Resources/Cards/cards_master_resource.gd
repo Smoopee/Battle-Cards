@@ -6,6 +6,7 @@ class_name Cards_Resource
 @export var card_scene_path: String
 @export var name: String
 @export var dmg: int
+@export var upgrade_effect: int
 @export var position: int
 @export var inventory_position: int
 @export var deck_position: int
@@ -29,6 +30,8 @@ class_name Cards_Resource
 @export var enchanting_with: String
 @export var card_type: String
 @export var is_discarded: bool
+@export var is_blank: bool
+
 
 func effect():
 	pass

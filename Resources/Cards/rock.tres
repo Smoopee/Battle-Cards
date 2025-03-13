@@ -32,3 +32,5 @@ is_enchantment = false
 enchanting_with = ""
 card_type = "Weapon"
 is_discarded = false
+is_blank = false
+base_dmg = 2

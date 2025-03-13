@@ -42,17 +42,15 @@ func _input(event):
 				finish_drag()
 
 func start_drag(consumable):
-	print("Start drag consumable")
-	print(consumable)
 	consumable_being_dragged = consumable
 	consumable.scale = Vector2(1.5, 1.5)
 
 func finish_drag():
-	print("End drag consumable")
 	if raycast_check_for_player():
 		use_consumable(consumable_being_dragged)
 		consumable_being_dragged.queue_free()
 		organize_consumables()
+		consumable_being_dragged = null
 
 func raycast_check_for_consumable():
 	var space_state = get_world_2d().direct_space_state

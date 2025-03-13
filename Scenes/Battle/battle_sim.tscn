@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=22 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerSkills.gd" id="2_uev3k"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="3_7ul7h"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/player_inventory.gd" id="4_74ja1"]
 [ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_th71o"]
 [ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/berserker.tscn" id="6_otqk3"]
@@ -12,6 +13,14 @@
 [ext_resource type="AudioStream" uid="uid://cxtsqm0vys3fa" path="res://Resources/Sound/Background/BattleBackground.wav" id="10_pbym1"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="11_rvgss"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="12_42871"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/NextTurn.gd" id="13_gppgb"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/DeckBuilder.gd" id="13_qcy5t"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/EnemyCards.gd" id="14_qmsg8"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/InventorySlots.gd" id="15_tu21t"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/DeckCardSlots.gd" id="16_8duxr"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="17_xqum7"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerDeck.gd" id="18_ixhpw"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/CardManager.gd" id="19_7tton"]
 
 [node name="battle_sim" type="Node2D"]
 script = ExtResource("1_mc5mi")
@@ -21,6 +30,10 @@ script = ExtResource("2_uev3k")
 
 [node name="player_deck" type="Node2D" parent="."]
 script = ExtResource("2_ti0s5")
+
+[node name="player_inventory" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_74ja1")
 
 [node name="Enemy" type="Node2D" parent="."]
 script = ExtResource("3_7ul7h")
@@ -103,19 +116,10 @@ offset_top = 835.0
 offset_right = 1870.0
 offset_bottom = 866.0
 
-[node name="RearrangeButton" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Rearrange"
-
 [node name="ContinueButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Continue"
-
-[node name="InventoryButton" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-text = "Inventory"
 
 [node name="Background" type="TextureRect" parent="."]
 z_index = -1
@@ -132,7 +136,30 @@ autoplay = true
 
 [node name="PlayerUI" parent="." instance=ExtResource("12_42871")]
 
+[node name="NextTurn" type="Node2D" parent="."]
+visible = false
+script = ExtResource("13_gppgb")
+
+[node name="DeckBuilder" type="Node2D" parent="NextTurn"]
+script = ExtResource("13_qcy5t")
+
+[node name="EnemyCards" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("14_qmsg8")
+
+[node name="InventorySlots" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("15_tu21t")
+
+[node name="DeckCardSlots" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("16_8duxr")
+
+[node name="PlayerInventory" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("17_xqum7")
+
+[node name="PlayerDeck" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("18_ixhpw")
+
+[node name="CardManager" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("19_7tton")
+
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
-[connection signal="button_down" from="HBoxContainer/RearrangeButton" to="." method="_on_rearrange_button_button_down"]
 [connection signal="button_down" from="HBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
-[connection signal="button_down" from="HBoxContainer/InventoryButton" to="." method="_on_inventory_button_button_down"]

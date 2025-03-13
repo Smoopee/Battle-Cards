@@ -9,7 +9,6 @@ var playerData = PlayerData.new()
 var deck = []
 
 func _ready():
-	var enemy = Global.current_enemy
 	verify_save_directory(save_file_path)
 
 func verify_save_directory(path: String):
@@ -46,16 +45,10 @@ func inventory_and_deck_save():
 	Global.player_deck = temp_deck
 	
 	Global.player_active_deck = []
+	
 	for i in Global.player_deck:
 		if i != null:
 			Global.player_active_deck.push_back(i.duplicate())
 		else:
 			Global.player_active_deck.push_back(blank)
-	
-	Global.player_active_inventory = []
-	for i in Global.player_inventory:
-		if i != null:
-			Global.player_active_inventory.push_back(i.duplicate())
-		else:
-			Global.player_active_inventory.push_back(null)
 	save()

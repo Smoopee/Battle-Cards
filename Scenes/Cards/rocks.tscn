@@ -11,7 +11,8 @@ script = ExtResource("2_u5eub")
 card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
 card_scene_path = "res://Scenes/Cards/rocks.tscn"
 name = "Rock"
-dmg = 2
+dmg = 0
+upgrade_effect = 0
 position = 0
 inventory_position = 0
 deck_position = 0
@@ -35,6 +36,7 @@ is_enchantment = false
 enchanting_with = ""
 card_type = "Weapon"
 is_discarded = false
+is_blank = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmh4b"]
 size = Vector2(98, 128)

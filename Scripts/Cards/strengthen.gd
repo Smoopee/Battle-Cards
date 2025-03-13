@@ -9,7 +9,7 @@ var card_stats: Cards_Resource = null
 var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
-var upgrade_effect 
+
 
 
 func set_stats(stats = Cards_Resource) -> void:
@@ -27,7 +27,7 @@ func effect(player_deck, enemy_deck, player, enemy):
 		
 	for i in deck:
 		if i.is_in_group("weapon"):
-			i.card_stats.dmg += upgrade_effect
+			i.card_stats.dmg += card_stats.upgrade_effect
 			i.update_card_ui()
 	
 	if card_stats.item_enchant == "Bleed":
@@ -36,40 +36,36 @@ func effect(player_deck, enemy_deck, player, enemy):
 				i.card_stats.bleed_dmg += 2
 		combat_log_bleed_return = " and weapons bleed damage by 2"
 		
-	var combat_log_return = "Strengthen increased all weapon damage by " + str(upgrade_effect)
+	var combat_log_return = "Strengthen increased all weapon damage by " + str(card_stats.upgrade_effect)
 	if combat_log_bleed_return: combat_log_return += combat_log_bleed_return
 	return combat_log_return
 
 func upgrade_card(num):
 	match num:
 		1:
-			print("level 1!")
 			card_stats.card_art_path= "res://Resources/Cards/CardArt/Strengthen_card.png"
 			card_stats.upgrade_level = 1
 			card_stats.sell_price = 2
 			card_stats.buy_price = 4
-			upgrade_effect = 1
+			card_stats.upgrade_effect = 1
 		2: 
-			print("level 2!")
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/strengthen2_card.png"
 			card_stats.upgrade_level = 2
 			card_stats.sell_price = 4
 			card_stats.buy_price = 8
-			upgrade_effect = 2
+			card_stats.upgrade_effect = 2
 		3:
-			print("level 3!")
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/strengthen3_card.png"
 			card_stats.upgrade_level = 3
 			card_stats.sell_price = 8
 			card_stats.buy_price = 16
-			upgrade_effect = 3
+			card_stats.upgrade_effect = 3
 		4:
-			print("level 4!")
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/strengthen4_card.png"
 			card_stats.upgrade_level = 4
 			card_stats.sell_price = 16
 			card_stats.buy_price = 32
-			upgrade_effect = 4
+			card_stats.upgrade_effect = 4
 	update_card_ui()
 func item_enchant(enchant):
 	match enchant:

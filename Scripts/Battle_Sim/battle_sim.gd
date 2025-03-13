@@ -2,12 +2,14 @@ extends Node2D
 
 @onready var player_deck = $player_deck
 @onready var enemy_node = $Enemy
+@onready var player_inventory = $player_inventory
 @onready var player_skills = $PlayerSkills
 @onready var ui = $UI
 @onready var player_node = $Player
 
 var rng = RandomNumberGenerator.new()
 
+var player_inventory_list
 var player_deck_list 
 var enemy_deck_list
 var player_skill_list = []
@@ -62,16 +64,18 @@ func combat(player_deck_list, enemy_deck_list):
 		player_node.get_node("Berserker").change_rage(-3)
 		
 		ui.combat_log_break()
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(.5).timeout
 		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
 		
 		if death_checker(): break
 		
-		if i == 9:
-			turn_counter += turn_incrementer
-			$HBoxContainer.visible = true
+
+	turn_counter += turn_incrementer
+	store_active_decks()
+	next_turn_handler()
+	
 
 func on_start_skill():
 	for i in player_skill_list:
@@ -119,7 +123,7 @@ func damage_func(i):
 		change_health(true, damage)
 		ui.update_combat_log_damage_taken(damage, player, enemy, false, i, crit)
 		ui.change_player_damage_number(damage, crit)
-		
+
 func bleed_func(i):
 	if i.card_stats.bleed_dmg <= 0: return
 	
@@ -129,7 +133,7 @@ func bleed_func(i):
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
 		ui.update_combat_log_bleed("bleed_func", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
-		
+
 func bleed_damage_keeper():
 	if player.player_stats.bleeding_dmg > 0:
 		change_health(false, player.player_stats.bleeding_dmg)
@@ -170,9 +174,9 @@ func buff_keeper():
 
 func _on_button_button_down():
 	
-	player_deck_list = player_deck.build_deck()
-
-	enemy_deck_list = enemy_node.build_deck() 
+	player_deck_list = build_player_deck_list()
+	player_inventory_list = build_player_inventory_list()
+	enemy_deck_list = build_enemy_deck_list() 
 	
 	
 	player_skill_list = player_skills.add_skills()
@@ -181,23 +185,87 @@ func _on_button_button_down():
 	combat(player_deck_list, enemy_deck_list)
 	$Button.visible = false
 
+func build_player_deck_list():
+	return player_deck.build_deck()
+func build_enemy_deck_list():
+	return enemy_node.build_deck() 
+func build_player_inventory_list():
+	return player_inventory.build_inventory()
+	
 func _on_continue_button_button_down():
+	recall_active_decks()
+	
+	for i in $Enemy.get_children():
+		i.visible = true
+	
 	$HBoxContainer.visible = false
+	$NextTurn.visible = false
+	
+	player_deck_list = build_player_deck_list()
+	enemy_deck_list = build_enemy_deck_list() 
+	player_inventory_list = build_player_inventory_list()
+	
 	combat(player_deck_list, enemy_deck_list)
 
-func _on_rearrange_button_button_down():
-	get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
-
-
-func _on_inventory_button_button_down():
-	if !$PlayerInventory.visible:
-		$PlayerInventory.visible = true
-	else:
-		$PlayerInventory.visible = false
+func store_active_decks():
+	var blank = load("res://Resources/Cards/blank.tres")
 	
-	if !$ColorRect.visible:
-		$ColorRect.visible = true
-	else:
-		$ColorRect.visible = false
-		
+	var temp_inventory = []
+	for i in player_inventory_list:
+		if i != null:
+			temp_inventory.push_back(i.card_stats)
+		else: 
+			temp_inventory.push_back(null)
+	Global.player_active_inventory = temp_inventory
+
+	var temp_deck = []
+	for i in player_deck_list:
+		if i.card_stats.is_blank == false:
+			temp_deck.push_back(i.card_stats)
+		else:
+			temp_deck.push_back(null)
+	Global.player_active_deck = temp_deck
+
+	var temp_enemy_deck = []
+	for i in enemy_deck_list:
+		if i != blank:
+			temp_enemy_deck.push_back(i.card_stats)
+		else:
+			temp_enemy_deck.push_back(null)
+	Global.enemy_active_deck = temp_enemy_deck
+
+func next_turn_handler():
+	$NextTurn.next_turn()
 	
+	$NextTurn.visible = true
+	$HBoxContainer.visible = true
+	for i in $Enemy.get_children():
+		i.visible = false
+		if i.is_in_group("card"): i.queue_free()
+	for i in $player_deck.get_children():
+		i.visible = false
+		if i.is_in_group("card"): i.queue_free()
+
+func recall_active_decks():
+	var blank = load("res://Resources/Cards/blank.tres")
+	
+	var temp_inventory = []
+	for i in $NextTurn/DeckBuilder/CardManager.inventory_card_slot_reference:
+		if i != null:
+			
+			temp_inventory.push_back(i.card_stats.duplicate())
+		else:
+			temp_inventory.push_back(null)
+	Global.player_active_inventory = temp_inventory
+
+	var temp_deck = []
+	
+	for i in $NextTurn/DeckBuilder/CardManager.deck_card_slot_reference:
+		if i != null:
+			print("stats " + str(i.card_stats.dmg))
+			temp_deck.push_back(i.card_stats.duplicate())
+		else:
+			temp_deck.push_back(blank)
+	Global.player_active_deck = temp_deck
+	
+

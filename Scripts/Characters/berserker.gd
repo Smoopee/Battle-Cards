@@ -17,4 +17,3 @@ func change_rage(value):
 	if 	$TextureProgressBar.value  >= 100:
 		player_stats.attack += 3
 		$TextureProgressBar.value = 0
-		print("Rage activated!")
