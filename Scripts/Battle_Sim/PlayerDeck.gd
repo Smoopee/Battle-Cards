@@ -10,6 +10,7 @@ var card_slot_array = []
 
 var center_screen_x
 var animation_cancel = true
+var reward_screen = false
 
 
 func _ready():
@@ -49,7 +50,8 @@ func clear_cards():
 			i.queue_free()
 
 func fetch_inventory():
-	deck_db = Global.player_active_deck
+	if reward_screen == true: deck_db = Global.player_deck
+	else: deck_db = Global.player_active_deck
 
 func remove_card(card):
 	if card in Global.active_player_deck:

@@ -331,7 +331,6 @@ func inventory_to_deck_swap(card_being_dragged, deck_slot):
 		
 			#true card_being_dragged going to the right
 		var direction_shift = true
-		print("Null index is  " + str(null_index))
 		if deck_card_slot_index < null_index:
 			direction_shift = false
 			
@@ -349,8 +348,6 @@ func inventory_to_deck_swap(card_being_dragged, deck_slot):
 					deck_card_slot_reference.insert(deck_card_slot_index-loop_counter, temp_card)
 					deck_card_slot_array[deck_card_slot_index-loop_counter].card_in_slot = true
 					print("I am Here 13")
-					for i in deck_card_slot_array:
-						print(i.card_in_slot)
 					break
 				else: 
 					var second_temp = deck_card_slot_reference[deck_card_slot_index-loop_counter]

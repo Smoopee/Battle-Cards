@@ -6,12 +6,57 @@ extends Node2D
 @onready var player_xp_label = $TextureRect/HBoxContainer/VariableContainer/Xp
 
 
+var center_screen_x
+
+func _ready():
+	center_screen_x = get_viewport().size.x / 2
+	
 func update_rewards():
+	var enemy_reward = $"../Enemy".enemy_reward()
+	$"../NextTurn/DeckBuilder/PlayerDeck".reward_screen = true
+	$"../NextTurn/DeckBuilder/PlayerInventory".reward_screen = true
+	
 	xp_reward_label.text = str(Global.current_enemy.xp)
 	gold_reward_label.text = str(Global.current_enemy.gold)
 	
 	player_gold_label.text = str(Global.player_gold)
 	player_xp_label.text = str(Global.player_xp)
+	
+	#Gives double reward if enemy_rewards returns "Double Reward"
+	if type_string(typeof(enemy_reward)) == "String":
+		xp_reward_label.text += str(Global.current_enemy.xp)
+		gold_reward_label.text += str(Global.current_enemy.gold)
+		
+		player_gold_label.text += str(Global.player_gold)
+		player_xp_label.text += str(Global.player_xp)
+		print(type_string(typeof(enemy_reward)))
+		return
+	
+	var new_scene = load(enemy_reward.card_scene_path).instantiate()
+	new_scene.card_stats = enemy_reward
+	add_child(new_scene)
+	
+	new_scene.card_stats.is_players = true
+	new_scene.position = Vector2(center_screen_x, 350)
+	new_scene.z_index = 3
 
 func _on_button_button_down():
+	var card_manager = $"../NextTurn/DeckBuilder/CardManager"
+	
+	var temp_inventory = []
+	for i in card_manager.inventory_card_slot_reference:
+		if i != null:
+			temp_inventory.push_back(i.card_stats)
+		else: 
+			temp_inventory.push_back(null)
+	Global.player_inventory = temp_inventory
+
+	var temp_deck = []
+	for i in card_manager.deck_card_slot_reference:
+		if i != null:
+			temp_deck.push_back(i.card_stats)
+		else:
+			temp_deck.push_back(null)
+	Global.player_deck = temp_deck
+	
 	get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=9 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_oagdc"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_ksv00"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_vlt6d"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyDeckDisplay.gd" id="8_xkyks"]
 
 [node name="EnemySelection" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_ijbvw")
@@ -44,5 +45,8 @@ texture = ExtResource("5_oagdc")
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource("7_vlt6d")]
+
+[node name="EnemyDeckDisplay" type="Node2D" parent="."]
+script = ExtResource("8_xkyks")
 
 [connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]

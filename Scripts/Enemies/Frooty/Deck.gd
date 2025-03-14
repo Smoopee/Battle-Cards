@@ -6,8 +6,6 @@ var rock = preload("res://Resources/Cards/rock.tres")
 var health_potion = preload("res://Resources/Cards/health_potion.tres")
 
 func _ready():
-	var temp = load("res://Scenes/Cards/rocks.tscn")
-	var temp2 = load("res://Scenes/Cards/health_potion.tscn")
 	var item1 = rock.duplicate()
 	var item2 = rock.duplicate()
 	var item3 = rock.duplicate()

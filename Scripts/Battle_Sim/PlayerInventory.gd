@@ -13,6 +13,7 @@ var card_slot_array = []
 
 var center_screen_x
 var animation_cancel = true
+var reward_screen = false
 
 
 func _ready():
@@ -46,7 +47,10 @@ func create_inventory():
 		
 
 func fetch_inventory():
-	inventory_db = Global.player_active_inventory
+	if reward_screen == true: 
+		inventory_db = Global.player_inventory
+		print("YOOO")
+	else: inventory_db = Global.player_active_inventory
 
 func clear_cards():
 	for i in get_children():

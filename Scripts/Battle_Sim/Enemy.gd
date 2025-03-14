@@ -24,7 +24,6 @@ var enemy_health_bar
 
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
-	print("enemy is " + str(enemy))
 	add_child(enemy)
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
@@ -39,11 +38,9 @@ func _ready():
 
 func build_deck():
 	if Global.enemy_active_deck == []:
-		print("YYEEE")
 		enemy_deck = enemy.enemy_deck
 	else: 
 		enemy_deck = Global.enemy_active_deck
-		print("NOOO")
 
 	deck = []
 	var counter = 0
@@ -152,3 +149,6 @@ func calculate_card_position(index):
 	var total_width = (enemy_inventory.size() - 1) * CARD_WIDTH
 	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
 	return x_offset
+
+func enemy_reward():
+	return enemy.get_reward()

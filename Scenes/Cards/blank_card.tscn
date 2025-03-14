@@ -16,7 +16,7 @@ _data = {
 "attack_animation": SubResource("Animation_ln762")
 }
 
-[node name="BlankCard" type="Node2D"]
+[node name="BlankCard" type="Node2D" groups=["card"]]
 script = ExtResource("1_uughc")
 card_stats_resource = ExtResource("2_ly0h3")
 

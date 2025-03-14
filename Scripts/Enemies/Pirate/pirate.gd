@@ -23,3 +23,12 @@ func set_enemy_gold():
 
 func set_enemy_xp():
 	$EnemyUI/GoldAndXPBox/EnemyXP.text = str(enemy_stats.xp) + "xp"
+
+func get_reward():
+	var rng = RandomNumberGenerator.new()
+	var reward_array = $Deck.enemy_deck + $Skills.enemy_skills 
+	reward_array.push_back("Doulbe Reward")
+	var reward_index =  rng.randi_range(0, reward_array.size()-1)
+	print(reward_array)
+	print("Your reward is " + str(reward_array[reward_index]))
+	return reward_array[reward_index]

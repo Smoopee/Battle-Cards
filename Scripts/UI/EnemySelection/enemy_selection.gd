@@ -34,9 +34,12 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			var enemy = raycast_check_for_enemy()
 			var card = raycast_check_for_card_selector()
 			if card:
 				start_drag(card)
+			if enemy:
+				display_enemy_cards(enemy)
 		else:
 			if card_being_dragged:
 				finish_drag()
@@ -124,3 +127,8 @@ func inventory_and_deck_save():
 	playerData.player_deck = temp_deck
 	Global.player_deck = temp_deck
 	save()
+
+func display_enemy_cards(enemy):
+	for i in $EnemyDeckDisplay.get_children():
+		i.queue_free()
+	$EnemyDeckDisplay.create_enemy_cards(enemy)

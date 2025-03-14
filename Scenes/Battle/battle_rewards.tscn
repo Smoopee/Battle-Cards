@@ -1,65 +1,62 @@
 [gd_scene load_steps=3 format=3 uid="uid://bp847kvytvbu6"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_rewards.gd" id="1_klkux"]
-[ext_resource type="Texture2D" uid="uid://dpnt4nsy7iuia" path="res://Resources/Art/UIElements/rewards_background.png" id="1_nxiwl"]
+[ext_resource type="Texture2D" uid="uid://dwgrgwtu3550k" path="res://Resources/TestArt/Test.png" id="2_peuei"]
 
 [node name="BattleRewards" type="Node2D"]
 script = ExtResource("1_klkux")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 607.0
-offset_top = 111.0
-offset_right = 2527.0
-offset_bottom = 1191.0
-scale = Vector2(0.399166, 0.722597)
-texture = ExtResource("1_nxiwl")
+offset_left = 723.0
+offset_top = 82.0
+offset_right = 1957.0
+offset_bottom = 735.0
+scale = Vector2(0.370283, 0.557489)
+texture = ExtResource("2_peuei")
 
 [node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 0
-offset_left = 225.47
-offset_top = 44.2847
-offset_right = 296.47
-offset_bottom = 93.2847
-scale = Vector2(20.146, 4.45868)
+offset_left = 456.408
+offset_top = 17.9376
+offset_right = 527.408
+offset_bottom = 56.9376
+scale = Vector2(4.06145, 2.42899)
 text = "VICTORY!"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
-offset_left = 398.331
-offset_top = 298.922
-offset_right = 588.331
-offset_bottom = 474.922
-scale = Vector2(4.12293, 2.80043)
+layout_mode = 0
+offset_left = 351.083
+offset_top = 87.8941
+offset_right = 488.083
+offset_bottom = 191.894
+scale = Vector2(3.57252, 1.59212)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.55
+size_flags_stretch_ratio = 1.35
 
 [node name="GoldReward" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Gold Reward
 "
-horizontal_alignment = 2
 
 [node name="XpReward" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "XP Reward"
-horizontal_alignment = 2
 
 [node name="Gold" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Gold
 "
-horizontal_alignment = 2
 
 [node name="Xp" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "XP"
-horizontal_alignment = 2
 
 [node name="VariableContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -94,10 +91,10 @@ text = "0"
 horizontal_alignment = 2
 
 [node name="Button" type="Button" parent="."]
-offset_left = 951.0
-offset_top = 777.0
-offset_right = 1030.0
-offset_bottom = 808.0
+offset_left = 1783.0
+offset_top = 617.0
+offset_right = 1862.0
+offset_bottom = 648.0
 text = "Continue
 "
 

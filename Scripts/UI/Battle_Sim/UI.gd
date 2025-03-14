@@ -11,6 +11,9 @@ var center_screen_y
 func _ready():
 	$EnemyBleedTaken.position = $"../Enemy".enemy.position + Vector2(10, 60)
 	$EnemyBleedTaken.text = ""
+	$PlayerBleedTaken.position = $"../Player".position + Vector2(10, -90)
+	#$PlayerBleedTaken.scale = Vector2(10, 10)
+	$PlayerBleedTaken.text = ""
 	combat_log.set_scroll_follow(true)
 		
 	center_screen_x = get_viewport().size.x / 2
@@ -40,7 +43,11 @@ func change_enemy_damage_number(value, crit):
 func change_enemy_bleed_taken(value):
 	$EnemyBleedTaken.text = str(value)
 	if value <= 0: $EnemyBleedTaken.text = ""
-	
+
+func change_player_bleed_taken(value):
+	$PlayerBleedTaken.text = str(value)
+	if value <= 0: $PlayerBleedTaken.text = ""
+
 func update_combat_log_bleed(source, value, player, enemy, is_player, card, other):
 	var red = Color(1.0,0.0,0.0,1.0)
 	var black = Color(1.0,1.0,1.0,1.0)

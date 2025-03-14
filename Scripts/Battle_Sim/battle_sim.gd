@@ -1,5 +1,7 @@
 extends Node2D
 
+const COMBAT_SPEED = .5
+
 @onready var player_deck = $player_deck
 @onready var enemy_node = $Enemy
 @onready var player_inventory = $player_inventory
@@ -27,7 +29,8 @@ var player
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
 	player =  get_tree().get_nodes_in_group("character")[0] 
-
+	
+	var is_dead
 	var turn_incrementer = 1
 
 	print("It is turn " + str(turn_counter))
@@ -64,14 +67,16 @@ func combat(player_deck_list, enemy_deck_list):
 		player_node.get_node("Berserker").change_rage(-3)
 		
 		ui.combat_log_break()
-		await get_tree().create_timer(.5).timeout
+		await get_tree().create_timer(COMBAT_SPEED).timeout
 		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
 		
-		if death_checker(): break
 		
-	if death_checker(): return
+		is_dead = death_checker()
+		if is_dead: break
+		
+	if is_dead: return
 	turn_counter += turn_incrementer
 	store_active_decks()
 	next_turn_handler()
@@ -95,11 +100,14 @@ func death_checker():
 		Global.player_xp += Global.current_enemy.xp
 		$BattleRewards.update_rewards()
 		$BattleRewards.visible = true
+		$NextTurn.next_turn()
+		$NextTurn.visible = true
 		Global.enemy_active_deck = []
 		for i in $player_deck.get_children():
+			i.visible = false
 			if i.is_in_group("card"): i.queue_free()
 		for i in enemy_node.get_children():
-			if i.is_in_group("card"): i.queue_free()
+			i.queue_free()
 		return true
 		
 	else: false
@@ -141,11 +149,13 @@ func bleed_func(i):
 
 func bleed_damage_keeper():
 	if player.player_stats.bleeding_dmg > 0:
+		ui.change_player_bleed_taken(player.player_stats.bleeding_dmg)
 		change_health(false, player.player_stats.bleeding_dmg)
 		ui.update_combat_log_bleed("bleed_damage_keeper", player.player_stats.bleeding_dmg, player, enemy, true, null, null)
 	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
 	
 	if enemy.enemy_stats.bleeding_dmg > 0:
+		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
 		change_health(true, enemy.enemy_stats.bleeding_dmg)
 		ui.update_combat_log_bleed("bleed_damage_keeper", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
 	if enemy.enemy_stats.bleeding_dmg> 0: enemy.enemy_stats.bleeding_dmg-= 1
@@ -271,7 +281,6 @@ func recall_active_decks():
 	
 	for i in $NextTurn/DeckBuilder/CardManager.deck_card_slot_reference:
 		if i != null:
-			print("stats " + str(i.card_stats.dmg))
 			temp_deck.push_back(i.card_stats.duplicate())
 		else:
 			temp_deck.push_back(blank)

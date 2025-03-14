@@ -132,7 +132,7 @@ _data = {
 "enemy_attack_animation": SubResource("Animation_ye5s6")
 }
 
-[node name="HealthPotion" type="Node2D"]
+[node name="HealthPotion" type="Node2D" groups=["card"]]
 script = ExtResource("1_3kr4e")
 card_stats_resource = ExtResource("2_k7a1c")
 
