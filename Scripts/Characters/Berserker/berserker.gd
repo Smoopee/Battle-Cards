@@ -12,6 +12,9 @@ func _ready():
 func set_stats(stats = Character_Resource) -> void:
 	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
 
+func set_talents():
+	pass
+
 func change_rage(value):
 	$TextureProgressBar.value += value
 	if 	$TextureProgressBar.value  >= 100:

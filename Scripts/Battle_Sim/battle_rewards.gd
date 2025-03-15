@@ -16,21 +16,29 @@ func update_rewards():
 	$"../NextTurn/DeckBuilder/PlayerDeck".reward_screen = true
 	$"../NextTurn/DeckBuilder/PlayerInventory".reward_screen = true
 	
-	xp_reward_label.text = str(Global.current_enemy.xp)
-	gold_reward_label.text = str(Global.current_enemy.gold)
-	
-	player_gold_label.text = str(Global.player_gold)
-	player_xp_label.text = str(Global.player_xp)
+
 	
 	#Gives double reward if enemy_rewards returns "Double Reward"
 	if type_string(typeof(enemy_reward)) == "String":
-		xp_reward_label.text += str(Global.current_enemy.xp)
-		gold_reward_label.text += str(Global.current_enemy.gold)
+		xp_reward_label.text = str(Global.current_enemy.xp * 2)
+		gold_reward_label.text = str(Global.current_enemy.gold * 2)
 		
-		player_gold_label.text += str(Global.player_gold)
-		player_xp_label.text += str(Global.player_xp)
-		print(type_string(typeof(enemy_reward)))
+		Global.player_gold += Global.current_enemy.gold * 2
+		Global.player_xp += Global.current_enemy.xp * 2
+		
+		player_gold_label.text = str(Global.player_gold)
+		player_xp_label.text = str(Global.player_xp)
 		return
+	else:
+		Global.player_gold += Global.current_enemy.gold
+		Global.player_xp += Global.current_enemy.xp
+		
+		xp_reward_label.text = str(Global.current_enemy.xp)
+		gold_reward_label.text = str(Global.current_enemy.gold)
+		
+		player_gold_label.text = str(Global.player_gold)
+		player_xp_label.text = str(Global.player_xp)
+		
 	
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
 	new_scene.card_stats = enemy_reward

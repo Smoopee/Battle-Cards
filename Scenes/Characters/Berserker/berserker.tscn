@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dac2v2br3grnx"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/berserker.gd" id="1_2i22b"]
+[ext_resource type="Script" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
 [ext_resource type="Resource" uid="uid://cyhj5ybc2b5yp" path="res://Resources/Character/berserker.tres" id="2_85j04"]
 [ext_resource type="Texture2D" uid="uid://gb3vedweny2f" path="res://Resources/Art/UIElements/rage_bar_under.png" id="3_mcllw"]
 [ext_resource type="Texture2D" uid="uid://cm8or4yet6qac" path="res://Resources/Art/UIElements/rage_bar.png" id="3_svegv"]

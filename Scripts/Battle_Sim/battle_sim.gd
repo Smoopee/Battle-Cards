@@ -275,8 +275,6 @@ func recall_active_decks():
 	Global.player_active_deck = temp_deck
 
 func end_fight_cleanup():
-	Global.player_gold += Global.current_enemy.gold
-	Global.player_xp += Global.current_enemy.xp
 	$BattleRewards.update_rewards()
 	$BattleRewards.visible = true
 	$NextTurn.next_turn()

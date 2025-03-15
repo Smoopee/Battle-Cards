@@ -1,0 +1,200 @@
+[gd_scene load_steps=8 format=3 uid="uid://jimrmkx6x18g"]
+
+[ext_resource type="Script" path="res://Scripts/UI/TalentTree/talent_tree.gd" id="1_7fw2i"]
+[ext_resource type="Texture2D" uid="uid://c8c7kuix3q4fi" path="res://Resources/TestArt/talenttalent_buttont.png" id="1_eg10p"]
+[ext_resource type="ButtonGroup" uid="uid://ditwwv3igt113" path="res://Resources/ButtonGroups/tier2_buttons.tres" id="2_0yu7o"]
+[ext_resource type="Texture2D" uid="uid://chvjystwenuny" path="res://Resources/TestArt/talent_button_hoover.png" id="2_1fsxt"]
+[ext_resource type="ButtonGroup" uid="uid://d4cvptldq031v" path="res://Resources/ButtonGroups/tier1_buttons.tres" id="2_bvv1t"]
+[ext_resource type="Texture2D" uid="uid://b5g2ny1u8dqd2" path="res://Resources/TestArt/talent_button_disabled.png" id="2_pxyn2"]
+[ext_resource type="Texture2D" uid="uid://bpp1kfjio0p5d" path="res://Resources/TestArt/talent_button_pressed-export.png" id="2_xuxyw"]
+
+[node name="TalentTree" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+script = ExtResource("1_7fw2i")
+group1 = ExtResource("2_bvv1t")
+group2 = ExtResource("2_0yu7o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 189.5
+offset_right = 569.0
+offset_bottom = 299.5
+
+[node name="Tier2Buttons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_0yu7o")
+texture_normal = ExtResource("1_eg10p")
+texture_pressed = ExtResource("2_xuxyw")
+texture_hover = ExtResource("2_1fsxt")
+texture_disabled = ExtResource("2_pxyn2")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tier2Buttons/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.5
+offset_right = 20.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Button"
+
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_0yu7o")
+texture_normal = ExtResource("1_eg10p")
+texture_pressed = ExtResource("2_xuxyw")
+texture_hover = ExtResource("2_1fsxt")
+texture_disabled = ExtResource("2_pxyn2")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tier2Buttons/TextureButton2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.5
+offset_right = 20.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Button"
+
+[node name="TextureButton3" type="TextureButton" parent="VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_0yu7o")
+texture_normal = ExtResource("1_eg10p")
+texture_pressed = ExtResource("2_xuxyw")
+texture_hover = ExtResource("2_1fsxt")
+texture_disabled = ExtResource("2_pxyn2")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tier2Buttons/TextureButton3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.5
+offset_right = 20.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Button"
+
+[node name="Tier1Buttons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_bvv1t")
+texture_normal = ExtResource("1_eg10p")
+texture_pressed = ExtResource("2_xuxyw")
+texture_hover = ExtResource("2_1fsxt")
+texture_disabled = ExtResource("2_pxyn2")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tier1Buttons/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.5
+offset_right = 20.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Button"
+
+[node name="TextureButton2" type="TextureButton" parent="VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_bvv1t")
+texture_normal = ExtResource("1_eg10p")
+texture_pressed = ExtResource("2_xuxyw")
+texture_hover = ExtResource("2_1fsxt")
+texture_disabled = ExtResource("2_pxyn2")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tier1Buttons/TextureButton2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.5
+offset_right = 20.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Button"
+
+[node name="TextureButton3" type="TextureButton" parent="VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+layout_mode = 2
+toggle_mode = true
+action_mode = 0
+button_group = ExtResource("2_bvv1t")
+texture_normal = ExtResource("1_eg10p")
+texture_pressed = ExtResource("2_xuxyw")
+texture_hover = ExtResource("2_1fsxt")
+texture_disabled = ExtResource("2_pxyn2")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tier1Buttons/TextureButton3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.5
+offset_right = 20.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Button"
+
+[node name="ConfirmButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Confirm
+"
+
+[connection signal="mouse_entered" from="VBoxContainer/Tier1Buttons/TextureButton" to="." method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/Tier1Buttons/TextureButton" to="." method="_on_texture_button_mouse_exited"]
+[connection signal="button_down" from="VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_button_down"]

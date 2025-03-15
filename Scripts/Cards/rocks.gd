@@ -7,6 +7,7 @@ var card_stats: Cards_Resource = null
 var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
+var mouse_exit = false
 
 
 
@@ -97,7 +98,11 @@ func change_card_dmg_text():
 
 
 func _on_card_ui_mouse_entered():
-	Popups.card_popup(Rect2i(Vector2i(global_position), Vector2i(98, 128)), card_stats)
+	mouse_exit = false
+	await get_tree().create_timer(1).timeout
+	if mouse_exit == false: 
+		Popups.card_popup(Rect2i(Vector2i(global_position), Vector2i(98, 128)), card_stats)
 
 func _on_card_ui_mouse_exited():
+	mouse_exit = true
 	Popups.hide_card_popup()

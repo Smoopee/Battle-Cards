@@ -17,7 +17,8 @@ var playerData = PlayerData.new()
 @onready var player_deck_db
 @onready var player_active_inventory = []
 @onready var player_inventory = []
-@onready var all_player_cards = []
+@onready var player_talent_array = []
+
 
 @onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")

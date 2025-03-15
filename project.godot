@@ -28,7 +28,7 @@ window/vsync/vsync_mode=0
 
 [gui]
 
-theme/custom_font="res://Resources/Fonts/m3x6.ttf"
+theme/custom_font="res://Resources/Fonts/alagard.ttf"
 
 [rendering]
 

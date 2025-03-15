@@ -200,6 +200,7 @@ position = Vector2(69, 19)
 [node name="CardDamage" type="Label" parent="CardUI/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
 
 [node name="SellPrice" type="Label" parent="CardUI"]
 layout_mode = 2
@@ -208,6 +209,7 @@ offset_top = -27.0
 offset_right = 39.0
 offset_bottom = -4.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
 
 [node name="BuyPrice" type="Label" parent="CardUI"]
 layout_mode = 2
@@ -216,6 +218,7 @@ offset_top = 127.0
 offset_right = 41.0
 offset_bottom = 150.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
