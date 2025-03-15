@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ds4tkwaupm3he"]
+[gd_scene load_steps=23 format=3 uid="uid://ds4tkwaupm3he"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
@@ -21,6 +21,9 @@
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="17_xqum7"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerDeck.gd" id="18_ixhpw"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/CardManager.gd" id="19_7tton"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e66g"]
+size = Vector2(1199, 371)
 
 [node name="battle_sim" type="Node2D"]
 script = ExtResource("1_mc5mi")
@@ -67,23 +70,28 @@ focus_mode = 2
 bbcode_enabled = true
 selection_enabled = true
 
-[node name="PlayerDamageNumber" type="Label" parent="UI"]
+[node name="Labels" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerDamageNumber" type="Label" parent="UI/Labels"]
 layout_mode = 0
 offset_left = 1792.0
 offset_top = 193.0
 offset_right = 1832.0
-offset_bottom = 216.0
+offset_bottom = 239.0
 theme_override_font_sizes/font_size = 33
 
-[node name="EnemyDamageNumber" type="Label" parent="UI"]
+[node name="EnemyDamageNumber" type="Label" parent="UI/Labels"]
 layout_mode = 0
 offset_left = 1774.0
 offset_top = 880.0
 offset_right = 1814.0
-offset_bottom = 903.0
+offset_bottom = 926.0
 theme_override_font_sizes/font_size = 33
 
-[node name="EnemyBleedTaken" type="Label" parent="UI"]
+[node name="EnemyBleedTaken" type="Label" parent="UI/Labels"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -91,7 +99,7 @@ theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 
-[node name="PlayerBleedTaken" type="Label" parent="UI"]
+[node name="PlayerBleedTaken" type="Label" parent="UI/Labels"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -161,6 +169,16 @@ script = ExtResource("18_ixhpw")
 
 [node name="CardManager" type="Node2D" parent="NextTurn/DeckBuilder"]
 script = ExtResource("19_7tton")
+
+[node name="SellZone" type="Node2D" parent="NextTurn/DeckBuilder"]
+
+[node name="Area2D" type="Area2D" parent="NextTurn/DeckBuilder/SellZone"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextTurn/DeckBuilder/SellZone/Area2D"]
+position = Vector2(993, 183)
+shape = SubResource("RectangleShape2D_6e66g")
 
 [node name="UpgradeButton" type="CheckButton" parent="NextTurn/DeckBuilder"]
 offset_left = 445.0

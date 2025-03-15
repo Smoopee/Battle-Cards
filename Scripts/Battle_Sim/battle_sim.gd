@@ -96,20 +96,8 @@ func death_checker():
 	else: false
 	
 	if Global.enemy_health <= 0: 
-		Global.player_gold += Global.current_enemy.gold
-		Global.player_xp += Global.current_enemy.xp
-		$BattleRewards.update_rewards()
-		$BattleRewards.visible = true
-		$NextTurn.next_turn()
-		$NextTurn.visible = true
-		Global.enemy_active_deck = []
-		for i in $player_deck.get_children():
-			i.visible = false
-			if i.is_in_group("card"): i.queue_free()
-		for i in enemy_node.get_children():
-			i.queue_free()
+		end_fight_cleanup()
 		return true
-		
 	else: false
 
 func crit_check(i):
@@ -286,4 +274,17 @@ func recall_active_decks():
 			temp_deck.push_back(blank)
 	Global.player_active_deck = temp_deck
 
-
+func end_fight_cleanup():
+	Global.player_gold += Global.current_enemy.gold
+	Global.player_xp += Global.current_enemy.xp
+	$BattleRewards.update_rewards()
+	$BattleRewards.visible = true
+	$NextTurn.next_turn()
+	$NextTurn.visible = true
+	Global.enemy_active_deck = []
+	for i in $player_deck.get_children():
+		i.visible = false
+		if i.is_in_group("card"): i.queue_free()
+	for i in enemy_node.get_children():
+		i.queue_free()
+	$UI/Labels.visible = false

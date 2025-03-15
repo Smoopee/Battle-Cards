@@ -67,6 +67,7 @@ func upgrade_card(num):
 			card_stats.buy_price = 32
 			card_stats.upgrade_effect = 4
 	update_card_ui()
+
 func item_enchant(enchant):
 	match enchant:
 		"Bleed":
@@ -97,8 +98,10 @@ func card_shop_ui():
 
 func update_card_ui():
 	update_card_image()
+	set_tooltip()
 	change_item_enchant_image()
 	change_card_dmg_text()
+	
 
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
@@ -108,3 +111,7 @@ func change_item_enchant_image():
 
 func change_card_dmg_text():
 	$CardUI/HBoxContainer/CardDamage.text = str(card_stats.dmg)
+
+func set_tooltip():
+	$CardUI.tooltip_text = str(card_stats.name) + " increases all weapons cards damage by " + str(card_stats.upgrade_effect) + " for the battle.\n"
+	if card_stats.item_enchant == "Bleed": $CardUI.tooltip_text += "All weapons cards gain 2 bleed damage for the fight.\n"

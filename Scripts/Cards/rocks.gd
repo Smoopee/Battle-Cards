@@ -9,8 +9,10 @@ var is_discarded = false
 var disabled_collision = false
 
 
+
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/rock.tres").duplicate()
+	
 
 func on_start(board):
 	pass
@@ -44,8 +46,9 @@ func upgrade_card(num):
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
 			card_stats.buy_price = 16
-
+	
 	update_card_ui()
+	
 
 func item_enchant(enchant):
 	match enchant:
@@ -91,3 +94,10 @@ func change_item_enchant_image():
 
 func change_card_dmg_text():
 	$CardUI/HBoxContainer/CardDamage.text = str(card_stats.dmg)
+
+
+func _on_card_ui_mouse_entered():
+	Popups.card_popup(Rect2i(Vector2i(global_position), Vector2i(98, 128)), card_stats)
+
+func _on_card_ui_mouse_exited():
+	Popups.hide_card_popup()

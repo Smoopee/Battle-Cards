@@ -37,6 +37,7 @@ func create_inventory():
 		card_scene.card_stats = inventory_db[i]
 		add_child(card_scene)
 		card_scene.upgrade_card(card_scene.card_stats.upgrade_level)
+		if reward_screen: card_scene.card_shop_ui()
 		card_scene.card_stats.inventory_position = card_position
 		card_scene.card_stats.is_players = true
 		fill_card_slots(card_scene, card_position)
@@ -63,8 +64,12 @@ func calculate_card_position(index):
 	return x_offset
 
 func remove_card(card):
-	if card in Global.player_inventory:
-		Global.player_inventory.erase(card)
+	if reward_screen == true:
+		if card in Global.player_inventory:
+			Global.player_inventory.erase(card)
+	else:
+		if card in Global.player_active.inventory:
+			Global.player_active.inventory.erase(card)
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()

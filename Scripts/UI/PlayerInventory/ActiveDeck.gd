@@ -41,7 +41,6 @@ func create_inventory():
 		card_scene.card_stats.inventory_position = card_position
 		card_scene.card_stats.is_players = true
 		fill_card_slots(card_scene, card_position)
-		print(card_scene.card_stats.bleed_dmg)
 		card_position += 1
 
 

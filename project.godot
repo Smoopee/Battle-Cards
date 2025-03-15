@@ -18,12 +18,17 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+Popups="*res://Scenes/UI/popups.tscn"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/vsync/vsync_mode=0
+
+[gui]
+
+theme/custom_font="res://Resources/Fonts/m3x6.ttf"
 
 [rendering]
 

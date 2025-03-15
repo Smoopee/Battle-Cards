@@ -1,19 +1,20 @@
 extends Control
 
 
-@onready var player_damage_number = $PlayerDamageNumber
-@onready var enemy_damage_number = $EnemyDamageNumber
+@onready var player_damage_number = $Labels/PlayerDamageNumber
+@onready var enemy_damage_number = $Labels/EnemyDamageNumber
 @onready var combat_log = $ColorRect/RichTextLabel
+@onready var enemy_bleeding_label = $Labels/EnemyBleedTaken
+@onready var player_bleeding_label = $Labels/PlayerBleedTaken
 
 var center_screen_x
 var center_screen_y
 
 func _ready():
-	$EnemyBleedTaken.position = $"../Enemy".enemy.position + Vector2(10, 60)
-	$EnemyBleedTaken.text = ""
-	$PlayerBleedTaken.position = $"../Player".position + Vector2(10, -90)
-	#$PlayerBleedTaken.scale = Vector2(10, 10)
-	$PlayerBleedTaken.text = ""
+	enemy_bleeding_label.position = $"../Enemy".enemy.position + Vector2(10, 60)
+	enemy_bleeding_label.text = ""
+	player_bleeding_label.position = $"../Player".position + Vector2(10, -90)
+	player_bleeding_label.text = ""
 	combat_log.set_scroll_follow(true)
 		
 	center_screen_x = get_viewport().size.x / 2
@@ -41,12 +42,12 @@ func change_enemy_damage_number(value, crit):
 	enemy_damage_number.text = str(value) 
 
 func change_enemy_bleed_taken(value):
-	$EnemyBleedTaken.text = str(value)
-	if value <= 0: $EnemyBleedTaken.text = ""
+	enemy_bleeding_label.text = str(value)
+	if value <= 0: enemy_bleeding_label.text = ""
 
 func change_player_bleed_taken(value):
-	$PlayerBleedTaken.text = str(value)
-	if value <= 0: $PlayerBleedTaken.text = ""
+	player_bleeding_label.text = str(value)
+	if value <= 0: player_bleeding_label.text = ""
 
 func update_combat_log_bleed(source, value, player, enemy, is_player, card, other):
 	var red = Color(1.0,0.0,0.0,1.0)

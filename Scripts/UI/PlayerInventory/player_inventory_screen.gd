@@ -213,6 +213,7 @@ func upgrade_check(upgrade_card, base_card):
 	if upgrade_card.position == base_card.position: return false
 	if upgrade_card.card_stats.upgrade_level != base_card.card_stats.upgrade_level: return false
 	if base_card.card_stats.upgrade_level >= 4: return false
+	if base_card.card_stats.card_scene_path != upgrade_card.card_stats.card_scene_path: return false
 	return true
 
 func upgrade_card(upgrade_card, base_card):

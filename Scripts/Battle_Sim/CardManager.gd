@@ -206,8 +206,7 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func update_player_gold():
-	pass
-	#$"../PlayerUI".change_player_gold() 
+	$"../../../PlayerUI".change_player_gold() 
 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on
@@ -216,6 +215,7 @@ func upgrade_check(upgrade_card, base_card):
 	if upgrade_card.position == base_card.position: return false
 	if upgrade_card.card_stats.upgrade_level != base_card.card_stats.upgrade_level: return false
 	if base_card.card_stats.upgrade_level >= 4: return false
+	if base_card.card_stats.card_scene_path != upgrade_card.card_stats.card_scene_path: return false
 	return true
 
 func upgrade_card(upgrade_card, base_card):
@@ -237,10 +237,11 @@ func sell_card(card):
 		deck_card_slot_reference[deck_card_slot_reference_index] = null
 		deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
 	Global.player_gold += card.card_stats.sell_price
+	update_player_gold()
 	deck_reference.remove_card(card)
 	card.queue_free()
 	card
-	update_player_gold()
+
 
 func enchant_from_inventory(base_card):
 	base_card.item_enchant(card_being_dragged.card_stats.enchanting_with)
