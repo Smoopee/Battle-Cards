@@ -1,6 +1,6 @@
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_START = 2
 
 var screen_size
@@ -43,12 +43,13 @@ func finish_drag():
 		get_tree().change_scene_to_file("res://Scenes/UI/StartScreen/start_screen.tscn")
 		
 	else:
-		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.hand_position)
+		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
+	
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)
@@ -81,7 +82,7 @@ func raycast_check_for_card():
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD
+	parameters.collision_mask = COLLISION_MASK_CARD_SELECTOR
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_highest_z_index(result)

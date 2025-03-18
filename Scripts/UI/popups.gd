@@ -40,7 +40,6 @@ func talent_popup(slot, talent_name, effect):
 func set_talent_values(talent_name, effect):
 	$UI/TalentPopup/VBoxContainer/Name.text = str(talent_name)
 	$UI/TalentPopup/VBoxContainer/HBoxContainer/Information.text = str(effect)
-	print("talent popuss")
 
 func hide_talent_popup():
 	%TalentPopup.hide()

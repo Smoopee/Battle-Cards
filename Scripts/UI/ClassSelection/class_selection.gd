@@ -1,8 +1,12 @@
 extends Node2D
 
+var save_file_path = "user://SaveData/"
+var save_file_name = "PlayerSave.tres"
+
 const COLLISION_MASK_CARD_SELECTOR = 16
-const COLLISION_MASK_NEW_GAME = 2
-const COLLISION_MASK_LOAD_GAME = 4
+const COLLISION_CLASS_SELECTION = 8
+
+var playerData = PlayerData.new()
 
 var screen_size
 var is_hoovering_on_card
@@ -13,7 +17,14 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
+	verify_save_directory(save_file_path)
 
+func verify_save_directory(path: String):
+	DirAccess.make_dir_absolute(path)
+
+func save():
+	ResourceSaver.save(playerData, save_file_path + save_file_name)
+	print("save")
 
 func _process(delta):
 	if card_being_dragged:
@@ -33,28 +44,16 @@ func _input(event):
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
-	var new_game = raycast_check_for_new_game()
-	var load_game = raycast_check_for_load_game()
-	if new_game:
-		card_being_dragged.position = new_game.position
+	var class_selected = raycast_check_for_class_selection()
+		
+	if class_selected:
+		
+		Global.player_class = class_selected.set_class()
+		playerData.player_class = Global.player_class
+		card_being_dragged.position = class_selected.position + Vector2(0, 120)
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
-		Global.player_inventory = []
-		Global.player_deck = []
-		Global.set_player_inventory()
-		Global.instantiate_player_inventory()
-		Global.set_player_deck()
-		Global.instantiate_player_deck()
-		
-		print("Let's Begin")
-		await get_tree().create_timer(2).timeout
-		
-		get_tree().change_scene_to_file("res://Scenes/UI/ClassSelection/class_selection.tscn")
-		
-	elif load_game:
-		card_being_dragged.position = load_game.position
-		card_being_dragged.get_node("Area2D").collision_layer = 8
-		card_being_dragged = null
+		save()
 		
 		await get_tree().create_timer(2).timeout
 		print("Let's Continue")
@@ -104,23 +103,12 @@ func raycast_check_for_card_selector():
 		return get_card_with_highest_z_index(result)
 	return null 
 
-func raycast_check_for_new_game():
+func raycast_check_for_class_selection():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_NEW_GAME
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return result[0].collider.get_parent()
-	return null 
-	
-func raycast_check_for_load_game():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_LOAD_GAME
+	parameters.collision_mask = COLLISION_CLASS_SELECTION
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()

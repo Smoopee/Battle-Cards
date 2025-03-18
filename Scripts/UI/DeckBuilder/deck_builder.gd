@@ -22,7 +22,9 @@ func save():
 func _on_button_button_down():
 
 	inventory_and_deck_save()
-	get_tree().change_scene_to_file(("res://Scenes/Battle/battle_sim.tscn"))
+	talent_tree_save()
+	load_battle_sim()
+	
 
 func inventory_and_deck_save():
 	var blank = load("res://Resources/Cards/blank.tres")
@@ -59,3 +61,13 @@ func inventory_and_deck_save():
 		else:
 			Global.player_active_inventory.push_back(null)
 	save()
+
+func talent_tree_save():
+	playerData.player_talent_array = Global.player_talent_array
+	save()
+
+func load_battle_sim():
+	var player_class = Global.player_class
+	match player_class:
+		"berserker":
+			get_tree().change_scene_to_file(("res://Scenes/Battle/berserker_battle_sim.tscn"))

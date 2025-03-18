@@ -50,7 +50,6 @@ func create_inventory():
 func fetch_inventory():
 	if reward_screen == true: 
 		inventory_db = Global.player_inventory
-		print("YOOO")
 	else: inventory_db = Global.player_active_inventory
 
 func clear_cards():

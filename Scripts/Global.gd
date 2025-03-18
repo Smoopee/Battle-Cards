@@ -7,6 +7,8 @@ var playerData = PlayerData.new()
 @onready var player_health: int
 @onready var max_player_health: int
 
+@onready var player_level: int = 3
+
 @onready var enemy_health: int
 @onready var max_enemy_health: int
 
@@ -18,6 +20,7 @@ var playerData = PlayerData.new()
 @onready var player_active_inventory = []
 @onready var player_inventory = []
 @onready var player_talent_array = []
+@onready var player_class = ""
 
 
 @onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
@@ -44,6 +47,8 @@ func _ready():
 	load_data()
 	player_inventory = playerData.player_inventory
 	player_deck = playerData.player_deck
+	player_talent_array = playerData.player_talent_array
+	player_class = playerData.player_class
 	if player_inventory == null:
 		instantiate_player_deck()
 		instantiate_player_inventory()

@@ -28,3 +28,9 @@ offset_right = 47.0
 offset_bottom = 62.0
 value = 100.0
 texture_progress = ExtResource("3_y3opn")
+
+[node name="PlayerHealthLabel" type="Label" parent="PlayerHealthBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 15.0
+text = "110"

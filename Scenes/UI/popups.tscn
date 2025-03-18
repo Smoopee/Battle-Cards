@@ -24,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_lp2vw")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -52,6 +52,7 @@ text = "Name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/CardPopup/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="UI/CardPopup/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(75, 0)
@@ -69,6 +70,7 @@ text = "libasfd asdof o"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="UI/CardPopup/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="CritLabel" type="Label" parent="UI/CardPopup/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true

@@ -1,6 +1,6 @@
 extends Node2D
 
-const COMBAT_SPEED = .5
+const COMBAT_SPEED = 1
 
 @onready var player_deck = $player_deck
 @onready var enemy_node = $Enemy
@@ -26,6 +26,7 @@ var enemy
 var player
 
 
+	
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
 	player =  get_tree().get_nodes_in_group("character")[0] 
@@ -64,7 +65,7 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		bleed_damage_keeper()
 		
-		player_node.get_node("Berserker").change_rage(-3)
+		player_node.get_node("Berserker").change_rage(null, -3)
 		
 		ui.combat_log_break()
 		await get_tree().create_timer(COMBAT_SPEED).timeout
@@ -80,11 +81,12 @@ func combat(player_deck_list, enemy_deck_list):
 	turn_counter += turn_incrementer
 	store_active_decks()
 	next_turn_handler()
-	
+
 
 func on_start_skill():
 	for i in player_skill_list:
 		i.effect()
+	player_node.get_node("Berserker").change_deck(player_deck_list)
 	
 	for i in enemy_skill_list:
 		i.effect()
@@ -109,8 +111,11 @@ func crit_check(i):
 
 func damage_func(i):
 	if i.card_stats.dmg <= 0: return
+	var damage 
 	var crit = false
-	var damage = i.card_stats.dmg + player.player_stats.attack
+	if i.card_stats.in_enemy_deck: damage = i.card_stats.dmg + enemy.enemy_stats.attack - player.player_stats.armor
+	else:  damage = i.card_stats.dmg + player.player_stats.attack - enemy.enemy_stats.armor
+	
 	if crit_check(i): 
 		damage *= 2
 		crit = true
@@ -122,6 +127,8 @@ func damage_func(i):
 		
 	else:
 		change_health(true, damage)
+		player_node.get_node("Berserker").change_rage(player, damage)
+		player_node.get_node("Berserker").change_damage(i)
 		ui.update_combat_log_damage_taken(damage, player, enemy, false, i, crit)
 		ui.change_player_damage_number(damage, crit)
 
@@ -129,6 +136,7 @@ func bleed_func(i):
 	if i.card_stats.bleed_dmg <= 0: return
 	
 	if i.card_stats.in_enemy_deck: 
+		print("battle sim enemy bleed")
 		player.player_stats.bleeding_dmg += i.card_stats.bleed_dmg
 		ui.update_combat_log_bleed("bleed_func", player.player_stats.bleeding_dmg, player, enemy, true, null, null)
 	else: 
@@ -143,6 +151,8 @@ func bleed_damage_keeper():
 	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
 	
 	if enemy.enemy_stats.bleeding_dmg > 0:
+		print("battle sim enemy bleed")
+		player_node.get_node("Berserker").blood_bath_func(enemy.enemy_stats.bleeding_dmg)
 		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
 		change_health(true, enemy.enemy_stats.bleeding_dmg)
 		ui.update_combat_log_bleed("bleed_damage_keeper", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
@@ -151,12 +161,11 @@ func bleed_damage_keeper():
 func change_health(character, value):
 	if character:
 		Global.change_enemy_health(-value)
-		player_node.get_node("Berserker").change_rage(value)
 		enemy.enemy_stats.health -= value
 		enemy_node.change_enemy_health()
 	else:
 		Global.change_player_health(-value)
-		player_node.get_node("Berserker").change_rage(value)
+		player_node.get_node("Berserker").change_rage(enemy, value)
 		player.player_stats.health -= value
 		player_node.change_player_health()
 

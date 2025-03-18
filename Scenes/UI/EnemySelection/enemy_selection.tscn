@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=12 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_ksv00"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_vlt6d"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyDeckDisplay.gd" id="8_xkyks"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="9_r1ycm"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_gq20e"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_asw23"]
 
 [node name="EnemySelection" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_ijbvw")
@@ -19,34 +24,46 @@ script = ExtResource("3_gsqul")
 
 [node name="Player" parent="." instance=ExtResource("4_5sm1h")]
 
-[node name="Inventory" type="Button" parent="."]
-z_index = 4
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1707.0
-offset_top = 848.0
-offset_right = 1790.0
-offset_bottom = 879.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Inventory"
-
 [node name="Background" type="TextureRect" parent="."]
-z_index = -1
+show_behind_parent = true
 offset_right = 1920.0
 offset_bottom = 1079.0
 mouse_filter = 2
 texture = ExtResource("5_oagdc")
-
-[node name="PlayerInventoryScreen" parent="." instance=ExtResource("6_ksv00")]
-visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource("7_vlt6d")]
 
 [node name="EnemyDeckDisplay" type="Node2D" parent="."]
 script = ExtResource("8_xkyks")
 
-[connection signal="button_down" from="Inventory" to="." method="_on_inventory_button_down"]
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("6_ksv00")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("9_r1ycm")]
+visible = false
+group1 = SubResource("ButtonGroup_gq20e")
+group2 = SubResource("ButtonGroup_asw23")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 1744.0
+offset_top = 843.0
+offset_right = 1824.0
+offset_bottom = 920.0
+
+[node name="Inventory" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Inventory"
+
+[node name="Talent" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Talents
+"
+
+[node name="Menu" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Menu!"
+
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/Inventory" to="." method="_on_inventory_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/Talent" to="." method="_on_talent_button_down"]

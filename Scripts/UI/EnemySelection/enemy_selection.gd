@@ -50,6 +50,7 @@ func finish_drag():
 	
 	if enemy_found:
 		enemy_loader(enemy_found)
+		talent_tree_save()
 		inventory_and_deck_save()
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:
@@ -128,7 +129,19 @@ func inventory_and_deck_save():
 	Global.player_deck = temp_deck
 	save()
 
+func talent_tree_save():
+	playerData.player_talent_array = Global.player_talent_array
+	save()
+
 func display_enemy_cards(enemy):
 	for i in $EnemyDeckDisplay.get_children():
 		i.queue_free()
 	$EnemyDeckDisplay.create_enemy_cards(enemy)
+
+func _on_talent_button_down():
+	if !$TalentTree.visible:
+		$TalentTree.visible = true
+	else:
+		$TalentTree.visible = false
+		
+	$CardSelector.card_selector_collision_toggle()

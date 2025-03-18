@@ -29,6 +29,4 @@ func get_reward():
 	var reward_array = $Deck.enemy_deck + $Skills.enemy_skills 
 	reward_array.push_back("Doulbe Reward")
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
-	print(reward_array)
-	print("Your reward is " + str(reward_array[reward_index]))
 	return reward_array[reward_index]
