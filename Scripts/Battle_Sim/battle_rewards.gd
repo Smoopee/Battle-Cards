@@ -10,13 +10,12 @@ var center_screen_x
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	
+
 func update_rewards():
 	var enemy_reward = $"../Enemy".enemy_reward()
 	$"../NextTurn/DeckBuilder/PlayerDeck".reward_screen = true
 	$"../NextTurn/DeckBuilder/PlayerInventory".reward_screen = true
 	
-
 	
 	#Gives double reward if enemy_rewards returns "Double Reward"
 	if type_string(typeof(enemy_reward)) == "String":
@@ -43,8 +42,10 @@ func update_rewards():
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
-	
 	new_scene.card_stats.is_players = true
+	new_scene.card_stats.in_enemy_deck = false
+	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)
+	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
 
@@ -67,4 +68,5 @@ func _on_button_button_down():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 	
+	Global.save_function()
 	get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))

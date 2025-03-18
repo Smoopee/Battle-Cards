@@ -1,8 +1,5 @@
 extends Node2D
 
-var save_file_path = "user://SaveData/"
-var save_file_name = "PlayerSave.tres"
-var playerData = PlayerData.new()
 
 @onready var card_manager = $CardManager
 
@@ -10,21 +7,11 @@ var deck = []
 
 func _ready():
 	var enemy = Global.current_enemy
-	verify_save_directory(save_file_path)
-
-func verify_save_directory(path: String):
-	DirAccess.make_dir_absolute(path)
-
-func save():
-	ResourceSaver.save(playerData, save_file_path + save_file_name)
-	print("save")
 
 func _on_button_button_down():
-
 	inventory_and_deck_save()
-	talent_tree_save()
+	Global.save_function()
 	load_battle_sim()
-	
 
 func inventory_and_deck_save():
 	var blank = load("res://Resources/Cards/blank.tres")
@@ -35,7 +22,6 @@ func inventory_and_deck_save():
 			temp_inventory.push_back(i.card_stats)
 		else:
 			temp_inventory.push_back(null)
-	playerData.player_inventory = temp_inventory
 	Global.player_inventory = temp_inventory
 
 	var temp_deck = []
@@ -44,7 +30,6 @@ func inventory_and_deck_save():
 			temp_deck.push_back(i.card_stats)
 		else:
 			temp_deck.push_back(null)
-	playerData.player_deck = temp_deck
 	Global.player_deck = temp_deck
 	
 	Global.player_active_deck = []
@@ -60,11 +45,6 @@ func inventory_and_deck_save():
 			Global.player_active_inventory.push_back(i.duplicate())
 		else:
 			Global.player_active_inventory.push_back(null)
-	save()
-
-func talent_tree_save():
-	playerData.player_talent_array = Global.player_talent_array
-	save()
 
 func load_battle_sim():
 	var player_class = Global.player_class

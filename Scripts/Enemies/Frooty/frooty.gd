@@ -30,5 +30,5 @@ func get_reward():
 	reward_array.push_back("Doulbe Reward")
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
 	print(reward_array)
-	print("Your reward is " + str(reward_array[reward_index]))
+	print("Your reward is " + str(reward_array[reward_index].name))
 	return reward_array[reward_index]

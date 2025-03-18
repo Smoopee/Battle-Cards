@@ -1,12 +1,9 @@
 extends Node2D
 
-var save_file_path = "user://SaveData/"
-var save_file_name = "PlayerSave.tres"
 
 const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_CLASS_SELECTION = 8
 
-var playerData = PlayerData.new()
 
 var screen_size
 var is_hoovering_on_card
@@ -17,14 +14,6 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
-	verify_save_directory(save_file_path)
-
-func verify_save_directory(path: String):
-	DirAccess.make_dir_absolute(path)
-
-func save():
-	ResourceSaver.save(playerData, save_file_path + save_file_name)
-	print("save")
 
 func _process(delta):
 	if card_being_dragged:
@@ -49,11 +38,10 @@ func finish_drag():
 	if class_selected:
 		
 		Global.player_class = class_selected.set_class()
-		playerData.player_class = Global.player_class
+		Global.save_function()
 		card_being_dragged.position = class_selected.position + Vector2(0, 120)
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
-		save()
 		
 		await get_tree().create_timer(2).timeout
 		print("Let's Continue")

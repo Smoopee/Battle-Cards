@@ -67,7 +67,6 @@ func start_drag(card):
 	card_being_dragged.scale = Vector2(1.1, 1.1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
-	
 
 func finish_drag():
 	var deck_card_slot_found = raycast_check_for_deck_slot()
@@ -129,7 +128,6 @@ func finish_drag():
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
 	card_sorted = false
 	card_reset()
-	card_being_dragged = null
 
 func raycast_check_for_deck_slot():
 	var space_state = get_world_2d().direct_space_state
@@ -241,7 +239,6 @@ func sell_card(card):
 	deck_reference.remove_card(card)
 	card.queue_free()
 	card
-
 
 func enchant_from_inventory(base_card):
 	base_card.item_enchant(card_being_dragged.card_stats.enchanting_with)

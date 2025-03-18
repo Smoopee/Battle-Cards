@@ -1,6 +1,7 @@
 extends Control
 
 func card_popup(slot : Rect2i, card : Cards_Resource):
+	return
 	set_value(card)
 	
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -17,12 +18,14 @@ func card_popup(slot : Rect2i, card : Cards_Resource):
 	%CardPopup.position += Vector2i(0, -80)
 	
 func hide_card_popup():
+	return
 	%CardPopup.hide()
 
 func set_value(card: Cards_Resource):
 	%Name.text = card.name
 
 func talent_popup(slot, talent_name, effect):
+	return
 	set_talent_values(talent_name, effect)
 	
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -42,4 +45,5 @@ func set_talent_values(talent_name, effect):
 	$UI/TalentPopup/VBoxContainer/HBoxContainer/Information.text = str(effect)
 
 func hide_talent_popup():
+	return
 	%TalentPopup.hide()

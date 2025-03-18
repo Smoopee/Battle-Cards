@@ -8,6 +8,8 @@ var playerData = PlayerData.new()
 @onready var max_player_health: int
 
 @onready var player_level: int = 3
+@onready var player_gold: int = 5
+@onready var player_xp: int = 0
 
 @onready var enemy_health: int
 @onready var max_enemy_health: int
@@ -30,9 +32,6 @@ var playerData = PlayerData.new()
 
 var intermission_tracker = 0
 
-var player_gold: int = 5
-var player_xp: int = 0
-
 var card_db_reference
 var card_node_reference = 3
 
@@ -45,14 +44,18 @@ func _ready():
 	enemy_health = max_enemy_health
 	
 	load_data()
-	player_inventory = playerData.player_inventory
-	player_deck = playerData.player_deck
-	player_talent_array = playerData.player_talent_array
-	player_class = playerData.player_class
+	load_function()
+	
 	if player_inventory == null:
 		instantiate_player_deck()
 		instantiate_player_inventory()
-	
+
+func verify_save_directory(path: String):
+	DirAccess.make_dir_absolute(path)
+
+func save():
+	ResourceSaver.save(playerData, save_file_path + save_file_name)
+	print("save")
 
 func change_player_health(amount):
 	player_health += amount
@@ -72,7 +75,6 @@ func instantiate_player_inventory():
 		var card = load(card_db_reference.CARDS[i]).duplicate()
 		player_inventory.push_back(card)
 
-
 func set_player_deck():
 	player_deck_db = ["Rock", "Rock", "Rock", "Rock", "Rock", 
 	"Rock", "Rock", "Rock", "Rock", "Rock"]
@@ -86,3 +88,22 @@ func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	print("loaded")
 	
+func save_function():
+	playerData.player_class = player_class
+	playerData.player_deck = player_deck
+	playerData.player_inventory = player_inventory
+	playerData.player_talent_array = player_talent_array
+	playerData.player_gold = player_gold
+	playerData.player_xp = player_xp
+	playerData.player_level = player_level
+
+	save()
+
+func load_function():
+	player_inventory = playerData.player_inventory
+	player_deck = playerData.player_deck
+	player_talent_array = playerData.player_talent_array
+	player_class = playerData.player_class
+	player_gold = playerData.player_gold
+	player_xp = playerData.player_xp
+	player_level = playerData.player_level

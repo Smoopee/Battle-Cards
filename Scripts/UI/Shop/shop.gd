@@ -1,24 +1,14 @@
 extends Node2D
 
-var save_file_path = "user://SaveData/"
-var save_file_name = "PlayerSave.tres"
-var playerData = PlayerData.new()
 @onready var merchant_cards = $MerchantCards
-
 @onready var player_inventory = $PlayerInventory
 @onready var player_deck = $PlayerDeck
 
-func _ready():
-	verify_save_directory(save_file_path)
-func verify_save_directory(path: String):
-	DirAccess.make_dir_absolute(path)
-func save():
-	ResourceSaver.save(playerData, save_file_path + save_file_name)
-	print("save")
 
 
 func _on_exit_button_button_down():
 	inventory_and_deck_save()
+	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
 		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
@@ -49,7 +39,6 @@ func inventory_and_deck_save():
 			temp_inventory.push_back(i.card_stats)
 		else:
 			temp_inventory.push_back(null)
-	playerData.player_inventory = temp_inventory
 	Global.player_inventory = temp_inventory
 
 	var temp_deck = []
@@ -58,6 +47,5 @@ func inventory_and_deck_save():
 			temp_deck.push_back(i.card_stats)
 		else:
 			temp_deck.push_back(null)
-	playerData.player_deck = temp_deck
 	Global.player_deck = temp_deck
-	save()
+

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Cards/health_potion.gd" id="1_3kr4e"]
 [ext_resource type="Resource" uid="uid://crfko4titbwro" path="res://Resources/Cards/health_potion.tres" id="2_k7a1c"]
-[ext_resource type="Texture2D" uid="uid://bw55uim6h6nfn" path="res://Resources/Cards/CardArt/Rock_card.png" id="3_ogeqr"]
+[ext_resource type="Texture2D" uid="uid://tlors638c3k1" path="res://Resources/Cards/CardArt/health_potion_card.png" id="3_6h2gm"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_pmcm4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vua4k"]
@@ -138,7 +138,7 @@ card_stats_resource = ExtResource("2_k7a1c")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("3_ogeqr")
+texture = ExtResource("3_6h2gm")
 
 [node name="Area2D" type="Area2D" parent="."]
 

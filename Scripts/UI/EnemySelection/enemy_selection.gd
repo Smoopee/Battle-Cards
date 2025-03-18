@@ -1,8 +1,5 @@
 extends Node2D
 
-var save_file_path = "user://SaveData/"
-var save_file_name = "PlayerSave.tres"
-var playerData = PlayerData.new()
 
 const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_ENEMY = 32
@@ -16,14 +13,6 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
-	verify_save_directory(save_file_path)
-
-func verify_save_directory(path: String):
-	DirAccess.make_dir_absolute(path)
-
-func save():
-	ResourceSaver.save(playerData, save_file_path + save_file_name)
-	print("save")
 
 func _process(delta):
 	if card_being_dragged:
@@ -50,8 +39,8 @@ func finish_drag():
 	
 	if enemy_found:
 		enemy_loader(enemy_found)
-		talent_tree_save()
 		inventory_and_deck_save()
+		Global.save_function()
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
@@ -116,7 +105,6 @@ func inventory_and_deck_save():
 			temp_inventory.push_back(i.card_stats)
 		else:
 			temp_inventory.push_back(null)
-	playerData.player_inventory = temp_inventory
 	Global.player_inventory = temp_inventory
 
 	var temp_deck = []
@@ -125,13 +113,7 @@ func inventory_and_deck_save():
 			temp_deck.push_back(i.card_stats)
 		else:
 			temp_deck.push_back(null)
-	playerData.player_deck = temp_deck
 	Global.player_deck = temp_deck
-	save()
-
-func talent_tree_save():
-	playerData.player_talent_array = Global.player_talent_array
-	save()
 
 func display_enemy_cards(enemy):
 	for i in $EnemyDeckDisplay.get_children():

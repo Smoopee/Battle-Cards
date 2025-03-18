@@ -25,8 +25,6 @@ var enemy_bleed_dmg = 0
 var enemy
 var player
 
-
-	
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
 	player =  get_tree().get_nodes_in_group("character")[0] 
@@ -81,7 +79,6 @@ func combat(player_deck_list, enemy_deck_list):
 	turn_counter += turn_incrementer
 	store_active_decks()
 	next_turn_handler()
-
 
 func on_start_skill():
 	for i in player_skill_list:
