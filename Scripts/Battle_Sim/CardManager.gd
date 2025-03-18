@@ -83,10 +83,41 @@ func finish_drag():
 	var can_sort_deck =  deck_card_slot_found and deck_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players
 	var can_sort_inventory =  inventory_card_slot_found and inventory_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players
 	
+	var deck_full = true
+	for i in deck_card_slot_array:
+		if i.card_in_slot == false:
+			deck_full = false
+			
+	var inventory_full = true
+	for i in inventory_card_slot_array:
+		if i.card_in_slot == false:
+			inventory_full = false
+	
 	if sell_zone_found: 
 		sell_card(card_being_dragged)
 		card_reset()
 		return
+	
+	if raycast_check_for_card() and card_being_dragged.card_stats.in_enemy_deck and upgrade_check(card_being_dragged, raycast_check_for_card()):
+		upgrade_from_reward(card_being_dragged, raycast_check_for_upgrade_card())
+		print("Upgrade from reward")
+		card_reset()
+		return
+	
+	if raycast_check_for_card() and deck_card_slot_found and card_being_dragged.card_stats.in_enemy_deck:
+		if deck_full: 
+			print("Deck is full")
+			inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
+			card_reset()
+			return
+			
+	if raycast_check_for_card() and inventory_card_slot_found and card_being_dragged.card_stats.in_enemy_deck:
+		if inventory_full: 
+			print("Deck is full")
+			inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
+			card_reset()
+			return
+			
 	
 	if deck_card_slot_reference_index  > -1 and deck_card_slot_found != null:
 		previous_card_slot = deck_card_slot_reference_index
@@ -227,6 +258,18 @@ func upgrade_card(upgrade_card, base_card):
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 	print("Upgrade card end")
 
+func upgrade_from_reward(upgrade_card, base_card):
+	var temp_enchant = base_card.card_stats.item_enchant
+	var temp_enchant2 = upgrade_card.card_stats.item_enchant
+	if temp_enchant != null:
+		base_card.item_enchant(temp_enchant) 
+	if temp_enchant2 != null:
+		base_card.item_enchant(temp_enchant2) 
+	upgrade_card.queue_free()
+	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
+	base_card.update_card_ui()
+	base_card.card_shop_ui()
+
 func sell_card(card):
 	if inventory_card_slot_reference_index >= 0:
 		inventory_card_slot_reference[inventory_card_slot_reference_index] = null
@@ -249,6 +292,7 @@ func enchant_from_inventory(base_card):
 func move_from_inventory_to_deck(card_being_dragged, deck_slot):
 	card_being_dragged.position = deck_slot.position
 	deck_slot.card_in_slot = true
+	card_being_dragged.card_stats.in_enemy_deck = false
 	deck_card_slot_reference.remove_at(deck_card_slot_index)
 	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
 	if inventory_card_slot_reference_index >= 0:
@@ -259,6 +303,7 @@ func move_from_inventory_to_deck(card_being_dragged, deck_slot):
 func move_from_deck_to_inventory(card_being_dragged, inventory_slot):
 	card_being_dragged.position = inventory_slot.position
 	inventory_slot.card_in_slot = true
+	card_being_dragged.card_stats.in_enemy_deck = false
 	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
 	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
 	if deck_card_slot_reference_index >= 0:
@@ -269,6 +314,7 @@ func move_from_deck_to_inventory(card_being_dragged, inventory_slot):
 func deck_sorting(card_being_dragged, deck_slot):
 	card_being_dragged.position = deck_slot.position
 	deck_slot.card_in_slot = true 
+	card_being_dragged.card_stats.in_enemy_deck = false
 	
 	if deck_card_slot_reference_index > -1:
 		#true card_being_dragged going to the right
@@ -387,6 +433,7 @@ func inventory_to_deck_swap(card_being_dragged, deck_slot):
 func inventory_sorting(card_being_dragged, inventory_card_slot_found):
 	card_being_dragged.position = inventory_card_slot_found.position
 	inventory_card_slot_found.card_in_slot = true 
+	card_being_dragged.card_stats.in_enemy_deck = false
 	
 	if inventory_card_slot_reference_index > -1:
 		#true card_being_dragged to the right

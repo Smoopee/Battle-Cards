@@ -43,7 +43,6 @@ func update_rewards():
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
 	new_scene.card_stats.is_players = true
-	new_scene.card_stats.in_enemy_deck = false
 	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)
