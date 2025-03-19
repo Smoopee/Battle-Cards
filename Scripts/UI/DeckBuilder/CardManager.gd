@@ -51,6 +51,7 @@ func _process(delta):
 
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
+	if $"..".deck_builder_screen != true: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()

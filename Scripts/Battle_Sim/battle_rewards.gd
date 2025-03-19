@@ -19,18 +19,20 @@ func update_rewards():
 	
 	#Gives double reward if enemy_rewards returns "Double Reward"
 	if type_string(typeof(enemy_reward)) == "String":
+		Global.player_gold += Global.current_enemy.gold * 2
+		Global.gain_xp(Global.current_enemy.xp * 2)
+		
 		xp_reward_label.text = str(Global.current_enemy.xp * 2)
 		gold_reward_label.text = str(Global.current_enemy.gold * 2)
-		
-		Global.player_gold += Global.current_enemy.gold * 2
-		Global.player_xp += Global.current_enemy.xp * 2
 		
 		player_gold_label.text = str(Global.player_gold)
 		player_xp_label.text = str(Global.player_xp)
 		return
+		
 	else:
 		Global.player_gold += Global.current_enemy.gold
-		Global.player_xp += Global.current_enemy.xp
+		Global.gain_xp(Global.current_enemy.xp)
+		
 		
 		xp_reward_label.text = str(Global.current_enemy.xp)
 		gold_reward_label.text = str(Global.current_enemy.gold)

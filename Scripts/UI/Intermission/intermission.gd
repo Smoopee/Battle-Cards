@@ -9,6 +9,9 @@ var screen_size
 var card_being_dragged
 var card_selector_reference
 
+var intermission_screen = true
+var current_screen = ""
+
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
@@ -82,14 +85,23 @@ func get_card_with_highest_z_index(cards):
 
 
 func _on_inventory_button_button_down():
-	if !$PlayerInventoryScreen.visible:
-		$PlayerInventoryScreen.visible = true
-	else:
-		$PlayerInventoryScreen.visible = false
-		
-	$CardSelector.card_selector_collision_toggle()
-	
-	$PlayerInventoryScreen.inventory_collision_toggle()
+	$PlayerInventoryScreen.visible = true
+	$PlayerInventoryScreen.inventory_screen = true
+	intermission_screen = false
+	$CanvasLayer/VBoxContainer/InventoryButton.visible = false
+	$CanvasLayer/VBoxContainer/TalentButton.visible = false
+	$CanvasLayer/VBoxContainer/MenuButton.visible = false
+	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	current_screen = "inventory"
+
+func _on_talent_button_button_down():
+	$TalentTree.visible = true
+	intermission_screen = false
+	$CanvasLayer/VBoxContainer/InventoryButton.visible = false
+	$CanvasLayer/VBoxContainer/TalentButton.visible = false
+	$CanvasLayer/VBoxContainer/MenuButton.visible = false
+	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	current_screen = "talents"
 
 
 func inventory_and_deck_save():
@@ -108,3 +120,30 @@ func inventory_and_deck_save():
 		else:
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
+
+
+func _on_skip_button_button_down():
+	Global.player_gold += 5
+	inventory_and_deck_save()
+	Global.save_function()
+	if Global.intermission_tracker <= 1: 
+		Global.intermission_tracker += 1
+		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+	else:
+		Global.intermission_tracker = 0
+		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+
+
+func _on_back_button_button_down():
+	match(current_screen):
+		"inventory":
+			$PlayerInventoryScreen.visible = false
+			$PlayerInventoryScreen.inventory_screen = false
+		"talents":
+			$TalentTree.visible = false
+
+	$CanvasLayer/VBoxContainer/InventoryButton.visible = true
+	$CanvasLayer/VBoxContainer/TalentButton.visible = true
+	$CanvasLayer/VBoxContainer/MenuButton.visible = true
+	$CanvasLayer/VBoxContainer/BackButton.visible = false
+	intermission_screen = true

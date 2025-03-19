@@ -4,7 +4,8 @@ extends Node2D
 @onready var player_inventory = $PlayerInventory
 @onready var player_deck = $PlayerDeck
 
-
+var current_screen = ""
+var shop_screen = true
 
 func _on_exit_button_button_down():
 	inventory_and_deck_save()
@@ -15,7 +16,6 @@ func _on_exit_button_button_down():
 	else:
 		Global.intermission_tracker = 0
 		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
-
 
 func _on_reroll_button_button_down():
 	if Global.player_gold < 5:
@@ -49,3 +49,20 @@ func inventory_and_deck_save():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 
+func _on_talent_button_button_down():
+	$TalentTree.visible = true
+	shop_screen = false
+	$CanvasLayer/VBoxContainer/TalentButton.visible = false
+	$CanvasLayer/VBoxContainer/MenuButton.visible = false
+	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	current_screen = "talents"
+
+func _on_back_button_button_down():
+	match(current_screen):
+		"talents":
+			$TalentTree.visible = false
+
+	$CanvasLayer/VBoxContainer/TalentButton.visible = true
+	$CanvasLayer/VBoxContainer/MenuButton.visible = true
+	$CanvasLayer/VBoxContainer/BackButton.visible = false
+	shop_screen = true

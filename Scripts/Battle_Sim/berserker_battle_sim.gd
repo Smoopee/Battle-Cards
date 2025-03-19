@@ -2,6 +2,8 @@ extends Node2D
 
 const COMBAT_SPEED = 1
 
+var current_screen = ""
+
 @onready var player_deck = $player_deck
 @onready var enemy_node = $Enemy
 @onready var player_inventory = $player_inventory
@@ -66,7 +68,9 @@ func combat(player_deck_list, enemy_deck_list):
 		player_node.get_node("Berserker").change_rage(null, -3)
 		
 		ui.combat_log_break()
-		await get_tree().create_timer(COMBAT_SPEED).timeout
+		get_node("Timer").start()
+		await $Timer.timeout
+		#await get_tree().create_timer(COMBAT_SPEED).timeout
 		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
@@ -219,12 +223,14 @@ func next_turn_handler():
 	$NextTurn.next_turn()
 
 	$NextTurn.visible = true
-	$HBoxContainer.visible = true
+	$CanvasLayer/ContinueButton.visible = true
 	for i in $player_deck.get_children():
 		i.visible = false
 		if i.is_in_group("card"): i.queue_free()
 	for i in enemy_node.get_children():
 		if i.is_in_group("card"): i.queue_free()
+		
+	$CanvasLayer/VBoxContainer/TalentButton.visible = true
 
 	enemy_node.create_enemy_cards()
 
@@ -262,24 +268,6 @@ func end_fight_cleanup():
 		i.queue_free()
 	$UI/Labels.visible = false
 
-func _on_continue_button_button_down():
-	for i in $NextTurn/DeckBuilder/EnemyCards.get_children():
-		i.queue_free()
-	recall_active_decks()
-	
-	for i in $Enemy.get_children():
-		i.visible = true
-	
-	$HBoxContainer.visible = false
-	$NextTurn.visible = false
-	
-	player_deck_list = build_player_deck_list()
-	enemy_deck_list = build_enemy_deck_list() 
-	player_inventory_list = build_player_inventory_list()
-	
-	combat(player_deck_list, enemy_deck_list)
-
-
 func _on_start_button_button_down():
 	player_deck_list = build_player_deck_list()
 	player_inventory_list = build_player_inventory_list()
@@ -290,4 +278,54 @@ func _on_start_button_button_down():
 	enemy_skill_list = enemy_node.add_skills()
 	on_start_skill()
 	combat(player_deck_list, enemy_deck_list)
-	$Button.visible = false
+	$CanvasLayer/StartButton.visible = false
+
+func _on_continue_button_button_down():
+	for i in $NextTurn/DeckBuilder/EnemyCards.get_children():
+		i.queue_free()
+	recall_active_decks()
+	
+	for i in $Enemy.get_children():
+		i.visible = true
+
+	$NextTurn.visible = false
+	$CanvasLayer/ContinueButton.visible = false
+	
+	player_deck_list = build_player_deck_list()
+	enemy_deck_list = build_enemy_deck_list() 
+	player_inventory_list = build_player_inventory_list()
+	
+	combat(player_deck_list, enemy_deck_list)
+
+func _on_menu_button_button_down():
+	get_tree().paused = true
+	get_node("Timer").paused = true
+	
+	$CanvasLayer/VBoxContainer/TalentButton.visible = false
+	$CanvasLayer/VBoxContainer/MenuButton.visible = false
+	$CanvasLayer/VBoxContainer/BackButton.visible = true
+
+func _on_back_button_button_down():
+	match(current_screen):
+		"talents":
+			$TalentTree.visible = false
+
+	get_tree().paused = false
+	get_node("Timer").paused = false
+	
+	$CanvasLayer/VBoxContainer/TalentButton.visible = true
+	$CanvasLayer/VBoxContainer/MenuButton.visible = true
+	$CanvasLayer/VBoxContainer/BackButton.visible = false
+
+func _on_talent_button_button_down():
+	get_tree().paused = true
+	get_node("Timer").paused = true
+	
+	$TalentTree.visible = true
+	$CanvasLayer/VBoxContainer/TalentButton.visible = false
+	$CanvasLayer/VBoxContainer/MenuButton.visible = false
+	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	current_screen = "talents"
+
+func _on_timer_timeout():
+	pass # Replace with function body.

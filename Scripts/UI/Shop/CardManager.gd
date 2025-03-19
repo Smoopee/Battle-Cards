@@ -53,6 +53,7 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
+	if $"..".shop_screen == false: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var merchant_card = raycast_check_for_merchant_card()

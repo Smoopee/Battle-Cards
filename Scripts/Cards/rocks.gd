@@ -3,17 +3,14 @@ extends Node2D
 @export var card_stats_resource: Cards_Resource
 
 var card_stats: Cards_Resource = null
-
 var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
 
 
-
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/rock.tres").duplicate()
-	
 
 func on_start(board):
 	pass
@@ -49,7 +46,6 @@ func upgrade_card(num):
 			card_stats.buy_price = 16
 	
 	update_card_ui()
-	
 
 func item_enchant(enchant):
 	match enchant:
@@ -58,8 +54,6 @@ func item_enchant(enchant):
 			card_stats.bleed_dmg = 6
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
-
-
 	update_card_ui()
 	
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
@@ -95,7 +89,6 @@ func change_item_enchant_image():
 
 func change_card_dmg_text():
 	$CardUI/HBoxContainer/CardDamage.text = str(card_stats.dmg)
-
 
 func _on_card_ui_mouse_entered():
 	mouse_exit = false

@@ -7,7 +7,7 @@ func _ready():
 	
 	$PlayerHealthBar.max_value = Global.max_player_health
 	$PlayerHealthBar.value = Global.player_health
-	
+
 
 func change_player_health():
 	$PlayerHealthBar.value = Global.player_health

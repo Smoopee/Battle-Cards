@@ -14,26 +14,9 @@ func _ready():
 	home_position = Vector2(center_screen_x, Y_POSITION)
 	self.position = home_position
 
- 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, 0.1)
-	
-
-func card_selector_collision_toggle():
-	if disabled_collision:
-		enable_collision()
-		print("Card selector collision enabled")
-	else:
-		disable_collision()
-		print("Card selector collision disabled")
-
-func disable_collision():
-	$Area2D/CollisionShape2D.disabled = true
-	disabled_collision = true
-func enable_collision():
-	$Area2D/CollisionShape2D.disabled = false
-	disabled_collision = false
 
 func on_hoovered_over_card():
 	highlight_card(true)

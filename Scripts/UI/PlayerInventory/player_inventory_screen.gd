@@ -25,12 +25,12 @@ var inventory_card_slot_index
 var deck_card_slot_reference_index
 var inventory_card_slot_reference_index
 var previous_card_slot
+var inventory_screen = false
 
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	screen_size = get_viewport_rect().size
-	inventory_collision_toggle()
 	deck_reference = $ActiveDeck
 	inventory_reference = $CurrentInventory
 	
@@ -51,6 +51,7 @@ func _process(delta):
 
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
+	if !inventory_screen: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
@@ -182,14 +183,6 @@ func raycast_check_for_sell_zone():
 	if result.size() > 0:
 		return result[0].collider.get_parent()
 	return null 
-
-func inventory_collision_toggle():
-	for i in get_children():
-			if !i.is_in_group("card"): continue
-			if i.disabled_collision:
-				i.enable_collision()
-			else:
-				i.disable_collision()
 
 func get_card_with_lowest_z_index(cards):
 	var lowest_z_card = cards[0].collider.get_parent()

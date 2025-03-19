@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://u7bfx5wgbwtw"]
+[gd_scene load_steps=11 format=3 uid="uid://u7bfx5wgbwtw"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_3txuy"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_i1rkl"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_w67wi"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="8_5acn1"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_lnys5"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_sgsth"]
 
 [node name="Intermission" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_147it")
@@ -19,16 +24,8 @@ script = ExtResource("3_23ndt")
 
 [node name="Player" parent="." instance=ExtResource("4_ts7er")]
 
-[node name="InventoryButton" type="Button" parent="."]
-z_index = 4
-offset_left = 1639.0
-offset_top = 876.0
-offset_right = 1722.0
-offset_bottom = 907.0
-text = "Inventory"
-
 [node name="Background" type="TextureRect" parent="."]
-z_index = -1
+show_behind_parent = true
 offset_right = 1920.0
 offset_bottom = 1079.0
 mouse_filter = 2
@@ -39,4 +36,45 @@ visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource("7_w67wi")]
 
-[connection signal="button_down" from="InventoryButton" to="." method="_on_inventory_button_button_down"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 1614.0
+offset_top = 762.0
+offset_right = 1694.0
+offset_bottom = 824.0
+
+[node name="InventoryButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Inventory"
+
+[node name="TalentButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Talents"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Menus"
+
+[node name="BackButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Back
+"
+
+[node name="SkipButton" type="Button" parent="CanvasLayer"]
+offset_left = 1653.0
+offset_top = 176.0
+offset_right = 1694.0
+offset_bottom = 199.0
+text = "Skip"
+
+[node name="TalentTree" parent="." instance=ExtResource("8_5acn1")]
+visible = false
+group1 = SubResource("ButtonGroup_lnys5")
+group2 = SubResource("ButtonGroup_sgsth")
+
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/InventoryButton" to="." method="_on_inventory_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/SkipButton" to="." method="_on_skip_button_button_down"]

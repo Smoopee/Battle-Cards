@@ -1,6 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://d13lhyfhcmvq7"]
+[gd_scene load_steps=26 format=3 uid="uid://xwc4sjwi65t"]
 
-[ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_iyct2"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/berserker_battle_sim.gd" id="1_grqco"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerSkills.gd" id="2_d55of"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="3_xdgva"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/player_inventory.gd" id="4_jdp0r"]
@@ -21,12 +21,17 @@
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="19_sxdom"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerDeck.gd" id="20_bgtuq"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/CardManager.gd" id="21_t4lx0"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="22_bx334"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e66g"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kivf2"]
 size = Vector2(1199, 371)
 
-[node name="battle_sim" type="Node2D"]
-script = ExtResource("1_iyct2")
+[sub_resource type="ButtonGroup" id="ButtonGroup_mdhh2"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_aggqm"]
+
+[node name="BerserkerBattleSim" type="Node2D"]
+script = ExtResource("1_grqco")
 
 [node name="PlayerSkills" type="Node2D" parent="."]
 script = ExtResource("2_d55of")
@@ -112,33 +117,6 @@ theme_override_font_sizes/font_size = 16
 [node name="BattleRewards" parent="." instance=ExtResource("9_a1ix2")]
 visible = false
 
-[node name="Button" type="Button" parent="."]
-offset_left = 891.0
-offset_top = 544.0
-offset_right = 1008.0
-offset_bottom = 599.0
-scale = Vector2(1.16536, 1.1912)
-text = "Start"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-visible = false
-offset_left = 1554.0
-offset_top = 716.0
-offset_right = 1813.0
-offset_bottom = 747.0
-
-[node name="ContinueButton" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Continue"
-
-[node name="Background" type="TextureRect" parent="."]
-z_index = -1
-offset_right = 1920.0
-offset_bottom = 1079.0
-mouse_filter = 2
-texture = ExtResource("10_v36ef")
-
 [node name="ConsumableManger" parent="." instance=ExtResource("11_vlpbx")]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -180,7 +158,7 @@ collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NextTurn/DeckBuilder/SellZone/Area2D"]
 position = Vector2(993, 183)
-shape = SubResource("RectangleShape2D_6e66g")
+shape = SubResource("RectangleShape2D_kivf2")
 
 [node name="UpgradeButton" type="CheckButton" parent="NextTurn/DeckBuilder"]
 offset_left = 445.0
@@ -189,6 +167,65 @@ offset_right = 608.0
 offset_bottom = 847.0
 text = "Upgrade Mode"
 
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
-[connection signal="button_down" from="HBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("10_v36ef")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="Button" parent="CanvasLayer"]
+offset_left = 891.0
+offset_top = 544.0
+offset_right = 1008.0
+offset_bottom = 599.0
+scale = Vector2(1.16536, 1.1912)
+text = "Start"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 1554.0
+offset_top = 716.0
+offset_right = 1813.0
+offset_bottom = 747.0
+size_flags_horizontal = 3
+text = "Continue"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 1431.0
+offset_top = 779.0
+offset_right = 1511.0
+offset_bottom = 841.0
+
+[node name="TalentButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Talents"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Menus"
+
+[node name="BackButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+process_mode = 2
+visible = false
+layout_mode = 2
+text = "Back
+"
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TalentTree" parent="." instance=ExtResource("22_bx334")]
+process_mode = 3
+visible = false
+group1 = SubResource("ButtonGroup_mdhh2")
+group2 = SubResource("ButtonGroup_aggqm")
+
 [connection signal="toggled" from="NextTurn/DeckBuilder/UpgradeButton" to="NextTurn/DeckBuilder/CardManager" method="_on_upgrade_button_toggled"]
+[connection signal="button_down" from="CanvasLayer/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/ContinueButton" to="." method="_on_continue_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

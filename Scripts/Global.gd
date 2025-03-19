@@ -7,9 +7,10 @@ var playerData = PlayerData.new()
 @onready var player_health: int
 @onready var max_player_health: int
 
-@onready var player_level: int = 3
+@onready var player_level: int = 1
 @onready var player_gold: int = 5
 @onready var player_xp: int = 0
+@onready var xp_threshold = 30
 
 @onready var enemy_health: int
 @onready var max_enemy_health: int
@@ -24,11 +25,9 @@ var playerData = PlayerData.new()
 @onready var player_talent_array = []
 @onready var player_class = ""
 
-
 @onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
 @onready var enemy_active_deck = []
-
 
 var intermission_tracker = 0
 
@@ -67,6 +66,12 @@ func change_enemy_health(amount):
 	if enemy_health > max_enemy_health:
 		enemy_health = max_enemy_health
 
+func gain_xp(amount):
+	player_xp += amount
+	while player_xp >= xp_threshold:
+		player_xp -= xp_threshold
+		player_level += 1
+
 func set_player_inventory():
 	player_inventory_db = ["Rock", "Rock"]
 
@@ -87,7 +92,7 @@ func instantiate_player_deck():
 func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	print("loaded")
-	
+
 func save_function():
 	playerData.player_class = player_class
 	playerData.player_deck = player_deck

@@ -14,7 +14,6 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 
-
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -31,25 +30,20 @@ func _input(event):
 			if card_being_dragged:
 				finish_drag()
 
+func start_drag(card):
+	card_being_dragged = card
+	card.scale = Vector2(1, 1)
+
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var new_game = raycast_check_for_new_game()
 	var load_game = raycast_check_for_load_game()
+	
 	if new_game:
 		card_being_dragged.position = new_game.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
-		Global.player_inventory = []
-		Global.player_deck = []
-		Global.set_player_inventory()
-		Global.instantiate_player_inventory()
-		Global.set_player_deck()
-		Global.instantiate_player_deck()
-		
-		print("Let's Begin")
-		await get_tree().create_timer(2).timeout
-		
-		get_tree().change_scene_to_file("res://Scenes/UI/ClassSelection/class_selection.tscn")
+		new_game_function()
 		
 	elif load_game:
 		card_being_dragged.position = load_game.position
@@ -63,9 +57,24 @@ func finish_drag():
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
-func start_drag(card):
-	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+func new_game_function():
+
+	Global.player_inventory = []
+	Global.player_deck = []
+	Global.player_gold = 0
+	Global.player_xp = 0
+	Global.player_level = 1
+	Global.player_class = ""
+	Global.player_talent_array = []
+	Global.set_player_inventory()
+	Global.instantiate_player_inventory()
+	Global.set_player_deck()
+	Global.instantiate_player_deck()
+	
+	print("Let's Begin")
+	await get_tree().create_timer(2).timeout
+	
+	get_tree().change_scene_to_file("res://Scenes/UI/ClassSelection/class_selection.tscn")
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)

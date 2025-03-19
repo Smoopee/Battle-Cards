@@ -112,33 +112,6 @@ theme_override_font_sizes/font_size = 16
 [node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
 visible = false
 
-[node name="Button" type="Button" parent="."]
-offset_left = 891.0
-offset_top = 544.0
-offset_right = 1008.0
-offset_bottom = 599.0
-scale = Vector2(1.16536, 1.1912)
-text = "Start"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-visible = false
-offset_left = 1554.0
-offset_top = 716.0
-offset_right = 1813.0
-offset_bottom = 747.0
-
-[node name="ContinueButton" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Continue"
-
-[node name="Background" type="TextureRect" parent="."]
-z_index = -1
-offset_right = 1920.0
-offset_bottom = 1079.0
-mouse_filter = 2
-texture = ExtResource("11_rvgss")
-
 [node name="ConsumableManger" parent="." instance=ExtResource("10_1g37w")]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -189,6 +162,33 @@ offset_right = 608.0
 offset_bottom = 847.0
 text = "Upgrade Mode"
 
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
-[connection signal="button_down" from="HBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("11_rvgss")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 891.0
+offset_top = 544.0
+offset_right = 1008.0
+offset_bottom = 599.0
+scale = Vector2(1.16536, 1.1912)
+text = "Start"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 1554.0
+offset_top = 716.0
+offset_right = 1813.0
+offset_bottom = 747.0
+size_flags_horizontal = 3
+text = "Continue"
+
 [connection signal="toggled" from="NextTurn/DeckBuilder/UpgradeButton" to="NextTurn/DeckBuilder/CardManager" method="_on_upgrade_button_toggled"]
+[connection signal="button_down" from="CanvasLayer/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/ContinueButton" to="." method="_on_continue_button_button_down"]

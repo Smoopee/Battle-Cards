@@ -4,6 +4,8 @@ extends Node2D
 @onready var card_manager = $CardManager
 
 var deck = []
+var deck_builder_screen = true
+var current_screen = ""
 
 func _ready():
 	var enemy = Global.current_enemy
@@ -51,3 +53,22 @@ func load_battle_sim():
 	match player_class:
 		"berserker":
 			get_tree().change_scene_to_file(("res://Scenes/Battle/berserker_battle_sim.tscn"))
+
+
+func _on_talent_button_button_down():
+	$TalentTree.visible = true
+	deck_builder_screen = false
+	$CanvasLayer/VBoxContainer/TalentButton.visible = false
+	$CanvasLayer/VBoxContainer/MenuButton.visible = false
+	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	current_screen = "talents"
+
+func _on_back_button_button_down():
+	match(current_screen):
+		"talents":
+			$TalentTree.visible = false
+
+	$CanvasLayer/VBoxContainer/TalentButton.visible = true
+	$CanvasLayer/VBoxContainer/MenuButton.visible = true
+	$CanvasLayer/VBoxContainer/BackButton.visible = false
+	deck_builder_screen = true

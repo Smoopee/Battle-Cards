@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ctngcow8upeqo" path="res://Resources/Art/Backgrounds/talent_bg.png" id="8_0r1t8"]
 
 [node name="TalentTree" type="Control"]
+z_index = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

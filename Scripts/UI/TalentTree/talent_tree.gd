@@ -7,6 +7,7 @@ extends Control
 var talent_tree_reference = load("res://Scripts/Characters/Berserker/Talents/berserker_talents.gd")
 var mouse_exit = false
 
+
 func _ready():
 	create_talent_tree()
 	load_player_selected_talents()
