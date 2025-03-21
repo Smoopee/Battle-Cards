@@ -1,12 +1,12 @@
 extends Node2D
 
-const DECK_Y_POSITION = 100
-const DECK_X_POSITION = 650
-const ENEMY_Y_POSITION = 100
+const DECK_Y_POSITION = 215
+const DECK_X_POSITION = 600
+const ENEMY_Y_POSITION = 180
 #==================================================================================================
 const CARD_WIDTH = 160
 const ENEMY_CARD_COLLISION_LAYER = 64
-const HAND_Y_POSITION = 320
+const HAND_Y_POSITION = 380
 
 var enemy_cards_db = []
 var enemy_inventory = []
@@ -15,6 +15,7 @@ var enemy_inventory = []
 var center_screen_x
 var center_screen_y
 var discard_offset = 0
+var deck_offset = 0
 var enemy_deck = []
 var enemy_skills = []
 var enemy
@@ -38,6 +39,8 @@ func _ready():
 	enemy_health_bar.value = Global.enemy_health
 
 func build_deck():
+	discard_offset = 0
+	deck_offset = 0
 	if Global.enemy_active_deck == []:
 		enemy_deck = enemy.enemy_deck
 	else: 
@@ -60,19 +63,20 @@ func build_deck():
 		new_card.update_card_ui()
 		
 		counter += 1
-	
 	return deck
 
+	
 func build_deck_position():
+	var temp_z_index = 13
 	for i in deck:
-		discard_offset = 0
 		i.is_discarded = false
 		i.scale =  Vector2(1, 1)
-		i.position = Vector2(DECK_X_POSITION, DECK_Y_POSITION)
- 
+		i.position = Vector2(DECK_X_POSITION + deck_offset, DECK_Y_POSITION)
+		i.z_index = temp_z_index
+		deck_offset -= 40
+		temp_z_index -= 1
+		
 func play_card(card):
-	if card.card_stats.deck_position < deck.size()-1:
-		deck[card.card_stats.deck_position+1].z_index = 3
 	animate_card_to_active_position(card)
 
 func animate_card_to_active_position(card):
@@ -87,7 +91,7 @@ func discard(card):
 
 func animate_card_to_discard_position(card):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", Vector2(1250 - discard_offset, 100), 0.1 * Global.COMBAT_SPEED)
+	tween.tween_property(card, "position", Vector2(1450 - discard_offset, 200), 0.1 * Global.COMBAT_SPEED)
 	discard_offset += 20
 
 func add_skills():

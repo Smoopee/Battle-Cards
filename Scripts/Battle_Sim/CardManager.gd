@@ -39,11 +39,11 @@ func _ready():
 	
 	for i in $"../InventorySlots".get_children():
 		inventory_card_slot_array.push_front(i)
-	
+
 func create_references():
 	deck_card_slot_reference = $"../PlayerDeck".card_slot_reference
 	inventory_card_slot_reference = $"../PlayerInventory".card_slot_reference
-	
+
 
 func _process(delta):
 	if card_being_dragged:
@@ -590,7 +590,6 @@ func stop_tooltip_timer():
 func toggle_inventory():
 	if $"../../../Player".visible == true:
 		$"../InventorySlots".visible = true
-		$"../PlayerInventory".visible = true
 		$"../../../Player".visible = false
 		for i in inventory_card_slot_reference:
 			if i == null: continue
@@ -598,7 +597,7 @@ func toggle_inventory():
 			i.enable_collision()
 		$"../InventorySlots".process_mode = Node.PROCESS_MODE_INHERIT
 	else:
-		$"../PlayerInventory".visible = false
+		#$"../PlayerInventory".visible = false
 		$"../InventorySlots".visible = false
 		$"../../../Player".visible = true
 		for i in inventory_card_slot_reference:
@@ -606,7 +605,6 @@ func toggle_inventory():
 			i.visible = false
 			i.disable_collision()
 		$"../InventorySlots".process_mode = Node.PROCESS_MODE_DISABLED
-
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.

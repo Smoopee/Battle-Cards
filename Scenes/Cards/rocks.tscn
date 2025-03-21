@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bryd511tswp4i"]
+[gd_scene load_steps=10 format=3 uid="uid://bryd511tswp4i"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/rocks.gd" id="1_l5vns"]
 [ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="2_u5eub"]
@@ -13,6 +13,8 @@ card_scene_path = "res://Scenes/Cards/rocks.tscn"
 name = "Rock"
 dmg = 0
 cd = 0
+cd_remaining = 0
+on_cd = false
 upgrade_effect = 0
 position = 0
 inventory_position = 0
@@ -49,6 +51,8 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frv14"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hewk"]
 content_margin_left = 4.0
@@ -123,6 +127,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
 
 [node name="DamagPanel" type="Panel" parent="CardUI"]
+layout_mode = 0
 offset_left = 56.0
 offset_top = -11.6
 offset_right = 86.0
@@ -142,6 +147,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CDPanel" type="Panel" parent="CardUI"]
+layout_mode = 0
 offset_left = 56.0
 offset_top = 157.4
 offset_right = 86.0
@@ -159,6 +165,28 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CDDisplayPanel" type="Panel" parent="CardUI"]
+self_modulate = Color(0.415686, 0.415686, 0.415686, 0.839216)
+offset_top = -2.99999
+offset_right = 142.0
+offset_bottom = 177.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_frv14")
+
+[node name="Label" type="Label" parent="CardUI/CDDisplayPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_mkxmw")

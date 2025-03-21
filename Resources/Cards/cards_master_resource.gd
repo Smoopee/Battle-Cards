@@ -7,6 +7,8 @@ class_name Cards_Resource
 @export var name: String
 @export var dmg: int
 @export var cd: int
+@export var cd_remaining: int
+@export var on_cd: bool
 @export var upgrade_effect: int
 @export var position: int
 @export var inventory_position: int

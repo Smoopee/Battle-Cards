@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .3
+const COMBAT_SPEED = .5
 
 var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"

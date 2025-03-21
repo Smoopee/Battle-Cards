@@ -52,3 +52,7 @@ func enable_collision():
 func attack_animation(user):
 	pass
 
+func toggle_cd():
+	pass
+	if card_stats.on_cd: $CardUI/CDDisplayPanel.visible = true
+	else: $CardUI/CDDisplayPanel.visible = false

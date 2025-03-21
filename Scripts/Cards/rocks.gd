@@ -91,6 +91,7 @@ func update_card_ui():
 	update_card_image()
 	change_item_enchant_image()
 	change_card_dmg_text()
+	toggle_cd()
 
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
@@ -113,10 +114,12 @@ func toggle_tooltip_show():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction 
 	
-	if mouse_pos.x <= get_viewport_rect().size.x/1.3:
+	if mouse_pos.x <= get_viewport_rect().size.x/2:
 		correction = Vector2(0, 0)
 	else:
-		correction = -Vector2(510, 0)
+		#Toggles when mouse is on right side of screen
+		correction = -Vector2($PopupPanel/VBoxContainer/HBoxContainer.size.x + 310, 0)
+
 	$PopupPanel.popup(Rect2i(position + Vector2(150, -155) + correction, Vector2(100, 100)))
 
 func toggle_tooltip_hide():
@@ -145,3 +148,8 @@ func attack_animation(user):
 		tween = get_tree().create_tween()
 		tween.tween_property($".", "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
 
+func toggle_cd():
+	if card_stats.on_cd: 
+		$CardUI/CDDisplayPanel.visible = true
+		$CardUI/CDDisplayPanel/Label.text = str(card_stats.cd_remaining)
+	else: $CardUI/CDDisplayPanel.visible = false

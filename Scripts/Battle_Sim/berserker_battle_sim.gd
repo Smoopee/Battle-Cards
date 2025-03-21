@@ -25,6 +25,9 @@ var enemy_bleed_dmg = 0
 var enemy
 var player
 
+func _ready():
+	get_node("Timer").wait_time *= Global.COMBAT_SPEED
+
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
 	player =  get_tree().get_nodes_in_group("character")[0] 
@@ -39,6 +42,8 @@ func combat(player_deck_list, enemy_deck_list):
 	
 	for i in player_deck_list:
 		i.disable_collision()
+	for i in enemy_deck_list:
+		i.disable_collision()
 	
 	for i in range(0, 10):
 		var player_card = player_deck_list[i]
@@ -48,41 +53,42 @@ func combat(player_deck_list, enemy_deck_list):
 		enemy_node.play_card(enemy_card)
 		
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
-
-		player_card.attack_animation(player)
-		enemy_card.attack_animation(enemy)
+		
+		if !player_card.card_stats.on_cd: 
+			player_card.attack_animation(player)
+			var player_effect = player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
+			ui.update_combat_log_effect(player_effect)
+			damage_func(player_card)
+			bleed_func(player_card)
+			heal_func(player_card)
+			cooldown_keeper(player_card)
+			
+		if !enemy_card.card_stats.on_cd:
+			enemy_card.attack_animation(enemy)
+			var enemy_effect = enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
+			damage_func(enemy_card)
+			bleed_func(enemy_card)
+			heal_func(enemy_card)
+			cooldown_keeper(enemy_card)
 		
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
-		
-		var player_effect = player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
-		var enemy_effect = enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
-		ui.update_combat_log_effect(player_effect)
-		
-		damage_func(player_card)
-		damage_func(enemy_card)
-		
-		bleed_func(player_card)
-		bleed_func(enemy_card)
-		
-		heal_func(player_card)
-		heal_func(enemy_card)
 		
 		bleed_damage_keeper()
 		
 		player_node.get_node("Berserker").change_rage(null, -3)
 		
 		ui.combat_log_break()
-		#get_node("Timer").start()
-		#await $Timer.timeout
-		await get_tree().create_timer(.6 * Global.COMBAT_SPEED ).timeout
+		get_node("Timer").start()
+		await $Timer.timeout
+		#await get_tree().create_timer(.6 * Global.COMBAT_SPEED ).timeout
 		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
 		
-		
 		is_dead = death_checker()
 		if is_dead: break
-		
+	
+	
 	if is_dead: return
 	turn_counter += turn_incrementer
 	store_active_decks()
@@ -188,6 +194,11 @@ func buff_keeper():
 	var buffs = get_tree().get_nodes_in_group("buff")
 	for i in buffs:
 		i.remove_counter()
+
+func cooldown_keeper(card):
+	card.card_stats.cd_remaining = card.card_stats.cd
+	card.card_stats.on_cd = true
+
 
 func build_player_deck_list():
 	return player_deck.build_deck()
@@ -311,9 +322,9 @@ func _on_menu_button_button_down():
 	get_tree().paused = true
 	get_node("Timer").paused = true
 	
-	$CanvasLayer/VBoxContainer/TalentButton.visible = false
-	$CanvasLayer/VBoxContainer/MenuButton.visible = false
-	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/MenuButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/BackButton.visible = true
 
 func _on_back_button_button_down():
 	match(current_screen):
