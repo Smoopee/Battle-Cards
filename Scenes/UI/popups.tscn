@@ -33,14 +33,14 @@ script = ExtResource("1_lp2vw")
 unique_name_in_owner = true
 transparent_bg = true
 position = Vector2i(960, 450)
-size = Vector2i(217, 148)
+size = Vector2i(728, 174)
 theme_override_styles/panel = SubResource("StyleBoxFlat_nsm2y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CardPopup"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 336.0
-offset_bottom = 157.0
+offset_right = 718.0
+offset_bottom = 166.0
 
 [node name="Name" type="Label" parent="UI/CardPopup/VBoxContainer"]
 unique_name_in_owner = true
@@ -103,7 +103,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nsm2y")
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TalentPopup"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 354.0
+offset_right = 750.0
 offset_bottom = 222.0
 
 [node name="Name" type="Label" parent="UI/TalentPopup/VBoxContainer"]

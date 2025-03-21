@@ -1,7 +1,5 @@
 extends Node2D
 
-const COMBAT_SPEED = 1
-
 var current_screen = ""
 
 @onready var player_deck = $player_deck
@@ -39,6 +37,9 @@ func combat(player_deck_list, enemy_deck_list):
 	player_deck.build_deck_position()
 	enemy_node.build_deck_position()
 	
+	for i in player_deck_list:
+		i.disable_collision()
+	
 	for i in range(0, 10):
 		var player_card = player_deck_list[i]
 		var enemy_card = enemy_deck_list[i]
@@ -46,9 +47,12 @@ func combat(player_deck_list, enemy_deck_list):
 		player_deck.play_card(player_card)
 		enemy_node.play_card(enemy_card)
 		
-		player_card.get_node("AnimationPlayer").play("attack_animation")
-		enemy_card.get_node("AnimationPlayer").play("enemy_attack_animation")
+		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
+
+		player_card.attack_animation(player)
+		enemy_card.attack_animation(enemy)
 		
+		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		var player_effect = player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 		var enemy_effect = enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
@@ -68,9 +72,9 @@ func combat(player_deck_list, enemy_deck_list):
 		player_node.get_node("Berserker").change_rage(null, -3)
 		
 		ui.combat_log_break()
-		get_node("Timer").start()
-		await $Timer.timeout
-		#await get_tree().create_timer(COMBAT_SPEED).timeout
+		#get_node("Timer").start()
+		#await $Timer.timeout
+		await get_tree().create_timer(.6 * Global.COMBAT_SPEED ).timeout
 		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
@@ -230,7 +234,7 @@ func next_turn_handler():
 	for i in enemy_node.get_children():
 		if i.is_in_group("card"): i.queue_free()
 		
-	$CanvasLayer/VBoxContainer/TalentButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = true
 
 	enemy_node.create_enemy_cards()
 
@@ -291,6 +295,12 @@ func _on_continue_button_button_down():
 	$NextTurn.visible = false
 	$CanvasLayer/ContinueButton.visible = false
 	
+	$Player.visible = true
+	$Player.process_mode = Node.PROCESS_MODE_INHERIT
+	
+	$ConsumableManger.visible = true
+	$ConsumableManger.process_mode = Node.PROCESS_MODE_INHERIT
+	
 	player_deck_list = build_player_deck_list()
 	enemy_deck_list = build_enemy_deck_list() 
 	player_inventory_list = build_player_inventory_list()
@@ -313,18 +323,17 @@ func _on_back_button_button_down():
 	get_tree().paused = false
 	get_node("Timer").paused = false
 	
-	$CanvasLayer/VBoxContainer/TalentButton.visible = true
-	$CanvasLayer/VBoxContainer/MenuButton.visible = true
-	$CanvasLayer/VBoxContainer/BackButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/MenuButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/BackButton.visible = false
 
 func _on_talent_button_button_down():
 	get_tree().paused = true
 	get_node("Timer").paused = true
-	
 	$TalentTree.visible = true
-	$CanvasLayer/VBoxContainer/TalentButton.visible = false
-	$CanvasLayer/VBoxContainer/MenuButton.visible = false
-	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/MenuButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/BackButton.visible = true
 	current_screen = "talents"
 
 func _on_timer_timeout():

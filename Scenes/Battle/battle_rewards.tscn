@@ -6,89 +6,98 @@
 [node name="BattleRewards" type="Node2D"]
 script = ExtResource("1_klkux")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color(0.701961, 0.701961, 0.701961, 0.827451)
+offset_left = 722.0
+offset_top = 79.0
+offset_right = 1180.0
+offset_bottom = 443.0
+color = Color(0.344076, 0.344076, 0.344076, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 10.0
+offset_right = 162.0
+offset_bottom = 49.0
+scale = Vector2(4.06145, 2.42899)
+text = "VICTORY!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 91.0
+offset_right = 146.0
+offset_bottom = 195.0
+scale = Vector2(3.57252, 1.59212)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.35
+
+[node name="GoldReward" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Gold Reward
+"
+
+[node name="XpReward" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "XP Reward"
+
+[node name="Gold" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Gold
+"
+
+[node name="Xp" type="Label" parent="ColorRect/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "XP"
+
+[node name="VariableContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.45
+
+[node name="GoldReward" type="Label" parent="ColorRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="XpReward" type="Label" parent="ColorRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="Gold" type="Label" parent="ColorRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="Xp" type="Label" parent="ColorRect/HBoxContainer/VariableContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "0"
+horizontal_alignment = 2
+
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_left = 723.0
 offset_top = 82.0
 offset_right = 1957.0
 offset_bottom = 735.0
 scale = Vector2(0.370283, 0.557489)
 texture = ExtResource("2_peuei")
-
-[node name="Label" type="Label" parent="TextureRect"]
-layout_mode = 0
-offset_left = 456.408
-offset_top = 17.9376
-offset_right = 527.408
-offset_bottom = 56.9376
-scale = Vector2(4.06145, 2.42899)
-text = "VICTORY!"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
-layout_mode = 0
-offset_left = 351.083
-offset_top = 87.8941
-offset_right = 488.083
-offset_bottom = 191.894
-scale = Vector2(3.57252, 1.59212)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.35
-
-[node name="GoldReward" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "Gold Reward
-"
-
-[node name="XpReward" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "XP Reward"
-
-[node name="Gold" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "Gold
-"
-
-[node name="Xp" type="Label" parent="TextureRect/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "XP"
-
-[node name="VariableContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.45
-
-[node name="GoldReward" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "0
-"
-horizontal_alignment = 2
-
-[node name="XpReward" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "0
-"
-horizontal_alignment = 2
-
-[node name="Gold" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "0
-"
-horizontal_alignment = 2
-
-[node name="Xp" type="Label" parent="TextureRect/HBoxContainer/VariableContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-text = "0"
-horizontal_alignment = 2
 
 [node name="Button" type="Button" parent="."]
 offset_left = 1783.0

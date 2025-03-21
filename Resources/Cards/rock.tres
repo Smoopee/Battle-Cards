@@ -9,6 +9,7 @@ card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
 card_scene_path = "res://Scenes/Cards/rocks.tscn"
 name = "Rock"
 dmg = 2
+cd = 1
 upgrade_effect = 0
 position = 0
 inventory_position = 0

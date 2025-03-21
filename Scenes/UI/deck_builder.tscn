@@ -27,12 +27,14 @@ script = ExtResource("5_bx4tr")
 script = ExtResource("5_ogxm3")
 
 [node name="InventorySlots" type="Node2D" parent="."]
+visible = false
 script = ExtResource("4_fix4o")
 
 [node name="DeckCardSlots" type="Node2D" parent="."]
 script = ExtResource("5_5wci1")
 
 [node name="PlayerInventory" type="Node2D" parent="."]
+visible = false
 script = ExtResource("6_yjorp")
 
 [node name="PlayerDeck" type="Node2D" parent="."]
@@ -43,13 +45,11 @@ script = ExtResource("7_s26ac")
 [node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
 script = ExtResource("1_wsaiq")
 
-[node name="PlayerUI" parent="CardManager" instance=ExtResource("9_qtx1v")]
-
 [node name="ConfirmButton" type="Button" parent="."]
-offset_left = 1720.0
-offset_top = 440.0
-offset_right = 1823.0
-offset_bottom = 491.0
+offset_left = 1712.0
+offset_top = 844.0
+offset_right = 1815.0
+offset_bottom = 895.0
 text = "Confirm"
 
 [node name="Background" type="TextureRect" parent="."]
@@ -60,30 +60,48 @@ mouse_filter = 2
 texture = ExtResource("7_uerh6")
 
 [node name="UpgradeButton" type="CheckButton" parent="."]
-offset_left = 480.0
-offset_top = 730.0
-offset_right = 524.0
-offset_bottom = 754.0
+offset_left = 229.0
+offset_top = 748.0
+offset_right = 469.0
+offset_bottom = 772.0
 text = "Upgrade Mode"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 1630.0
-offset_top = 758.0
-offset_right = 1710.0
-offset_bottom = 808.0
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+self_modulate = Color(0.317647, 0.317647, 0.317647, 0.760784)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="TalentButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="PlayerUI" parent="CanvasLayer/ColorRect" instance=ExtResource("9_qtx1v")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 1581.0
+offset_top = 2.0
+offset_right = 1853.0
+offset_bottom = 42.0
+
+[node name="TalentButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
 layout_mode = 2
 text = "Talents"
 
-[node name="MenuButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
 layout_mode = 2
 text = "Menu"
 
-[node name="BackButton" type="Button" parent="CanvasLayer/VBoxContainer"]
-visible = false
+[node name="BackButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
 layout_mode = 2
 text = "Back"
 
@@ -92,7 +110,10 @@ visible = false
 group1 = SubResource("ButtonGroup_boq0g")
 group2 = SubResource("ButtonGroup_o7aui")
 
+[node name="TooltipTimer" type="Timer" parent="."]
+
 [connection signal="button_down" from="ConfirmButton" to="." method="_on_button_button_down"]
 [connection signal="toggled" from="UpgradeButton" to="CardManager" method="_on_upgrade_button_toggled"]
-[connection signal="button_down" from="CanvasLayer/VBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
-[connection signal="button_down" from="CanvasLayer/VBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/ColorRect/HBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
+[connection signal="button_down" from="CanvasLayer/ColorRect/HBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="timeout" from="TooltipTimer" to="CardManager" method="_on_tooltip_timer_timeout"]

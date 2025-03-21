@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bryd511tswp4i"]
+[gd_scene load_steps=9 format=3 uid="uid://bryd511tswp4i"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/rocks.gd" id="1_l5vns"]
 [ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="2_u5eub"]
-[ext_resource type="Texture2D" uid="uid://bw55uim6h6nfn" path="res://Resources/Cards/CardArt/Rock_card.png" id="3_bvf6a"]
-[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_mnr5b"]
+[ext_resource type="Texture2D" uid="uid://cvnulxrxd1atj" path="res://Resources/Cards/CardArt/template_card2.png" id="3_nu5y1"]
+[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_mkxmw"]
 
 [sub_resource type="Resource" id="Resource_bebfw"]
 resource_local_to_scene = true
@@ -12,6 +12,7 @@ card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
 card_scene_path = "res://Scenes/Cards/rocks.tscn"
 name = "Rock"
 dmg = 0
+cd = 0
 upgrade_effect = 0
 position = 0
 inventory_position = 0
@@ -39,160 +40,61 @@ is_discarded = false
 is_blank = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmh4b"]
-size = Vector2(98, 128)
+size = Vector2(143, 180)
 
-[sub_resource type="Animation" id="Animation_0v5gp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CardImage:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CardUI/HBoxContainer:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(11, 94)]
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iixph"]
+bg_color = Color(0.724643, 0.724643, 0.724643, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="Animation" id="Animation_crxlj"]
-resource_name = "attack_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AudioStreamPlayer2D:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CardImage:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -64), Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CardUI/HBoxContainer:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(11, 94), Vector2(11, 31), Vector2(11, 94)]
-}
-
-[sub_resource type="Animation" id="Animation_ye5s6"]
-resource_name = "enemy_attack_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CardImage:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 64), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CardUI/HBoxContainer:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(11, 94), Vector2(11, 158), Vector2(11, 94)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjxqk"]
-_data = {
-"RESET": SubResource("Animation_0v5gp"),
-"attack_animation": SubResource("Animation_crxlj"),
-"enemy_attack_animation": SubResource("Animation_ye5s6")
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hewk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [node name="Rock" type="Node2D" groups=["card", "weapon"]]
 texture_filter = 1
+position = Vector2(0, -38.4)
 script = ExtResource("1_l5vns")
 card_stats_resource = SubResource("Resource_bebfw")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("3_bvf6a")
+texture = ExtResource("3_nu5y1")
+
+[node name="UpgradeBorder" type="Sprite2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_dmh4b")
 
 [node name="CardUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -48.0
-offset_top = -64.0
-offset_right = 48.0
-offset_bottom = 64.0
+offset_left = -71.0
+offset_top = -87.0
+offset_right = 71.0
+offset_bottom = 91.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardUI"]
+visible = false
 layout_mode = 0
 offset_left = 11.0
 offset_top = 94.0
 offset_right = 95.0
-offset_bottom = 126.0
+offset_bottom = 190.0
 
 [node name="ItemEnchantImage" type="Sprite2D" parent="CardUI/HBoxContainer"]
 position = Vector2(69, 19)
@@ -220,13 +122,83 @@ offset_bottom = 150.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_rjxqk")
-}
+[node name="DamagPanel" type="Panel" parent="CardUI"]
+offset_left = 56.0
+offset_top = -11.6
+offset_right = 86.0
+offset_bottom = 18.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_iixph")
+
+[node name="DamageLabel" type="Label" parent="CardUI/DamagPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CDPanel" type="Panel" parent="CardUI"]
+offset_left = 56.0
+offset_top = 157.4
+offset_right = 86.0
+offset_bottom = 187.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_iixph")
+
+[node name="CDLabel" type="Label" parent="CardUI/CDPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_mnr5b")
+stream = ExtResource("4_mkxmw")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+transparent_bg = true
+size = Vector2i(384, 100)
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hewk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 456.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Rock"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="PopupPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Effect:"
+
+[node name="Label3" type="Label" parent="PopupPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Deals Physical Damage"
 
 [connection signal="mouse_entered" from="CardUI" to="." method="_on_card_ui_mouse_entered"]
 [connection signal="mouse_exited" from="CardUI" to="." method="_on_card_ui_mouse_exited"]

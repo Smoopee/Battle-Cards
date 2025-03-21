@@ -10,6 +10,11 @@ var current_screen = ""
 func _ready():
 	var enemy = Global.current_enemy
 
+func _input(event):
+	if event.is_action_pressed("Inventory"):
+		toggle_inventory()
+
+
 func _on_button_button_down():
 	inventory_and_deck_save()
 	Global.save_function()
@@ -54,13 +59,12 @@ func load_battle_sim():
 		"berserker":
 			get_tree().change_scene_to_file(("res://Scenes/Battle/berserker_battle_sim.tscn"))
 
-
 func _on_talent_button_button_down():
 	$TalentTree.visible = true
 	deck_builder_screen = false
-	$CanvasLayer/VBoxContainer/TalentButton.visible = false
-	$CanvasLayer/VBoxContainer/MenuButton.visible = false
-	$CanvasLayer/VBoxContainer/BackButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/MenuButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/BackButton.visible = true
 	current_screen = "talents"
 
 func _on_back_button_button_down():
@@ -68,7 +72,28 @@ func _on_back_button_button_down():
 		"talents":
 			$TalentTree.visible = false
 
-	$CanvasLayer/VBoxContainer/TalentButton.visible = true
-	$CanvasLayer/VBoxContainer/MenuButton.visible = true
-	$CanvasLayer/VBoxContainer/BackButton.visible = false
+	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/MenuButton.visible = true
+	$CanvasLayer/ColorRect/HBoxContainer/BackButton.visible = false
 	deck_builder_screen = true
+
+func toggle_inventory():
+	if $PlayerInventory.visible == false:
+		$InventorySlots.visible = true
+		$PlayerInventory.visible = true
+		$Player.visible = false
+		for i in $CardManager.inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = true
+			i.enable_collision()
+		$InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		$PlayerInventory.visible = false
+		$InventorySlots.visible = false
+		$Player.visible = true
+		for i in $CardManager.inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = false
+			i.disable_collision()
+		$InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
+

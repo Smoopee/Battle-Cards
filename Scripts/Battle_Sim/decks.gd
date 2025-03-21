@@ -59,7 +59,8 @@ func play_card(card):
 
 func animate_card_to_active_position(card):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", Vector2(center_screen_x, center_screen_y + 150), 0.2)
+	tween.tween_property(card, "position", Vector2(center_screen_x, center_screen_y + 100), 0.2 * Global.COMBAT_SPEED)
+	await tween.finished
 
 func discard(card):
 	card.card_stats.is_discarded = true
@@ -67,7 +68,9 @@ func discard(card):
 	card.scale = Vector2(.55, .55)
 	animate_card_to_discard_position(card)
 
+
 func animate_card_to_discard_position(card):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", Vector2(1250 - discard_offset, 900), 0.1)
+	tween.tween_property(card, "position", Vector2(1250 - discard_offset, 900), 0.1 * Global.COMBAT_SPEED)
+	await tween.finished
 	discard_offset += 20

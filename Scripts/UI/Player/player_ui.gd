@@ -1,8 +1,8 @@
 extends Control
 
-@onready var player_gold_label = $VBoxContainer/PlayerGold
-@onready var player_xp_label = $VBoxContainer/PlayerXP
-@onready var player_level_label = $VBoxContainer/PlayerLevel
+@onready var player_gold_label = $HBoxContainer/PlayerGold
+@onready var player_xp_label = $HBoxContainer/PlayerXP
+@onready var player_level_label = $HBoxContainer/PlayerLevel
 
 func _ready():
 	player_gold_label.text = "Gold: " + str(Global.player_gold)

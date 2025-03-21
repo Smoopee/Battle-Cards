@@ -4,6 +4,15 @@ extends Node2D
 
 @onready var card_stats 
 
+signal hovered_on
+signal hovered_off
+
+var card_slotted = false
+var is_discarded = false
+var disabled_collision = false
+var mouse_exit = false
+var card_being_dragged = false
+
 func _ready():
 	set_stats(card_stats_resource)
 
@@ -25,3 +34,21 @@ func item_enchant(enchant):
 
 func update_card_ui():
 	pass
+
+func update_card_image():
+	$UpgradeBorder.texture = load(card_stats.card_art_path)
+	$Panel/Label.text = str(card_stats.dmg)
+
+func disable_collision():
+	$Area2D/CollisionShape2D.disabled = true
+	$CardUI.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	disabled_collision = true
+	
+func enable_collision():
+	$Area2D/CollisionShape2D.disabled = false
+	$CardUI.mouse_filter = Control.MOUSE_FILTER_STOP
+	disabled_collision = false
+
+func attack_animation(user):
+	pass
+

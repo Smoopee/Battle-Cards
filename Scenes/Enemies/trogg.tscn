@@ -3,25 +3,26 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_owa5p"]
 [ext_resource type="Resource" uid="uid://jefsr26pv8bu" path="res://Resources/Enemies/Trogg.tres" id="2_ngcah"]
-[ext_resource type="Texture2D" uid="uid://82jkvqxtwpyg" path="res://Resources/Art/Enemies/trogg.png" id="3_lm8mr"]
+[ext_resource type="Texture2D" uid="uid://cnegogy620h2a" path="res://Resources/temp_beserker.png" id="3_psndd"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Skills.gd" id="5_te5x3"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_dl2cu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq8io"]
-size = Vector2(98, 128)
+size = Vector2(142.5, 174)
 
 [node name="Trogg" type="Node2D" groups=["enemy"]]
 script = ExtResource("1_owa5p")
 enemy_stats_resource = ExtResource("2_ngcah")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_lm8mr")
+texture = ExtResource("3_psndd")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.25, -1)
 shape = SubResource("RectangleShape2D_iq8io")
 
 [node name="Deck" type="Node2D" parent="."]
@@ -33,15 +34,23 @@ script = ExtResource("5_te5x3")
 [node name="EnemyUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -67.0
+offset_top = -85.0
+offset_right = 70.0
+offset_bottom = 89.0
 
 [node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
-layout_mode = 0
-offset_left = -47.0
-offset_top = 48.0
-offset_right = 47.0
-offset_bottom = 62.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -603.0
+offset_top = 2.0
+offset_right = 602.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 0
 value = 100.0
 texture_progress = ExtResource("6_dl2cu")
 
@@ -57,10 +66,10 @@ horizontal_alignment = 1
 
 [node name="GoldAndXPBox" type="HBoxContainer" parent="EnemyUI"]
 layout_mode = 0
-offset_left = -37.0
-offset_top = 62.0
-offset_right = 50.0
-offset_bottom = 102.0
+offset_left = 25.0
+offset_top = 198.0
+offset_right = 112.0
+offset_bottom = 238.0
 
 [node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox"]
 layout_mode = 2

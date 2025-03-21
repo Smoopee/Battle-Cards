@@ -9,7 +9,7 @@ func _ready():
 	enemy_deck = enemy.enemy_deck
 	
 	var center_screen_x = get_viewport().size.x / 2
-	enemy.position = Vector2(center_screen_x, 150)
+	enemy.position = Vector2(center_screen_x, 100)
 
 
 

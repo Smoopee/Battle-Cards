@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var xp_reward_label = $TextureRect/HBoxContainer/VariableContainer/XpReward
-@onready var gold_reward_label = $TextureRect/HBoxContainer/VariableContainer/GoldReward
-@onready var player_gold_label = $TextureRect/HBoxContainer/VariableContainer/Gold
-@onready var player_xp_label = $TextureRect/HBoxContainer/VariableContainer/Xp
+@onready var xp_reward_label = $ColorRect/HBoxContainer/VBoxContainer/XpReward
+@onready var gold_reward_label = $ColorRect/HBoxContainer/VariableContainer/GoldReward
+@onready var player_gold_label = $ColorRect/HBoxContainer/VariableContainer/Gold
+@onready var player_xp_label = $ColorRect/HBoxContainer/VariableContainer/Xp
 
 
 var center_screen_x

@@ -1,5 +1,7 @@
 extends Node
 
+const COMBAT_SPEED = .3
+
 var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"
 var playerData = PlayerData.new()
@@ -30,9 +32,13 @@ var playerData = PlayerData.new()
 @onready var enemy_active_deck = []
 
 var intermission_tracker = 0
+var battle_tracker = 0
 
 var card_db_reference
 var card_node_reference = 3
+
+var mouse_occupied = false
+
 
 func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")

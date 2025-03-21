@@ -83,7 +83,7 @@ func _on_texture_button_mouse_entered():
 	await get_tree().create_timer(.5).timeout
 	if mouse_exit == false: 
 		Popups.talent_popup(Rect2i(Vector2i(global_position), Vector2i(0, 0)), $VBoxContainer/Tier1Buttons/TextureButton.get_child(1).talent_name, $VBoxContainer/Tier1Buttons/TextureButton.get_child(1).tooltip)
-	
+
 func _on_texture_button_mouse_exited():
 	pass # Replace with function body.
 	mouse_exit = true

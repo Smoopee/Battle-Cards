@@ -53,17 +53,22 @@ func _process(delta):
 
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
+	if event.is_action_pressed("Inventory"):
+		toggle_inventory()
+		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
 			if card:
 				start_drag(card)
+				stop_tooltip_timer()
 		else:
 			if card_being_dragged:
 				finish_drag()
 
 func start_drag(card):
 	card_being_dragged = card
+	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_being_dragged.scale = Vector2(1.1, 1.1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
@@ -551,6 +556,57 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 		print("I am Here 12")
 
 func card_reset():
+	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
+
+func connect_card_signals(card):
+	card.connect("hovered_on", on_hovered_over)
+	card.connect("hovered_off", on_hovered_off)
+
+func on_hovered_over(card):
+	if card_being_dragged: return
+	card.mouse_exit = false
+	card.scale = Vector2(1.1, 1.1)
+	$"../../../TooltipTimer".start()
+	await $"../../../TooltipTimer".timeout
+	if card == null: return
+	if card.mouse_exit or card_being_dragged: return
+	card.toggle_tooltip_show()
+	card.scale = Vector2(2, 2)
+	card.z_index = 2
+
+func on_hovered_off(card):
+	if card_being_dragged: return
+	card.mouse_exit = true
+	card.toggle_tooltip_hide()
+	card.scale = Vector2(1, 1)
+	card.z_index = 1
+
+func stop_tooltip_timer():
+	$"../../../TooltipTimer".stop()
+
+func toggle_inventory():
+	if $"../../../Player".visible == true:
+		$"../InventorySlots".visible = true
+		$"../PlayerInventory".visible = true
+		$"../../../Player".visible = false
+		for i in inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = true
+			i.enable_collision()
+		$"../InventorySlots".process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		$"../PlayerInventory".visible = false
+		$"../InventorySlots".visible = false
+		$"../../../Player".visible = true
+		for i in inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = false
+			i.disable_collision()
+		$"../InventorySlots".process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func _on_tooltip_timer_timeout():
+	pass # Replace with function body.

@@ -6,6 +6,7 @@ class_name Cards_Resource
 @export var card_scene_path: String
 @export var name: String
 @export var dmg: int
+@export var cd: int
 @export var upgrade_effect: int
 @export var position: int
 @export var inventory_position: int

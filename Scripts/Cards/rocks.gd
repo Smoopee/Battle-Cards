@@ -2,12 +2,18 @@ extends Node2D
 
 @export var card_stats_resource: Cards_Resource
 
+signal hovered_on
+signal hovered_off
+
 var card_stats: Cards_Resource = null
 var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
+var card_being_dragged = false
 
+func _ready():
+	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/rock.tres").duplicate()
@@ -21,25 +27,25 @@ func effect(player_deck, enemy_deck, player, enemy):
 func upgrade_card(num):
 	match num:
 		1:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
+			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			card_stats.upgrade_level = 1
 			card_stats.dmg = 2
 			card_stats.sell_price = 1
 			card_stats.buy_price = 2
 		2: 
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/rock2_card.png"
+			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
 			card_stats.dmg = 4
 			card_stats.sell_price = 2
 			card_stats.buy_price = 4
 		3:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/rock3_card.png"
+			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
 			card_stats.dmg = 8 
 			card_stats.sell_price = 4
 			card_stats.buy_price = 8
 		4:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/rock4_card.png"
+			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
@@ -58,13 +64,18 @@ func item_enchant(enchant):
 	
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
-	$CardImage.texture = load(card_stats.card_art_path)
+	$UpgradeBorder.texture = load(card_stats.card_art_path)
+	$CardUI/DamagPanel/DamageLabel.text = str(card_stats.dmg)
+	$CardUI/CDPanel/CDLabel.text = str(card_stats.cd)
 
 func disable_collision():
 	$Area2D/CollisionShape2D.disabled = true
+	$CardUI.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	disabled_collision = true
+	
 func enable_collision():
 	$Area2D/CollisionShape2D.disabled = false
+	$CardUI.mouse_filter = Control.MOUSE_FILTER_STOP
 	disabled_collision = false
 
 func card_shop_ui():
@@ -86,16 +97,51 @@ func change_item_enchant_image():
 	
 	if enchant == "Bleed":
 		$CardUI/HBoxContainer/ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
+		update_tooltip("Bleed", "Bleed deals damage every turn, Bleed count goes down by 1 each turn")
 
 func change_card_dmg_text():
 	$CardUI/HBoxContainer/CardDamage.text = str(card_stats.dmg)
 
 func _on_card_ui_mouse_entered():
-	mouse_exit = false
-	await get_tree().create_timer(1).timeout
-	if mouse_exit == false: 
-		Popups.card_popup(Rect2i(Vector2i(global_position), Vector2i(98, 128)), card_stats)
+	emit_signal("hovered_on", self)
 
 func _on_card_ui_mouse_exited():
-	mouse_exit = true
-	Popups.hide_card_popup()
+	emit_signal("hovered_off", self)
+
+func toggle_tooltip_show():
+	if $PopupPanel/VBoxContainer.get_children() == []: return
+	var mouse_pos = get_viewport().get_mouse_position()
+	var correction 
+	
+	if mouse_pos.x <= get_viewport_rect().size.x/1.3:
+		correction = Vector2(0, 0)
+	else:
+		correction = -Vector2(510, 0)
+	$PopupPanel.popup(Rect2i(position + Vector2(150, -155) + correction, Vector2(100, 100)))
+
+func toggle_tooltip_hide():
+	$PopupPanel.hide()
+
+func update_tooltip(header, body):
+	var hbox = HBoxContainer.new()
+	add_child(hbox)
+	var name_label = Label.new()
+	add_child(name_label)
+	name_label.text = str(header)
+	var body_label = Label.new()
+	add_child(body_label)
+	body_label.text = str(body)
+
+func attack_animation(user):
+	var tween = get_tree().create_tween()
+	if user.is_in_group("enemy"):
+		tween.tween_property($".", "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
+		tween.tween_property($".", "position", position + Vector2(0, 0), .5 * Global.COMBAT_SPEED )
+	else:
+		tween.tween_property($".", "position", position + Vector2(0, -64), .5 * Global.COMBAT_SPEED )
+		await tween.finished
+		$AudioStreamPlayer2D.stream 
+		$AudioStreamPlayer2D.play()
+		tween = get_tree().create_tween()
+		tween.tween_property($".", "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
+

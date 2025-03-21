@@ -49,6 +49,7 @@ func _process(delta):
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
+
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
 	if $"..".deck_builder_screen != true: return
@@ -57,13 +58,15 @@ func _input(event):
 			var card = raycast_check_for_card()
 			if card:
 				start_drag(card)
+				stop_tooltip_timer()
 		else:
 			if card_being_dragged:
 				finish_drag()
 
 func start_drag(card):
 	card_being_dragged = card
-	card_being_dragged.scale = Vector2(1.1, 1.1)
+	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
 
@@ -506,9 +509,39 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 		print("I am Here 12")
 
 func card_reset():
+	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on
+
+func connect_card_signals(card):
+	card.connect("hovered_on", on_hovered_over)
+	card.connect("hovered_off", on_hovered_off)
+
+func on_hovered_over(card):
+	if card_being_dragged: return
+	card.mouse_exit = false
+	card.scale = Vector2(1.1, 1.1)
+	$"../TooltipTimer".start()
+	await $"../TooltipTimer".timeout
+	if card == null: return
+	if card.mouse_exit or card_being_dragged: return
+	card.toggle_tooltip_show()
+	card.scale = Vector2(2, 2)
+	card.z_index = 2
+
+func on_hovered_off(card):
+	if card_being_dragged: return
+	card.mouse_exit = true
+	card.toggle_tooltip_hide()
+	card.scale = Vector2(1, 1)
+	card.z_index = 1
+
+func stop_tooltip_timer():
+	$"../TooltipTimer".stop()
+
+func _on_tooltip_timer_timeout():
+	pass # Replace with function body.

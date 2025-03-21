@@ -2,7 +2,7 @@ extends Node2D
 
 const COLLISION_MASK_CONSUMABLE = 16
 const COLLISION_MASK_PLAYER = 8
-const CONSUMABLE_Y_POSITION = 990
+const CONSUMABLE_Y_POSITION = 820
 
 
 var consumable_offset = 0
@@ -77,7 +77,7 @@ func raycast_check_for_player():
 func organize_consumables():
 	consumable_offset = 0
 	for i in consumable_slots:
-		i.position = Vector2(center_screen_x + consumable_offset, CONSUMABLE_Y_POSITION)
+		i.position = Vector2(center_screen_x - 120, CONSUMABLE_Y_POSITION + consumable_offset )
 		consumable_offset += 30
 	
 	
