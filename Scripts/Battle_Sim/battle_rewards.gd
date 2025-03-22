@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var xp_reward_label = $ColorRect/HBoxContainer/VBoxContainer/XpReward
-@onready var gold_reward_label = $ColorRect/HBoxContainer/VariableContainer/GoldReward
-@onready var player_gold_label = $ColorRect/HBoxContainer/VariableContainer/Gold
-@onready var player_xp_label = $ColorRect/HBoxContainer/VariableContainer/Xp
+@onready var xp_reward_label = $Panel/HBoxContainer/VariableContainer/XpReward
+@onready var gold_reward_label = $Panel/HBoxContainer/VariableContainer/GoldReward
+@onready var player_gold_label = $Panel/HBoxContainer/VariableContainer/Gold
+@onready var player_xp_label = $Panel/HBoxContainer/VariableContainer/Xp
 
 
 var center_screen_x
@@ -45,6 +45,7 @@ func update_rewards():
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
 	new_scene.card_stats.is_players = true
+	new_scene.card_stats.cd_remaining = 0
 	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)

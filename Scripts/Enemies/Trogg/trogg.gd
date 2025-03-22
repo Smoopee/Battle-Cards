@@ -14,6 +14,8 @@ func _ready():
 	set_stats(enemy_stats_resource)
 	set_enemy_gold()
 	set_enemy_xp()
+	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
+	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 
 func set_stats(stats = Enemy_Resource) -> void:
 	enemy_stats = load("res://Resources/Enemies/Trogg.tres").duplicate()
@@ -31,3 +33,13 @@ func get_reward():
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
 	return reward_array[reward_index]
 
+func add_debuff(debuff, amount):
+	$DebuffContainer.add_child(debuff)
+	debuff.debuff_counter(amount)
+
+func increase_debuff(debuff, amount):
+	debuff.debuff_counter(amount)
+
+func change_enemy_health():
+	$EnemyUI/EnemyHealthBar.value = Global.enemy_health
+	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)

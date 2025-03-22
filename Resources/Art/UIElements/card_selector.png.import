@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hiev4wenv477"
-path="res://.godot/imported/pirate.png-70845696e34bb525205adb345c4ed44b.ctex"
+uid="uid://cy0oosx4a7hgi"
+path="res://.godot/imported/card_selector.png-d89d6b7ba288952ba494961cd99e6270.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Enemies/pirate.png"
-dest_files=["res://.godot/imported/pirate.png-70845696e34bb525205adb345c4ed44b.ctex"]
+source_file="res://Resources/Art/UIElements/card_selector.png"
+dest_files=["res://.godot/imported/card_selector.png-d89d6b7ba288952ba494961cd99e6270.ctex"]
 
 [params]
 

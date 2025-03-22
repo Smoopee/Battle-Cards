@@ -60,8 +60,10 @@ func _input(event):
 			var player_card = raycast_check_for_card()
 			if merchant_card:
 				start_drag(merchant_card)
+				stop_tooltip_timer()
 			if player_card:
 				start_drag(player_card)
+				stop_tooltip_timer()
 		else:
 			if card_being_dragged:
 				finish_drag()
@@ -664,7 +666,7 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 
 func update_player_gold():
 	pass
-	$"../PlayerUI".change_player_gold() 
+	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
 
 func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
@@ -673,3 +675,32 @@ func card_reset():
 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on
+
+func connect_card_signals(card):
+	card.connect("hovered_on", on_hovered_over)
+	card.connect("hovered_off", on_hovered_off)
+
+func on_hovered_over(card):
+	if card_being_dragged: return
+	card.mouse_exit = false
+	card.scale = Vector2(1.1, 1.1)
+	$"../TooltipTimer".start()
+	await $"../TooltipTimer".timeout
+	if card == null: return
+	if card.mouse_exit or card_being_dragged: return
+	card.toggle_tooltip_show()
+	card.scale = Vector2(2, 2)
+	card.z_index = 2
+
+func on_hovered_off(card):
+	if card_being_dragged: return
+	card.mouse_exit = true
+	card.toggle_tooltip_hide()
+	card.scale = Vector2(1, 1)
+	card.z_index = 1
+
+func stop_tooltip_timer():
+	$"../TooltipTimer".stop()
+
+func _on_tooltip_timer_timeout():
+	pass # Replace with function body.

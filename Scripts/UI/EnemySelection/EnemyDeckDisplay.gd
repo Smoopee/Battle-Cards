@@ -1,9 +1,9 @@
 extends Node2D
 
 
-const CARD_WIDTH = 130
+const CARD_WIDTH = 160
 const ENEMY_CARD_COLLISION_LAYER = 64
-const HAND_Y_POSITION = 300
+const HAND_Y_POSITION = 180
 
 
 var enemy_cards_db = []

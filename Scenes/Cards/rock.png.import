@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccg0xkmoiu1p7"
-path="res://.godot/imported/rock2_card.png-18bfd58d1f2b25000ce5eda7392afe3c.ctex"
+uid="uid://q1n4wynny8a2"
+path="res://.godot/imported/rock.png-b79ee95960ac32a623c67631a9c8024c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/rock2_card.png"
-dest_files=["res://.godot/imported/rock2_card.png-18bfd58d1f2b25000ce5eda7392afe3c.ctex"]
+source_file="res://Scenes/Cards/rock.png"
+dest_files=["res://.godot/imported/rock.png-b79ee95960ac32a623c67631a9c8024c.ctex"]
 
 [params]
 

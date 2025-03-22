@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bryd511tswp4i"]
+[gd_scene load_steps=13 format=3 uid="uid://bryd511tswp4i"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/rocks.gd" id="1_l5vns"]
 [ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="2_u5eub"]
-[ext_resource type="Texture2D" uid="uid://cvnulxrxd1atj" path="res://Resources/Cards/CardArt/template_card2.png" id="3_nu5y1"]
+[ext_resource type="Texture2D" uid="uid://byfi1js4kcqdo" path="res://Resources/Cards/CardArt/rock.png" id="3_osh8a"]
+[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/UI/ItemEnhancement/bleed_enhancement.png" id="4_13mm8"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_mkxmw"]
 
 [sub_resource type="Resource" id="Resource_bebfw"]
@@ -40,12 +41,13 @@ enchanting_with = ""
 card_type = "Weapon"
 is_discarded = false
 is_blank = false
+is_updated = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmh4b"]
 size = Vector2(143, 180)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iixph"]
-bg_color = Color(0.724643, 0.724643, 0.724643, 1)
+bg_color = Color(1, 1, 0.905882, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -53,6 +55,21 @@ border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frv14"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1be"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxang"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hewk"]
 content_margin_left = 4.0
@@ -74,9 +91,13 @@ card_stats_resource = SubResource("Resource_bebfw")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("3_nu5y1")
+texture = ExtResource("3_osh8a")
 
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
+
+[node name="ItemEnchantImage" type="Sprite2D" parent="."]
+position = Vector2(50, 64.4)
+texture = ExtResource("4_13mm8")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -92,53 +113,29 @@ offset_top = -87.0
 offset_right = 71.0
 offset_bottom = 91.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CardUI"]
-visible = false
-layout_mode = 0
-offset_left = 11.0
-offset_top = 94.0
-offset_right = 95.0
-offset_bottom = 190.0
+[node name="DmgNumContainer" type="HBoxContainer" parent="CardUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.6
+offset_bottom = 17.4
+grow_horizontal = 2
+alignment = 1
 
-[node name="ItemEnchantImage" type="Sprite2D" parent="CardUI/HBoxContainer"]
-position = Vector2(69, 19)
-
-[node name="CardDamage" type="Label" parent="CardUI/HBoxContainer"]
+[node name="DamagPanel" type="Panel" parent="CardUI/DmgNumContainer"]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-
-[node name="SellPrice" type="Label" parent="CardUI"]
-layout_mode = 2
-offset_left = 38.0
-offset_top = -27.0
-offset_right = 39.0
-offset_bottom = -4.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
-
-[node name="BuyPrice" type="Label" parent="CardUI"]
-layout_mode = 2
-offset_left = 40.0
-offset_top = 127.0
-offset_right = 41.0
-offset_bottom = 150.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
-
-[node name="DamagPanel" type="Panel" parent="CardUI"]
-layout_mode = 0
-offset_left = 56.0
-offset_top = -11.6
-offset_right = 86.0
-offset_bottom = 18.4
 theme_override_styles/panel = SubResource("StyleBoxFlat_iixph")
 
-[node name="DamageLabel" type="Label" parent="CardUI/DamagPanel"]
+[node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = -1.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -146,31 +143,35 @@ text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CDPanel" type="Panel" parent="CardUI"]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 157.4
-offset_right = 86.0
-offset_bottom = 187.4
+[node name="DamagPanel2" type="Panel" parent="CardUI/DmgNumContainer"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_iixph")
 
-[node name="CDLabel" type="Label" parent="CardUI/CDPanel"]
+[node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "1"
+text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CDDisplayPanel" type="Panel" parent="CardUI"]
+visible = false
 self_modulate = Color(0.415686, 0.415686, 0.415686, 0.839216)
+layout_mode = 0
 offset_top = -2.99999
 offset_right = 142.0
 offset_bottom = 177.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_frv14")
 
 [node name="Label" type="Label" parent="CardUI/CDDisplayPanel"]
@@ -187,6 +188,74 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardDamage" type="Label" parent="CardUI"]
+visible = false
+layout_mode = 2
+offset_left = 11.0
+offset_top = 94.0
+offset_right = 12.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="ShopPanel" type="Panel" parent="CardUI"]
+visible = false
+layout_mode = 0
+offset_left = -2.0
+offset_top = 147.4
+offset_right = 28.0
+offset_bottom = 177.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_gv1be")
+
+[node name="SellPrice" type="Label" parent="CardUI/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyPrice" type="Label" parent="CardUI/ShopPanel"]
+visible = false
+layout_mode = 2
+offset_left = 32.0
+offset_top = -10.4
+offset_right = 33.0
+offset_bottom = 21.6
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="CDPanel" type="Panel" parent="CardUI"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+offset_left = 56.0
+offset_top = 155.4
+offset_right = 86.0
+offset_bottom = 185.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_qxang")
+
+[node name="CDLabel" type="Label" parent="CardUI/CDPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_mkxmw")

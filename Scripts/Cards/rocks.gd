@@ -65,7 +65,7 @@ func item_enchant(enchant):
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$UpgradeBorder.texture = load(card_stats.card_art_path)
-	$CardUI/DamagPanel/DamageLabel.text = str(card_stats.dmg)
+	$CardUI/DmgNumContainer/DamagPanel/DamageLabel.text = str(card_stats.dmg)
 	$CardUI/CDPanel/CDLabel.text = str(card_stats.cd)
 
 func disable_collision():
@@ -80,12 +80,12 @@ func enable_collision():
 
 func card_shop_ui():
 	if card_stats.is_players:
-		$CardUI/SellPrice.text = str(card_stats.sell_price) + "g"
-		$CardUI/BuyPrice.text = ""
+		$CardUI/ShopPanel/SellPrice.text = str(card_stats.sell_price) + "g"
+		$CardUI/ShopPanel/BuyPrice.text = ""
 	
 	if !card_stats.is_players:
-		$CardUI/BuyPrice.text = "- " + str(card_stats.buy_price) + "g"
-		$CardUI/SellPrice.text = ""
+		$CardUI/ShopPanel/BuyPrice.text = "- " + str(card_stats.buy_price) + "g"
+		$CardUI/ShopPanel/SellPrice.text = ""
 
 func update_card_ui():
 	update_card_image()
@@ -97,11 +97,14 @@ func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
 	
 	if enchant == "Bleed":
-		$CardUI/HBoxContainer/ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
-		update_tooltip("Bleed", "Bleed deals damage every turn, Bleed count goes down by 1 each turn")
+		$ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
+		update_tooltip("Bleed: ", "Deals " + str(card_stats.bleed_dmg))
+		update_damage_label("Bleed")
+	
+	else: $ItemEnchantImage.texture = null
 
 func change_card_dmg_text():
-	$CardUI/HBoxContainer/CardDamage.text = str(card_stats.dmg)
+	$CardUI/CardDamage.text = str(card_stats.dmg)
 
 func _on_card_ui_mouse_entered():
 	emit_signal("hovered_on", self)
@@ -111,6 +114,7 @@ func _on_card_ui_mouse_exited():
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
+	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction 
 	
@@ -123,17 +127,28 @@ func toggle_tooltip_show():
 	$PopupPanel.popup(Rect2i(position + Vector2(150, -155) + correction, Vector2(100, 100)))
 
 func toggle_tooltip_hide():
+	toggle_shop_ui(false)
 	$PopupPanel.hide()
 
 func update_tooltip(header, body):
 	var hbox = HBoxContainer.new()
-	add_child(hbox)
+	$PopupPanel/VBoxContainer.add_child(hbox)
 	var name_label = Label.new()
-	add_child(name_label)
+	hbox.add_child(name_label)
+	name_label.add_theme_color_override("font_color", Color.BLACK)
 	name_label.text = str(header)
 	var body_label = Label.new()
-	add_child(body_label)
+	hbox.add_child(body_label)
+	body_label.add_theme_color_override("font_color", Color.BLACK)
 	body_label.text = str(body)
+
+func update_damage_label(type):
+	var styleBox: StyleBoxFlat = $CardUI/DmgNumContainer/DamagPanel2.get_theme_stylebox("panel").duplicate()
+	if type == "Bleed":
+		$CardUI/DmgNumContainer/DamagPanel2.visible = true
+		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.bleed_dmg)
+		styleBox.set("bg_color", Color.FIREBRICK)
+		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
 
 func attack_animation(user):
 	var tween = get_tree().create_tween()
@@ -153,3 +168,7 @@ func toggle_cd():
 		$CardUI/CDDisplayPanel.visible = true
 		$CardUI/CDDisplayPanel/Label.text = str(card_stats.cd_remaining)
 	else: $CardUI/CDDisplayPanel.visible = false
+
+func toggle_shop_ui(show):
+	if show: $CardUI/ShopPanel.visible = true
+	else:  $CardUI/ShopPanel.visible = false

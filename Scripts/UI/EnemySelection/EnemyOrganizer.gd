@@ -1,8 +1,8 @@
 extends Node2D
 
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
-const CARD_WIDTH = 150
-const ENEMY_Y_POSITION = 490
+const CARD_WIDTH = 360
+const ENEMY_Y_POSITION = 400
 
 var rng = RandomNumberGenerator.new()
 var enemy_db_reference
@@ -32,7 +32,10 @@ func create_encounter(enemy_array):
 	for i in range(enemy_array.size()):
 		var new_enemy = enemy_array[i].instantiate()
 		add_child(new_enemy)
+		
 		new_enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = true
+		new_enemy.get_node("EnemyUI").get_node("EnemySelectionHealth").visible = true
+		new_enemy.get_node("EnemyUI").get_node("EnemyHealthBar").visible = false
 		enemy_selection.push_front(new_enemy)
 		update_enemy_positions()
 

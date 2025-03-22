@@ -5,7 +5,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_fyxe4")
-card_art_path = "res://Resources/Cards/CardArt/Rock_card.png"
+card_art_path = "res://Resources/Cards/CardArt/rock.png"
 card_scene_path = "res://Scenes/Cards/rocks.tscn"
 name = "Rock"
 dmg = 2
@@ -37,3 +37,4 @@ enchanting_with = ""
 card_type = "Weapon"
 is_discarded = false
 is_blank = false
+is_updated = false

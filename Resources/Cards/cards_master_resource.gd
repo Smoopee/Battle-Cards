@@ -34,10 +34,4 @@ class_name Cards_Resource
 @export var card_type: String
 @export var is_discarded: bool
 @export var is_blank: bool
-
-
-func effect():
-	pass
-
-func on_start():
-	pass
+@export var is_updated: bool

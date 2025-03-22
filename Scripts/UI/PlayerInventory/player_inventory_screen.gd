@@ -27,7 +27,6 @@ var inventory_card_slot_reference_index
 var previous_card_slot
 var inventory_screen = false
 
-
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	screen_size = get_viewport_rect().size
@@ -51,12 +50,12 @@ func _process(delta):
 
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
-	if !inventory_screen: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card()
 			if card:
 				start_drag(card)
+				stop_tooltip_timer()
 		else:
 			if card_being_dragged:
 				finish_drag()
@@ -503,3 +502,32 @@ func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
+
+func connect_card_signals(card):
+	card.connect("hovered_on", on_hovered_over)
+	card.connect("hovered_off", on_hovered_off)
+
+func on_hovered_over(card):
+	if card_being_dragged: return
+	card.mouse_exit = false
+	card.scale = Vector2(1.1, 1.1)
+	$TooltipTimer.start()
+	await $TooltipTimer.timeout
+	if card == null: return
+	if card.mouse_exit or card_being_dragged: return
+	card.toggle_tooltip_show()
+	card.scale = Vector2(2, 2)
+	card.z_index = 2
+
+func on_hovered_off(card):
+	if card_being_dragged: return
+	card.mouse_exit = true
+	card.toggle_tooltip_hide()
+	card.scale = Vector2(1, 1)
+	card.z_index = 1
+
+func stop_tooltip_timer():
+	$TooltipTimer.stop()
+
+func _on_tooltip_timer_timeout():
+	pass # Replace with function body.

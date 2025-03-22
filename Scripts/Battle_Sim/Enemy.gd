@@ -110,8 +110,7 @@ func add_skills():
 	return skill_array
 
 func change_enemy_health():
-	enemy_health_bar.value = Global.enemy_health
-	enemy_health_bar.get_child(0).text = str(Global.enemy_health)
+	enemy.change_enemy_health()
 
 #==================================================================================================
 func create_enemy_cards():

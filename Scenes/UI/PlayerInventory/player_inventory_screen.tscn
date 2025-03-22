@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwqs5wchg56o"]
+[gd_scene load_steps=7 format=3 uid="uid://bwqs5wchg56o"]
 
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/player_inventory_screen.gd" id="1_ek0gf"]
-[ext_resource type="Texture2D" uid="uid://djb128otlqcab" path="res://Resources/Art/Backgrounds/inventory_bg.png" id="2_11wxg"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/DeckCardSlots.gd" id="3_4n06j"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/InventorySlots.gd" id="4_u7odf"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/ActiveDeck.gd" id="5_3rxlr"]
@@ -10,16 +9,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7hlh6"]
 size = Vector2(1199, 371)
 
-[node name="PlayerInventoryScreen" type="Node2D" groups=["card manager"]]
+[node name="PlayerInventoryScreen" type="Node2D"]
+visible = false
 z_index = 4
 script = ExtResource("1_ek0gf")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-show_behind_parent = true
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-texture = ExtResource("2_11wxg")
 
 [node name="DeckCardSlots" type="Node2D" parent="."]
 script = ExtResource("3_4n06j")
@@ -28,9 +21,11 @@ script = ExtResource("3_4n06j")
 script = ExtResource("4_u7odf")
 
 [node name="ActiveDeck" type="Node2D" parent="."]
+visible = false
 script = ExtResource("5_3rxlr")
 
 [node name="CurrentInventory" type="Node2D" parent="."]
+visible = false
 script = ExtResource("6_uxh4d")
 
 [node name="SellZone" type="Node2D" parent="."]
@@ -44,10 +39,14 @@ position = Vector2(993, 183)
 shape = SubResource("RectangleShape2D_7hlh6")
 
 [node name="UpgradeButton" type="CheckButton" parent="."]
+visible = false
 offset_left = 215.0
 offset_top = 739.0
 offset_right = 378.0
 offset_bottom = 770.0
 text = "Upgrade Mode"
 
+[node name="TooltipTimer" type="Timer" parent="."]
+
 [connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]
+[connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]

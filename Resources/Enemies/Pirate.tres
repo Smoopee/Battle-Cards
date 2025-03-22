@@ -4,9 +4,14 @@
 
 [resource]
 script = ExtResource("1_bsjt3")
-enemy_art_path = "res://Resources/Art/Enemies/pirate.png"
+enemy_art_path = "res://Resources/Art/Enemies/pirate_enemy.png"
 enemy_scene_path = "res://Scenes/Enemies/pirate.tscn"
 name = "Pirate"
 health = 120
 xp = 20
 gold = 5
+bleeding_dmg = 0
+burning_dmg = 0
+poisoning_dmg = 0
+armor = 0
+attack = 0

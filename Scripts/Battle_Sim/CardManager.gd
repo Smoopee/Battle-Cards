@@ -240,7 +240,7 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func update_player_gold():
-	$"../../../PlayerUI".change_player_gold() 
+	$"../../../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on

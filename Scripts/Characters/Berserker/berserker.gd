@@ -13,8 +13,9 @@ var blood_bath = false
 func _ready():
 	set_stats(character_stats_resource)
 	set_talents()
-	$TextureProgressBar.position = get_parent().position + Vector2(47, -64)
-	$AttackLabel.position = get_parent().position + Vector2(0, -140)
+	$RageBar.position = get_parent().position + Vector2(47, -64)
+	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack)
+	$StatContainer/ArmorLabel.text = "Armor: " +  str(player_stats.armor)
 
 func set_stats(stats = Character_Resource) -> void:
 	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
@@ -27,15 +28,16 @@ func set_talents():
 		new_talent.set_talent()
 
 func change_rage(source, value):
+	var rage_bar = $RageBar
 	if savagery: value = $Talents.get_node("Savagery").talent_effect(source, value)
 	if indomitable: value = $Talents.get_node("Indomitable").talent_effect(source, value)
-	$TextureProgressBar.value += value
-	if  $TextureProgressBar.value  >= 100:
+	rage_bar.value += value
+	if  rage_bar.value  >= 100:
 		if fueled_by_rage: player_stats.attack += 5
 		else: player_stats.attack += 3
 		change_attack_label()
-		$TextureProgressBar.value = 0
-		$TextureProgressBar.max_value += 10
+		rage_bar.value = 0
+		rage_bar.max_value += 10
 
 func change_attack_label():
 	$AttackLabel.text = str(player_stats.attack) + str("Atk")

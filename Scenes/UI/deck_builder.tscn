@@ -27,20 +27,19 @@ script = ExtResource("5_bx4tr")
 script = ExtResource("5_ogxm3")
 
 [node name="InventorySlots" type="Node2D" parent="."]
-visible = false
 script = ExtResource("4_fix4o")
 
 [node name="DeckCardSlots" type="Node2D" parent="."]
 script = ExtResource("5_5wci1")
 
 [node name="PlayerInventory" type="Node2D" parent="."]
-visible = false
 script = ExtResource("6_yjorp")
 
 [node name="PlayerDeck" type="Node2D" parent="."]
 script = ExtResource("7_s26ac")
 
 [node name="Player" parent="." instance=ExtResource("8_mjsl0")]
+visible = false
 
 [node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
 script = ExtResource("1_wsaiq")

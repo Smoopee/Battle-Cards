@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp3pfc0wj0wu3"
-path="res://.godot/imported/pointer.png-68ad1747ffae1fc31a35999b5b1e5ab4.ctex"
+uid="uid://da8cv5kivdg5k"
+path="res://.godot/imported/pirate_enemy.png-43ba717ded8630456a6499cd88a1145e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/UIElements/pointer.png"
-dest_files=["res://.godot/imported/pointer.png-68ad1747ffae1fc31a35999b5b1e5ab4.ctex"]
+source_file="res://Resources/Art/Enemies/pirate_enemy.png"
+dest_files=["res://.godot/imported/pirate_enemy.png-43ba717ded8630456a6499cd88a1145e.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 extends Node2D
 
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
-const CARD_WIDTH = 150
-const MERCHANT_Y_POSITION = 490
+const CARD_WIDTH = 350
+const MERCHANT_Y_POSITION = 400
 
 var rng = RandomNumberGenerator.new()
 var merchant_db_reference

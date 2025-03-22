@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://82jkvqxtwpyg"
-path="res://.godot/imported/trogg.png-6f8c20f5ccca18e047c1a73f8e1cc018.ctex"
+uid="uid://b1obg4a01y3n1"
+path="res://.godot/imported/frooty_enemy.png-3a6e25c1a11a6f80fe337ea07fe9b8e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Enemies/trogg.png"
-dest_files=["res://.godot/imported/trogg.png-6f8c20f5ccca18e047c1a73f8e1cc018.ctex"]
+source_file="res://Resources/Art/Enemies/frooty_enemy.png"
+dest_files=["res://.godot/imported/frooty_enemy.png-3a6e25c1a11a6f80fe337ea07fe9b8e1.ctex"]
 
 [params]
 

@@ -7,6 +7,10 @@ extends Node2D
 var current_screen = ""
 var shop_screen = true
 
+func _input(event):
+	if event.is_action_pressed("Inventory"):
+		toggle_inventory()
+
 func _on_exit_button_button_down():
 	inventory_and_deck_save()
 	Global.save_function()
@@ -66,3 +70,21 @@ func _on_back_button_button_down():
 	$CanvasLayer/VBoxContainer/MenuButton.visible = true
 	$CanvasLayer/VBoxContainer/BackButton.visible = false
 	shop_screen = true
+
+func toggle_inventory():
+	if $Player.visible == true:
+		$InventorySlots.visible = true
+		$Player.visible = false
+		for i in $CardManager.inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = true
+			i.enable_collision()
+		$InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		$InventorySlots.visible = false
+		$Player.visible = true
+		for i in $CardManager.inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = false
+			i.disable_collision()
+		$InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED

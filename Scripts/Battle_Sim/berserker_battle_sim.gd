@@ -10,6 +10,7 @@ var current_screen = ""
 @onready var player_node = $Player
 
 var rng = RandomNumberGenerator.new()
+var debuff_db_reference
 
 var player_inventory_list
 var player_deck_list 
@@ -27,6 +28,7 @@ var player
 
 func _ready():
 	get_node("Timer").wait_time *= Global.COMBAT_SPEED
+	debuff_db_reference = preload("res://Resources/Debuffs/debuff_db.gd")
 
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
@@ -74,6 +76,7 @@ func combat(player_deck_list, enemy_deck_list):
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		bleed_damage_keeper()
+		debuff_turn_keeper()
 		
 		player_node.get_node("Berserker").change_rage(null, -3)
 		
@@ -147,11 +150,11 @@ func bleed_func(i):
 	if i.card_stats.bleed_dmg <= 0: return
 	
 	if i.card_stats.in_enemy_deck: 
-		print("battle sim enemy bleed")
 		player.player_stats.bleeding_dmg += i.card_stats.bleed_dmg
 		ui.update_combat_log_bleed("bleed_func", player.player_stats.bleeding_dmg, player, enemy, true, null, null)
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
+		debuff_intantiate("Bleed", enemy, i.card_stats.bleed_dmg)
 		ui.update_combat_log_bleed("bleed_func", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
 
 func bleed_damage_keeper():
@@ -162,7 +165,6 @@ func bleed_damage_keeper():
 	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
 	
 	if enemy.enemy_stats.bleeding_dmg > 0:
-		print("battle sim enemy bleed")
 		player_node.get_node("Berserker").blood_bath_func(enemy.enemy_stats.bleeding_dmg)
 		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
 		change_health(true, enemy.enemy_stats.bleeding_dmg)
@@ -198,7 +200,6 @@ func buff_keeper():
 func cooldown_keeper(card):
 	card.card_stats.cd_remaining = card.card_stats.cd
 	card.card_stats.on_cd = true
-
 
 func build_player_deck_list():
 	return player_deck.build_deck()
@@ -349,3 +350,16 @@ func _on_talent_button_button_down():
 
 func _on_timer_timeout():
 	pass # Replace with function body.
+
+func debuff_intantiate(debuff, target, amount):
+	for i in get_tree().get_nodes_in_group("debuff"):
+		if i.debuff_name == debuff: 
+			target.increase_debuff(i, amount)
+			return
+	if target == enemy:
+		var new_debuff = load(debuff_db_reference.DEBUFFS[debuff]).instantiate()
+		target.add_debuff(new_debuff, amount)
+
+func debuff_turn_keeper():
+	for i in get_tree().get_nodes_in_group("debuff"):
+		i.debuff_decrement()

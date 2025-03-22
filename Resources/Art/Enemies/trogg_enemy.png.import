@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw55uim6h6nfn"
-path="res://.godot/imported/Rock_card.png-a194c6bda78a0f5df03c37ca509a01f2.ctex"
+uid="uid://bby03wvnyaw12"
+path="res://.godot/imported/trogg_enemy.png-110a2a64931043cc6dd7dd60f9f31f05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/Rock_card.png"
-dest_files=["res://.godot/imported/Rock_card.png-a194c6bda78a0f5df03c37ca509a01f2.ctex"]
+source_file="res://Resources/Art/Enemies/trogg_enemy.png"
+dest_files=["res://.godot/imported/trogg_enemy.png-110a2a64931043cc6dd7dd60f9f31f05.ctex"]
 
 [params]
 

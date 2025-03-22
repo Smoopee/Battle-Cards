@@ -24,6 +24,9 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
+	if event.is_action_pressed("Inventory"):
+		toggle_inventory()
+	
 	if !enemy_selection_screen: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -148,3 +151,67 @@ func _on_back_button_down():
 	$CanvasLayer/VBoxContainer/Menu.visible = true
 	$CanvasLayer/VBoxContainer/Back.visible = false
 	enemy_selection_screen = true
+
+func connect_card_signals(card):
+	card.connect("hovered_on", on_hovered_over)
+	card.connect("hovered_off", on_hovered_off)
+
+func on_hovered_over(card):
+	if card_being_dragged: return
+	card.mouse_exit = false
+	card.scale = Vector2(1.1, 1.1)
+	$TooltipTimer.start()
+	await $TooltipTimer.timeout
+	if card == null: return
+	if card.mouse_exit or card_being_dragged: return
+	card.toggle_tooltip_show()
+	card.scale = Vector2(2, 2)
+	card.z_index = 2
+
+func on_hovered_off(card):
+	if card_being_dragged: return
+	card.mouse_exit = true
+	card.toggle_tooltip_hide()
+	card.scale = Vector2(1, 1)
+	card.z_index = 1
+
+func toggle_inventory():
+	#From player screen to Inventory
+	if $Player.visible == true:
+		$PlayerInventoryScreen.visible = true
+		$PlayerInventoryScreen/InventorySlots.visible = true
+		$PlayerInventoryScreen/CurrentInventory.visible = true
+		$PlayerInventoryScreen/DeckCardSlots.visible = true
+		$PlayerInventoryScreen/ActiveDeck.visible = true
+		$CardSelector.visible = false
+		$Player.visible = false
+		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = true
+			i.enable_collision()
+		for i in $PlayerInventoryScreen.deck_card_slot_reference:
+			if i == null: continue
+			i.visible = true
+			i.enable_collision()
+		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
+		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
+		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_INHERIT
+	#From Inventory to Player Screen
+	else:
+		$PlayerInventoryScreen/InventorySlots.visible = false
+		$PlayerInventoryScreen/DeckCardSlots.visible = false
+		$PlayerInventoryScreen/ActiveDeck.visible = false
+		$PlayerInventoryScreen/CurrentInventory.visible = false
+		$CardSelector.visible = true
+		$Player.visible = true
+		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
+			if i == null: continue
+			i.visible = false
+			i.disable_collision()
+		for i in $PlayerInventoryScreen.deck_card_slot_reference:
+			if i == null: continue
+			i.visible = false
+			i.disable_collision()
+		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
+		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
+		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_DISABLED

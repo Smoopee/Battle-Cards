@@ -42,6 +42,7 @@ script = ExtResource("5_r3th3")
 script = ExtResource("1_03fvr")
 
 [node name="Player" parent="." instance=ExtResource("6_52iue")]
+visible = false
 
 [node name="ShopUI" type="Control" parent="."]
 layout_mode = 3
@@ -80,44 +81,70 @@ offset_bottom = 1079.0
 mouse_filter = 2
 texture = ExtResource("7_ldslr")
 
-[node name="PlayerUI" parent="." instance=ExtResource("7_b14l4")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 1614.0
-offset_top = 762.0
-offset_right = 1694.0
-offset_bottom = 824.0
-
-[node name="TalentButton" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "Talents"
-
-[node name="MenuButton" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-text = "Menus"
-
-[node name="BackButton" type="Button" parent="CanvasLayer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Back
-"
-
-[node name="ExitButton" type="Button" parent="CanvasLayer"]
-offset_left = 1712.0
-offset_top = 524.0
-offset_right = 1792.0
-offset_bottom = 547.0
-text = "Leave"
-
 [node name="TalentTree" parent="." instance=ExtResource("12_ega66")]
 visible = false
 group1 = SubResource("ButtonGroup_rxp0v")
 group2 = SubResource("ButtonGroup_k0wj2")
 
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ExitButton" type="Button" parent="CanvasLayer"]
+offset_left = 1686.0
+offset_top = 815.0
+offset_right = 1774.0
+offset_bottom = 839.0
+text = "Leave"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+self_modulate = Color(0.317647, 0.317647, 0.317647, 0.760784)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerUI" parent="CanvasLayer/ColorRect" instance=ExtResource("7_b14l4")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = -0.0153846
+anchor_right = 0.015625
+anchor_bottom = -0.0153846
+offset_left = 1581.0
+offset_top = 2.0
+offset_right = 1853.0
+offset_bottom = 42.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TalentButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Talents"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
+[node name="BackButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Back
+"
+
 [connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
 [connection signal="toggled" from="ShopUI/UpgradeButton" to="CardManager" method="_on_upgrade_button_toggled"]
-[connection signal="button_down" from="CanvasLayer/VBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
-[connection signal="button_down" from="CanvasLayer/VBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="timeout" from="TooltipTimer" to="CardManager" method="_on_tooltip_timer_timeout"]
 [connection signal="button_down" from="CanvasLayer/ExitButton" to="." method="_on_exit_button_button_down"]

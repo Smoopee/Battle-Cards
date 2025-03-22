@@ -14,7 +14,6 @@ func _input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
 
-
 func _on_button_button_down():
 	inventory_and_deck_save()
 	Global.save_function()

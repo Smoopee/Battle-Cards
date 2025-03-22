@@ -1,8 +1,8 @@
 extends Node2D
 
 
-const CARD_WIDTH = 150
-const HAND_Y_POSITION = 300
+const CARD_WIDTH = 160
+const HAND_Y_POSITION = 376
 const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
 var inventory_db = []

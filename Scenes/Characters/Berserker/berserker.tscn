@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://cyhj5ybc2b5yp" path="res://Resources/Character/berserker.tres" id="2_85j04"]
 [ext_resource type="Texture2D" uid="uid://gb3vedweny2f" path="res://Resources/Art/UIElements/rage_bar_under.png" id="3_mcllw"]
 [ext_resource type="Texture2D" uid="uid://cm8or4yet6qac" path="res://Resources/Art/UIElements/rage_bar.png" id="3_svegv"]
-[ext_resource type="Texture2D" uid="uid://cwvs5mnfb1r8f" path="res://Resources/Art/UIElements/player.png" id="5_cprv0"]
+[ext_resource type="Texture2D" uid="uid://cnegogy620h2a" path="res://Resources/temp_beserker.png" id="5_12jeq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qj8m8"]
 size = Vector2(98, 128)
@@ -20,7 +20,7 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_qj8m8")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+[node name="RageBar" type="TextureProgressBar" parent="."]
 offset_left = -9.0
 offset_top = -64.0
 offset_right = 9.0
@@ -32,11 +32,46 @@ texture_progress_offset = Vector2(2, 0)
 
 [node name="Talents" type="Node2D" parent="."]
 
-[node name="AttackLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 15.0
-theme_override_font_sizes/font_size = 32
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("5_cprv0")
+texture = ExtResource("5_12jeq")
+
+[node name="StatContainer" type="VBoxContainer" parent="."]
+offset_left = 89.0
+offset_top = -84.0
+offset_right = 137.0
+offset_bottom = -20.0
+
+[node name="AttackLabel" type="Label" parent="StatContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Atk: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="StatContainer/AttackLabel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArmorLabel" type="Label" parent="StatContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Def: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="StatContainer/ArmorLabel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
