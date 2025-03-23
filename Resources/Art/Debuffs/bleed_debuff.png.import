@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btt7moa703c0q"
-path="res://.godot/imported/strengthen2_card.png-77489a1ed1f20dc7b2819a4132d22c9f.ctex"
+uid="uid://1u5jtciisxlo"
+path="res://.godot/imported/bleed_debuff.png-96e75e60eb5080896385c1b1ef036eef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/strengthen2_card.png"
-dest_files=["res://.godot/imported/strengthen2_card.png-77489a1ed1f20dc7b2819a4132d22c9f.ctex"]
+source_file="res://Resources/Art/Debuffs/bleed_debuff.png"
+dest_files=["res://.godot/imported/bleed_debuff.png-96e75e60eb5080896385c1b1ef036eef.ctex"]
 
 [params]
 

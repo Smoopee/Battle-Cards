@@ -1,9 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://lcg4vhlb2sbv"]
+[gd_scene load_steps=4 format=3 uid="uid://bdcr2euiyfjev"]
 
-[ext_resource type="Script" path="res://Scripts/Debuffs/bleed_debuff.gd" id="1_8cabm"]
-[ext_resource type="Texture2D" uid="uid://1u5jtciisxlo" path="res://Resources/Art/Debuffs/bleed_debuff.png" id="2_tlc7r"]
+[ext_resource type="Texture2D" uid="uid://43dxdgf1gs4f" path="res://Resources/Art/Buffs/strenghten_buff.png" id="1_anf4i"]
+[ext_resource type="Script" path="res://Scripts/Buffs/strengthen_buff.gd" id="1_lb4gy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ij4xl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvwy6"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,29 +15,29 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="BleedDebuff" type="Control" groups=["debuff"]]
-custom_minimum_size = Vector2(20, 0)
+[node name="StrengthenBuff" type="Control" groups=["buff"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_8cabm")
+mouse_filter = 2
+script = ExtResource("1_lb4gy")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 offset_left = -12.0
 offset_top = -12.0
 offset_right = 12.0
 offset_bottom = 12.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_tlc7r")
+texture = ExtResource("1_anf4i")
 
-[node name="DebuffCounters" type="Label" parent="."]
-layout_mode = 0
+[node name="BuffCounters" type="Label" parent="."]
 offset_left = -12.0
-offset_top = 14.0
+offset_top = 12.0
 offset_right = 12.0
 offset_bottom = 22.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -49,19 +49,14 @@ vertical_alignment = 1
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
-size = Vector2i(384, 100)
-theme_override_styles/panel = SubResource("StyleBoxFlat_ij4xl")
+size = Vector2i(378, 50)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bvwy6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 374.0
+offset_bottom = 46.0
 
 [node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
 layout_mode = 2
@@ -69,6 +64,7 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Rock"
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
 [connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

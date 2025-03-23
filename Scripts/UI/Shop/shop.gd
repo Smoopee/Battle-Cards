@@ -4,6 +4,7 @@ extends Node2D
 @onready var player_inventory = $PlayerInventory
 @onready var player_deck = $PlayerDeck
 
+
 var current_screen = ""
 var shop_screen = true
 
@@ -16,9 +17,11 @@ func _on_exit_button_button_down():
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
+		Global.current_scene = "intermission"
 		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 	else:
 		Global.intermission_tracker = 0
+		Global.current_scene = "enemy_selection"
 		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 
 func _on_reroll_button_button_down():

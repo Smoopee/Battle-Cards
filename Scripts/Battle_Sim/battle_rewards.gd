@@ -15,6 +15,7 @@ func update_rewards():
 	var enemy_reward = $"../Enemy".enemy_reward()
 	$"../NextTurn/DeckBuilder/PlayerDeck".reward_screen = true
 	$"../NextTurn/DeckBuilder/PlayerInventory".reward_screen = true
+	$"../NextTurn/DeckBuilder/UpgradeButton".visible = true
 	
 	
 	#Gives double reward if enemy_rewards returns "Double Reward"
@@ -46,6 +47,7 @@ func update_rewards():
 	add_child(new_scene)
 	new_scene.card_stats.is_players = true
 	new_scene.card_stats.cd_remaining = 0
+	new_scene.card_stats.on_cd = false
 	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)
@@ -71,4 +73,5 @@ func _on_button_button_down():
 	Global.player_deck = temp_deck
 	
 	Global.save_function()
+	Global.current_scene = "intermission"
 	get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))

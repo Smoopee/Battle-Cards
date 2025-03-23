@@ -44,6 +44,7 @@ func finish_drag():
 		Global.current_merchant = merchant_found.merchant_scene_path
 		inventory_and_deck_save()
 		Global.save_function()
+		Global.current_scene = "shop"
 		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
@@ -86,27 +87,6 @@ func get_card_with_highest_z_index(cards):
 			highest_z_index = current_card.z_index
 	return highest_z_card
 
-
-func _on_inventory_button_button_down():
-	$PlayerInventoryScreen.visible = true
-	$PlayerInventoryScreen.inventory_screen = true
-	intermission_screen = false
-	$CanvasLayer/VBoxContainer/InventoryButton.visible = false
-	$CanvasLayer/VBoxContainer/TalentButton.visible = false
-	$CanvasLayer/VBoxContainer/MenuButton.visible = false
-	$CanvasLayer/VBoxContainer/BackButton.visible = true
-	current_screen = "inventory"
-
-func _on_talent_button_button_down():
-	$TalentTree.visible = true
-	intermission_screen = false
-	$CanvasLayer/VBoxContainer/InventoryButton.visible = false
-	$CanvasLayer/VBoxContainer/TalentButton.visible = false
-	$CanvasLayer/VBoxContainer/MenuButton.visible = false
-	$CanvasLayer/VBoxContainer/BackButton.visible = true
-	current_screen = "talents"
-
-
 func inventory_and_deck_save():
 	var temp_inventory = []
 	for i in player_inventory.inventory_card_slot_reference:
@@ -124,60 +104,41 @@ func inventory_and_deck_save():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 
-
 func _on_skip_button_button_down():
 	Global.player_gold += 5
 	inventory_and_deck_save()
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
+		Global.current_scene = "intermission"
 		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 	else:
 		Global.intermission_tracker = 0
+		Global.current_scene = "enemy_selection"
 		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
-
-
-func _on_back_button_button_down():
-	match(current_screen):
-		"inventory":
-			$PlayerInventoryScreen.visible = false
-			$PlayerInventoryScreen.inventory_screen = false
-		"talents":
-			$TalentTree.visible = false
-
-	$CanvasLayer/VBoxContainer/InventoryButton.visible = true
-	$CanvasLayer/VBoxContainer/TalentButton.visible = true
-	$CanvasLayer/VBoxContainer/MenuButton.visible = true
-	$CanvasLayer/VBoxContainer/BackButton.visible = false
-	intermission_screen = true
 
 func connect_card_signals(card):
 	card.connect("hovered_on", on_hovered_over)
 	card.connect("hovered_off", on_hovered_off)
 
 func on_hovered_over(card):
-	pass
-	#if card_being_dragged: return
-	#card.mouse_exit = false
-	#card.scale = Vector2(1.1, 1.1)
-	#$TooltipTimer.start()
-	#await $TooltipTimer.timeout
-	#if card == null: return
-	#print("card show")
-	#if card.mouse_exit or card_being_dragged: return
-	#card.toggle_tooltip_show()
-	#card.scale = Vector2(2, 2)
+	if card_being_dragged: return
+	card.mouse_exit = false
+	card.scale = Vector2(1.1, 1.1)
+	$TooltipTimer.start()
+	await $TooltipTimer.timeout
+	if card == null: return
+	if card.mouse_exit or card_being_dragged: return
+	card.toggle_tooltip_show()
+	card.scale = Vector2(2, 2)
 	card.z_index = 2
 
 func on_hovered_off(card):
-	pass
-	#if card_being_dragged: return
-	#card.mouse_exit = true
-	#card.toggle_tooltip_hide()
-	#card.scale = Vector2(1, 1)
-	#card.z_index = 1
-
-
+	if card_being_dragged: return
+	card.mouse_exit = true
+	card.toggle_tooltip_hide()
+	card.scale = Vector2(1, 1)
+	card.z_index = 1
 
 func toggle_inventory():
 	#From player screen to Inventory
@@ -202,10 +163,10 @@ func toggle_inventory():
 		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_INHERIT
 	#From Inventory to Player Screen
 	else:
+		$PlayerInventoryScreen/CurrentInventory.visible = false
 		$PlayerInventoryScreen/InventorySlots.visible = false
 		$PlayerInventoryScreen/DeckCardSlots.visible = false
 		$PlayerInventoryScreen/ActiveDeck.visible = false
-		$PlayerInventoryScreen/CurrentInventory.visible = false
 		$CardSelector.visible = true
 		$Player.visible = true
 		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
@@ -219,3 +180,6 @@ func toggle_inventory():
 		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
 		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _on_tooltip_timer_timeout():
+	pass # Replace with function body.

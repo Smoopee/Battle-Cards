@@ -13,9 +13,13 @@ var blood_bath = false
 func _ready():
 	set_stats(character_stats_resource)
 	set_talents()
-	$RageBar.position = get_parent().position + Vector2(47, -64)
+	$RageBar.position = get_parent().position + Vector2(70, -64)
 	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack)
 	$StatContainer/ArmorLabel.text = "Armor: " +  str(player_stats.armor)
+	
+	$PlayerHealthBar.max_value = Global.max_player_health
+	$PlayerHealthBar.value = Global.player_health
+	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 
 func set_stats(stats = Character_Resource) -> void:
 	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
@@ -26,6 +30,11 @@ func set_talents():
 		var new_talent = load(i).instantiate()
 		$Talents.add_child(new_talent)
 		new_talent.set_talent()
+
+func change_player_health():
+	$PlayerHealthBar.value = Global.player_health
+	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
+
 
 func change_rage(source, value):
 	var rage_bar = $RageBar
@@ -40,7 +49,7 @@ func change_rage(source, value):
 		rage_bar.max_value += 10
 
 func change_attack_label():
-	$AttackLabel.text = str(player_stats.attack) + str("Atk")
+	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack) 
 
 func change_damage(card):
 	pass
@@ -55,3 +64,10 @@ func blood_bath_func(bleed_damage):
 	if blood_bath: 
 		print(bleed_damage)
 		return $"../..".change_health(false, -(bleed_damage /2))
+
+func add_buff(buff, amount = null):
+	$BuffContainer.add_child(buff)
+	buff.buff_counter(amount)
+
+func increase_buff(buff, amount = 0):
+	buff.buff_counter(amount)

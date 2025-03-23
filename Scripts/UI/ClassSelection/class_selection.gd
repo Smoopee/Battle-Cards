@@ -4,7 +4,6 @@ extends Node2D
 const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_CLASS_SELECTION = 8
 
-
 var screen_size
 var is_hoovering_on_card
 var card_being_dragged

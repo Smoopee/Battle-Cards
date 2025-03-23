@@ -37,6 +37,7 @@ func create_inventory():
 		card_scene.card_stats = deck_db[i]
 		add_child(card_scene)
 		card_scene.upgrade_card(card_scene.card_stats.upgrade_level)
+		card_scene.card_shop_ui()
 		card_scene.card_stats.inventory_position = card_position
 		card_scene.card_stats.is_players = true
 		fill_card_slots(card_scene, card_position)

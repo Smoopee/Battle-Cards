@@ -1,7 +1,5 @@
 extends Node2D
 
-@export var card_stats_resource: Cards_Resource
-
 signal hovered_on
 signal hovered_off
 
@@ -10,10 +8,14 @@ var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
-var card_being_dragged = false
+
 
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
+	
+	if card_stats != null:
+		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
+		update_tooltip("Effect", "Deals " + str(card_stats.dmg) + " damage",  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/rock.tres").duplicate()
@@ -50,7 +52,8 @@ func upgrade_card(num):
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
 			card_stats.buy_price = 16
-	
+			
+	update_tooltip("Effect", "Deals " + str(card_stats.dmg) + " damage")
 	update_card_ui()
 
 func item_enchant(enchant):
@@ -61,12 +64,15 @@ func item_enchant(enchant):
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 	update_card_ui()
-	
+
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$UpgradeBorder.texture = load(card_stats.card_art_path)
 	$CardUI/DmgNumContainer/DamagPanel/DamageLabel.text = str(card_stats.dmg)
-	$CardUI/CDPanel/CDLabel.text = str(card_stats.cd)
+	if card_stats.cd > 0:
+		$CardUI/CDPanel.visible = true
+		$CardUI/CDPanel/CDLabel.text = str(card_stats.cd)
+	else: $CardUI/CDPanel.visible = false
 
 func disable_collision():
 	$Area2D/CollisionShape2D.disabled = true
@@ -80,12 +86,10 @@ func enable_collision():
 
 func card_shop_ui():
 	if card_stats.is_players:
-		$CardUI/ShopPanel/SellPrice.text = str(card_stats.sell_price) + "g"
-		$CardUI/ShopPanel/BuyPrice.text = ""
-	
+		$CardUI/ShopPanel/ShopLabel.text = str(card_stats.sell_price)
+
 	if !card_stats.is_players:
-		$CardUI/ShopPanel/BuyPrice.text = "- " + str(card_stats.buy_price) + "g"
-		$CardUI/ShopPanel/SellPrice.text = ""
+		$CardUI/ShopPanel/ShopLabel.text =  str(card_stats.buy_price)
 
 func update_card_ui():
 	update_card_image()
@@ -98,7 +102,7 @@ func change_item_enchant_image():
 	
 	if enchant == "Bleed":
 		$ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
-		update_tooltip("Bleed: ", "Deals " + str(card_stats.bleed_dmg))
+		update_tooltip("Bleed", "Deals " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
 		update_damage_label("Bleed")
 	
 	else: $ItemEnchantImage.texture = null
@@ -122,7 +126,7 @@ func toggle_tooltip_show():
 		correction = Vector2(0, 0)
 	else:
 		#Toggles when mouse is on right side of screen
-		correction = -Vector2($PopupPanel/VBoxContainer/HBoxContainer.size.x + 310, 0)
+		correction = -Vector2($PopupPanel/VBoxContainer.size.x + 310, 0)
 
 	$PopupPanel.popup(Rect2i(position + Vector2(150, -155) + correction, Vector2(100, 100)))
 
@@ -130,17 +134,27 @@ func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	$PopupPanel.hide()
 
-func update_tooltip(header, body):
-	var hbox = HBoxContainer.new()
-	$PopupPanel/VBoxContainer.add_child(hbox)
-	var name_label = Label.new()
-	hbox.add_child(name_label)
-	name_label.add_theme_color_override("font_color", Color.BLACK)
-	name_label.text = str(header)
-	var body_label = Label.new()
-	hbox.add_child(body_label)
-	body_label.add_theme_color_override("font_color", Color.BLACK)
-	body_label.text = str(body)
+func update_tooltip(identifier, body = null, header = null,):
+	var tooltip
+	for i in $PopupPanel/VBoxContainer.get_children():
+		if i.name == identifier: 
+			tooltip = i
+
+	if tooltip == null:
+		var hbox = HBoxContainer.new()
+		hbox.name = identifier
+		$PopupPanel/VBoxContainer.add_child(hbox)
+		var name_label = Label.new()
+		hbox.add_child(name_label)
+		name_label.add_theme_color_override("font_color", Color.BLACK)
+		name_label.text = str(header)
+		var body_label = Label.new()
+		hbox.add_child(body_label)
+		body_label.add_theme_color_override("font_color", Color.BLACK)
+		body_label.text = str(body)
+	
+	else:
+		tooltip.get_child(1).text = str(body)
 
 func update_damage_label(type):
 	var styleBox: StyleBoxFlat = $CardUI/DmgNumContainer/DamagPanel2.get_theme_stylebox("panel").duplicate()
@@ -171,4 +185,5 @@ func toggle_cd():
 
 func toggle_shop_ui(show):
 	if show: $CardUI/ShopPanel.visible = true
-	else:  $CardUI/ShopPanel.visible = false
+	if Global.current_scene == "shop": return
+	if !show:  $CardUI/ShopPanel.visible = false

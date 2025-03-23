@@ -14,6 +14,8 @@ func _ready():
 	set_stats(enemy_stats_resource)
 	set_enemy_gold()
 	set_enemy_xp()
+	$EnemyUI/EnemyHealthBar.max_value = enemy_stats.health
+	$EnemyUI/EnemyHealthBar.value = enemy_stats.health
 	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 

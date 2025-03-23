@@ -1,5 +1,8 @@
 extends Node2D
 
+#Proof of concept=================================================================================
+signal damage_taken
+#===================================================================================================
 var current_screen = ""
 
 @onready var player_deck = $player_deck
@@ -11,6 +14,7 @@ var current_screen = ""
 
 var rng = RandomNumberGenerator.new()
 var debuff_db_reference
+var buff_db_reference
 
 var player_inventory_list
 var player_deck_list 
@@ -29,6 +33,7 @@ var player
 func _ready():
 	get_node("Timer").wait_time *= Global.COMBAT_SPEED
 	debuff_db_reference = preload("res://Resources/Debuffs/debuff_db.gd")
+	buff_db_reference = preload("res://Resources/Buffs/buff_db.gd")
 
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
@@ -38,7 +43,6 @@ func combat(player_deck_list, enemy_deck_list):
 	var turn_incrementer = 1
 
 	print("It is turn " + str(turn_counter))
-	buff_keeper()
 	player_deck.build_deck_position()
 	enemy_node.build_deck_position()
 	
@@ -76,6 +80,7 @@ func combat(player_deck_list, enemy_deck_list):
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		bleed_damage_keeper()
+		buff_turn_keeper()
 		debuff_turn_keeper()
 		
 		player_node.get_node("Berserker").change_rage(null, -3)
@@ -136,6 +141,7 @@ func damage_func(i):
 	
 	if i.card_stats.in_enemy_deck: 
 		change_health(false, damage)
+		emit_signal("damage_taken")
 		ui.update_combat_log_damage_taken(damage, player, enemy, true, i, crit)
 		ui.change_enemy_damage_number(damage, crit)
 		
@@ -154,7 +160,7 @@ func bleed_func(i):
 		ui.update_combat_log_bleed("bleed_func", player.player_stats.bleeding_dmg, player, enemy, true, null, null)
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
-		debuff_intantiate("Bleed", enemy, i.card_stats.bleed_dmg)
+		debuff_instantiate("Bleed", enemy, i.card_stats.bleed_dmg)
 		ui.update_combat_log_bleed("bleed_func", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
 
 func bleed_damage_keeper():
@@ -180,7 +186,7 @@ func change_health(character, value):
 		Global.change_player_health(-value)
 		player_node.get_node("Berserker").change_rage(enemy, value)
 		player.player_stats.health -= value
-		player_node.change_player_health()
+		player.change_player_health()
 
 func heal_func(i):
 	if i.card_stats.heal <= 0: return
@@ -192,13 +198,8 @@ func heal_func(i):
 	if crit_check(i): heal *= 2
 	change_health(!player_card, -heal)
 
-func buff_keeper():
-	var buffs = get_tree().get_nodes_in_group("buff")
-	for i in buffs:
-		i.remove_counter()
-
 func cooldown_keeper(card):
-	card.card_stats.cd_remaining = card.card_stats.cd
+	card.card_stats.cd_remaining = card.card_stats.cd + 1
 	card.card_stats.on_cd = true
 
 func build_player_deck_list():
@@ -351,7 +352,7 @@ func _on_talent_button_button_down():
 func _on_timer_timeout():
 	pass # Replace with function body.
 
-func debuff_intantiate(debuff, target, amount):
+func debuff_instantiate(debuff, target, amount):
 	for i in get_tree().get_nodes_in_group("debuff"):
 		if i.debuff_name == debuff: 
 			target.increase_debuff(i, amount)
@@ -363,3 +364,21 @@ func debuff_intantiate(debuff, target, amount):
 func debuff_turn_keeper():
 	for i in get_tree().get_nodes_in_group("debuff"):
 		i.debuff_decrement()
+
+func buff_turn_keeper():
+	for i in get_tree().get_nodes_in_group("buff"):
+		i.buff_decrement()
+
+func buff_instantiate(buff, target, amount = null):
+	for i in get_tree().get_nodes_in_group("buff"):
+		if i.buff_name == buff: 
+			target.increase_buff(i, amount)
+			return
+
+	if target == player:
+		var new_buff = load(buff_db_reference.BUFFS[buff]).instantiate()
+		target.add_buff(new_buff, amount)
+		
+		#Proof of concept ========================================================================
+		new_buff.connect_signals(self)
+		#==========================================================================================

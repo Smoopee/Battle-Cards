@@ -17,9 +17,9 @@ func set_stats(stats = Merchant_Resource) -> void:
 	merchant_stats = stats
 
 func get_inventory():
-	double_up.upgrade_level = 1
-	for i in range(0,2):
-		inventory.push_front(double_up)
+	#double_up.upgrade_level = 1
+	#for i in range(0,2):
+		#inventory.push_front(double_up)
 	
 	strengthen.upgrade_level = 1
 	for i in range(0,2):

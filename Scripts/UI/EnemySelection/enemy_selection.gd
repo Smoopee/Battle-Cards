@@ -10,8 +10,6 @@ var is_hoovering_on_card
 var card_being_dragged
 var card_selector_reference
 
-var enemy_selection_screen = true
-var current_screen = ""
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -27,9 +25,9 @@ func _input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
 	
-	if !enemy_selection_screen: return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			$TooltipTimer.stop()
 			var enemy = raycast_check_for_enemy()
 			var card = raycast_check_for_card_selector()
 			if card:
@@ -48,6 +46,7 @@ func finish_drag():
 		enemy_loader(enemy_found)
 		inventory_and_deck_save()
 		Global.save_function()
+		Global.current_scene = "deck_builder"
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
@@ -95,17 +94,6 @@ func enemy_loader(enemy):
 	Global.max_enemy_health = Global.current_enemy.health
 	Global.enemy_health = Global.max_enemy_health
 
-func _on_inventory_button_down():
-	$PlayerInventoryScreen.visible = true
-	$PlayerInventoryScreen.inventory_screen = true
-	enemy_selection_screen = false
-	$CanvasLayer/VBoxContainer/Inventory.visible = false
-	$CanvasLayer/VBoxContainer/Talent.visible = false
-	$CanvasLayer/VBoxContainer/Menu.visible = false
-	$CanvasLayer/VBoxContainer/Back.visible = true
-	current_screen = "inventory"
-
-
 func inventory_and_deck_save():
 	var temp_inventory = []
 	for i in player_inventory.inventory_card_slot_reference:
@@ -127,30 +115,6 @@ func display_enemy_cards(enemy):
 	for i in $EnemyDeckDisplay.get_children():
 		i.queue_free()
 	$EnemyDeckDisplay.create_enemy_cards(enemy)
-
-func _on_talent_button_down():
-	$TalentTree.visible = true
-	enemy_selection_screen = false
-	$CanvasLayer/VBoxContainer/Inventory.visible = false
-	$CanvasLayer/VBoxContainer/Talent.visible = false
-	$CanvasLayer/VBoxContainer/Menu.visible = false
-	$CanvasLayer/VBoxContainer/Back.visible = true
-	current_screen = "talents"
-
-
-func _on_back_button_down():
-	match(current_screen):
-		"inventory":
-			$PlayerInventoryScreen.visible = false
-			$PlayerInventoryScreen.inventory_screen = false
-		"talents":
-			$TalentTree.visible = false
-
-	$CanvasLayer/VBoxContainer/Inventory.visible = true
-	$CanvasLayer/VBoxContainer/Talent.visible = true
-	$CanvasLayer/VBoxContainer/Menu.visible = true
-	$CanvasLayer/VBoxContainer/Back.visible = false
-	enemy_selection_screen = true
 
 func connect_card_signals(card):
 	card.connect("hovered_on", on_hovered_over)

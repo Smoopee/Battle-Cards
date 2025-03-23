@@ -27,12 +27,10 @@ func enable_collision():
 
 func card_shop_ui():
 	if card_stats.is_players:
-		$CardUI/SellPrice.text = str(card_stats.sell_price) + "g"
-		$CardUI/BuyPrice.text = ""
-	
+		$CardUI/ShopPanel/ShopLabel.text = str(card_stats.sell_price)
+
 	if !card_stats.is_players:
-		$CardUI/BuyPrice.text = "- " + str(card_stats.buy_price) + "g"
-		$CardUI/SellPrice.text = ""
+		$CardUI/ShopPanel/ShopLabel.text =  str(card_stats.buy_price)
 
 func update_card_ui():
 	update_card_image()
@@ -44,3 +42,8 @@ func change_item_enchant_image():
 
 func change_card_dmg_text():
 	pass
+
+func toggle_shop_ui(show):
+	if show: $CardUI/ShopPanel.visible = true
+	if Global.current_scene == "shop": return
+	if !show:  $CardUI/ShopPanel.visible = false

@@ -99,6 +99,7 @@ size_flags_horizontal = 3
 text = "2xp"
 
 [node name="EnemySelectionHealth" type="Label" parent="EnemyUI"]
+layout_mode = 0
 offset_left = 9.0
 offset_top = -20.0
 offset_right = 121.0

@@ -35,3 +35,4 @@ class_name Cards_Resource
 @export var is_discarded: bool
 @export var is_blank: bool
 @export var is_updated: bool
+

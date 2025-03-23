@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca5s7k08sh2f8"
-path="res://.godot/imported/strengthen3_card.png-2f677d2f5bcb4074e1af2cb785423c55.ctex"
+uid="uid://43dxdgf1gs4f"
+path="res://.godot/imported/strenghten_buff.png-f43d0b6002de36d6aa2b9ee472d9ca55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/strengthen3_card.png"
-dest_files=["res://.godot/imported/strengthen3_card.png-2f677d2f5bcb4074e1af2cb785423c55.ctex"]
+source_file="res://Resources/Art/Buffs/strenghten_buff.png"
+dest_files=["res://.godot/imported/strenghten_buff.png-f43d0b6002de36d6aa2b9ee472d9ca55.ctex"]
 
 [params]
 

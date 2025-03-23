@@ -61,7 +61,7 @@ func new_game_function():
 
 	Global.player_inventory = []
 	Global.player_deck = []
-	Global.player_gold = 0
+	Global.player_gold = 100
 	Global.player_xp = 0
 	Global.player_level = 1
 	Global.player_class = ""

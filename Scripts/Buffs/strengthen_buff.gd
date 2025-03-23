@@ -1,27 +1,44 @@
 extends Control
 
 var count = 0
-var debuff_name = "Bleed"
+var buff_name = "Strengthen"
+var buff_effect = 0
 
 func _ready():
-	$PopupPanel/VBoxContainer/Name.text = debuff_name
-	update_tooltip("Effect", "Take " + str(count) + " damage this turn",  "Effect: ")
+	$PopupPanel/VBoxContainer/Name.text = buff_name
+	update_tooltip("Effect", "Attack increased by " + str(count),  "Effect: ")
 
-func debuff_counter(amount):
+func buff_counter(amount = null):
+	if amount == null: return
 	count += amount
-	$DebuffCounters.text = str(count)
-	update_tooltip("Effect",  "Take " + str(count) + " damage this turn")
+	$BuffCounters.text = str(count)
+	update_tooltip("Effect", "Attack increased by " + str(count))
 
-func debuff_decrement(amount = 1):
+func buff_decrement(amount = null):
+	if amount == null: return
 	count -= 1
-	$DebuffCounters.text = str(count)
+	$BuffCounters.text = str(count)
 	if count <= 0: queue_free()
+
+#=Proof of concept===============================================================================
+func connect_signals(battle_sim):
+	battle_sim.connect("damage_taken", damage_taken)
+
+func damage_taken():
+	pass
+#================================================================================================
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
 	var mouse_pos = get_viewport().get_mouse_position()
-	var correction = -Vector2($PopupPanel/VBoxContainer.size.x + 100, 0)
-	$PopupPanel.popup(Rect2i(global_position + Vector2(0, 30) + correction, Vector2(0, 0)))
+	var correction 
+	
+	if mouse_pos.x <= get_viewport_rect().size.x/2:
+		correction = Vector2(0, 0)
+	else:
+		#Toggles when mouse is on right side of screen
+		correction = -Vector2($PopupPanel/VBoxContainer.size.x + 310, 0)
+	$PopupPanel.popup(Rect2i(global_position + Vector2(20, -70) + correction, Vector2(0, 0)))
 
 func toggle_tooltip_hide():
 	$PopupPanel.hide()

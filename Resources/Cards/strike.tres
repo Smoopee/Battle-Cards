@@ -1,18 +1,17 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://bdjo7rfe23rjg"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://bdlyp26qfxc07"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_hc35b"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_5j367"]
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_hc35b")
-card_art_path = "res://Resources/Cards/CardArt/Strengthen_card.png"
-card_scene_path = "res://Scenes/Cards/strengthen.tscn"
-name = "Strengthen"
-dmg = 0
-cd = 1
+script = ExtResource("1_5j367")
+card_art_path = "res://Resources/Cards/CardArt/strike_card.png"
+card_scene_path = "res://Scenes/Cards/strike.tscn"
+name = "Strike"
+dmg = 5
+cd = 0
 cd_remaining = 0
 on_cd = false
-upgrade_effect = 2
+upgrade_effect = 0
 position = 0
 inventory_position = 0
 deck_position = 0

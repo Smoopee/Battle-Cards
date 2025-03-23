@@ -30,7 +30,7 @@ size = Vector2(344.5, 261.5)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_aggqm"]
 
-[node name="BerserkerBattleSim" type="Node2D"]
+[node name="BerserkerBattleSim" type="Node2D" groups=["battle sim"]]
 script = ExtResource("1_grqco")
 
 [node name="PlayerSkills" type="Node2D" parent="."]
@@ -162,9 +162,10 @@ position = Vector2(565.75, 128.25)
 shape = SubResource("RectangleShape2D_kivf2")
 
 [node name="UpgradeButton" type="CheckButton" parent="NextTurn/DeckBuilder"]
-offset_left = 331.0
+visible = false
+offset_left = 298.0
 offset_top = 807.0
-offset_right = 571.0
+offset_right = 538.0
 offset_bottom = 838.0
 text = "Upgrade Mode"
 

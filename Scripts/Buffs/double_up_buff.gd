@@ -12,8 +12,7 @@ func _ready():
 		parent.card_stats.dmg *= multiplier
 		parent.update_card_ui()
 		gained_dmg = parent.card_stats.dmg - original_dmg
-	
-	
+
 func remove_counter():
 	if counter <= 0: return
 	

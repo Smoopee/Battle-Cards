@@ -56,6 +56,7 @@ func load_battle_sim():
 	var player_class = Global.player_class
 	match player_class:
 		"berserker":
+			Global.current_scene = "battle_sim"
 			get_tree().change_scene_to_file(("res://Scenes/Battle/berserker_battle_sim.tscn"))
 
 func _on_talent_button_button_down():

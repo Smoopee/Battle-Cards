@@ -1,14 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bryd511tswp4i"]
+[gd_scene load_steps=11 format=3 uid="uid://cwtxlisht1yu1"]
 
-[ext_resource type="Script" path="res://Scripts/Cards/rocks.gd" id="1_l5vns"]
-[ext_resource type="Texture2D" uid="uid://byfi1js4kcqdo" path="res://Resources/Cards/CardArt/rock.png" id="3_osh8a"]
-[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/UI/ItemEnhancement/bleed_enhancement.png" id="4_13mm8"]
-[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_mkxmw"]
+[ext_resource type="Script" path="res://Scripts/Cards/strike.gd" id="1_qbtse"]
+[ext_resource type="Texture2D" uid="uid://cbar7wb4edetf" path="res://Resources/Cards/CardArt/strike_card.png" id="2_2kv1a"]
+[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/UI/ItemEnhancement/bleed_enhancement.png" id="2_5ehj6"]
+[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="3_hkw2m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dmh4b"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n37v5"]
 size = Vector2(143, 180)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iixph"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mig3"]
 bg_color = Color(1, 1, 0.905882, 1)
 border_width_left = 2
 border_width_top = 2
@@ -16,9 +16,9 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frv14"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s08l2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv1be"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6ar5"]
 bg_color = Color(0.688023, 0.596125, 0.233008, 1)
 border_width_left = 2
 border_width_top = 2
@@ -26,14 +26,14 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxang"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2scgr"]
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hewk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjyhb"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -45,26 +45,24 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Rock" type="Node2D" groups=["card", "weapon"]]
-texture_filter = 1
-position = Vector2(0, -38.4)
-script = ExtResource("1_l5vns")
+[node name="Strike" type="Node2D" groups=["card"]]
+script = ExtResource("1_qbtse")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("3_osh8a")
+texture = ExtResource("2_2kv1a")
 
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
 
 [node name="ItemEnchantImage" type="Sprite2D" parent="."]
 position = Vector2(50, 64.4)
-texture = ExtResource("4_13mm8")
+texture = ExtResource("2_5ehj6")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_dmh4b")
+shape = SubResource("RectangleShape2D_n37v5")
 
 [node name="CardUI" type="Control" parent="."]
 layout_mode = 3
@@ -86,7 +84,7 @@ alignment = 1
 [node name="DamagPanel" type="Panel" parent="CardUI/DmgNumContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_iixph")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6mig3")
 
 [node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel"]
 layout_mode = 1
@@ -108,7 +106,7 @@ vertical_alignment = 1
 visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_iixph")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6mig3")
 
 [node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel2"]
 layout_mode = 1
@@ -133,7 +131,7 @@ offset_top = -2.99999
 offset_right = 142.0
 offset_bottom = 177.0
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_frv14")
+theme_override_styles/panel = SubResource("StyleBoxFlat_s08l2")
 
 [node name="Label" type="Label" parent="CardUI/CDDisplayPanel"]
 layout_mode = 1
@@ -168,7 +166,7 @@ offset_left = -2.0
 offset_top = 147.4
 offset_right = 28.0
 offset_bottom = 177.4
-theme_override_styles/panel = SubResource("StyleBoxFlat_gv1be")
+theme_override_styles/panel = SubResource("StyleBoxFlat_f6ar5")
 
 [node name="ShopLabel" type="Label" parent="CardUI/ShopPanel"]
 layout_mode = 1
@@ -190,7 +188,7 @@ offset_left = 56.0
 offset_top = 155.4
 offset_right = 86.0
 offset_bottom = 185.4
-theme_override_styles/panel = SubResource("StyleBoxFlat_qxang")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2scgr")
 
 [node name="CDLabel" type="Label" parent="CardUI/CDPanel"]
 layout_mode = 1
@@ -209,12 +207,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_mkxmw")
+stream = ExtResource("3_hkw2m")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(384, 100)
-theme_override_styles/panel = SubResource("StyleBoxFlat_3hewk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjyhb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 anchors_preset = 15
@@ -232,7 +230,6 @@ layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-text = "Rock"
 
 [connection signal="mouse_entered" from="CardUI" to="." method="_on_card_ui_mouse_entered"]
 [connection signal="mouse_exited" from="CardUI" to="." method="_on_card_ui_mouse_exited"]

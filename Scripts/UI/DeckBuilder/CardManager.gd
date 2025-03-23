@@ -58,7 +58,6 @@ func _input(event):
 			var card = raycast_check_for_card()
 			if card:
 				start_drag(card)
-				stop_tooltip_timer()
 		else:
 			if card_being_dragged:
 				finish_drag()
@@ -522,7 +521,6 @@ func connect_card_signals(card):
 	card.connect("hovered_off", on_hovered_off)
 
 func on_hovered_over(card):
-	if card_being_dragged: return
 	card.mouse_exit = false
 	card.scale = Vector2(1.1, 1.1)
 	$"../TooltipTimer".start()
@@ -539,9 +537,6 @@ func on_hovered_off(card):
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
 	card.z_index = 1
-
-func stop_tooltip_timer():
-	$"../TooltipTimer".stop()
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.

@@ -39,14 +39,10 @@ position = Vector2(993, 183)
 shape = SubResource("RectangleShape2D_7hlh6")
 
 [node name="UpgradeButton" type="CheckButton" parent="."]
-visible = false
 offset_left = 215.0
 offset_top = 739.0
 offset_right = 378.0
 offset_bottom = 770.0
 text = "Upgrade Mode"
 
-[node name="TooltipTimer" type="Timer" parent="."]
-
 [connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]
-[connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]

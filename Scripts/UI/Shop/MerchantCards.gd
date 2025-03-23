@@ -28,6 +28,7 @@ func create_merchant_inventory():
 		i.get_node("Area2D").collision_mask = 64
 		i.get_node("Area2D").collision_layer = 64
 		i.update_card_ui()
+		i.toggle_shop_ui(true)
 		i.card_shop_ui()
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
