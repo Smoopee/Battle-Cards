@@ -15,6 +15,7 @@ func debuff_counter(amount):
 func debuff_decrement(amount = 1):
 	count -= 1
 	$DebuffCounters.text = str(count)
+	update_tooltip("Effect",  "Take " + str(count) + " damage this turn")
 	if count <= 0: queue_free()
 
 func toggle_tooltip_show():

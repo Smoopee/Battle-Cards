@@ -1,5 +1,8 @@
 extends Node2D
 
+const BUFF_X_POSITION = 645
+const BUFF_Y_POSITION = -143
+
 @export var character_stats_resource: Character_Resource
 
 var player_stats: Character_Resource = null
@@ -15,6 +18,7 @@ func _ready():
 	set_talents()
 	$RageBar.position = get_parent().position + Vector2(70, -64)
 	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack)
+	$StatContainer/DefenseLabel.text = "Def: " + str(player_stats.defense)
 	$StatContainer/ArmorLabel.text = "Armor: " +  str(player_stats.armor)
 	
 	$PlayerHealthBar.max_value = Global.max_player_health
@@ -35,7 +39,6 @@ func change_player_health():
 	$PlayerHealthBar.value = Global.player_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 
-
 func change_rage(source, value):
 	var rage_bar = $RageBar
 	if savagery: value = $Talents.get_node("Savagery").talent_effect(source, value)
@@ -50,6 +53,9 @@ func change_rage(source, value):
 
 func change_attack_label():
 	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack) 
+
+func change_defense_label():
+	$StatContainer/DefenseLabel.text = "Def: " + str(player_stats.defense)
 
 func change_damage(card):
 	pass
@@ -68,6 +74,14 @@ func blood_bath_func(bleed_damage):
 func add_buff(buff, amount = null):
 	$BuffContainer.add_child(buff)
 	buff.buff_counter(amount)
+	organize_buffs()
 
 func increase_buff(buff, amount = 0):
 	buff.buff_counter(amount)
+
+func organize_buffs():
+	var x_offset = 0
+	for i in $BuffContainer.get_children():
+		i.position = $BuffContainer.position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
+		i.scale = Vector2(2,2)
+		x_offset += 50

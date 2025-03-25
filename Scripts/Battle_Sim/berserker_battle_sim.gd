@@ -23,12 +23,14 @@ var player_skill_list = []
 var enemy_skill_list = []
 var player_armor = 0
 var enemy_armor = 0
-var turn_counter = 1
+var round_counter = 1
 
 var player_bleed_dmg = 0
 var enemy_bleed_dmg = 0
 var enemy
 var player
+
+var damage
 
 func _ready():
 	get_node("Timer").wait_time *= Global.COMBAT_SPEED
@@ -40,9 +42,9 @@ func combat(player_deck_list, enemy_deck_list):
 	player =  get_tree().get_nodes_in_group("character")[0] 
 	
 	var is_dead
-	var turn_incrementer = 1
+	var round_incrementer = 1
 
-	print("It is turn " + str(turn_counter))
+	print("It is turn " + str(round_counter))
 	player_deck.build_deck_position()
 	enemy_node.build_deck_position()
 	
@@ -96,9 +98,8 @@ func combat(player_deck_list, enemy_deck_list):
 		is_dead = death_checker()
 		if is_dead: break
 	
-	
 	if is_dead: return
-	turn_counter += turn_incrementer
+	round_counter += round_incrementer
 	store_active_decks()
 	next_turn_handler()
 
@@ -130,47 +131,51 @@ func crit_check(i):
 
 func damage_func(i):
 	if i.card_stats.dmg <= 0: return
-	var damage 
 	var crit = false
-	if i.card_stats.in_enemy_deck: damage = i.card_stats.dmg + enemy.enemy_stats.attack - player.player_stats.armor
-	else:  damage = i.card_stats.dmg + player.player_stats.attack - enemy.enemy_stats.armor
+	if i.card_stats.in_enemy_deck: 
+		damage = i.card_stats.dmg + enemy.enemy_stats.attack - player.player_stats.defense
+		damage -= player.player_stats.armor
+	else:  
+		damage = i.card_stats.dmg + player.player_stats.attack - enemy.enemy_stats.defense
+		damage -= enemy.enemy_stats.armor
 	
 	if crit_check(i): 
 		damage *= 2
 		crit = true
 	
 	if i.card_stats.in_enemy_deck: 
+		emit_signal("damage_taken", damage, enemy)
 		change_health(false, damage)
-		emit_signal("damage_taken")
 		ui.update_combat_log_damage_taken(damage, player, enemy, true, i, crit)
 		ui.change_enemy_damage_number(damage, crit)
 		
 	else:
 		change_health(true, damage)
+		emit_signal("damage_taken", damage, player)
 		player_node.get_node("Berserker").change_rage(player, damage)
 		player_node.get_node("Berserker").change_damage(i)
 		ui.update_combat_log_damage_taken(damage, player, enemy, false, i, crit)
 		ui.change_player_damage_number(damage, crit)
+
+func modified_damage(new_damage):
+	damage = new_damage
 
 func bleed_func(i):
 	if i.card_stats.bleed_dmg <= 0: return
 	
 	if i.card_stats.in_enemy_deck: 
 		player.player_stats.bleeding_dmg += i.card_stats.bleed_dmg
-		ui.update_combat_log_bleed("bleed_func", player.player_stats.bleeding_dmg, player, enemy, true, null, null)
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
 		debuff_instantiate("Bleed", enemy, i.card_stats.bleed_dmg)
-		ui.update_combat_log_bleed("bleed_func", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
 
 func bleed_damage_keeper():
-	if player.player_stats.bleeding_dmg > 0:
+	if player.player_stats.bleeding_dmg >= 0:
 		ui.change_player_bleed_taken(player.player_stats.bleeding_dmg)
 		change_health(false, player.player_stats.bleeding_dmg)
-		ui.update_combat_log_bleed("bleed_damage_keeper", player.player_stats.bleeding_dmg, player, enemy, true, null, null)
 	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
 	
-	if enemy.enemy_stats.bleeding_dmg > 0:
+	if enemy.enemy_stats.bleeding_dmg >= 0:
 		player_node.get_node("Berserker").blood_bath_func(enemy.enemy_stats.bleeding_dmg)
 		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
 		change_health(true, enemy.enemy_stats.bleeding_dmg)
@@ -369,7 +374,7 @@ func buff_turn_keeper():
 	for i in get_tree().get_nodes_in_group("buff"):
 		i.buff_decrement()
 
-func buff_instantiate(buff, target, amount = null):
+func buff_instantiate(buff, target, amount = 1, buff_effect = null,):
 	for i in get_tree().get_nodes_in_group("buff"):
 		if i.buff_name == buff: 
 			target.increase_buff(i, amount)
@@ -380,5 +385,5 @@ func buff_instantiate(buff, target, amount = null):
 		target.add_buff(new_buff, amount)
 		
 		#Proof of concept ========================================================================
-		new_buff.connect_signals(self)
+		if new_buff.triggered_buff == true: new_buff.connect_signals(self)
 		#==========================================================================================

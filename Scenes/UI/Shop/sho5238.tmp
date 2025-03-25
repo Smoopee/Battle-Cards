@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bbudyogspe5gy"]
+[gd_scene load_steps=15 format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="6_52iue"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_b14l4"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_ldslr"]
-[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="10_rtxoi"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="12_ega66"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_rxp0v"]
@@ -44,8 +43,6 @@ script = ExtResource("1_03fvr")
 
 [node name="Player" parent="." instance=ExtResource("6_52iue")]
 visible = false
-
-[node name="Berserker" parent="Player" instance=ExtResource("10_rtxoi")]
 
 [node name="ShopUI" type="Control" parent="."]
 layout_mode = 3

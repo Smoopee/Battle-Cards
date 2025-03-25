@@ -65,7 +65,6 @@ func build_deck():
 		counter += 1
 	return deck
 
-	
 func build_deck_position():
 	var temp_z_index = 13
 	for i in deck:
@@ -75,7 +74,7 @@ func build_deck_position():
 		i.z_index = temp_z_index
 		deck_offset -= 40
 		temp_z_index -= 1
-		
+
 func play_card(card):
 	animate_card_to_active_position(card)
 

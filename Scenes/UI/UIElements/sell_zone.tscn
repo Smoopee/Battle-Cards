@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://8sds3v74n7g"]
+
+[ext_resource type="Texture2D" uid="uid://c7yph7ywqhas6" path="res://Resources/UI/sellzone.png" id="1_p7i8j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hlh6"]
+size = Vector2(140.5, 177.5)
+
+[node name="SellZone" type="Node2D"]
+position = Vector2(0, 278)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(100.75, 111.25)
+shape = SubResource("RectangleShape2D_7hlh6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(102, 110)
+texture = ExtResource("1_p7i8j")

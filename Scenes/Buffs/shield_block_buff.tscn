@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdcr2euiyfjev"]
+[gd_scene load_steps=5 format=3 uid="uid://csyw5no52q24k"]
 
-[ext_resource type="Texture2D" uid="uid://43dxdgf1gs4f" path="res://Resources/Art/Buffs/strenghten_buff.png" id="1_anf4i"]
-[ext_resource type="Script" path="res://Scripts/Buffs/strengthen_buff.gd" id="1_lb4gy"]
+[ext_resource type="Script" path="res://Scripts/Buffs/shield_block_buff.gd" id="1_jvy31"]
+[ext_resource type="Texture2D" uid="uid://dvixvp1dygu44" path="res://Resources/Art/Buffs/shield_block_buff.png" id="2_dnpvg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvwy6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1spc"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,7 +15,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5txi1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqu3v"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 1
 border_width_top = 1
@@ -23,24 +23,24 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[node name="StrengthenBuff" type="Node2D" groups=["buff"]]
-script = ExtResource("1_lb4gy")
+[node name="ShieldBlockBuff" type="Node2D"]
+script = ExtResource("1_jvy31")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(30, 30)
 offset_left = -15.0
-offset_top = -15.0
+offset_top = -14.0
 offset_right = 15.0
-offset_bottom = 15.0
+offset_bottom = 16.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_anf4i")
+texture = ExtResource("2_dnpvg")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_bvwy6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1spc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -76,7 +76,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5txi1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rqu3v")
 
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
 [connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

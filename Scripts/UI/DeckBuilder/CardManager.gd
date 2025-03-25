@@ -9,6 +9,7 @@ const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
 const COLLISION_MASK_SELL_ZONE = 128
 
+var hover_on_upgrade_test = true
 var upgrade_mode = false
 var deck_reference
 var inventory_reference
@@ -25,6 +26,7 @@ var inventory_card_slot_index
 var deck_card_slot_reference_index
 var inventory_card_slot_reference_index
 var previous_card_slot
+
 
 
 func _ready():
@@ -121,9 +123,12 @@ func finish_drag():
 	
 	if raycast_check_for_card() and upgrade_mode:
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card()):
-			upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
+			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 			print("Upgrade card")
+			hover_on_upgrade_test = false
+			on_hovered_over(temp)
 			card_reset()
+			hover_on_upgrade_test = true
 			return
 	
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
@@ -206,8 +211,7 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func update_player_gold():
-	pass
-	#$"../PlayerUI".change_player_gold() 
+	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
 
 func upgrade_check(upgrade_card, base_card):
 	if upgrade_card.position == base_card.position: return false
@@ -225,7 +229,7 @@ func upgrade_card(upgrade_card, base_card):
 		base_card.item_enchant(temp_enchant2) 
 	upgrade_card.queue_free()
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
-	print("Upgrade card end")
+	return base_card
 
 func sell_card(card):
 	if inventory_card_slot_reference_index >= 0:
@@ -237,7 +241,6 @@ func sell_card(card):
 	Global.player_gold += card.card_stats.sell_price
 	deck_reference.remove_card(card)
 	card.queue_free()
-	card
 	update_player_gold()
 
 func enchant_from_inventory(base_card):
@@ -521,14 +524,15 @@ func connect_card_signals(card):
 	card.connect("hovered_off", on_hovered_off)
 
 func on_hovered_over(card):
+	if card_being_dragged and hover_on_upgrade_test == true: return
 	card.mouse_exit = false
 	card.scale = Vector2(1.1, 1.1)
 	$"../TooltipTimer".start()
 	await $"../TooltipTimer".timeout
 	if card == null: return
 	if card.mouse_exit or card_being_dragged: return
-	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
+	card.toggle_tooltip_show()
 	card.z_index = 2
 
 func on_hovered_off(card):

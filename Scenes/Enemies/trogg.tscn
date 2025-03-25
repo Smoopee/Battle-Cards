@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dswvx8admntjv"]
+[gd_scene load_steps=12 format=3 uid="uid://dswvx8admntjv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_owa5p"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="3_k3je5"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Skills.gd" id="5_te5x3"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_dl2cu"]
+[ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_mb6ag"]
+[ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="6_px841"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq8io"]
 size = Vector2(142.5, 174)
@@ -59,18 +61,19 @@ offset_bottom = -188.0
 grow_horizontal = 2
 grow_vertical = 0
 value = 100.0
-texture_under = SubResource("GradientTexture2D_asotu")
+texture_under = ExtResource("6_mb6ag")
+texture_over = ExtResource("6_px841")
 texture_progress = ExtResource("6_dl2cu")
 
 [node name="EnemyHealthLabel" type="Label" parent="EnemyUI/EnemyHealthBar"]
 layout_mode = 0
-offset_left = 630.0
+offset_left = 578.0
 offset_top = 4.0
-offset_right = 670.0
-offset_bottom = 20.0
+offset_right = 722.0
+offset_bottom = 22.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-text = "11"
+text = "3000/3000"
 horizontal_alignment = 1
 vertical_alignment = 1
 

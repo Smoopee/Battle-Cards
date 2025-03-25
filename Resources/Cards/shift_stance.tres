@@ -1,23 +1,22 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://bdjo7rfe23rjg"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://d1u662k7bv76b"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_hc35b"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_5j3wf"]
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_hc35b")
-card_art_path = "res://Resources/Cards/CardArt/Strengthen_card.png"
-card_scene_path = "res://Scenes/Cards/strengthen.tscn"
-name = "Strengthen"
+script = ExtResource("1_5j3wf")
+card_art_path = "res://Resources/Cards/CardArt/shift_stance_card.png"
+card_scene_path = "res://Scenes/Cards/shift_stance.tscn"
+name = "Shift Stance"
 dmg = 0
-cd = 2
+cd = 1
 cd_remaining = 0
 on_cd = false
-upgrade_effect1 = 2
-upgrade_effect2 = 0
+upgrade_effect1 = 5
+upgrade_effect2 = 1
 upgrade_effect3 = 0
 upgrade_effect4 = 0
 upgrade_effect5 = 0
-buff_count = 1
+buff_count = 0
 debuff_count = 0
 position = 0
 inventory_position = 0
@@ -29,8 +28,8 @@ bleed_dmg = 0
 heal = 0
 critical_strike_chance = 0.0
 in_enemy_deck = false
-sell_price = 2
-buy_price = 4
+sell_price = 0
+buy_price = 0
 is_players = false
 item_enchant = ""
 screen_position = Vector2(0, 0)

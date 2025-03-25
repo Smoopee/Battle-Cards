@@ -9,13 +9,12 @@ var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
 
-
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "Deals " + str(card_stats.dmg) + " damage",  "Effect: ")
+		update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage",  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/strike.tres").duplicate()
@@ -49,11 +48,11 @@ func upgrade_card(num):
 		4:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
-			card_stats.dmg = 140
+			card_stats.dmg = 40
 			card_stats.sell_price = 16
 			card_stats.buy_price = 32
 	
-	update_tooltip("Effect", "Deals " + str(card_stats.dmg) + " damage")
+	update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage")
 	update_card_ui()
 
 func item_enchant(enchant):
@@ -103,7 +102,7 @@ func change_item_enchant_image():
 	
 	if enchant == "Bleed":
 		$ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
-		update_tooltip("Bleed", "Deals " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+		update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
 		update_damage_label("Bleed")
 	
 	else: $ItemEnchantImage.texture = null
@@ -121,15 +120,16 @@ func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
-	var correction 
+	var correction = true
 	
-	if mouse_pos.x <= get_viewport_rect().size.x/2:
-		correction = Vector2(0, 0)
+	#Toggles when mouse is on right side of screen
+	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
+	
+	if correction == false:
+		$PopupPanel.popup(Rect2i(position + Vector2(150, -180), Vector2i(0, 0))) 
 	else:
-		#Toggles when mouse is on right side of screen
-		correction = -Vector2($PopupPanel/VBoxContainer.size.x + 310, 0)
-
-	$PopupPanel.popup(Rect2i(position + Vector2(150, -155) + correction, Vector2(100, 100)))
+		$PopupPanel.popup(Rect2i(position, Vector2i(0, 0))) 
+		$PopupPanel.position = position + Vector2(-150 - $PopupPanel.size.x , -180)
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)

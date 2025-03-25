@@ -36,8 +36,10 @@ func _on_reroll_button_button_down():
 			i.queue_free()
 	
 	merchant_cards.inventory_db = []
-	
 	merchant_cards.create_merchant_inventory()
+	
+	Global.player_gold -= 5
+	$CanvasLayer/ColorRect/PlayerUI.change_player_gold()
 
 func inventory_and_deck_save():
 	var temp_inventory = []

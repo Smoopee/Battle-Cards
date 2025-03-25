@@ -121,7 +121,7 @@ func connect_card_signals(card):
 	card.connect("hovered_off", on_hovered_off)
 
 func on_hovered_over(card):
-	if card_being_dragged: return
+	if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
 	card.mouse_exit = false
 	card.scale = Vector2(1.1, 1.1)
 	$TooltipTimer.start()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfuatscpo4eww"
-path="res://.godot/imported/LifeBarMiniUnder.png-c4a057b07fbae8f119d9f23e94ae2656.ctex"
+uid="uid://dvixvp1dygu44"
+path="res://.godot/imported/shield_block_buff.png-6ebdef38993ee70623d5bed931d95f02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/UI/LifeBarMiniUnder.png"
-dest_files=["res://.godot/imported/LifeBarMiniUnder.png-c4a057b07fbae8f119d9f23e94ae2656.ctex"]
+source_file="res://Resources/Art/Buffs/shield_block_buff.png"
+dest_files=["res://.godot/imported/shield_block_buff.png-6ebdef38993ee70623d5bed931d95f02.ctex"]
 
 [params]
 

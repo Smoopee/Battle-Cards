@@ -13,3 +13,5 @@ class_name Character_Resource
 @export var poisoning_dmg: int
 @export var attack: int
 @export var armor: int
+@export var defense: int
+@export var block: int

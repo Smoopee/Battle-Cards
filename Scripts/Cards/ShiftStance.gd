@@ -9,8 +9,6 @@ var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
 
-
-
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
@@ -19,41 +17,59 @@ func _ready():
 		update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage",  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
-	card_stats = load("res://Resources/Cards/rock.tres").duplicate()
+	card_stats = load("res://Resources/Cards/shift_stance.tres").duplicate()
 
 func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	pass
+	var mode = card_stats.card_mode
+	match mode:
+		"Defensive Stance":
+			print("Entered Battle Stance")
+			card_stats.card_mode = "Battle Stance"
+			player.player_stats.attack += card_stats.upgrade_effect1
+			player.change_attack_label()
+			player.player_stats.defense -= card_stats.upgrade_effect2
+			player.change_defense_label()
+			
+		"Battle Stance":
+			print("Enetered Defensive Stance")
+			card_stats.card_mode = "Defensive Stance"
+			player.player_stats.defense += card_stats.upgrade_effect2
+			player.change_defense_label()
+			player.player_stats.attack -= card_stats.upgrade_effect1
+			player.change_attack_label()
+		_: 
+			print("Entered Defensive Stance")
+			card_stats.card_mode = "Defensive Stance"
+			player.player_stats.defense += card_stats.upgrade_effect2
+			player.change_defense_label()
+			
 
 func upgrade_card(num):
 	match num:
 		1:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			card_stats.upgrade_level = 1
-			card_stats.dmg = 2
-			card_stats.sell_price = 1
-			card_stats.buy_price = 2
+			card_stats.sell_price = 2
+			card_stats.buy_price = 4
 		2: 
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
-			card_stats.dmg = 4
-			card_stats.sell_price = 2
-			card_stats.buy_price = 4
+			card_stats.sell_price = 4
+			card_stats.buy_price = 8
 		3:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
-			card_stats.dmg = 8 
-			card_stats.sell_price = 4
-			card_stats.buy_price = 8
+			card_stats.sell_price = 8
+			card_stats.buy_price = 16
 		4:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
-			card_stats.dmg = 16
-			card_stats.sell_price = 8
-			card_stats.buy_price = 16
-			
+			card_stats.sell_price = 16
+			card_stats.buy_price = 32
+	
 	update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage")
 	update_card_ui()
 
@@ -61,7 +77,7 @@ func item_enchant(enchant):
 	match enchant:
 		"Bleed":
 			card_stats.item_enchant = "Bleed"
-			card_stats.bleed_dmg = 6
+			card_stats.bleed_dmg = 8
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 	update_card_ui()
@@ -79,7 +95,7 @@ func disable_collision():
 	$Area2D/CollisionShape2D.disabled = true
 	$CardUI.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	disabled_collision = true
-	
+
 func enable_collision():
 	$Area2D/CollisionShape2D.disabled = false
 	$CardUI.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -97,6 +113,7 @@ func update_card_ui():
 	change_item_enchant_image()
 	change_card_dmg_text()
 	toggle_cd()
+	card_shop_ui()
 
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
@@ -131,7 +148,6 @@ func toggle_tooltip_show():
 	else:
 		$PopupPanel.popup(Rect2i(position, Vector2i(0, 0))) 
 		$PopupPanel.position = position + Vector2(-150 - $PopupPanel.size.x , -180)
-
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)

@@ -9,6 +9,7 @@ const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
 const COLLISION_MASK_SELL_ZONE = 128
 
+var hover_on_upgrade_test = true
 var upgrade_mode = false
 var deck_reference
 var inventory_reference
@@ -156,9 +157,12 @@ func finish_drag():
 	
 	if raycast_check_for_card() and upgrade_mode:
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card()):
-			upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
+			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 			print("Upgrade card")
+			hover_on_upgrade_test = false
+			on_hovered_over(temp)
 			card_reset()
+			hover_on_upgrade_test = true
 			return
 	
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
@@ -262,6 +266,7 @@ func upgrade_card(upgrade_card, base_card):
 	upgrade_card.queue_free()
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 	print("Upgrade card end")
+	return base_card
 
 func upgrade_from_reward(upgrade_card, base_card):
 	var temp_enchant = base_card.card_stats.item_enchant
@@ -566,7 +571,7 @@ func connect_card_signals(card):
 	card.connect("hovered_off", on_hovered_off)
 
 func on_hovered_over(card):
-	if card_being_dragged: return
+	if card_being_dragged and hover_on_upgrade_test == true: return
 	card.mouse_exit = false
 	card.scale = Vector2(1.1, 1.1)
 	$"../../../TooltipTimer".start()

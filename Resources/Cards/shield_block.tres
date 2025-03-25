@@ -1,18 +1,17 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://bdjo7rfe23rjg"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://c0p2m2cs8r3op"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_hc35b"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_xqlbv"]
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_hc35b")
-card_art_path = "res://Resources/Cards/CardArt/Strengthen_card.png"
-card_scene_path = "res://Scenes/Cards/strengthen.tscn"
-name = "Strengthen"
+script = ExtResource("1_xqlbv")
+card_art_path = "res://Resources/Cards/CardArt/shield_block_card.png"
+card_scene_path = "res://Scenes/Cards/shield_block.tscn"
+name = "Shield Block"
 dmg = 0
 cd = 2
 cd_remaining = 0
 on_cd = false
-upgrade_effect1 = 2
+upgrade_effect1 = 10
 upgrade_effect2 = 0
 upgrade_effect3 = 0
 upgrade_effect4 = 0
@@ -29,8 +28,8 @@ bleed_dmg = 0
 heal = 0
 critical_strike_chance = 0.0
 in_enemy_deck = false
-sell_price = 2
-buy_price = 4
+sell_price = 0
+buy_price = 0
 is_players = false
 item_enchant = ""
 screen_position = Vector2(0, 0)

@@ -1,6 +1,7 @@
 extends Node
 
-const COMBAT_SPEED = 1
+const COMBAT_SPEED = 2
+
 
 var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"
@@ -89,7 +90,7 @@ func instantiate_player_inventory():
 		player_inventory.push_back(card)
 
 func set_player_deck():
-	player_deck_db = ["Strengthen", "Strike", "Strike", "Strike", "Strike", 
+	player_deck_db = ["Strengthen", "Shield Block", "Shift Stance", "Strike", "Strike", 
 	"Strike", "Strike", "Strike", "Strike", "Strike"]
 
 func instantiate_player_deck():

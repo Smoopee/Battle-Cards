@@ -9,6 +9,7 @@ const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
 const COLLISION_MASK_SELL_ZONE = 128
 
+var hover_on_upgrade_test = true
 var upgrade_mode = false
 var deck_reference
 var inventory_reference
@@ -118,9 +119,12 @@ func finish_drag():
 	
 	if raycast_check_for_card() and upgrade_mode:
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card()):
-			upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
+			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 			print("Upgrade card")
+			hover_on_upgrade_test = false
+			get_tree().get_nodes_in_group("card manager")[0].on_hovered_over(temp)
 			card_reset()
+			hover_on_upgrade_test = true
 			return
 	
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
@@ -195,8 +199,7 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func update_player_gold():
-	pass
-	#$"../PlayerUI".change_player_gold() 
+	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on
@@ -218,6 +221,7 @@ func upgrade_card(upgrade_card, base_card):
 	upgrade_card.queue_free()
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 	print("Upgrade card end")
+	return base_card
 
 func sell_card(card):
 	if inventory_card_slot_reference_index >= 0:

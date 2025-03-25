@@ -53,9 +53,9 @@ func update_hand_positions():
  
 func calculate_card_position(index):
 	var more_space = 0
-	if get_children().size() > 6:
+	if inventory.size() > 6:
 		more_space = 30
-	if get_children().size() > 12:
+	if inventory.size() > 12:
 		more_space = 50
 	var total_width = (inventory.size() - 1) * (CARD_WIDTH - more_space)
 	var x_offset = center_screen_x + (index * (CARD_WIDTH - more_space)) - (total_width / 2)

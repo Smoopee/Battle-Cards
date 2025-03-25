@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=13 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_5sm1h"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_oagdc"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="5_pgxp2"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_ksv00"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_vlt6d"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyDeckDisplay.gd" id="8_xkyks"]
@@ -23,6 +24,8 @@ script = ExtResource("1_ijbvw")
 script = ExtResource("3_gsqul")
 
 [node name="Player" parent="." instance=ExtResource("4_5sm1h")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("5_pgxp2")]
 
 [node name="Background" type="TextureRect" parent="."]
 show_behind_parent = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://u7bfx5wgbwtw"]
+[gd_scene load_steps=12 format=3 uid="uid://u7bfx5wgbwtw"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/Merchant_organizer.gd" id="3_23ndt"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_ts7er"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_3txuy"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="5_d4q7p"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_i1rkl"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_w67wi"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="8_5acn1"]
@@ -23,6 +24,8 @@ visibility_layer = 3
 script = ExtResource("3_23ndt")
 
 [node name="Player" parent="." instance=ExtResource("4_ts7er")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("5_d4q7p")]
 
 [node name="Background" type="TextureRect" parent="."]
 show_behind_parent = true

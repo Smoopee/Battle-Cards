@@ -4,7 +4,6 @@ extends Node2D
 var inventory_db = []
 var inventory = []
 
-
 func build_inventory():
 	clear_cards()
 	inventory = []

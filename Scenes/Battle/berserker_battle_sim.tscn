@@ -20,11 +20,9 @@
 [ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/DeckCardSlots.gd" id="18_fyuy6"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="19_sxdom"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerDeck.gd" id="20_bgtuq"]
+[ext_resource type="PackedScene" uid="uid://8sds3v74n7g" path="res://Scenes/UI/UIElements/sell_zone.tscn" id="20_ywvep"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/CardManager.gd" id="21_t4lx0"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="22_bx334"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kivf2"]
-size = Vector2(344.5, 261.5)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_mdhh2"]
 
@@ -150,16 +148,8 @@ script = ExtResource("20_bgtuq")
 [node name="CardManager" type="Node2D" parent="NextTurn/DeckBuilder" groups=["card manager"]]
 script = ExtResource("21_t4lx0")
 
-[node name="SellZone" type="Node2D" parent="NextTurn/DeckBuilder"]
-position = Vector2(-400, 4)
-
-[node name="Area2D" type="Area2D" parent="NextTurn/DeckBuilder/SellZone"]
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NextTurn/DeckBuilder/SellZone/Area2D"]
-position = Vector2(565.75, 128.25)
-shape = SubResource("RectangleShape2D_kivf2")
+[node name="SellZone" parent="NextTurn/DeckBuilder" instance=ExtResource("20_ywvep")]
+position = Vector2(0, 20)
 
 [node name="UpgradeButton" type="CheckButton" parent="NextTurn/DeckBuilder"]
 visible = false

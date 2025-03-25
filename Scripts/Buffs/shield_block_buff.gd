@@ -1,25 +1,38 @@
 extends Node2D
 
 var count = 0
-var buff_name = "Strengthen"
-var buff_effect = 0
-var triggered_buff = false
+var buff_name = "Shield Block"
+var buff_effect = 10
+var triggered_buff = true
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = buff_name
-	update_tooltip("Effect", "Attack increased by " + str(count),  "Effect: ")
+	update_tooltip("Effect", "Block the next " + str(buff_effect) + " physical damage",  "Effect: ")
 
 func buff_counter(amount = null):
 	if amount == null: return
 	count += amount
+	
 	$BuffCounters.text = str(count)
-	update_tooltip("Effect", "Attack increased by " + str(count))
+	update_tooltip("Effect", "Block the next " + str(buff_effect) + " physical damage")
 
 func buff_decrement(amount = null):
-	if amount == null: return
 	count -= 1
 	$BuffCounters.text = str(count)
 	if count <= 0: queue_free()
+
+#=Proof of concept===============================================================================
+func connect_signals(battle_sim):
+	battle_sim.connect("damage_taken", damage_taken)
+
+func damage_taken(damage, target):
+	if get_parent().get_parent() == target: return 
+	var blocked_damage = damage - buff_effect
+	if blocked_damage <= 0: blocked_damage = 0
+	get_tree().get_nodes_in_group("battle sim")[0].modified_damage(blocked_damage)
+	buff_decrement()
+
+#================================================================================================
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dac2v2br3grnx"]
+[gd_scene load_steps=10 format=3 uid="uid://dac2v2br3grnx"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
 [ext_resource type="Resource" uid="uid://cyhj5ybc2b5yp" path="res://Resources/Character/berserker.tres" id="2_85j04"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cm8or4yet6qac" path="res://Resources/Art/UIElements/rage_bar.png" id="3_svegv"]
 [ext_resource type="Texture2D" uid="uid://cnegogy620h2a" path="res://Resources/temp_beserker.png" id="5_12jeq"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_i2nsu"]
+[ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_tlmij"]
+[ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="7_d0ter"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qj8m8"]
 size = Vector2(98, 128)
@@ -60,6 +62,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="DefenseLabel" type="Label" parent="StatContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Atk: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="StatContainer/DefenseLabel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="ArmorLabel" type="Label" parent="StatContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -83,17 +102,20 @@ offset_top = 93.0
 offset_right = 651.0
 offset_bottom = 117.0
 value = 100.0
+texture_under = ExtResource("6_tlmij")
+texture_over = ExtResource("7_d0ter")
 texture_progress = ExtResource("6_i2nsu")
 
 [node name="PlayerHealthLabel" type="Label" parent="PlayerHealthBar"]
 layout_mode = 0
 offset_left = 574.0
-offset_top = 3.0
+offset_top = 4.0
 offset_right = 723.0
-offset_bottom = 19.0
+offset_bottom = 20.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-text = "110"
+text = "3000/3000
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 

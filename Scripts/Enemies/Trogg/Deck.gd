@@ -16,6 +16,7 @@ func _ready():
 	var item9 = rock.duplicate()
 	var item10 = rock.duplicate()
 
+	item3.item_enchant = "Bleed"
 	item3.upgrade_level = 2
 	item7.upgrade_level = 3
 	

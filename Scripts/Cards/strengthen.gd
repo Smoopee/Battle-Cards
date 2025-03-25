@@ -15,7 +15,7 @@ func _ready():
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect),  "Effect: ")
+		update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect1),  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/strengthen.tres").duplicate()
@@ -27,13 +27,13 @@ func effect(player_deck, enemy_deck, player, enemy):
 	var target = player
 	if card_stats.in_enemy_deck == true:
 		target = enemy
-		enemy.enemy_stats.attack += card_stats.upgrade_effect
+		enemy.enemy_stats.attack += card_stats.upgrade_effect1
 		enemy.change_attack_label()
 	else:
-		player.player_stats.attack += card_stats.upgrade_effect
+		player.player_stats.attack += card_stats.upgrade_effect1
 		player.change_attack_label()
 	
-	get_tree().get_nodes_in_group("battle sim")[0].buff_instantiate("Strengthen", target, card_stats.upgrade_effect)
+	get_tree().get_nodes_in_group("battle sim")[0].buff_instantiate("Strengthen", target, card_stats.upgrade_effect1)
 
 func upgrade_card(num):
 	match num:
@@ -42,27 +42,27 @@ func upgrade_card(num):
 			card_stats.upgrade_level = 1
 			card_stats.sell_price = 3
 			card_stats.buy_price = 6
-			card_stats.upgrade_effect = 2
+			card_stats.upgrade_effect1 = 2
 		2: 
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
 			card_stats.sell_price = 6
 			card_stats.buy_price = 12
-			card_stats.upgrade_effect = 4
+			card_stats.upgrade_effect1 = 4
 		3:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
 			card_stats.sell_price = 12
 			card_stats.buy_price = 24
-			card_stats.upgrade_effect = 8
+			card_stats.upgrade_effect1 = 8
 		4:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
 			card_stats.sell_price = 48
 			card_stats.buy_price = 96
-			card_stats.upgrade_effect = 16
+			card_stats.upgrade_effect1 = 16
 	
-	update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect))
+	update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect1))
 	update_card_ui()
 
 func item_enchant(enchant):
@@ -73,7 +73,7 @@ func item_enchant(enchant):
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 	update_card_ui()
-	
+
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$UpgradeBorder.texture = load(card_stats.card_art_path)
@@ -87,7 +87,7 @@ func disable_collision():
 	$Area2D/CollisionShape2D.disabled = true
 	$CardUI.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	disabled_collision = true
-	
+
 func enable_collision():
 	$Area2D/CollisionShape2D.disabled = false
 	$CardUI.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -129,15 +129,17 @@ func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
-	var correction 
+	var correction = true
 	
-	if mouse_pos.x <= get_viewport_rect().size.x/2:
-		correction = Vector2(0, 0)
+	#Toggles when mouse is on right side of screen
+	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
+	
+	if correction == false:
+		$PopupPanel.popup(Rect2i(position + Vector2(150, -180), Vector2i(0, 0))) 
 	else:
-		#Toggles when mouse is on right side of screen
-		correction = -Vector2($PopupPanel/VBoxContainer.size.x + 310, 0)
+		$PopupPanel.popup(Rect2i(position, Vector2i(0, 0))) 
+		$PopupPanel.position = position + Vector2(-150 - $PopupPanel.size.x , -180)
 
-	$PopupPanel.popup(Rect2i(position + Vector2(150, -155) + correction, Vector2(100, 100)))
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
