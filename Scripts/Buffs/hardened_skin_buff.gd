@@ -1,21 +1,35 @@
 extends Node2D
 
 var count = 0
-var buff_name = "Shield Block"
-
+var buff_name = "Hardened Skin"
+var attached_to
+var buff_effect1
+var buff_effect2
+var buff_effect3
+var buff_effect4
+var buff_effect5
 
 
 func _ready():
+	get_tree().get_nodes_in_group("battle sim")[0].connect("end_of_round", buff_decrement)
 	$PopupPanel/VBoxContainer/Name.text = buff_name
+
+func buff_initializer(source,target):
+	buff_effect1 = source.card_stats.effect1
+	attached_to = target
+	buff_counter(source.card_stats.buff_count)
+	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")
 
 func buff_counter(amount = null):
 	if amount == null: return
 	count += amount
 	$BuffCounters.text = str(count)
+	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")
 
 func buff_decrement(amount = null):
 	count -= 1
 	$BuffCounters.text = str(count)
+	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")
 	if count <= 0: queue_free()
 
 func toggle_tooltip_show():
@@ -60,3 +74,4 @@ func _on_panel_mouse_entered():
 
 func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
+

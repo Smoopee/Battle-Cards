@@ -15,7 +15,7 @@ func _ready():
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "Block the next " + str(card_stats.upgrade_effect1) + " physical damage",  "Effect: ")
+		update_tooltip("Effect", "Block the next " + str(card_stats.effect1) + " physical damage",  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/shield.tres").duplicate()
@@ -27,8 +27,10 @@ func effect(player_deck, enemy_deck, player, enemy):
 	var target = player
 	if card_stats.in_enemy_deck == true:
 		target = enemy
-		
-	get_tree().get_nodes_in_group("battle sim")[0].buff_instantiate("Shield Block", target, card_stats.buff_count)
+		enemy.enemy_stats.block += card_stats.effect1
+	else:
+		player.player_stats.block += card_stats.effect1
+		player.change_block()
 
 func upgrade_card(num):
 	match num:
@@ -37,30 +39,30 @@ func upgrade_card(num):
 			card_stats.upgrade_level = 1
 			card_stats.sell_price = 3
 			card_stats.buy_price = 6
-			card_stats.upgrade_effect1 = 10
+			card_stats.effect1 = 10
 		2: 
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
 			card_stats.sell_price = 6
 			card_stats.buy_price = 12
-			card_stats.upgrade_effect1 = 20
+			card_stats.effect1 = 20
 			card_stats.cd = 1
 		3:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
 			card_stats.sell_price = 12
 			card_stats.buy_price = 24
-			card_stats.upgrade_effect1 = 40
+			card_stats.effect1 = 40
 			card_stats.cd = 0
 		4:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
 			card_stats.sell_price = 48
 			card_stats.buy_price = 96
-			card_stats.upgrade_effect1 = 50
+			card_stats.effect1 = 50
 			card_stats.buff_count = 2
 	
-	update_tooltip("Effect", "Block the next " + str(card_stats.upgrade_effect1) + " physical damage")
+	update_tooltip("Effect", "Block the next " + str(card_stats.effect1) + " physical damage")
 	update_card_ui()
 
 func item_enchant(enchant):

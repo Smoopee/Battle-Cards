@@ -9,15 +9,16 @@ var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
 
+
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage",  "Effect: ")
+		#update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect1),  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
-	card_stats = load("res://Resources/Cards/shift_stance.tres").duplicate()
+	card_stats = load("res://Resources/Cards/hardened_skin.tres").duplicate()
 
 func on_start(board):
 	pass
@@ -26,69 +27,46 @@ func effect(player_deck, enemy_deck, player, enemy):
 	var target = player
 	if card_stats.in_enemy_deck == true:
 		target = enemy
-		
-	var mode = card_stats.card_mode
-	match mode:
-		"Defensive Stance":
-			print("Entered Battle Stance")
-			card_stats.card_mode = "Battle Stance"
-			card_stats.buff_scene_path = "res://Scenes/Buffs/battle_stance_buff.tscn"
-			player.player_stats.attack += card_stats.effect1
-			player.change_attack_label()
-			player.player_stats.defense -= card_stats.effect2
-			player.change_defense_label()
-			player.remove_buff("Defensive Stance")
-			
-		"Battle Stance":
-			print("Enetered Defensive Stance")
-			card_stats.card_mode = "Defensive Stance"
-			card_stats.buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
-			player.player_stats.defense += card_stats.effect2
-			player.change_defense_label()
-			player.player_stats.attack -= card_stats.effect1
-			player.change_attack_label()
-			player.remove_buff("Battle Stance")
-		_: 
-			print("Entered Defensive Stance")
-			card_stats.card_mode = "Defensive Stance"
-			card_stats.buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
-			player.player_stats.defense += card_stats.effect2
-			player.change_defense_label()
-			
+		enemy.enemy_stats.armor += card_stats.effect1
+	else:
+		player.player_stats.armor += card_stats.effect1
+		player.change_armor_label()
+	
 	var new_buff = load(card_stats.buff_scene_path).instantiate()
 	target.add_buff(new_buff, self)
-	
+
 func upgrade_card(num):
 	match num:
 		1:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			card_stats.upgrade_level = 1
-			card_stats.sell_price = 2
-			card_stats.buy_price = 4
+			card_stats.sell_price = 3
+			card_stats.buy_price = 6
+			card_stats.effect1 = 1
 		2: 
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
-			card_stats.sell_price = 4
-			card_stats.buy_price = 8
+			card_stats.sell_price = 6
+			card_stats.buy_price = 12
+			card_stats.effect1 = 2
 		3:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
-			card_stats.sell_price = 8
-			card_stats.buy_price = 16
+			card_stats.sell_price = 12
+			card_stats.buy_price = 24
 		4:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
-			card_stats.sell_price = 16
-			card_stats.buy_price = 32
+			card_stats.sell_price = 48
+			card_stats.buy_price = 96
 	
-	update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage")
 	update_card_ui()
 
 func item_enchant(enchant):
 	match enchant:
 		"Bleed":
 			card_stats.item_enchant = "Bleed"
-			card_stats.bleed_dmg = 8
+			card_stats.bleed_dmg = 6
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 	update_card_ui()
@@ -124,14 +102,13 @@ func update_card_ui():
 	change_item_enchant_image()
 	change_card_dmg_text()
 	toggle_cd()
-	card_shop_ui()
 
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
 	
 	if enchant == "Bleed":
 		$ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
-		update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+		update_tooltip("Bleed", "Bleed: ", "Deals " + str(card_stats.bleed_dmg))
 		update_damage_label("Bleed")
 	
 	else: $ItemEnchantImage.texture = null

@@ -1,22 +1,23 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://c0p2m2cs8r3op"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://cx4evcaxyce0i"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_xqlbv"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_2uwtp"]
 
 [resource]
-script = ExtResource("1_xqlbv")
-card_art_path = "res://Resources/Cards/CardArt/shield_block_card.png"
-card_scene_path = "res://Scenes/Cards/shield_block.tscn"
-name = "Shield Block"
+script = ExtResource("1_2uwtp")
+card_art_path = "res://Resources/Cards/CardArt/hardened_skin_card.png"
+card_scene_path = "res://Scenes/Cards/hardened_skin.tscn"
+buff_scene_path = "res://Scenes/Buffs/hardened_skin_buff.tscn"
+name = "Hardened Skin"
 dmg = 0
 cd = 2
 cd_remaining = 0
 on_cd = false
-effect1 = 10
+effect1 = 1
 effect2 = 0
 effect3 = 0
 effect4 = 0
 effect5 = 0
-buff_count = 1
+buff_count = 2
 debuff_count = 0
 position = 0
 inventory_position = 0
@@ -36,7 +37,7 @@ screen_position = Vector2(0, 0)
 is_enchanted = false
 is_enchantment = false
 enchanting_with = ""
-card_type = ""
+card_type = "Buff"
 is_discarded = false
 is_blank = false
 is_updated = false

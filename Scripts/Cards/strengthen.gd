@@ -15,7 +15,7 @@ func _ready():
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect1),  "Effect: ")
+		update_tooltip("Effect", "Buff Atk by " + str(card_stats.effect1),  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/strengthen.tres").duplicate()
@@ -27,13 +27,19 @@ func effect(player_deck, enemy_deck, player, enemy):
 	var target = player
 	if card_stats.in_enemy_deck == true:
 		target = enemy
-		enemy.enemy_stats.attack += card_stats.upgrade_effect1
-		enemy.change_attack_label()
+		enemy.enemy_stats.attack += card_stats.effect1
+		#enemy.change_attack_label()
 	else:
-		player.player_stats.attack += card_stats.upgrade_effect1
+		player.player_stats.attack += card_stats.effect1
 		player.change_attack_label()
 	
-	get_tree().get_nodes_in_group("battle sim")[0].buff_instantiate("Strengthen", target, card_stats.upgrade_effect1)
+	for i in get_tree().get_nodes_in_group("buff"):
+		if i.buff_name == card_stats.name and i.attached_to == target: 
+			i.increase_buff(self)
+			return
+	
+	var new_buff = load(card_stats.buff_scene_path).instantiate()
+	target.add_buff(new_buff, self)
 
 func upgrade_card(num):
 	match num:
@@ -42,27 +48,27 @@ func upgrade_card(num):
 			card_stats.upgrade_level = 1
 			card_stats.sell_price = 3
 			card_stats.buy_price = 6
-			card_stats.upgrade_effect1 = 2
+			card_stats.effect1 = 2
 		2: 
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
 			card_stats.sell_price = 6
 			card_stats.buy_price = 12
-			card_stats.upgrade_effect1 = 4
+			card_stats.effect1 = 4
 		3:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
 			card_stats.sell_price = 12
 			card_stats.buy_price = 24
-			card_stats.upgrade_effect1 = 8
+			card_stats.effect1 = 8
 		4:
 			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
 			card_stats.sell_price = 48
 			card_stats.buy_price = 96
-			card_stats.upgrade_effect1 = 16
+			card_stats.effect1 = 16
 	
-	update_tooltip("Effect", "Buff Atk by " + str(card_stats.upgrade_effect1))
+	update_tooltip("Effect", "Buff Atk by " + str(card_stats.effect1))
 	update_card_ui()
 
 func item_enchant(enchant):

@@ -1,25 +1,30 @@
 extends Node2D
 
-const BUFF_X_POSITION = 645
-const BUFF_Y_POSITION = -143
+
+const BUFF_X_POSITION = 675
+const BUFF_Y_POSITION = -100
 
 @export var character_stats_resource: Character_Resource
 
 var player_stats: Character_Resource = null
+
+#Talents===========================================================================================
 var fueled_by_rage = false
 var savagery = false
 var indomitable = false
 var vicious_swings = false
 var blood_bath = false
 
-# Called when the node enters the scene tree for the first time.
+#Berserker Mechanics==============================================================================
+var rage_degeneration = -3
+var rage_attack_increase = 10
+
 func _ready():
 	set_stats(character_stats_resource)
 	set_talents()
-	$RageBar.position = get_parent().position + Vector2(70, -64)
-	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack)
-	$StatContainer/DefenseLabel.text = "Def: " + str(player_stats.defense)
-	$StatContainer/ArmorLabel.text = "Armor: " +  str(player_stats.armor)
+	set_stat_container()
+	$RageBar.position = get_parent().position + Vector2(70, -38)
+	
 	
 	$PlayerHealthBar.max_value = Global.max_player_health
 	$PlayerHealthBar.value = Global.player_health
@@ -27,6 +32,11 @@ func _ready():
 
 func set_stats(stats = Character_Resource) -> void:
 	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
+
+func set_stat_container():
+	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(player_stats.attack)
+	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text =  str(player_stats.defense)
+	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text =  str(player_stats.armor)
 
 func set_talents():
 	for i in Global.player_talent_array:
@@ -41,24 +51,26 @@ func change_player_health():
 
 func change_rage(source, value):
 	var rage_bar = $RageBar
-	if savagery: value = $Talents.get_node("Savagery").talent_effect(source, value)
-	if indomitable: value = $Talents.get_node("Indomitable").talent_effect(source, value)
 	rage_bar.value += value
 	if  rage_bar.value  >= 100:
-		if fueled_by_rage: player_stats.attack += 5
-		else: player_stats.attack += 3
+		player_stats.attack += rage_attack_increase
 		change_attack_label()
 		rage_bar.value = 0
 		rage_bar.max_value += 10
 
 func change_attack_label():
-	$StatContainer/AttackLabel.text = "Atk: " + str(player_stats.attack) 
+	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(player_stats.attack) 
 
 func change_defense_label():
-	$StatContainer/DefenseLabel.text = "Def: " + str(player_stats.defense)
+	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(player_stats.defense)
 
-func change_damage(card):
-	pass
+func change_armor_label():
+	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text = str(player_stats.armor)
+
+func change_block():
+	$BlockSymbol.visible = true
+	$BlockSymbol/Label.text = str(player_stats.block)
+	if player_stats.block <= 0: $BlockSymbol.visible = false
 
 func change_deck(deck):
 	if vicious_swings:
@@ -71,13 +83,18 @@ func blood_bath_func(bleed_damage):
 		print(bleed_damage)
 		return $"../..".change_health(false, -(bleed_damage /2))
 
-func add_buff(buff, amount = null):
+func add_buff(buff, source):
 	$BuffContainer.add_child(buff)
-	buff.buff_counter(amount)
+	buff.buff_initializer(source, self)
 	organize_buffs()
 
-func increase_buff(buff, amount = 0):
-	buff.buff_counter(amount)
+func remove_buff(buff):
+	for i in $BuffContainer.get_children():
+		print(i.buff_name)
+		print(buff)
+		if i.buff_name == buff:
+			i.queue_free()
+	organize_buffs()
 
 func organize_buffs():
 	var x_offset = 0
@@ -85,3 +102,45 @@ func organize_buffs():
 		i.position = $BuffContainer.position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
 		i.scale = Vector2(2,2)
 		x_offset += 50
+
+func connect_signals(battle_sim):
+	battle_sim.connect("physical_damage", physical_damage_taken)
+	battle_sim.connect("physical_damage", physical_damage_dealt)
+	battle_sim.connect("end_of_turn", end_of_turn)
+
+func physical_damage_taken(damage, source):
+	if source == self: return
+	change_rage(source, damage)
+	block_damage()
+
+func physical_damage_dealt(damage, source):
+	if source != self: return
+	change_rage(source, damage)
+
+func end_of_turn():
+	change_rage(self, rage_degeneration)
+
+func block_damage():
+	var mitigated_damage
+	mitigated_damage = get_tree().get_nodes_in_group("battle sim")[0].damage - player_stats.block
+	if mitigated_damage < 0: mitigated_damage = 0
+	
+	get_tree().get_nodes_in_group("battle sim")[0].damage = mitigated_damage
+	player_stats.block = 0 
+	change_block()
+
+func _on_buff_container_child_order_changed():
+	if get_node_or_null("BuffContainer") == null: return
+	organize_buffs()
+
+func inventory_screen_toggle(toggle):
+	if toggle:
+		$RageBar.visible = false
+		$StatContainer.visible = false
+		$BlockSymbol.visible = false
+		$ClassImage.visible = false
+	if !toggle:
+		$RageBar.visible = true
+		$StatContainer.visible = true
+		if player_stats.block >= 0: $BlockSymbol.visible = true
+		$ClassImage.visible = true

@@ -3,9 +3,10 @@ extends Node2D
 var enemy_deck = []
 
 var rock = preload("res://Resources/Cards/rock.tres")
+var strengthen = preload("res://Resources/Cards/strengthen.tres")
 
 func _ready():
-	var item1 = rock.duplicate()
+	var item1 = strengthen.duplicate()
 	var item2 = rock.duplicate()
 	var item3 = rock.duplicate()
 	var item4 = rock.duplicate()

@@ -1,22 +1,31 @@
 extends Node2D
 
 var count = 0
-var buff_name = "Shield Block"
-
-
+var buff_name = "Defensive Stance"
+var attached_to
+var buff_effect1
+var buff_effect2
+var buff_effect3
+var buff_effect4
+var buff_effect5
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = buff_name
+	update_tooltip("Effect", "+" + str(buff_effect1) + " Def",  "Effect: ")
+
+func buff_initializer(source,target):
+	buff_effect1 = source.card_stats.effect2
+	attached_to = target
+	buff_counter(buff_effect1)
 
 func buff_counter(amount = null):
 	if amount == null: return
 	count += amount
 	$BuffCounters.text = str(count)
+	update_tooltip("Effect", "+" + str(buff_effect1) + " Def")
 
-func buff_decrement(amount = null):
-	count -= 1
-	$BuffCounters.text = str(count)
-	if count <= 0: queue_free()
+func increase_buff(source):
+	buff_counter(source.card_stats.effect1)
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return

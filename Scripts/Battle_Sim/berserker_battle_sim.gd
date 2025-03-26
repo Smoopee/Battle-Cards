@@ -1,7 +1,9 @@
 extends Node2D
 
 #Proof of concept=================================================================================
-signal damage_taken
+signal physical_damage
+signal end_of_turn
+signal end_of_round
 #===================================================================================================
 var current_screen = ""
 
@@ -13,8 +15,6 @@ var current_screen = ""
 @onready var player_node = $Player
 
 var rng = RandomNumberGenerator.new()
-var debuff_db_reference
-var buff_db_reference
 
 var player_inventory_list
 var player_deck_list 
@@ -33,9 +33,14 @@ var player
 var damage
 
 func _ready():
+	connect_signal_setup()
 	get_node("Timer").wait_time *= Global.COMBAT_SPEED
-	debuff_db_reference = preload("res://Resources/Debuffs/debuff_db.gd")
-	buff_db_reference = preload("res://Resources/Buffs/buff_db.gd")
+
+func connect_signal_setup():
+	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
+	player =  get_tree().get_nodes_in_group("character")[0]
+	
+	player.connect_signals(self)
 
 func combat(player_deck_list, enemy_deck_list):
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
@@ -82,24 +87,21 @@ func combat(player_deck_list, enemy_deck_list):
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		bleed_damage_keeper()
-		buff_turn_keeper()
-		debuff_turn_keeper()
-		
-		player_node.get_node("Berserker").change_rage(null, -3)
 		
 		ui.combat_log_break()
 		get_node("Timer").start()
 		await $Timer.timeout
-		#await get_tree().create_timer(.6 * Global.COMBAT_SPEED ).timeout
 		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
 		
 		is_dead = death_checker()
 		if is_dead: break
+		emit_signal("end_of_turn")
 	
 	if is_dead: return
 	round_counter += round_incrementer
+	emit_signal("end_of_round")
 	store_active_decks()
 	next_turn_handler()
 
@@ -144,16 +146,14 @@ func damage_func(i):
 		crit = true
 	
 	if i.card_stats.in_enemy_deck: 
-		emit_signal("damage_taken", damage, enemy)
+		emit_signal("physical_damage", damage, enemy)
 		change_health(false, damage)
 		ui.update_combat_log_damage_taken(damage, player, enemy, true, i, crit)
 		ui.change_enemy_damage_number(damage, crit)
 		
 	else:
 		change_health(true, damage)
-		emit_signal("damage_taken", damage, player)
-		player_node.get_node("Berserker").change_rage(player, damage)
-		player_node.get_node("Berserker").change_damage(i)
+		emit_signal("physical_damage", damage, player)
 		ui.update_combat_log_damage_taken(damage, player, enemy, false, i, crit)
 		ui.change_player_damage_number(damage, crit)
 
@@ -167,19 +167,16 @@ func bleed_func(i):
 		player.player_stats.bleeding_dmg += i.card_stats.bleed_dmg
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
-		debuff_instantiate("Bleed", enemy, i.card_stats.bleed_dmg)
 
 func bleed_damage_keeper():
-	if player.player_stats.bleeding_dmg >= 0:
+	if player.player_stats.bleeding_dmg > 0:
 		ui.change_player_bleed_taken(player.player_stats.bleeding_dmg)
 		change_health(false, player.player_stats.bleeding_dmg)
 	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
 	
-	if enemy.enemy_stats.bleeding_dmg >= 0:
-		player_node.get_node("Berserker").blood_bath_func(enemy.enemy_stats.bleeding_dmg)
+	if enemy.enemy_stats.bleeding_dmg > 0:
 		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
 		change_health(true, enemy.enemy_stats.bleeding_dmg)
-		ui.update_combat_log_bleed("bleed_damage_keeper", enemy.enemy_stats.bleeding_dmg, player, enemy, false, null, null)
 	if enemy.enemy_stats.bleeding_dmg> 0: enemy.enemy_stats.bleeding_dmg-= 1
 
 func change_health(character, value):
@@ -189,7 +186,6 @@ func change_health(character, value):
 		enemy_node.change_enemy_health()
 	else:
 		Global.change_player_health(-value)
-		player_node.get_node("Berserker").change_rage(enemy, value)
 		player.player_stats.health -= value
 		player.change_player_health()
 
@@ -313,7 +309,7 @@ func _on_continue_button_button_down():
 	$NextTurn.visible = false
 	$CanvasLayer/ContinueButton.visible = false
 	
-	$Player.visible = true
+	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
 	$Player.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	$ConsumableManger.visible = true
@@ -357,33 +353,3 @@ func _on_talent_button_button_down():
 func _on_timer_timeout():
 	pass # Replace with function body.
 
-func debuff_instantiate(debuff, target, amount):
-	for i in get_tree().get_nodes_in_group("debuff"):
-		if i.debuff_name == debuff: 
-			target.increase_debuff(i, amount)
-			return
-	if target == enemy:
-		var new_debuff = load(debuff_db_reference.DEBUFFS[debuff]).instantiate()
-		target.add_debuff(new_debuff, amount)
-
-func debuff_turn_keeper():
-	for i in get_tree().get_nodes_in_group("debuff"):
-		i.debuff_decrement()
-
-func buff_turn_keeper():
-	for i in get_tree().get_nodes_in_group("buff"):
-		i.buff_decrement()
-
-func buff_instantiate(buff, target, amount = 1, buff_effect = null,):
-	for i in get_tree().get_nodes_in_group("buff"):
-		if i.buff_name == buff: 
-			target.increase_buff(i, amount)
-			return
-
-	if target == player:
-		var new_buff = load(buff_db_reference.BUFFS[buff]).instantiate()
-		target.add_buff(new_buff, amount)
-		
-		#Proof of concept ========================================================================
-		if new_buff.triggered_buff == true: new_buff.connect_signals(self)
-		#==========================================================================================

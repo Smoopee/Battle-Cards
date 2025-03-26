@@ -5,10 +5,12 @@ extends Node2D
 
 var deck = []
 var deck_builder_screen = true
+var inventory_toggle = true
 var current_screen = ""
 
 func _ready():
 	var enemy = Global.current_enemy
+	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
@@ -78,20 +80,22 @@ func _on_back_button_button_down():
 	deck_builder_screen = true
 
 func toggle_inventory():
-	if $Player.visible == true:
+	if inventory_toggle == false:
 		$InventorySlots.visible = true
-		$Player.visible = false
+		$Player/Berserker.inventory_screen_toggle(true)
 		for i in $CardManager.inventory_card_slot_reference:
 			if i == null: continue
 			i.visible = true
 			i.enable_collision()
 		$InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
+		inventory_toggle = true
 	else:
 		$InventorySlots.visible = false
-		$Player.visible = true
+		$Player/Berserker.inventory_screen_toggle(false)
 		for i in $CardManager.inventory_card_slot_reference:
 			if i == null: continue
 			i.visible = false
 			i.disable_collision()
 		$InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
+		inventory_toggle = false
 

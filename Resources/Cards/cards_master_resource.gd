@@ -4,16 +4,17 @@ class_name Cards_Resource
 
 @export var card_art_path: String
 @export var card_scene_path: String
+@export var buff_scene_path: String
 @export var name: String
 @export var dmg: int
 @export var cd: int
 @export var cd_remaining: int
 @export var on_cd: bool
-@export var upgrade_effect1: int
-@export var upgrade_effect2: int
-@export var upgrade_effect3: int
-@export var upgrade_effect4: int
-@export var upgrade_effect5: int
+@export var effect1: int
+@export var effect2: int
+@export var effect3: int
+@export var effect4: int
+@export var effect5: int
 @export var buff_count: int
 @export var debuff_count: int
 @export var position: int
@@ -23,11 +24,9 @@ class_name Cards_Resource
 @export var burn_dmg: int
 @export var poison_dmg: int
 @export var bleed_dmg: int
-#@export var shield: int
 @export var heal: int
 @export var critical_strike_chance: float
 @export var in_enemy_deck: bool
-#@export var temp_buff: bool
 #@export var block : int
 @export var sell_price: int
 @export var buy_price: int

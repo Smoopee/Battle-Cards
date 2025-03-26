@@ -11,15 +11,15 @@ var center_screen_x
 var center_screen_y
 
 func _ready():
-	enemy_bleeding_label.position = $"../Enemy".enemy.position + Vector2(10, 60)
+	enemy_bleeding_label.position = $"../Enemy".enemy.position + Vector2(35, 60)
 	enemy_bleeding_label.text = ""
-	player_bleeding_label.position = $"../Player".position + Vector2(10, -90)
+	player_bleeding_label.position = $"../Player".position + Vector2(35, -80)
 	player_bleeding_label.text = ""
 	combat_log.set_scroll_follow(true)
 		
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
-	
+
 func change_player_damage_number(value, crit):
 	player_damage_number.modulate.a = 1
 	var new_position =  Vector2(center_screen_x, center_screen_y + 60)
@@ -42,12 +42,34 @@ func change_enemy_damage_number(value, crit):
 	enemy_damage_number.text = str(value) 
 
 func change_enemy_bleed_taken(value):
-	enemy_bleeding_label.text = str(value)
-	if value <= 0: enemy_bleeding_label.text = ""
+	var enemy_drip = $Labels/EnemyBleedTaken/EnemyBleedDrip
+	enemy_drip.visible = true
+	var original_position = enemy_drip.position 
+	enemy_drip.text = str(value)
+	
+	enemy_bleeding_label.text = str(value - 1)
+	if value <= 1: enemy_bleeding_label.text = ""
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(enemy_drip, "position", Vector2(enemy_drip.position.x, enemy_drip.position.y - 50), 0.5 * Global.COMBAT_SPEED)
+	await tween.finished
+	enemy_drip.visible = false
+	enemy_drip.position = original_position
 
 func change_player_bleed_taken(value):
-	player_bleeding_label.text = str(value)
-	if value <= 0: player_bleeding_label.text = ""
+	var player_drip = $Labels/PlayerBleedTaken/PlayerBleedDrip
+	player_drip.visible = true
+	var original_position = player_drip.position 
+	player_drip.text = str(value)
+	
+	player_bleeding_label.text = str(value - 1)
+	if value <= 1: player_bleeding_label.text = ""
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_drip, "position", Vector2(player_drip.position.x, player_drip.position.y + 50), 0.5 * Global.COMBAT_SPEED)
+	await tween.finished
+	player_drip.visible = false
+	player_drip.position = original_position
 
 func update_combat_log_bleed(source, value, player, enemy, is_player, card, other):
 	var red = Color(1.0,0.0,0.0,1.0)

@@ -16,3 +16,5 @@ burning_dmg = 0
 poisoning_dmg = 0
 armor = 0
 attack = 0
+defense = 0
+block = 0

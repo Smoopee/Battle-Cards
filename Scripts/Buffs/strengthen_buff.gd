@@ -2,12 +2,15 @@ extends Node2D
 
 var count = 0
 var buff_name = "Strengthen"
-var buff_effect = 0
-var triggered_buff = false
+var attached_to
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = buff_name
-	update_tooltip("Effect", "Attack increased by " + str(count),  "Effect: ")
+	update_tooltip("Effect", "+" + str(count) + " Atk",  "Effect: ")
+
+func buff_initializer(source, target):
+	buff_counter(source.card_stats.effect1)
+	attached_to = target
 
 func buff_counter(amount = null):
 	if amount == null: return
@@ -15,11 +18,8 @@ func buff_counter(amount = null):
 	$BuffCounters.text = str(count)
 	update_tooltip("Effect", "Attack increased by " + str(count))
 
-func buff_decrement(amount = null):
-	if amount == null: return
-	count -= 1
-	$BuffCounters.text = str(count)
-	if count <= 0: queue_free()
+func increase_buff(source):
+	buff_counter(source.card_stats.effect1)
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return

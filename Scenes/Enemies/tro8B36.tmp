@@ -123,64 +123,6 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_asotu")
 texture_progress = ExtResource("6_dl2cu")
 
-[node name="StatContainer" type="VBoxContainer" parent="EnemyUI"]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 66.0
-offset_right = 252.0
-offset_bottom = 164.0
-
-[node name="AttackLabel" type="Label" parent="EnemyUI/StatContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Atk: 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="EnemyUI/StatContainer/AttackLabel"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DefenseLabel" type="Label" parent="EnemyUI/StatContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Atk: 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="EnemyUI/StatContainer/DefenseLabel"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ArmorLabel" type="Label" parent="EnemyUI/StatContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Def: 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="BuffContainer" type="HBoxContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5

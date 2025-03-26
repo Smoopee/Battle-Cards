@@ -105,7 +105,25 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
 
+[node name="EnemyBleedDrip" type="Label" parent="UI/Labels/EnemyBleedTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
 [node name="PlayerBleedTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBleedDrip" type="Label" parent="UI/Labels/PlayerBleedTaken"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

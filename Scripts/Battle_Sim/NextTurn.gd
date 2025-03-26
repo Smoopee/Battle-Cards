@@ -6,7 +6,7 @@ func next_turn():
 	$DeckBuilder/PlayerDeck.create_inventory()
 	$DeckBuilder/CardManager.create_references()
 	
-	$"../Player".visible = false
+	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
 	$"../Player".process_mode = PROCESS_MODE_DISABLED
 	
 	$"../ConsumableManger".visible = false

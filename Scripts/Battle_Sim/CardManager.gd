@@ -9,6 +9,8 @@ const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
 const COLLISION_MASK_SELL_ZONE = 128
 
+var inventory_toggle = true
+
 var hover_on_upgrade_test = true
 var upgrade_mode = false
 var deck_reference
@@ -593,23 +595,24 @@ func stop_tooltip_timer():
 	$"../../../TooltipTimer".stop()
 
 func toggle_inventory():
-	if $"../../../Player".visible == true:
+	if inventory_toggle:
 		$"../InventorySlots".visible = true
-		$"../../../Player".visible = false
+		get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
 		for i in inventory_card_slot_reference:
 			if i == null: continue
 			i.visible = true
 			i.enable_collision()
 		$"../InventorySlots".process_mode = Node.PROCESS_MODE_INHERIT
+		inventory_toggle = false
 	else:
-		#$"../PlayerInventory".visible = false
+		get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
 		$"../InventorySlots".visible = false
-		$"../../../Player".visible = true
 		for i in inventory_card_slot_reference:
 			if i == null: continue
 			i.visible = false
 			i.disable_collision()
 		$"../InventorySlots".process_mode = Node.PROCESS_MODE_DISABLED
+		inventory_toggle = true
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.

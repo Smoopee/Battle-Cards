@@ -11,6 +11,7 @@ var center_screen_x
 var animation_canel = true
 
 func _ready():
+	print("Merchant cards scene")
 	center_screen_x = get_viewport().size.x / 2
 	create_merchant_inventory()
 
@@ -19,23 +20,27 @@ func create_merchant_inventory():
 	
 	for i in range(inventory_db.size()):
 		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
-		card_scene.set_stats()
+		card_scene.card_stats = inventory_db[i]
 		add_child(card_scene)
 		add_card_to_hand(card_scene)
+		card_scene.upgrade_card(card_scene.card_stats.upgrade_level)
 	
 	var card_position = 0
 	for i in inventory:
 		i.get_node("Area2D").collision_mask = 64
 		i.get_node("Area2D").collision_layer = 64
-		i.update_card_ui()
+	
 		i.toggle_shop_ui(true)
 		i.card_shop_ui()
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
 		card_position += 1
+	
 
 func fetch_merchant_inventory():
-	inventory_db = $"../Merchant".get_child(0).get_inventory()
+	$"../Merchant".get_child(0).get_inventory()
+	inventory_db = $"../Merchant".get_child(0).inventory
+
 
 func add_card_to_hand(card):
 	if card not in inventory:

@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = 2
+const COMBAT_SPEED = .01
 
 
 var save_file_path = "user://SaveData/"
@@ -81,7 +81,7 @@ func gain_xp(amount):
 		player_level += 1
 
 func set_player_inventory():
-	player_inventory_db = ["Strike", "Strike"]
+	player_inventory_db = ["Hardened Skin", "Strike"]
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:
