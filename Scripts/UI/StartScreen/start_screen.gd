@@ -66,6 +66,7 @@ func new_game_function():
 	Global.player_level = 1
 	Global.player_class = ""
 	Global.player_talent_array = []
+	Global.battle_tracker = 1
 	Global.set_player_inventory()
 	Global.instantiate_player_inventory()
 	Global.set_player_deck()

@@ -2,6 +2,7 @@ extends Node2D
 
 #Proof of concept=================================================================================
 signal physical_damage
+signal bleed_damage
 signal end_of_turn
 signal end_of_round
 #===================================================================================================
@@ -108,7 +109,6 @@ func combat(player_deck_list, enemy_deck_list):
 func on_start_skill():
 	for i in player_skill_list:
 		i.effect()
-	player_node.get_node("Berserker").change_deck(player_deck_list)
 	
 	for i in enemy_skill_list:
 		i.effect()
@@ -148,14 +148,21 @@ func damage_func(i):
 	if i.card_stats.in_enemy_deck: 
 		emit_signal("physical_damage", damage, enemy)
 		change_health(false, damage)
-		ui.update_combat_log_damage_taken(damage, player, enemy, true, i, crit)
 		ui.change_enemy_damage_number(damage, crit)
 		
 	else:
-		change_health(true, damage)
 		emit_signal("physical_damage", damage, player)
-		ui.update_combat_log_damage_taken(damage, player, enemy, false, i, crit)
+		change_health(true, damage)
 		ui.change_player_damage_number(damage, crit)
+
+func add_damage(target, amount):
+	if target == enemy:
+		pass
+
+func true_damage(target, amount):
+	if target == get_tree().get_first_node_in_group("character"): target = false
+	else: target = true
+	change_health(target, amount)
 
 func modified_damage(new_damage):
 	damage = new_damage
@@ -168,18 +175,28 @@ func bleed_func(i):
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
 
+func add_bleed_damage(target, amount):
+	if target == enemy:
+		enemy.enemy_stats.bleeding_dmg += amount
+	
+	if target == player:
+		player.player_stats.bleeding_dmg += amount
+
 func bleed_damage_keeper():
 	if player.player_stats.bleeding_dmg > 0:
+		emit_signal("bleed_damage", player, player.player_stats.bleeding_dmg)
 		ui.change_player_bleed_taken(player.player_stats.bleeding_dmg)
 		change_health(false, player.player_stats.bleeding_dmg)
 	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
 	
 	if enemy.enemy_stats.bleeding_dmg > 0:
+		emit_signal("bleed_damage", enemy, enemy.enemy_stats.bleeding_dmg)
 		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
 		change_health(true, enemy.enemy_stats.bleeding_dmg)
 	if enemy.enemy_stats.bleeding_dmg> 0: enemy.enemy_stats.bleeding_dmg-= 1
 
 func change_health(character, value):
+	#If character is true, Enemy Loses Health
 	if character:
 		Global.change_enemy_health(-value)
 		enemy.enemy_stats.health -= value
@@ -198,6 +215,14 @@ func heal_func(i):
 	
 	if crit_check(i): heal *= 2
 	change_health(!player_card, -heal)
+
+func more_healing(target, amount):
+	if target == enemy:
+		change_health(true, -amount)
+
+	if target == player:
+		change_health(false, -amount)
+		print("IM GETTING HEALEd")
 
 func cooldown_keeper(card):
 	card.card_stats.cd_remaining = card.card_stats.cd + 1

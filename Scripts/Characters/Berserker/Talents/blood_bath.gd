@@ -9,11 +9,11 @@ func ready():
 	tooltip = "WIP"
 
 func set_talent():
-	get_parent().get_parent().blood_bath = true
+	if Global.current_scene == "battle_sim":
+		get_tree().get_nodes_in_group("battle sim")[0].connect("bleed_damage", talent_effect)
 
 func talent_effect(source, value):
-	if source == null: return value
-	if source.is_in_group("character"):
-		value += 4
-		return value
-	else: return value
+	var temp = get_tree().get_nodes_in_group("character")[0]
+	if source == temp: return
+	get_tree().get_first_node_in_group("battle sim").more_healing(temp, value/2)
+	print("In Blood_bath talent_effect")

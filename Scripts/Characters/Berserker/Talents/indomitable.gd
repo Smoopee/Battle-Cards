@@ -9,12 +9,11 @@ func ready():
 	tooltip = "WIP"
 
 func set_talent():
-	get_parent().get_parent().indomitable = true
+	if Global.current_scene == "battle_sim":
+		get_tree().get_nodes_in_group("battle sim")[0].connect("physical_damage", talent_effect)
 
-func talent_effect(source, value):
-	print("In indomitable")
-	if source == null: return value
-	if source.is_in_group("enemy"):
-		value += 4
-		return value
-	else: return value
+func talent_effect(damage, source):
+	var temp = get_tree().get_nodes_in_group("character")[0]
+	if source == temp: return
+	temp.change_rage(source, 5)
+	print("In Indomitable talent_effect")

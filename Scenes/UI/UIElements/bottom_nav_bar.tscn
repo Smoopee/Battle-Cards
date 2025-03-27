@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://douvo7o182s2"]
+
+[ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="1_l5a5a"]
+
+[node name="BottomNavBar" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color(0.317647, 0.317647, 0.317647, 0.760784)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerUI" parent="ColorRect" instance=ExtResource("1_l5a5a")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0177083
+anchor_top = -0.0153846
+anchor_right = 0.0239584
+anchor_bottom = -0.0153846
+offset_left = 1581.0
+offset_top = 2.0
+offset_right = 1853.0
+offset_bottom = 42.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TalentButton" type="Button" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Talents"
+
+[node name="MenuButton" type="Button" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
+[node name="BackButton" type="Button" parent="ColorRect/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Back
+"
+
+[node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Inventory"

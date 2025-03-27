@@ -7,28 +7,25 @@ const BUFF_Y_POSITION = -100
 @export var character_stats_resource: Character_Resource
 
 var player_stats: Character_Resource = null
+var battle_sim
 
-#Talents===========================================================================================
-var fueled_by_rage = false
-var savagery = false
-var indomitable = false
-var vicious_swings = false
-var blood_bath = false
+var spiked_armor = false
 
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
-var rage_attack_increase = 10
+var rage_attack_increase = 5
 
 func _ready():
+	battle_sim = get_tree().get_first_node_in_group("battle sim")
 	set_stats(character_stats_resource)
 	set_talents()
 	set_stat_container()
+	
 	$RageBar.position = get_parent().position + Vector2(70, -38)
-	
-	
 	$PlayerHealthBar.max_value = Global.max_player_health
 	$PlayerHealthBar.value = Global.player_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
+
 
 func set_stats(stats = Character_Resource) -> void:
 	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
@@ -72,17 +69,6 @@ func change_block():
 	$BlockSymbol/Label.text = str(player_stats.block)
 	if player_stats.block <= 0: $BlockSymbol.visible = false
 
-func change_deck(deck):
-	if vicious_swings:
-		for i in deck:
-			i.card_stats.bleed_dmg += 2
-
-func blood_bath_func(bleed_damage):
-	print("In berserk blood bath")
-	if blood_bath: 
-		print(bleed_damage)
-		return $"../..".change_health(false, -(bleed_damage /2))
-
 func add_buff(buff, source):
 	$BuffContainer.add_child(buff)
 	buff.buff_initializer(source, self)
@@ -122,10 +108,10 @@ func end_of_turn():
 
 func block_damage():
 	var mitigated_damage
-	mitigated_damage = get_tree().get_nodes_in_group("battle sim")[0].damage - player_stats.block
+	mitigated_damage = battle_sim.damage - player_stats.block
 	if mitigated_damage < 0: mitigated_damage = 0
 	
-	get_tree().get_nodes_in_group("battle sim")[0].damage = mitigated_damage
+	battle_sim.damage = mitigated_damage
 	player_stats.block = 0 
 	change_block()
 

@@ -33,7 +33,7 @@ var playerData = PlayerData.new()
 @onready var enemy_active_deck = []
 
 var intermission_tracker = 0
-var battle_tracker = 0
+var battle_tracker = 1
 var current_scene = ""
 
 var card_db_reference
@@ -111,6 +111,7 @@ func save_function():
 	playerData.player_gold = player_gold
 	playerData.player_xp = player_xp
 	playerData.player_level = player_level
+	playerData.battle_tracker = battle_tracker
 
 	save()
 

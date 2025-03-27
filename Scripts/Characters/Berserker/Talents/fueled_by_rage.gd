@@ -9,8 +9,6 @@ func ready():
 	tooltip = "WIP"
 
 func set_talent():
-	get_parent().get_parent().fueled_by_rage = true
+	get_tree().get_nodes_in_group("character")[0].rage_attack_increase += 5
 	print("In fueled by rage")
-	
-func talent_effect(source, value):
-	pass
+

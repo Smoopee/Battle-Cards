@@ -26,8 +26,9 @@ func set_stats(stats = Merchant_Resource) -> void:
 func get_inventory_selection():
 	for i in card_db_reference.CARDS:
 		var temp = load(card_db_reference.CARDS[i])
-		if temp.card_type == "Buff":
-			inventory_selection.push_back(temp)
+		for j in temp.card_pool:
+			if j == "Buff":
+				inventory_selection.push_back(temp)
 
 func create_inventory():
 	for i in range(0, 4):
