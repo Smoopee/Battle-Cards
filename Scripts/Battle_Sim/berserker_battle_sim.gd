@@ -5,13 +5,13 @@ signal physical_damage
 signal bleed_damage
 signal end_of_turn
 signal end_of_round
+signal start_of_battle
 #===================================================================================================
 var current_screen = ""
 
 @onready var player_deck = $player_deck
 @onready var enemy_node = $Enemy
 @onready var player_inventory = $player_inventory
-@onready var player_skills = $PlayerSkills
 @onready var ui = $UI
 @onready var player_node = $Player
 
@@ -44,9 +44,6 @@ func connect_signal_setup():
 	player.connect_signals(self)
 
 func combat(player_deck_list, enemy_deck_list):
-	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
-	player =  get_tree().get_nodes_in_group("character")[0] 
-	
 	var is_dead
 	var round_incrementer = 1
 
@@ -70,26 +67,18 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		if !player_card.card_stats.on_cd: 
 			player_card.attack_animation(player)
-			var player_effect = player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
-			ui.update_combat_log_effect(player_effect)
-			damage_func(player_card)
-			bleed_func(player_card)
-			heal_func(player_card)
+			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(player_card)
 			
 		if !enemy_card.card_stats.on_cd:
 			enemy_card.attack_animation(enemy)
-			var enemy_effect = enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
-			damage_func(enemy_card)
-			bleed_func(enemy_card)
-			heal_func(enemy_card)
+			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
 		
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		bleed_damage_keeper()
 		
-		ui.combat_log_break()
 		get_node("Timer").start()
 		await $Timer.timeout
 		
@@ -106,12 +95,8 @@ func combat(player_deck_list, enemy_deck_list):
 	store_active_decks()
 	next_turn_handler()
 
-func on_start_skill():
-	for i in player_skill_list:
-		i.effect()
-	
-	for i in enemy_skill_list:
-		i.effect()
+func on_start():
+	emit_signal("start_of_battle")
 
 func death_checker():
 	if Global.player_health <= 0: 
@@ -132,7 +117,6 @@ func crit_check(i):
 	else: return false
 
 func damage_func(i):
-	if i.card_stats.dmg <= 0: return
 	var crit = false
 	if i.card_stats.in_enemy_deck: 
 		damage = i.card_stats.dmg + enemy.enemy_stats.attack - player.player_stats.defense
@@ -146,34 +130,38 @@ func damage_func(i):
 		crit = true
 	
 	if i.card_stats.in_enemy_deck: 
-		emit_signal("physical_damage", damage, enemy)
+		emit_signal("physical_damage", i, enemy, damage)
 		change_health(false, damage)
 		ui.change_enemy_damage_number(damage, crit)
 		
 	else:
-		emit_signal("physical_damage", damage, player)
+		emit_signal("physical_damage", i, player, damage)
 		change_health(true, damage)
 		ui.change_player_damage_number(damage, crit)
 
-func add_damage(target, amount):
+func reflect_damage(target, amount):
+	print("In reflect damage")
 	if target == enemy:
-		pass
+		change_health(true, amount)
+		ui.change_player_reflect_number(amount)
+	else:
+		change_health(false, amount)
+		ui.change_enemy_reflect_number(amount)
 
 func true_damage(target, amount):
 	if target == get_tree().get_first_node_in_group("character"): target = false
 	else: target = true
 	change_health(target, amount)
 
-func modified_damage(new_damage):
-	damage = new_damage
-
 func bleed_func(i):
 	if i.card_stats.bleed_dmg <= 0: return
 	
 	if i.card_stats.in_enemy_deck: 
 		player.player_stats.bleeding_dmg += i.card_stats.bleed_dmg
+		print("Player is bleeding")
 	else: 
 		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
+		print("Enemy is bleeding")
 
 func add_bleed_damage(target, amount):
 	if target == enemy:
@@ -219,10 +207,11 @@ func heal_func(i):
 func more_healing(target, amount):
 	if target == enemy:
 		change_health(true, -amount)
+		ui.change_enemy_heal_number(amount, false)
 
 	if target == player:
 		change_health(false, -amount)
-		print("IM GETTING HEALEd")
+		ui.change_player_heal_number(amount, false)
 
 func cooldown_keeper(card):
 	card.card_stats.cd_remaining = card.card_stats.cd + 1
@@ -316,10 +305,8 @@ func _on_start_button_button_down():
 	player_inventory_list = build_player_inventory_list()
 	enemy_deck_list = build_enemy_deck_list() 
 	
-
-	player_skill_list = player_skills.add_skills()
-	enemy_skill_list = enemy_node.add_skills()
-	on_start_skill()
+	
+	on_start()
 	combat(player_deck_list, enemy_deck_list)
 	$CanvasLayer/StartButton.visible = false
 

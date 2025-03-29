@@ -2,10 +2,12 @@ extends Node2D
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = 170
+const SKILL_X_POSITION = 600
+const SKILL_Y_POSITION = 0
 
 @export var enemy_stats_resource: Enemy_Resource
 
-@onready var enemy_deck = $Deck.enemy_deck
+@onready var deck = $Deck.enemy_deck
 @onready var enemy_skills = $Skills.enemy_skills
 
 var enemy_stats: Enemy_Resource = null
@@ -16,6 +18,7 @@ var enemy_resource_path = "res://Resources/Enemies/Trogg.tres"
 func _ready():
 	set_stats(enemy_stats_resource)
 	set_stat_container()
+	set_skills()
 	set_enemy_gold()
 	set_enemy_xp()
 	$EnemyUI/EnemyHealthBar.max_value = enemy_stats.health
@@ -30,6 +33,14 @@ func set_stat_container():
 	$EnemyUI/StatContainer/AttackLabel.text = "Atk: " + str(enemy_stats.attack)
 	$EnemyUI/StatContainer/DefenseLabel.text = "Def: " + str(enemy_stats.defense)
 	$EnemyUI/StatContainer/ArmorLabel.text = "Armor: " +  str(enemy_stats.armor)
+
+func set_skills():
+	for i in $Skills.enemy_skills:
+		var new_instance = i.instantiate()
+		new_instance.attached_to = self
+		$Skills.add_child(new_instance)
+	
+	organize_skills()
 
 func set_enemy_gold():
 	$EnemyUI/GoldAndXPBox/EnemyGold.text = str(enemy_stats.gold) + "g"
@@ -67,3 +78,12 @@ func organize_buffs():
 		i.position = $BuffContainer.position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
 		i.scale = Vector2(2,2)
 		x_offset += 50
+
+func organize_skills():
+	var x_offset = 0
+	for i in $Skills.get_children():
+		i.position = Vector2(x_offset + SKILL_X_POSITION, SKILL_Y_POSITION)
+		x_offset += 60
+
+func active_deck_access():
+	return Global.enemy_active_deck

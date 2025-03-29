@@ -1,7 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://xwc4sjwi65t"]
+[gd_scene load_steps=25 format=3 uid="uid://xwc4sjwi65t"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/berserker_battle_sim.gd" id="1_grqco"]
-[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerSkills.gd" id="2_d55of"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="3_xdgva"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/player_inventory.gd" id="4_jdp0r"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="5_cfbk6"]
@@ -30,9 +29,6 @@
 
 [node name="BerserkerBattleSim" type="Node2D" groups=["battle sim"]]
 script = ExtResource("1_grqco")
-
-[node name="PlayerSkills" type="Node2D" parent="."]
-script = ExtResource("2_d55of")
 
 [node name="player_deck" type="Node2D" parent="."]
 script = ExtResource("3_xdgva")
@@ -131,6 +127,46 @@ theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
+
+[node name="PlayerHealNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0.643698, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyHealNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0.643698, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="PlayerReflectNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyReflectNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
 
 [node name="BattleRewards" parent="." instance=ExtResource("9_a1ix2")]
 visible = false

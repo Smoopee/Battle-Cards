@@ -37,7 +37,9 @@ class_name Cards_Resource
 @export var is_enchantment: bool
 @export var enchanting_with: String
 @export var card_pool: Array
+@export var card_type: Array
 @export var is_discarded: bool
 @export var is_blank: bool
 @export var is_updated: bool
 @export var card_mode: String
+var card_owner

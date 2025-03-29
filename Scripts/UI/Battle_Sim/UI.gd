@@ -3,6 +3,10 @@ extends Control
 
 @onready var player_damage_number = $Labels/PlayerDamageNumber
 @onready var enemy_damage_number = $Labels/EnemyDamageNumber
+@onready var player_heal_number = $Labels/PlayerHealNumber
+@onready var enemy_heal_number = $Labels/EnemyHealNumber
+@onready var player_reflect_number = $Labels/PlayerReflectNumber
+@onready var enemy_reflect_number = $Labels/EnemyReflectNumber
 @onready var combat_log = $ColorRect/RichTextLabel
 @onready var enemy_bleeding_label = $Labels/EnemyBleedTaken
 @onready var player_bleeding_label = $Labels/PlayerBleedTaken
@@ -15,6 +19,7 @@ func _ready():
 	enemy_bleeding_label.text = ""
 	player_bleeding_label.position = $"../Player".position + Vector2(35, -80)
 	player_bleeding_label.text = ""
+	
 	combat_log.set_scroll_follow(true)
 		
 	center_screen_x = get_viewport().size.x / 2
@@ -29,6 +34,28 @@ func change_player_damage_number(value, crit):
 	tween.tween_property(player_damage_number, "modulate:a", 0, .5)
 	player_damage_number.text = str(value) 
 
+func change_player_heal_number(value, crit):
+	if value <= 0: return
+	player_heal_number.modulate.a = 1
+	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
+	player_heal_number.position = new_position + Vector2(0, 130)
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_heal_number, "position", new_position + Vector2(-150, 130), 0.4)
+	tween.tween_property(player_heal_number, "modulate:a", 0, .5)
+	player_heal_number.text = str(value) 
+	print("In change player heal number")
+
+func change_player_reflect_number(value):
+	if value <= 0: return
+	player_reflect_number.modulate.a = 1
+	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
+	player_reflect_number.position = new_position 
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_reflect_number, "position", new_position + Vector2(0, -130), 0.4)
+	tween.tween_property(player_reflect_number, "z_index", 13, 0.4)
+	tween.tween_property(player_reflect_number, "modulate:a", 0, .5)
+	player_reflect_number.text = str(value) 
+
 func change_enemy_damage_number(value, crit):
 	enemy_damage_number.set("theme_override_font_sizes/font_size", 33)
 	enemy_damage_number.modulate.a = 1
@@ -40,6 +67,27 @@ func change_enemy_damage_number(value, crit):
 	tween.tween_property(enemy_damage_number, "position", new_position + Vector2(150, 0), 0.4)
 	tween.tween_property(enemy_damage_number, "modulate:a", 0, .5)
 	enemy_damage_number.text = str(value) 
+
+func change_enemy_heal_number(value, crit):
+	if value <= 0: return
+	enemy_heal_number.modulate.a = 1
+	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
+	enemy_heal_number.position = new_position
+	var tween = get_tree().create_tween()
+	tween.tween_property(enemy_heal_number, "position", new_position + Vector2(-150, 130), 0.4)
+	tween.tween_property(enemy_heal_number, "modulate:a", 0, .5)
+	enemy_heal_number.text = str(value) 
+
+func change_enemy_reflect_number(value):
+	if value <= 0: return
+	enemy_reflect_number.modulate.a = 1
+	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
+	enemy_reflect_number.position = new_position 
+	var tween = get_tree().create_tween()
+	tween.tween_property(enemy_reflect_number, "position", new_position + Vector2(0, -130), 0.4)
+	tween.tween_property(enemy_reflect_number, "z_index", 13, 0.4)
+	tween.tween_property(enemy_reflect_number, "modulate:a", 0, .5)
+	enemy_reflect_number.text = str(value) 
 
 func change_enemy_bleed_taken(value):
 	var enemy_drip = $Labels/EnemyBleedTaken/EnemyBleedDrip

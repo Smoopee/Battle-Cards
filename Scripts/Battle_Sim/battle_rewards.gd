@@ -46,6 +46,7 @@ func update_rewards():
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
 	new_scene.card_stats.is_players = true
+	new_scene.card_stats.in_enemy_deck = false
 	new_scene.card_stats.cd_remaining = 0
 	new_scene.card_stats.on_cd = false
 	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)

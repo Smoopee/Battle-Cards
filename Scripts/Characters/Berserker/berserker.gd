@@ -1,15 +1,18 @@
 extends Node2D
 
+signal rage_attack_gained
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = -100
+const SKILL_X_POSITION = 600
+const SKILL_Y_POSITION = -40
 
 @export var character_stats_resource: Character_Resource
 
 var player_stats: Character_Resource = null
 var battle_sim
+var deck
 
-var spiked_armor = false
 
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
@@ -19,13 +22,13 @@ func _ready():
 	battle_sim = get_tree().get_first_node_in_group("battle sim")
 	set_stats(character_stats_resource)
 	set_talents()
+	set_skills()
 	set_stat_container()
 	
 	$RageBar.position = get_parent().position + Vector2(70, -38)
 	$PlayerHealthBar.max_value = Global.max_player_health
 	$PlayerHealthBar.value = Global.player_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
-
 
 func set_stats(stats = Character_Resource) -> void:
 	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
@@ -42,6 +45,16 @@ func set_talents():
 		$Talents.add_child(new_talent)
 		new_talent.set_talent()
 
+func set_skills():
+	var player_skills = Global.player_skills
+	
+	for i in player_skills:
+		var new_instance = load(i).instantiate()
+		new_instance.attached_to = self
+		$Skills.add_child(new_instance)
+	
+	organize_skills()
+
 func change_player_health():
 	$PlayerHealthBar.value = Global.player_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
@@ -54,6 +67,16 @@ func change_rage(source, value):
 		change_attack_label()
 		rage_bar.value = 0
 		rage_bar.max_value += 10
+		rage_attack_buff()
+
+func rage_attack_buff():
+	for i in get_tree().get_nodes_in_group("buff"):
+		if i.buff_name == "Rage Attack Increase" and i.attached_to == self: 
+			i.increase_buff(self)
+			return
+			
+	var new_buff = load("res://Scenes/Buffs/rage_attack_increase_buff.tscn").instantiate()
+	add_buff(new_buff, self)
 
 func change_attack_label():
 	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(player_stats.attack) 
@@ -89,17 +112,23 @@ func organize_buffs():
 		i.scale = Vector2(2,2)
 		x_offset += 50
 
+func organize_skills():
+	var x_offset = 0
+	for i in $Skills.get_children():
+		i.position = Vector2(x_offset + SKILL_X_POSITION, SKILL_Y_POSITION)
+		x_offset += 60
+
 func connect_signals(battle_sim):
 	battle_sim.connect("physical_damage", physical_damage_taken)
 	battle_sim.connect("physical_damage", physical_damage_dealt)
 	battle_sim.connect("end_of_turn", end_of_turn)
 
-func physical_damage_taken(damage, source):
+func physical_damage_taken(card, source, damage):
 	if source == self: return
 	change_rage(source, damage)
 	block_damage()
 
-func physical_damage_dealt(damage, source):
+func physical_damage_dealt(card, source, damage):
 	if source != self: return
 	change_rage(source, damage)
 
@@ -130,3 +159,7 @@ func inventory_screen_toggle(toggle):
 		$StatContainer.visible = true
 		if player_stats.block >= 0: $BlockSymbol.visible = true
 		$ClassImage.visible = true
+
+func active_deck_access():
+	var temp_array = Global.player_active_deck + Global.player_active_inventory
+	return temp_array

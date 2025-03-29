@@ -26,6 +26,7 @@ var enemy_health_bar
 
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
+	print(enemy)
 	add_child(enemy)
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
@@ -42,7 +43,7 @@ func build_deck():
 	discard_offset = 0
 	deck_offset = 0
 	if Global.enemy_active_deck == []:
-		enemy_deck = enemy.enemy_deck
+		enemy_deck = enemy.deck
 	else: 
 		enemy_deck = Global.enemy_active_deck
 
@@ -58,6 +59,7 @@ func build_deck():
 		new_card.upgrade_card(new_card.card_stats.upgrade_level)
 		new_card.item_enchant(new_card.card_stats.item_enchant)
 		new_card.card_stats.is_players = false
+		new_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
 		new_card.card_stats.in_enemy_deck = true
 		new_card.card_stats.deck_position = counter
 		new_card.update_card_ui()
@@ -92,21 +94,6 @@ func animate_card_to_discard_position(card):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", Vector2(1450 - discard_offset, 200), 0.1 * Global.COMBAT_SPEED)
 	discard_offset += 20
-
-func add_skills():
-	enemy_skills = enemy.enemy_skills
-	
-	var skill_array = []
-	
-	var skill_x_position = 0 
-	for i in enemy_skills:
-		var new_instance = i.instantiate()
-		add_child(new_instance)
-		new_instance.player_skill = false
-		skill_array.push_back(new_instance)
-		new_instance.position = Vector2(1400 + skill_x_position, 50)
-		skill_x_position += 70
-	return skill_array
 
 func change_enemy_health():
 	enemy.change_enemy_health()

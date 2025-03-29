@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .01
+const COMBAT_SPEED = 1
 
 
 var save_file_path = "user://SaveData/"
@@ -52,6 +52,8 @@ func _ready():
 	
 	load_data()
 	load_function()
+	
+	player_skills = ["res://Scenes/Skills/paper_shield.tscn", "res://Scenes/Skills/right_on_time.tscn", "res://Scenes/Skills/third_wheel.tscn"]
 	
 	if player_inventory == null:
 		instantiate_player_deck()

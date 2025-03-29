@@ -48,6 +48,8 @@ texture_progress_offset = Vector2(2, 0)
 
 [node name="Talents" type="Node2D" parent="."]
 
+[node name="Skills" type="Node2D" parent="."]
+
 [node name="ClassImage" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("5_12jeq")

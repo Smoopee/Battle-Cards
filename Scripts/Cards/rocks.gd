@@ -25,7 +25,10 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	pass
+	var battle_sim = get_tree().get_first_node_in_group("battle sim")
+	battle_sim.damage_func(self)
+	if card_stats.item_enchant == "Bleed":
+		battle_sim.bleed_func(self)
 
 func upgrade_card(num):
 	match num:

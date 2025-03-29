@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgdwa11ubgypl"
-path="res://.godot/imported/hone_edged_skill.png-bd4ce50f37e943d1cb948a479e2a2b14.ctex"
+uid="uid://ct0hsk1kxm22b"
+path="res://.godot/imported/third_wheel.png-8ab63fb33d4e1f675298bfaeb98c0876.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Skills/hone_edged_skill.png"
-dest_files=["res://.godot/imported/hone_edged_skill.png-bd4ce50f37e943d1cb948a479e2a2b14.ctex"]
+source_file="res://Resources/Art/Skills/third_wheel.png"
+dest_files=["res://.godot/imported/third_wheel.png-8ab63fb33d4e1f675298bfaeb98c0876.ctex"]
 
 [params]
 

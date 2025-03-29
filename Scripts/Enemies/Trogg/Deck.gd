@@ -6,7 +6,7 @@ var rock = preload("res://Resources/Cards/rock.tres")
 var strengthen = preload("res://Resources/Cards/strengthen.tres")
 
 func _ready():
-	var item1 = strengthen.duplicate()
+	var item1 = rock.duplicate()
 	var item2 = rock.duplicate()
 	var item3 = rock.duplicate()
 	var item4 = rock.duplicate()
@@ -25,3 +25,4 @@ func _ready():
 	var deck = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]
 	
 	enemy_deck = deck
+

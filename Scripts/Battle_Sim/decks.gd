@@ -13,7 +13,6 @@ var discard_offset = 0
 var deck_offset = 0
 var first_test = true
 
-
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
@@ -35,13 +34,14 @@ func build_deck():
 		new_card.card_stats = deck_db[i]
 		if first_test: new_card.upgrade_card(new_card.card_stats.upgrade_level)
 		new_card.item_enchant(new_card.card_stats.item_enchant)
+		new_card.card_stats.card_owner = get_tree().get_first_node_in_group("character")
 		new_card.card_stats.is_players = true
 		new_card.card_stats.deck_position = counter
 		counter += 1
 	
 	first_test = false
 	return deck
-	
+
 func clear_cards():
 	for i in get_children():
 		if i.is_in_group("card"):

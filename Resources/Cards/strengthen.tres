@@ -39,6 +39,7 @@ is_enchanted = false
 is_enchantment = false
 enchanting_with = ""
 card_pool = ["Buff", "Trogg"]
+card_type = ["Buff"]
 is_discarded = false
 is_blank = false
 is_updated = false
