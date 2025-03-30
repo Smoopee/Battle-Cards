@@ -1,6 +1,5 @@
 extends Node2D
 
-
 func activate_consumable():
 	var cards = (get_tree().get_nodes_in_group("card"))
 	for i in cards:

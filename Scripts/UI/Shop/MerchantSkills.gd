@@ -22,8 +22,8 @@ func create_merchant_inventory():
 	
 	var skill_position = 0
 	for i in inventory:
-		i.get_node("Area2D").collision_mask = 64
-		i.get_node("Area2D").collision_layer = 64
+		i.get_node("Area2D").collision_mask = 512
+		i.get_node("Area2D").collision_layer = 512
 	
 		i.toggle_shop_ui(true)
 		i.skill_shop_ui()

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dad63s03qox6y" path="res://Resources/Art/Merchants/grack_merchant.png" id="3_llepd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_520n0"]
-size = Vector2(98, 128)
+size = Vector2(141, 177)
 
 [node name="Grack" type="Node2D" groups=["merchant"]]
 script = ExtResource("1_aaplt")
@@ -17,4 +17,5 @@ collision_layer = 32
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_520n0")

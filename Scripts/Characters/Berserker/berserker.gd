@@ -6,13 +6,14 @@ const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = -100
 const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = -40
+const CONSUMABLE_X_POSITION = -100
+const CONSUMABLE_Y_POSITION = 0
 
 @export var character_stats_resource: Character_Resource
 
 var player_stats: Character_Resource = null
 var battle_sim
 var deck
-
 
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
@@ -23,6 +24,7 @@ func _ready():
 	set_stats(character_stats_resource)
 	set_talents()
 	set_skills()
+	set_consumables()
 	set_stat_container()
 	
 	$RageBar.position = get_parent().position + Vector2(70, -38)
@@ -47,13 +49,33 @@ func set_talents():
 
 func set_skills():
 	var player_skills = Global.player_skills
-	
+
 	for i in player_skills:
-		var new_instance = load(i).instantiate()
+		var new_instance = load(i.skill_scene_path).instantiate()
+		new_instance.skill_stats = i
 		new_instance.attached_to = self
+		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 		$Skills.add_child(new_instance)
 	
 	organize_skills()
+
+func add_skill(skill):
+	var new_instance = load(skill.skill_scene_path).instantiate()
+	new_instance.skill_stats = skill
+	new_instance.attached_to = self
+	new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
+	$Skills.add_child(new_instance)
+	organize_skills()
+
+func set_consumables():
+	var player_consumables = Global.player_consumables
+
+	for i in player_consumables:
+		var new_instance = load(i.consumable_scene_path).instantiate()
+		new_instance.consumable_stats = i
+		$Consumables.add_child(new_instance)
+	
+	organize_consumables()
 
 func change_player_health():
 	$PlayerHealthBar.value = Global.player_health
@@ -117,6 +139,13 @@ func organize_skills():
 	for i in $Skills.get_children():
 		i.position = Vector2(x_offset + SKILL_X_POSITION, SKILL_Y_POSITION)
 		x_offset += 60
+
+func organize_consumables():
+	var y_offset = 0
+	for i in $Consumables.get_children():
+		i.position = Vector2(CONSUMABLE_X_POSITION, y_offset + CONSUMABLE_Y_POSITION)
+		print(i.position)
+		y_offset += 30
 
 func connect_signals(battle_sim):
 	battle_sim.connect("physical_damage", physical_damage_taken)

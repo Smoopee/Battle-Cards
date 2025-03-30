@@ -11,10 +11,9 @@ func _ready():
 	
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
-		
-
 
 func skill_effect(card, source, amount):
+	$SkillUI/InfoLabel.visible = true
 	if attached_to != source: return
 	if card.card_stats.card_type.find("Attack") >= 0:
 		if counter >= 3:
@@ -23,9 +22,34 @@ func skill_effect(card, source, amount):
 		else: counter += 1
 	update_counter_text()
 
+func upgrade_skill(num):
+	match num:
+		1:
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
+			skill_stats.upgrade_level = 1
+			skill_stats.buy_price = 2
+		2: 
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade2.png"
+			skill_stats.upgrade_level = 2
+			skill_stats.buy_price = 4
+		3:
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade3.png"
+			skill_stats.upgrade_level = 3
+			skill_stats.buy_price = 8
+		4:
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade4.png"
+			skill_stats.upgrade_level = 4
+			skill_stats.buy_price = 16
+		
+	update_skill_image()
+	update_tooltip("Effect", "WIP" + " damage")
+
+func update_skill_image():
+	$UpgradeBorder.texture = load(skill_stats.skill_art_path)
+
 func update_counter_text():
-	$SkillCounters.text = str(counter)
-	
+	$SkillUI/InfoLabel.text = str(counter)
+
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
 

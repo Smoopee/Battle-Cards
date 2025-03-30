@@ -9,3 +9,4 @@ skill_scene_path = "res://Scenes/Skills/third_wheel.tscn"
 skill_name = "Third Wheel"
 buff_type = []
 buy_price = 10
+upgrade_level = 1

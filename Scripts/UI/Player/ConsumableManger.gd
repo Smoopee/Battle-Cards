@@ -1,8 +1,7 @@
 extends Node2D
 
-const COLLISION_MASK_CONSUMABLE = 16
+const COLLISION_MASK_CONSUMABLE = 2048
 const COLLISION_MASK_PLAYER = 8
-const CONSUMABLE_Y_POSITION = 820
 
 
 var consumable_offset = 0
@@ -10,26 +9,20 @@ var center_screen_x
 var screen_size
 var consumable_being_dragged
 var consumable_slots = []
+var consumable_used = false
+var consumable_previous_position
+var drag_correction
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	screen_size = get_viewport_rect().size
-	
-	var test = load("res://Scenes/Consumables/battery.tscn").instantiate()
-	var test2 = load("res://Scenes/Consumables/herb.tscn").instantiate()
-	add_child(test2)
-	add_child(test)
-	consumable_slots.push_back(test)
-	consumable_slots.push_back(test2)
-	organize_consumables()
-
+	drag_correction = Vector2(-center_screen_x, -800)
 
 func _process(delta):
 	if consumable_being_dragged:
 		var mouse_pos = get_global_mouse_position()
-		if consumable_being_dragged != null:
-			consumable_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
-				clamp(mouse_pos.y, 0, screen_size.y))
+		consumable_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+			clamp(mouse_pos.y, 0, screen_size.y)) + drag_correction
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -43,14 +36,23 @@ func _input(event):
 
 func start_drag(consumable):
 	consumable_being_dragged = consumable
+	consumable.z_index = 2
 	consumable.scale = Vector2(1.5, 1.5)
+	consumable_previous_position = consumable.position
 
 func finish_drag():
-	if raycast_check_for_player():
-		use_consumable(consumable_being_dragged)
-		consumable_being_dragged.queue_free()
-		organize_consumables()
-		consumable_being_dragged = null
+
+	var player = raycast_check_for_player()
+	if player:
+		if player.is_in_group(consumable_being_dragged.consumable_stats.target):
+			consumable_being_dragged.consumable_effect()
+			consumable_being_dragged.queue_free()
+			consumable_being_dragged = null
+			consumable_used = true
+			
+	if !consumable_used: 
+		animate_consumable_back_to_position(consumable_being_dragged, consumable_previous_position)
+		consumable_reset()
 
 func raycast_check_for_consumable():
 	var space_state = get_world_2d().direct_space_state
@@ -71,18 +73,14 @@ func raycast_check_for_player():
 	parameters.collision_mask = COLLISION_MASK_PLAYER
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
-		return result[0]
+		return result[0].collider.get_parent()
 	return null 
 
-func organize_consumables():
-	consumable_offset = 0
-	for i in consumable_slots:
-		i.position = Vector2(center_screen_x - 120, CONSUMABLE_Y_POSITION + consumable_offset )
-		consumable_offset += 30
-	
-	
-func use_consumable(consumable):
-	consumable.activate_consumable()
-	if consumable in consumable_slots:
-		consumable_slots.erase(consumable)
+func consumable_reset():
+	consumable_being_dragged.scale = Vector2(1, 1)
+	consumable_being_dragged.z_index = 1
+	consumable_being_dragged = null
 
+func animate_consumable_back_to_position(consumable, new_position):
+	var tween = get_tree().create_tween()
+	tween.tween_property(consumable, "position", new_position, 0.1)

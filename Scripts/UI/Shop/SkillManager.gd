@@ -4,6 +4,9 @@ const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
 const COLLISION_MASK_MERCHANT = 32
+const COLLISION_MASK_SKILL = 256
+const COLLISION_MASK_MERCHANT_SKILL = 512
+const COLLISION_MASK_SKILL_DROP_OFF = 1024
 
 var screen_size
 var deck_reference
@@ -15,6 +18,7 @@ var inventory_card_slot_reference = []
 
 var hover_on_upgrade_test = true
 var upgrade_mode = false
+var skill_previous_position
 var card_previous_position
 var deck_card_slot_index 
 var deck_card_slot_reference_index
@@ -23,6 +27,7 @@ var inventory_card_slot_reference_index
 var previous_card_slot
 
 var card_being_dragged
+var skill_being_dragged
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -43,26 +48,51 @@ func _process(delta):
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
+	
+	if skill_being_dragged:
+		var mouse_pos = get_global_mouse_position()
+		skill_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
-	if $"..".merchant_type != "Skill": return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var player_card = raycast_check_for_card()
+			var merchant_skill = raycast_check_for_skill()
 			if player_card:
-				start_drag(player_card)
+				start_drag_card(player_card)
+			if merchant_skill:
+				start_drag_skill(merchant_skill)
 		else:
 			if card_being_dragged:
-				finish_drag()
+				finish_drag_card()
+			if skill_being_dragged:
+				finish_drag_skill()
 
-func start_drag(card):
+func start_drag_card(card):
 	card_being_dragged = card
 	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_being_dragged.scale = Vector2(1.1, 1.1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
 
-func finish_drag():
+func finish_drag_skill():
+	$"../MerchantSkills".animate_skill_to_position(skill_being_dragged, skill_previous_position)
+	if raycast_check_for_skill_drop_off(): 
+		var upgradeable_skill = check_for_upgrade_skill()
+		if upgradeable_skill:
+			upgrade_skill(upgradeable_skill)
+		else:
+			buy_skill()
+	skill_reset()
+
+func start_drag_skill(skill):
+	skill_being_dragged = skill
+	skill_being_dragged.scale = Vector2(1.1, 1.1)
+	skill_being_dragged.z_index = 2
+	skill_previous_position = skill.position
+
+func finish_drag_card():
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
 	var card_sorted = false
@@ -180,6 +210,28 @@ func raycast_check_for_upgrade_card():
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return get_card_with_lowest_z_index(result)
+	return null 
+
+func raycast_check_for_skill():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_MERCHANT_SKILL
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
+func raycast_check_for_skill_drop_off():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_SKILL_DROP_OFF
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
 	return null 
 
 func get_card_with_highest_z_index(cards):
@@ -536,3 +588,35 @@ func on_hovered_over(card):
 	card.scale = Vector2(2, 2)
 	card.toggle_tooltip_show()
 	card.z_index = 2
+
+func skill_reset():
+	skill_being_dragged.scale = Vector2(1, 1)
+	skill_being_dragged.z_index = 1
+	skill_being_dragged = null
+
+func check_for_upgrade_skill():
+	if skill_being_dragged.skill_stats.upgrade_level >= 4: return
+	for i in $"../Player/Berserker/Skills".get_children():
+		if i.skill_stats.skill_name != skill_being_dragged.skill_stats.skill_name:
+			continue
+		if i.skill_stats.upgrade_level == skill_being_dragged.skill_stats.upgrade_level:
+			return i
+	return false
+
+func upgrade_skill(skill_being_upgraded):
+	if Global.player_gold < skill_being_dragged.skill_stats.buy_price:
+		print("not enough gold")
+		return
+	$"../MerchantSkills".remove_skill_from_inventory(skill_being_dragged)
+	skill_being_dragged.queue_free()
+	skill_being_upgraded.upgrade_skill(skill_being_upgraded.skill_stats.upgrade_level + 1)
+
+func buy_skill():
+	if Global.player_gold < skill_being_dragged.skill_stats.buy_price:
+		print("not enough gold")
+		return
+	Global.player_skills.push_back(skill_being_dragged.skill_stats)
+	$"../Player/Berserker".add_skill(skill_being_dragged.skill_stats)
+	$"../MerchantSkills".remove_skill_from_inventory(skill_being_dragged)
+	skill_being_dragged.queue_free()
+	

@@ -15,6 +15,7 @@ func _ready():
 	elif merchant.merchant_type == "Skill":
 		merchant_type = "Skill"
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
+		toggle_inventory()
 		$MerchantSkills.create_merchant_inventory()
 	elif merchant.merchant_type == "Consumbales":
 		merchant_type = "Consumbales"
@@ -24,7 +25,6 @@ func _ready():
 		merchant_type = "Other"
 		$VarietyManager.process_mode = Node.PROCESS_MODE_INHERIT
 		$VarietyManager.create_merchant_inventory()
-
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):

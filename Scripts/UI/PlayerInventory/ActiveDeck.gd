@@ -43,14 +43,12 @@ func create_inventory():
 		fill_card_slots(card_scene, card_position)
 		card_position += 1
 
-
 func fetch_inventory():
 	deck_db = Global.player_deck
 
 func remove_card(card):
 	if card in Global.player_deck:
 		Global.player_deck.erase(card)
-
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()

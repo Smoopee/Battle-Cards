@@ -5,7 +5,6 @@ var one_shot = true
 var skill_name = "Paper Shield"
 var attached_to 
 
-
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = skill_name
 	update_tooltip("Effect","Reduce the next 6+ damage to 0, once per battle",  "Effect: ")
@@ -14,14 +13,40 @@ func _ready():
 		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
 
 func skill_effect(card, source, value):
-	print("In skil effect for paper shield")
+	print("In skills effect for paper shield")
 	if one_shot == false: return
 	if source == attached_to: return
 	if value >= 6:
 		get_tree().get_first_node_in_group("battle sim").damage = 0
 		one_shot = false
 		print("WE BLOCKED WITH A PAPER SHIELD")
-		$Sprite2D.self_modulate.a = .5
+		$SkillImage.self_modulate.a = .5
+		$UpgradeBorder.self_modulate.a = .5
+
+func upgrade_skill(num):
+	match num:
+		1:
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
+			skill_stats.upgrade_level = 1
+			skill_stats.buy_price = 2
+		2: 
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade2.png"
+			skill_stats.upgrade_level = 2
+			skill_stats.buy_price = 4
+		3:
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade3.png"
+			skill_stats.upgrade_level = 3
+			skill_stats.buy_price = 8
+		4:
+			skill_stats.skill_art_path = "res://Resources/Art/Skills/skill_upgrade4.png"
+			skill_stats.upgrade_level = 4
+			skill_stats.buy_price = 16
+		
+	update_skill_image()
+	update_tooltip("Effect", "WIP" + " damage")
+
+func update_skill_image():
+	$UpgradeBorder.texture = load(skill_stats.skill_art_path)
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return

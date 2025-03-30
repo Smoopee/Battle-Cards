@@ -19,6 +19,7 @@
 script = ExtResource("1_147it")
 
 [node name="CardSelector" parent="." instance=ExtResource("2_4mb0g")]
+process_mode = 4
 visibility_layer = 3
 
 [node name="MerchantOrganizer" type="Node2D" parent="."]
@@ -36,6 +37,7 @@ mouse_filter = 2
 texture = ExtResource("5_3txuy")
 
 [node name="PlayerInventoryScreen" parent="." instance=ExtResource("6_i1rkl")]
+process_mode = 4
 
 [node name="ConsumableManger" parent="." instance=ExtResource("10_lr1so")]
 visible = false

@@ -9,3 +9,4 @@ class_name PlayerData
 @export var player_xp : int
 @export var player_level : int
 @export var battle_tracker : int
+@export var player_skills : Array

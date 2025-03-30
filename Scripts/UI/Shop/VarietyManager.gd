@@ -45,7 +45,6 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
-	if $"..".merchant_type != "Skill": return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var player_card = raycast_check_for_card()
@@ -218,6 +217,9 @@ func upgrade_check(upgrade_card, base_card):
 		return false
 	return true
 
+func _on_upgrade_button_toggled(toggled_on):
+	upgrade_mode = toggled_on
+
 func upgrade_card(upgrade_card, base_card):
 	var temp_inventory_card = inventory_card_slot_reference[inventory_card_slot_index]
 	if inventory_card_slot_reference_index >= 0:
@@ -247,7 +249,7 @@ func move_from_inventory_to_deck(card_being_dragged, deck_slot):
 		inventory_card_slot_reference[inventory_card_slot_reference_index] = null
 		inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
 	print("I am Here 1")
-	
+
 func move_from_deck_to_inventory(card_being_dragged, inventory_slot):
 	card_being_dragged.position = inventory_slot.position
 	inventory_slot.card_in_slot = true

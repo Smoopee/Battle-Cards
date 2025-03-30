@@ -47,7 +47,7 @@ border_color = Color(0, 0, 0, 1)
 
 [node name="Rock" type="Node2D" groups=["card", "weapon"]]
 texture_filter = 1
-position = Vector2(0, -38.4)
+position = Vector2(0, -0.400002)
 script = ExtResource("1_l5vns")
 
 [node name="CardImage" type="Sprite2D" parent="."]

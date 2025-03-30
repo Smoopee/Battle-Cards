@@ -21,8 +21,11 @@ var playerData = PlayerData.new()
 @onready var player_active_deck = []
 @onready var player_deck = []
 @onready var player_skills = []
+@onready var player_consumables = []
 @onready var player_inventory_db = []
 @onready var player_deck_db
+@onready var player_skills_db
+@onready var player_consumables_db
 @onready var player_active_inventory = []
 @onready var player_inventory = []
 @onready var player_talent_array = []
@@ -36,7 +39,9 @@ var intermission_tracker = 0
 var battle_tracker = 1
 var current_scene = ""
 
+var skill_db_reference
 var card_db_reference
+var consumable_db_reference
 var card_node_reference = 3
 
 var mouse_occupied = false
@@ -44,20 +49,26 @@ var mouse_occupied = false
 
 func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
+	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
+	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
 	max_player_health = 200
 	player_health = max_player_health
 	
 	max_enemy_health = current_enemy.health
 	enemy_health = max_enemy_health
 	
+	set_player_skills()
+	instantiate_player_skills()
+	set_player_consumables()
+	instantiate_player_consumables()
+	
 	load_data()
 	load_function()
-	
-	player_skills = ["res://Scenes/Skills/paper_shield.tscn", "res://Scenes/Skills/right_on_time.tscn", "res://Scenes/Skills/third_wheel.tscn"]
 	
 	if player_inventory == null:
 		instantiate_player_deck()
 		instantiate_player_inventory()
+		instantiate_player_skills()
 
 func verify_save_directory(path: String):
 	DirAccess.make_dir_absolute(path)
@@ -101,6 +112,22 @@ func instantiate_player_deck():
 		card.is_players = true
 		player_deck.push_back(card)
 
+func set_player_skills():
+	player_skills_db = ["Right on Time"]
+
+func instantiate_player_skills():
+	for i in player_skills_db:
+		var skill = load(skill_db_reference.SKILLS[i]).duplicate()
+		player_skills.push_back(skill)
+
+func set_player_consumables():
+	player_consumables_db = ["Health Potion"]
+
+func instantiate_player_consumables():
+	for i in player_consumables_db:
+		var consumable = load(consumable_db_reference.CONSUMABLES[i]).duplicate()
+		player_consumables.push_back(consumable)
+
 func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)
 	print("loaded")
@@ -114,6 +141,7 @@ func save_function():
 	playerData.player_xp = player_xp
 	playerData.player_level = player_level
 	playerData.battle_tracker = battle_tracker
+	playerData.player_skills = player_skills
 
 	save()
 

@@ -81,7 +81,7 @@ func disable_collision():
 	$Area2D/CollisionShape2D.disabled = true
 	$CardUI.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	disabled_collision = true
-	
+
 func enable_collision():
 	$Area2D/CollisionShape2D.disabled = false
 	$CardUI.mouse_filter = Control.MOUSE_FILTER_STOP

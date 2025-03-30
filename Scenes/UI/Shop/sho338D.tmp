@@ -23,7 +23,7 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_k0wj2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kig7s"]
-size = Vector2(449, 169)
+size = Vector2(623, 248)
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_ujm55")
@@ -104,7 +104,7 @@ offset_bottom = 861.0
 text = "Upgrade Mode"
 
 [node name="Background" type="TextureRect" parent="."]
-show_behind_parent = true
+z_index = -1
 offset_right = 1920.0
 offset_bottom = 1079.0
 mouse_filter = 2
@@ -174,11 +174,9 @@ text = "Back
 "
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 1024
-collision_mask = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1677.5, 791.5)
+position = Vector2(1587, 747)
 shape = SubResource("RectangleShape2D_kig7s")
 
 [connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]

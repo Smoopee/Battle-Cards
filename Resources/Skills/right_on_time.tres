@@ -9,3 +9,4 @@ skill_scene_path = "res://Scenes/Skills/right_on_time.tscn"
 skill_name = "Right on Time"
 buff_type = []
 buy_price = 5
+upgrade_level = 1
