@@ -16,8 +16,8 @@ func _ready():
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
 		update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage",  "Effect: ")
 
-func set_stats(stats = Cards_Resource) -> void:
-	card_stats = load("res://Resources/Cards/strike.tres").duplicate()
+#func set_stats(stats = Cards_Resource) -> void:
+	#card_stats = load("res://Resources/Cards/strike.tres").duplicate()
 
 func on_start(board):
 	pass

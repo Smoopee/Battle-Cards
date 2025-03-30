@@ -1,5 +1,6 @@
 extends Node2D
 
+var skill_stats: Skills_Resource = null
 var skill_name = "Right on Time"
 var attached_to 
 
@@ -9,6 +10,7 @@ func _ready():
 	
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("end_of_round", skill_effect)
+
 
 func skill_effect():
 	var temp_array = []
@@ -57,3 +59,12 @@ func _on_panel_mouse_entered():
 
 func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
+
+func skill_shop_ui():
+	if skill_stats.skill_owner != get_tree().get_first_node_in_group("character"):
+		$SkillUI/ShopPanel/ShopLabel.text =  str(skill_stats.buy_price)
+
+func toggle_shop_ui(show):
+	if show: $SkillUI/ShopPanel.visible = true
+	if Global.current_scene == "shop": return
+	if !show:  $SkillUI/ShopPanel.visible = false

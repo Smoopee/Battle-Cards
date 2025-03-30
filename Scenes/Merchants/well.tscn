@@ -1,15 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://3gil2veut8rp"]
+[gd_scene load_steps=4 format=3 uid="uid://3gil2veut8rp"]
 
 [ext_resource type="Script" path="res://Scripts/Merchants/well.gd" id="1_5hwwg"]
-[ext_resource type="Resource" uid="uid://3t0knk4gnre5" path="res://Resources/Merchants/well.tres" id="2_5bawh"]
 [ext_resource type="Texture2D" uid="uid://vrsh1cyr38mw" path="res://Resources/Art/Merchants/well_merchant.png" id="2_w147a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b87g7"]
 size = Vector2(98, 128)
 
-[node name="Well" type="Node2D"]
+[node name="Well" type="Node2D" groups=["merchant"]]
 script = ExtResource("1_5hwwg")
-merchant_stats_resource = ExtResource("2_5bawh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_w147a")

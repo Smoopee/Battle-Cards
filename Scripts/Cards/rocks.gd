@@ -10,7 +10,6 @@ var disabled_collision = false
 var mouse_exit = false
 
 
-
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
@@ -134,7 +133,6 @@ func toggle_tooltip_show():
 	else:
 		$PopupPanel.popup(Rect2i(position, Vector2i(0, 0))) 
 		$PopupPanel.position = position + Vector2(-150 - $PopupPanel.size.x , -180)
-
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)

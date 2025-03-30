@@ -1,5 +1,6 @@
 extends Node2D
 
+var skill_stats: Skills_Resource = null
 var skill_name = "Third Wheel"
 var attached_to 
 var counter = 0
@@ -10,6 +11,8 @@ func _ready():
 	
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
+		
+
 
 func skill_effect(card, source, amount):
 	if attached_to != source: return
@@ -58,3 +61,12 @@ func _on_panel_mouse_entered():
 
 func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
+
+func skill_shop_ui():
+	if skill_stats.skill_owner != get_tree().get_first_node_in_group("character"):
+		$SkillUI/ShopPanel/ShopLabel.text =  str(skill_stats.buy_price)
+
+func toggle_shop_ui(show):
+	if show: $SkillUI/ShopPanel.visible = true
+	if Global.current_scene == "shop": return
+	if !show:  $SkillUI/ShopPanel.visible = false

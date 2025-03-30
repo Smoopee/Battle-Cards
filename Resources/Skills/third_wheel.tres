@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://ba7xhokhf1xe"]
+
+[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_a558x"]
+
+[resource]
+script = ExtResource("1_a558x")
+skill_art_path = "res://Resources/Art/Skills/third_wheel.png"
+skill_scene_path = "res://Scenes/Skills/third_wheel.tscn"
+skill_name = "Third Wheel"
+buff_type = []
+buy_price = 10

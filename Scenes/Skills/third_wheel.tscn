@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://chfhtvuqmfvh2"]
+[gd_scene load_steps=7 format=3 uid="uid://chfhtvuqmfvh2"]
 
 [ext_resource type="Script" path="res://Scripts/Skills/third_wheel.gd" id="1_0jjpx"]
 [ext_resource type="Texture2D" uid="uid://ct0hsk1kxm22b" path="res://Resources/Art/Skills/third_wheel.png" id="2_v10xa"]
@@ -15,7 +15,18 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqs5m"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvja2"]
+size = Vector2(48, 48)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13gmp"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1asp"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 1
 border_width_top = 1
@@ -28,14 +39,6 @@ script = ExtResource("1_0jjpx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_v10xa")
-
-[node name="Panel" type="Panel" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(30, 30)
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 23.0
-offset_bottom = 22.0
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
@@ -56,8 +59,42 @@ theme_override_font_sizes/font_size = 24
 text = "Rock"
 vertical_alignment = 1
 
-[node name="SkillCounters" type="Label" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_wvja2")
+
+[node name="SkillUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShopPanel" type="Panel" parent="SkillUI"]
+visible = false
+layout_mode = 0
+offset_left = -32.0
+offset_top = 6.0
+offset_right = -2.0
+offset_bottom = 36.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_13gmp")
+
+[node name="ShopLabel" type="Label" parent="SkillUI/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="SkillUI"]
+visible = false
 custom_minimum_size = Vector2(0, 12)
+layout_mode = 0
 offset_left = -8.0
 offset_top = 16.0
 offset_right = 8.0
@@ -68,7 +105,7 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SkillCounterPanel" type="Panel" parent="SkillCounters"]
+[node name="InfoPanel" type="Panel" parent="SkillUI/InfoLabel"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -79,7 +116,4 @@ offset_top = -2.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oqs5m")
-
-[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1asp")

@@ -3,7 +3,6 @@ extends Node2D
 
 const CARD_WIDTH = 160
 const HAND_Y_POSITION = 376
-const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 
 var inventory_db = []
 var inventory = []
@@ -11,9 +10,7 @@ var center_screen_x
 var animation_canel = true
 
 func _ready():
-	print("Merchant cards scene")
 	center_screen_x = get_viewport().size.x / 2
-	create_merchant_inventory()
 
 func create_merchant_inventory():
 	fetch_merchant_inventory()
@@ -35,12 +32,10 @@ func create_merchant_inventory():
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
 		card_position += 1
-	
 
 func fetch_merchant_inventory():
 	$"../Merchant".get_child(0).get_inventory()
 	inventory_db = $"../Merchant".get_child(0).inventory
-
 
 func add_card_to_hand(card):
 	if card not in inventory:

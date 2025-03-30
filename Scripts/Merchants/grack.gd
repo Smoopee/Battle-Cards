@@ -1,18 +1,16 @@
 extends Node2D
 
-@export var merchant_stats_resource: Merchant_Resource
 
 var inventory = []
 var rock = preload("res://Resources/Cards/rock.tres")
 
-var merchant_stats: Merchant_Resource = null
 var merchant_scene_path = "res://Scenes/Merchants/grack.tscn"
+var merchant_type = "Card"
+
+var card_db_reference
 
 func _ready():
-	set_stats(merchant_stats_resource)
-
-func set_stats(stats = Merchant_Resource) -> void:
-	merchant_stats = stats
+	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 
 func get_inventory():
 	rock.upgrade_level = 1

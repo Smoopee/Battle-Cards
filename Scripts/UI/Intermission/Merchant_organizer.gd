@@ -34,7 +34,6 @@ func create_encounter(merchant_array):
 		merchant_selection.push_front(new_merchant)
 		update_merchant_positions()
 
-
 func update_merchant_positions():
 	for i in range(merchant_selection.size()):
 		var new_position = Vector2(calculate_card_position(i), MERCHANT_Y_POSITION)

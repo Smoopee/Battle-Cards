@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://d0mdmj58fci4b"]
+
+[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_wc4bd"]
+
+[resource]
+script = ExtResource("1_wc4bd")
+skill_art_path = "res://Resources/Art/Skills/right_on_time_skill.png"
+skill_scene_path = "res://Scenes/Skills/right_on_time.tscn"
+skill_name = "Right on Time"
+buff_type = []
+buy_price = 5

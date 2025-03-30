@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0kfd3p75yjuy"
-path="res://.godot/imported/rock.png-4c7bf5d7ee02ebef7861448c701cf7d0.ctex"
+uid="uid://bgdhvsuefkiap"
+path="res://.godot/imported/jack_merchant.png-dec3011d054a68a7e9ed0af232521855.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/rock.png"
-dest_files=["res://.godot/imported/rock.png-4c7bf5d7ee02ebef7861448c701cf7d0.ctex"]
+source_file="res://Resources/Art/Merchants/jack_merchant.png"
+dest_files=["res://.godot/imported/jack_merchant.png-dec3011d054a68a7e9ed0af232521855.ctex"]
 
 [params]
 

@@ -4,9 +4,27 @@ extends Node2D
 @onready var player_inventory = $PlayerInventory
 @onready var player_deck = $PlayerDeck
 
+var merchant_type 
 
-var current_screen = ""
-var shop_screen = true
+func _ready():
+	var merchant = get_tree().get_first_node_in_group("merchant")
+	if merchant.merchant_type == "Card":
+		merchant_type = "Card"
+		$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
+		$MerchantCards.create_merchant_inventory()
+	elif merchant.merchant_type == "Skill":
+		merchant_type = "Skill"
+		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
+		$MerchantSkills.create_merchant_inventory()
+	elif merchant.merchant_type == "Consumbales":
+		merchant_type = "Consumbales"
+		$ConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
+		$ConsumableManager.create_merchant_inventory()
+	elif merchant.merchant_type == "Other":
+		merchant_type = "Other"
+		$VarietyManager.process_mode = Node.PROCESS_MODE_INHERIT
+		$VarietyManager.create_merchant_inventory()
+
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
@@ -59,22 +77,10 @@ func inventory_and_deck_save():
 	Global.player_deck = temp_deck
 
 func _on_talent_button_button_down():
-	$TalentTree.visible = true
-	shop_screen = false
-	$CanvasLayer/VBoxContainer/TalentButton.visible = false
-	$CanvasLayer/VBoxContainer/MenuButton.visible = false
-	$CanvasLayer/VBoxContainer/BackButton.visible = true
-	current_screen = "talents"
+	pass
 
 func _on_back_button_button_down():
-	match(current_screen):
-		"talents":
-			$TalentTree.visible = false
-
-	$CanvasLayer/VBoxContainer/TalentButton.visible = true
-	$CanvasLayer/VBoxContainer/MenuButton.visible = true
-	$CanvasLayer/VBoxContainer/BackButton.visible = false
-	shop_screen = true
+	pass
 
 func toggle_inventory():
 	if $Player.visible == true:

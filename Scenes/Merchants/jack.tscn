@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmd5frgkbhpup"]
+
+[ext_resource type="Script" path="res://Scripts/Merchants/jack.gd" id="1_xcoen"]
+[ext_resource type="Texture2D" uid="uid://bgdhvsuefkiap" path="res://Resources/Art/Merchants/jack_merchant.png" id="2_vb427"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wjtp"]
+size = Vector2(98, 128)
+
+[node name="Jack" type="Node2D" groups=["merchant"]]
+script = ExtResource("1_xcoen")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vb427")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_0wjtp")
