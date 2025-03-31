@@ -74,7 +74,7 @@ func _on_button_button_down():
 	Global.player_deck = temp_deck
 	
 	Global.battle_tracker += 1
-	
+	Global.player_consumables = $"../Player/Berserker".get_consumable_array()
 	Global.save_function()
 	Global.current_scene = "intermission"
 	get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))

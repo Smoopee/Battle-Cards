@@ -32,6 +32,7 @@ func _input(event):
 
 func _on_exit_button_button_down():
 	inventory_and_deck_save()
+	Global.player_consumables = $Player/Berserker.get_consumable_array()
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1

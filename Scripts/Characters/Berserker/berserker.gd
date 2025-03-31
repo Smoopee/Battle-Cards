@@ -8,12 +8,14 @@ const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = -40
 const CONSUMABLE_X_POSITION = -100
 const CONSUMABLE_Y_POSITION = -60
+const CONSUMABLE_Y_HORIZONTAL_POSITION = 950
 
 @export var character_stats_resource: Character_Resource
 
 var player_stats: Character_Resource = null
 var battle_sim
 var deck
+var consumable_orientation = true
 
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
@@ -73,11 +75,20 @@ func set_consumables():
 	for i in player_consumables:
 		var new_instance = load(i.consumable_scene_path).instantiate()
 		new_instance.consumable_stats = i
+		new_instance.update_stack_ui()
+		new_instance.toggle_info_ui(true)
 		$Consumables.add_child(new_instance)
 	
 	organize_consumables()
 
 func add_consumable(consumable):
+	for i in $Consumables.get_children():
+		if i.consumable_stats.consumable_name == consumable.consumable_name:
+			i.consumable_stats.stack_amount += 1
+			i.update_stack_ui()
+			i.toggle_info_ui(true)
+			return
+			
 	var new_instance = load(consumable.consumable_scene_path).instantiate()
 	new_instance.consumable_stats = consumable
 	$Consumables.add_child(new_instance)
@@ -150,6 +161,7 @@ func organize_consumables():
 	var counter = 0
 	var x_offset = 0
 	var y_offset = 0
+	
 	for i in $Consumables.get_children():
 		if counter >= 5: 
 			x_offset = -32
@@ -158,6 +170,8 @@ func organize_consumables():
 		i.position = Vector2(x_offset + CONSUMABLE_X_POSITION, y_offset + CONSUMABLE_Y_POSITION)
 		y_offset += 30
 		counter += 1
+	
+	consumable_orientation = true
 
 func connect_signals(battle_sim):
 	battle_sim.connect("physical_damage", physical_damage_taken)
@@ -195,19 +209,43 @@ func inventory_screen_toggle(toggle):
 		$StatContainer.visible = false
 		$BlockSymbol.visible = false
 		$ClassImage.visible = false
-		$Consumables.visible = false
 		$Skills.visible = false
+		$PlayerHealthBar.visible = false
+		organize_consumables_horiziontal()
 	if !toggle:
 		$RageBar.visible = true
 		$StatContainer.visible = true
 		if player_stats.block >= 0: $BlockSymbol.visible = true
 		$ClassImage.visible = true
 		$Skills.visible = true
-		$Consumables.visible = true
+		$PlayerHealthBar.visible = true
+		organize_consumables()
+
 func active_deck_access():
 	var temp_array = Global.player_active_deck + Global.player_active_inventory
 	return temp_array
 
 func _on_consumables_child_order_changed():
 	if get_node_or_null("Consumables") == null: return
-	organize_consumables()
+	if consumable_orientation == true: organize_consumables()
+	else: organize_consumables_horiziontal()
+
+func organize_consumables_horiziontal():
+	var counter = 0
+	for i in $Consumables.get_children():
+		i.global_position = Vector2(calculate_consumable_horizontal_position(counter), CONSUMABLE_Y_HORIZONTAL_POSITION)
+		counter += 1
+	consumable_orientation = false
+
+func calculate_consumable_horizontal_position(index):
+	var center_screen_x = get_viewport().size.x / 2
+	var total_width = ($Consumables.get_children().size() - 1) * 35
+	var x_offset = center_screen_x + index * 35 - total_width / 2
+	return x_offset
+
+func get_consumable_array():
+	var consumable_array = []
+	for i in $Consumables.get_children():
+		consumable_array.push_back(i.consumable_stats)
+	
+	return consumable_array

@@ -10,7 +10,7 @@ var card_being_dragged
 var card_selector_reference
 
 var intermission_screen = true
-var current_screen = ""
+var is_toggle_inventory = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -107,6 +107,7 @@ func inventory_and_deck_save():
 func _on_skip_button_button_down():
 	Global.player_gold += 5
 	inventory_and_deck_save()
+	Global.player_consumables = $Player/Berserker.get_consumable_array()
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
@@ -141,15 +142,17 @@ func on_hovered_off(card):
 	card.z_index = 1
 
 func toggle_inventory():
+	print(is_toggle_inventory)
 	#From player screen to Inventory
-	if $Player.visible == true:
+	if is_toggle_inventory == true:
+		print("in toggle inventory true")
 		$PlayerInventoryScreen.visible = true
 		$PlayerInventoryScreen/InventorySlots.visible = true
 		$PlayerInventoryScreen/CurrentInventory.visible = true
 		$PlayerInventoryScreen/DeckCardSlots.visible = true
 		$PlayerInventoryScreen/ActiveDeck.visible = true
 		$CardSelector.visible = false
-		$Player.visible = false
+		$Player/Berserker.inventory_screen_toggle(true)
 		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
 			if i == null: continue
 			i.visible = true
@@ -161,14 +164,16 @@ func toggle_inventory():
 		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
 		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_INHERIT
+		is_toggle_inventory = false
 	#From Inventory to Player Screen
 	else:
+		print("in toggle inventory false")
 		$PlayerInventoryScreen/CurrentInventory.visible = false
 		$PlayerInventoryScreen/InventorySlots.visible = false
 		$PlayerInventoryScreen/DeckCardSlots.visible = false
 		$PlayerInventoryScreen/ActiveDeck.visible = false
 		$CardSelector.visible = true
-		$Player.visible = true
+		$Player/Berserker.inventory_screen_toggle(false)
 		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
 			if i == null: continue
 			i.visible = false
@@ -180,6 +185,7 @@ func toggle_inventory():
 		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
 		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_DISABLED
+		is_toggle_inventory = true
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.

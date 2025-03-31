@@ -9,3 +9,5 @@ consumable_scene_path = "res://Scenes/Consumables/grenade.tscn"
 consumable_name = "Grenade"
 buy_price = 3
 target = "enemy"
+stack_amount = 1
+max_stacks = 1

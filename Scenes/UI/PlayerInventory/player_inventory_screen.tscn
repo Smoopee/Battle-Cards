@@ -29,10 +29,10 @@ script = ExtResource("6_uxh4d")
 [node name="SellZone" parent="." instance=ExtResource("6_i6oqa")]
 
 [node name="UpgradeButton" type="CheckButton" parent="."]
-offset_left = 215.0
-offset_top = 739.0
-offset_right = 378.0
-offset_bottom = 770.0
+offset_left = 38.0
+offset_top = 892.0
+offset_right = 278.0
+offset_bottom = 923.0
 text = "Upgrade Mode"
 
 [connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]

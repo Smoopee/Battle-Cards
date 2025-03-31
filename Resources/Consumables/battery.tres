@@ -9,3 +9,5 @@ consumable_scene_path = "res://Scenes/Consumables/battery.tscn"
 consumable_name = "battery"
 buy_price = 3
 target = "card"
+stack_amount = 1
+max_stacks = 2

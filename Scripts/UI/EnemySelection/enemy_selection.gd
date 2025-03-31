@@ -45,6 +45,7 @@ func finish_drag():
 	if enemy_found:
 		enemy_loader(enemy_found)
 		inventory_and_deck_save()
+		Global.player_consumables = $Player/Berserker.get_consumable_array()
 		Global.save_function()
 		Global.current_scene = "deck_builder"
 		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))

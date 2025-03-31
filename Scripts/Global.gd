@@ -121,7 +121,7 @@ func instantiate_player_skills():
 		player_skills.push_back(skill)
 
 func set_player_consumables():
-	player_consumables_db = ["Health Potion", "Grenade", "Strength Potion", "Battery", "Glue"]
+	player_consumables_db = ["Health Potion", "Battery", "Glue", "Strength Potion", "Grenade"]
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:
@@ -142,6 +142,7 @@ func save_function():
 	playerData.player_level = player_level
 	playerData.battle_tracker = battle_tracker
 	playerData.player_skills = player_skills
+	playerData.player_consumables = player_consumables
 
 	save()
 

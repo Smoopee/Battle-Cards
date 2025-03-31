@@ -9,3 +9,5 @@ consumable_scene_path = "res://Scenes/Consumables/health_potion.tscn"
 consumable_name = "Health Potion"
 buy_price = 5
 target = "character"
+stack_amount = 1
+max_stacks = 5

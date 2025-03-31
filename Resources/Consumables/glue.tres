@@ -9,3 +9,5 @@ consumable_scene_path = "res://Scenes/Consumables/glue.tscn"
 consumable_name = "Glue"
 buy_price = 5
 target = "card"
+stack_amount = 1
+max_stacks = 2

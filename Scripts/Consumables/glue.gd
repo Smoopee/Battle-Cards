@@ -55,3 +55,11 @@ func toggle_shop_ui(show):
 	if show: $ConsumableUI/ShopPanel.visible = true
 	if Global.current_scene == "shop": return
 	if !show: $ConsumableUI/ShopPanel.visible = false
+
+func toggle_info_ui(show):
+	if show: $ConsumableUI/InfoLabel.visible = true
+	if !show: $ConsumableUI/InfoLabel.visible = false
+	if consumable_stats.stack_amount <= 1:  $ConsumableUI/InfoLabel.visible = false
+
+func update_stack_ui():
+	$ConsumableUI/InfoLabel.text = str(consumable_stats.stack_amount)

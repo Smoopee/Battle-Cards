@@ -17,6 +17,7 @@ func _input(event):
 		toggle_inventory()
 
 func _on_button_button_down():
+	Global.player_consumables = $Player/Berserker.get_consumable_array()
 	inventory_and_deck_save()
 	Global.save_function()
 	load_battle_sim()
