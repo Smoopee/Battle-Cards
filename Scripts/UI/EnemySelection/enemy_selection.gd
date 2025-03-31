@@ -2,7 +2,7 @@ extends Node2D
 
 
 const COLLISION_MASK_CARD_SELECTOR = 16
-const COLLISION_MASK_ENEMY = 32
+const COLLISION_MASK_ENEMY = 128
 
 @onready var player_inventory = $PlayerInventoryScreen
 var screen_size

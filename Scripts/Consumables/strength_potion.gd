@@ -1,17 +1,19 @@
 extends Node2D
 
 var consumable_stats: Consumables_Resource = null
-var consumable_name = "Health Potion"
+var consumable_name = "Strength Potion"
 var target 
 var usable = true
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = consumable_name
-	update_tooltip("Effect","Reduce the next 6+ damage to 0, once per battle",  "Effect: ")
+	update_tooltip("Effect","WIP",  "Effect: ")
 
 func consumable_effect(player):
-	Global.change_player_health(50)
-	get_tree().get_first_node_in_group("character").change_player_health()
+	print("In strength potion consumable")
+	if Global.current_scene != "battle_sim": return false
+	player.player_stats.attack += 20
+	player.change_attack_label()
 	return true
 
 func toggle_tooltip_show():

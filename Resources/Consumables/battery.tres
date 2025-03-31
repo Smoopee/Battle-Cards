@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://dtjgeg8ljemut"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_3jly7"]
+
+[resource]
+script = ExtResource("1_3jly7")
+consumable_art_path = "res://Resources/Art/Consumables/battery_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/battery.tscn"
+consumable_name = "battery"
+buy_price = 3
+target = "card"

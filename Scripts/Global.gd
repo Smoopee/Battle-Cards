@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = 1
+const COMBAT_SPEED = .01
 
 
 var save_file_path = "user://SaveData/"
@@ -121,7 +121,7 @@ func instantiate_player_skills():
 		player_skills.push_back(skill)
 
 func set_player_consumables():
-	player_consumables_db = ["Health Potion"]
+	player_consumables_db = ["Health Potion", "Grenade", "Strength Potion", "Battery", "Glue"]
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:

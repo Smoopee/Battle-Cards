@@ -17,10 +17,10 @@ func _ready():
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
 		toggle_inventory()
 		$MerchantSkills.create_merchant_inventory()
-	elif merchant.merchant_type == "Consumbales":
-		merchant_type = "Consumbales"
-		$ConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
-		$ConsumableManager.create_merchant_inventory()
+	elif merchant.merchant_type == "Consumables":
+		merchant_type = "Consumables"
+		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
+		$MerchantConsumables.create_merchant_inventory()
 	elif merchant.merchant_type == "Other":
 		merchant_type = "Other"
 		$VarietyManager.process_mode = Node.PROCESS_MODE_INHERIT

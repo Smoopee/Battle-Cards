@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://cm2ch811fumcg"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_1athl"]
+
+[resource]
+script = ExtResource("1_1athl")
+consumable_art_path = "res://Resources/Art/Consumables/strength_potion_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/strength_potion.tscn"
+consumable_name = "Strength Potion"
+buy_price = 10
+target = "character"

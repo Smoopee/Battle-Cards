@@ -139,6 +139,18 @@ func damage_func(i):
 		change_health(true, damage)
 		ui.change_player_damage_number(damage, crit)
 
+func more_damage(source, target, damage):
+	if source == enemy:
+		damage = damage - player.player_stats.defense - player.player_stats.armor
+		emit_signal("physical_damage", source, enemy, damage)
+		change_health(false, damage)
+		ui.change_enemy_damage_number(damage, null)
+	else:
+		damage = damage - enemy.enemy_stats.defense - enemy.enemy_stats.armor
+		emit_signal("physical_damage", source, player, damage)
+		change_health(true, damage)
+		ui.change_player_damage_number(damage, null)
+
 func reflect_damage(target, amount):
 	print("In reflect damage")
 	if target == enemy:

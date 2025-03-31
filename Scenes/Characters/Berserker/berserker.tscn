@@ -210,4 +210,5 @@ offset_top = -30.0
 offset_right = 69.0
 offset_bottom = -14.0
 
+[connection signal="child_order_changed" from="Consumables" to="." method="_on_consumables_child_order_changed"]
 [connection signal="child_order_changed" from="BuffContainer" to="." method="_on_buff_container_child_order_changed"]

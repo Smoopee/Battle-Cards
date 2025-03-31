@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d0rogl12lp0rr" path="res://Resources/Art/Merchants/buff_merchant.png" id="3_drvva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1o67p"]
-size = Vector2(98, 128)
+size = Vector2(146, 180)
 
 [node name="Buff" type="Node2D" groups=["merchant"]]
 script = ExtResource("1_eo2lr")

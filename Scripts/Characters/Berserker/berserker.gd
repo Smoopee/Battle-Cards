@@ -7,7 +7,7 @@ const BUFF_Y_POSITION = -100
 const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = -40
 const CONSUMABLE_X_POSITION = -100
-const CONSUMABLE_Y_POSITION = 0
+const CONSUMABLE_Y_POSITION = -60
 
 @export var character_stats_resource: Character_Resource
 
@@ -77,6 +77,12 @@ func set_consumables():
 	
 	organize_consumables()
 
+func add_consumable(consumable):
+	var new_instance = load(consumable.consumable_scene_path).instantiate()
+	new_instance.consumable_stats = consumable
+	$Consumables.add_child(new_instance)
+	organize_consumables()
+	
 func change_player_health():
 	$PlayerHealthBar.value = Global.player_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
@@ -141,11 +147,17 @@ func organize_skills():
 		x_offset += 60
 
 func organize_consumables():
+	var counter = 0
+	var x_offset = 0
 	var y_offset = 0
 	for i in $Consumables.get_children():
-		i.position = Vector2(CONSUMABLE_X_POSITION, y_offset + CONSUMABLE_Y_POSITION)
-		print(i.position)
+		if counter >= 5: 
+			x_offset = -32
+			y_offset = 0
+			counter = 0
+		i.position = Vector2(x_offset + CONSUMABLE_X_POSITION, y_offset + CONSUMABLE_Y_POSITION)
 		y_offset += 30
+		counter += 1
 
 func connect_signals(battle_sim):
 	battle_sim.connect("physical_damage", physical_damage_taken)
@@ -183,12 +195,19 @@ func inventory_screen_toggle(toggle):
 		$StatContainer.visible = false
 		$BlockSymbol.visible = false
 		$ClassImage.visible = false
+		$Consumables.visible = false
+		$Skills.visible = false
 	if !toggle:
 		$RageBar.visible = true
 		$StatContainer.visible = true
 		if player_stats.block >= 0: $BlockSymbol.visible = true
 		$ClassImage.visible = true
-
+		$Skills.visible = true
+		$Consumables.visible = true
 func active_deck_access():
 	var temp_array = Global.player_active_deck + Global.player_active_inventory
 	return temp_array
+
+func _on_consumables_child_order_changed():
+	if get_node_or_null("Consumables") == null: return
+	organize_consumables()

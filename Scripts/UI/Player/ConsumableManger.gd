@@ -2,6 +2,9 @@ extends Node2D
 
 const COLLISION_MASK_CONSUMABLE = 2048
 const COLLISION_MASK_PLAYER = 8
+const COLLISION_MASK_ENEMY = 128
+const COLLISION_MASK_PLAYER_CARD = 1
+const COLLISION_MASK_ENEMY_CARD = 64
 
 
 var consumable_offset = 0
@@ -41,18 +44,45 @@ func start_drag(consumable):
 	consumable_previous_position = consumable.position
 
 func finish_drag():
-
+	consumable_used = false
 	var player = raycast_check_for_player()
+	var enemy = raycast_check_for_enemy()
+	var player_card = raycast_check_for_player_card()
+	var enemy_card = raycast_check_for_enemy_card()
+	
 	if player:
 		if player.is_in_group(consumable_being_dragged.consumable_stats.target):
-			consumable_being_dragged.consumable_effect()
-			consumable_being_dragged.queue_free()
-			consumable_being_dragged = null
-			consumable_used = true
+			if consumable_being_dragged.consumable_effect(player):
+				consumable_being_dragged.queue_free()
+				consumable_being_dragged = null
+				consumable_used = true
 			
+	if enemy:
+		if enemy.is_in_group(consumable_being_dragged.consumable_stats.target):
+			if consumable_being_dragged.consumable_effect(enemy):
+				consumable_being_dragged.queue_free()
+				consumable_being_dragged = null
+				consumable_used = true
+	
+	if player_card:
+		if player_card.is_in_group(consumable_being_dragged.consumable_stats.target):
+			if consumable_being_dragged.consumable_effect(player_card):
+				consumable_being_dragged.queue_free()
+				consumable_being_dragged = null
+				consumable_used = true
+				
+	if enemy_card:
+		if enemy_card.is_in_group(consumable_being_dragged.consumable_stats.target):
+			if consumable_being_dragged.consumable_effect(enemy_card):
+				consumable_being_dragged.queue_free()
+				consumable_being_dragged = null
+				consumable_used = true
+	
+				
 	if !consumable_used: 
 		animate_consumable_back_to_position(consumable_being_dragged, consumable_previous_position)
 		consumable_reset()
+		
 
 func raycast_check_for_consumable():
 	var space_state = get_world_2d().direct_space_state
@@ -65,12 +95,45 @@ func raycast_check_for_consumable():
 		return result[0].collider.get_parent()
 	return null 
 
+func raycast_check_for_player_card():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_PLAYER_CARD
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
 func raycast_check_for_player():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	parameters.collision_mask = COLLISION_MASK_PLAYER
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
+func raycast_check_for_enemy():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_ENEMY
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
+func raycast_check_for_enemy_card():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_ENEMY_CARD
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()

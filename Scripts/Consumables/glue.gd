@@ -1,17 +1,21 @@
 extends Node2D
 
 var consumable_stats: Consumables_Resource = null
-var consumable_name = "Health Potion"
+var consumable_name = "Glue"
 var target 
 var usable = true
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = consumable_name
-	update_tooltip("Effect","Reduce the next 6+ damage to 0, once per battle",  "Effect: ")
+	update_tooltip("Effect","WIP",  "Effect: ")
 
-func consumable_effect(player):
-	Global.change_player_health(50)
-	get_tree().get_first_node_in_group("character").change_player_health()
+func consumable_effect(card):
+	print("In glue consumable")
+	if Global.current_scene != "battle_sim": return false
+	if card.card_stats.in_enemy_deck != true: return false
+	card.card_stats.on_cd = true
+	card.change_cd(2)
+	card.change_cd_remaining(2)
 	return true
 
 func toggle_tooltip_show():

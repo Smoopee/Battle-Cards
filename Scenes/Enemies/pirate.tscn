@@ -32,8 +32,8 @@ enemy_stats_resource = ExtResource("2_yliys")
 texture = ExtResource("3_iqa6g")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 32
+collision_layer = 128
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_dj0yc")

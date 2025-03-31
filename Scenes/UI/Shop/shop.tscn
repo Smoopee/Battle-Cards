@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbudyogspe5gy"]
+[gd_scene load_steps=24 format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/Merchant.gd" id="2_wrfdt"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manger.tscn" id="2_ykbi3"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantCards.gd" id="3_82fbf"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/InventoryCardSlots.gd" id="4_vhc0b"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/Inventory.gd" id="5_5052o"]
@@ -10,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Shop/PlayerDeck.gd" id="5_r3th3"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="6_52iue"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantSkills.gd" id="6_hjwsc"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantConsumables.gd" id="7_0nbtm"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_b14l4"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_ldslr"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/SkillManager.gd" id="10_a7eap"]
@@ -25,8 +27,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kig7s"]
 size = Vector2(449, 169)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0eeqh"]
+size = Vector2(150.5, 230)
+
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_ujm55")
+
+[node name="ConsumableManger" parent="." instance=ExtResource("2_ykbi3")]
 
 [node name="Merchant" type="Node2D" parent="."]
 script = ExtResource("2_wrfdt")
@@ -42,6 +49,9 @@ script = ExtResource("3_82fbf")
 
 [node name="MerchantSkills" type="Node2D" parent="."]
 script = ExtResource("6_hjwsc")
+
+[node name="MerchantConsumables" type="Node2D" parent="."]
+script = ExtResource("7_0nbtm")
 
 [node name="PlayerInventory" type="Node2D" parent="."]
 script = ExtResource("5_5052o")
@@ -59,7 +69,7 @@ process_mode = 4
 visible = false
 script = ExtResource("10_a7eap")
 
-[node name="ConsumableManager" type="Node2D" parent="."]
+[node name="MerchantConsumableManager" type="Node2D" parent="."]
 process_mode = 4
 visible = false
 script = ExtResource("11_oykye")
@@ -173,13 +183,22 @@ layout_mode = 2
 text = "Back
 "
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="SkillDropOff" type="Area2D" parent="."]
 collision_layer = 1024
 collision_mask = 1024
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SkillDropOff"]
 position = Vector2(1677.5, 791.5)
 shape = SubResource("RectangleShape2D_kig7s")
+
+[node name="ConsumableDropOff" type="Area2D" parent="."]
+position = Vector2(934, 741)
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConsumableDropOff"]
+position = Vector2(-101, 63)
+shape = SubResource("RectangleShape2D_0eeqh")
 
 [connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
 [connection signal="toggled" from="ShopUI/UpgradeButton" to="CardManager" method="_on_upgrade_button_toggled"]

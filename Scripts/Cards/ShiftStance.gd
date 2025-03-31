@@ -217,3 +217,17 @@ func toggle_shop_ui(show):
 	if show: $CardUI/ShopPanel.visible = true
 	if Global.current_scene == "shop": return
 	if !show:  $CardUI/ShopPanel.visible = false
+
+func change_cd_remaining(amount):
+	card_stats.cd_remaining += amount
+	if card_stats.cd_remaining <= 0: 
+		card_stats.cd_remaining = 0
+		card_stats.on_cd = false
+	update_card_ui()
+
+func change_cd(amount):
+	card_stats.cd += amount
+	if card_stats.cd <= 0:
+		card_stats.cd = 0
+		card_stats.on_cd = false
+	update_card_ui()

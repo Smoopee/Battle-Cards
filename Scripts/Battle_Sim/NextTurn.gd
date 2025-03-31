@@ -7,10 +7,10 @@ func next_turn():
 	$DeckBuilder/CardManager.create_references()
 	
 	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
-	$"../Player".process_mode = PROCESS_MODE_DISABLED
+	#$"../Player".process_mode = PROCESS_MODE_DISABLED
 	
 	$"../ConsumableManger".visible = false
-	$"../ConsumableManger".process_mode = PROCESS_MODE_DISABLED
+	#$"../ConsumableManger".process_mode = PROCESS_MODE_DISABLED
 	
 	for i in $DeckBuilder/CardManager.inventory_card_slot_reference:
 		if i == null: continue

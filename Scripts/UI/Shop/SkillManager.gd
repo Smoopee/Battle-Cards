@@ -615,8 +615,11 @@ func buy_skill():
 	if Global.player_gold < skill_being_dragged.skill_stats.buy_price:
 		print("not enough gold")
 		return
+	Global.player_gold -= skill_being_dragged.skill_stats.buy_price
 	Global.player_skills.push_back(skill_being_dragged.skill_stats)
 	$"../Player/Berserker".add_skill(skill_being_dragged.skill_stats)
 	$"../MerchantSkills".remove_skill_from_inventory(skill_being_dragged)
 	skill_being_dragged.queue_free()
-	
+	update_player_gold()
+
+

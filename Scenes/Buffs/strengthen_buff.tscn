@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdcr2euiyfjev"]
 
-[ext_resource type="Texture2D" uid="uid://43dxdgf1gs4f" path="res://Resources/Art/Buffs/strenghten_buff.png" id="1_anf4i"]
+[ext_resource type="Texture2D" uid="uid://43dxdgf1gs4f" path="res://Resources/Art/Buffs/strengthen_buff.png" id="1_anf4i"]
 [ext_resource type="Script" path="res://Scripts/Buffs/strengthen_buff.gd" id="1_lb4gy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvwy6"]

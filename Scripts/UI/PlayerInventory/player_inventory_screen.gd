@@ -7,7 +7,7 @@ const HAND_Y_POSITION = 630
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
-const COLLISION_MASK_SELL_ZONE = 128
+const COLLISION_MASK_SELL_ZONE = 4096
 
 var hover_on_upgrade_test = true
 var upgrade_mode = false
