@@ -1,25 +1,27 @@
 extends Node2D
 
 @onready var merchant_cards = $MerchantCards
-@onready var player_inventory = $PlayerInventory
-@onready var player_deck = $PlayerDeck
 
 var merchant_type 
+var is_inventory_toggle = true
 
 func _ready():
 	var merchant = get_tree().get_first_node_in_group("merchant")
 	if merchant.merchant_type == "Card":
 		merchant_type = "Card"
 		$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
+		toggle_inventory()
 		$MerchantCards.create_merchant_inventory()
 	elif merchant.merchant_type == "Skill":
 		merchant_type = "Skill"
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
+		is_inventory_toggle = false
 		toggle_inventory()
 		$MerchantSkills.create_merchant_inventory()
 	elif merchant.merchant_type == "Consumables":
 		merchant_type = "Consumables"
 		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
+		toggle_inventory()
 		$MerchantConsumables.create_merchant_inventory()
 	elif merchant.merchant_type == "Other":
 		merchant_type = "Other"
@@ -61,8 +63,9 @@ func _on_reroll_button_button_down():
 	$CanvasLayer/ColorRect/PlayerUI.change_player_gold()
 
 func inventory_and_deck_save():
+	var deck_and_inventory_reference = $PlayerInventoryScreen
 	var temp_inventory = []
-	for i in player_inventory.card_slot_reference:
+	for i in deck_and_inventory_reference.inventory_card_slot_reference:
 		if i != null:
 			temp_inventory.push_back(i.card_stats)
 		else:
@@ -70,7 +73,7 @@ func inventory_and_deck_save():
 	Global.player_inventory = temp_inventory
 
 	var temp_deck = []
-	for i in player_deck.card_slot_reference:
+	for i in deck_and_inventory_reference.deck_card_slot_reference:
 		if i != null:
 			temp_deck.push_back(i.card_stats)
 		else:
@@ -84,19 +87,16 @@ func _on_back_button_button_down():
 	pass
 
 func toggle_inventory():
-	if $Player.visible == true:
-		$InventorySlots.visible = true
-		$Player.visible = false
-		for i in $CardManager.inventory_card_slot_reference:
-			if i == null: continue
-			i.visible = true
-			i.enable_collision()
-		$InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
+	if is_inventory_toggle == true:
+		$PlayerInventoryScreen.visible = true
+		$Player/Berserker.inventory_screen_toggle(true)
+		is_inventory_toggle = false
+		$Player/Berserker.process_mode = Node.PROCESS_MODE_DISABLED
+		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
 	else:
-		$InventorySlots.visible = false
-		$Player.visible = true
-		for i in $CardManager.inventory_card_slot_reference:
-			if i == null: continue
-			i.visible = false
-			i.disable_collision()
-		$InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
+		$PlayerInventoryScreen.visible = false
+		$Player/Berserker.inventory_screen_toggle(false)
+		is_inventory_toggle = true
+		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
+		$Player/Berserker.process_mode = Node.PROCESS_MODE_INHERIT
+

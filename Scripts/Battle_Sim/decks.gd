@@ -17,7 +17,7 @@ func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
 
-func build_deck():
+func initial_build_deck():
 	discard_offset = 0
 	deck_offset = 0
 	clear_cards()
@@ -48,6 +48,8 @@ func clear_cards():
 			i.queue_free()
 
 func build_deck_position():
+	discard_offset = 0
+	deck_offset = 0
 	var temp_z_index = 13
 	for i in deck:
 		i.card_stats.is_discarded = false
@@ -57,6 +59,29 @@ func build_deck_position():
 		deck_offset -= 40
 		temp_z_index -= 1
  
+func build_deck():
+	var blank = load("res://Resources/Cards/blank.tres")
+	var counter = 0
+	deck = []
+	var card_position = 0
+	for i in $"../NextTurn/DeckBuilder/CardManager".deck_card_slot_reference:
+		if i == null:
+			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
+			load_blank.card_stats = blank
+			load_blank.card_stats.deck_position = counter
+			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+			load_blank.card_stats.is_players = true
+			deck.push_back(load_blank)
+			add_child(load_blank)
+		else:
+			deck.push_back(i)
+			i.reparent(self)
+			i.card_stats.deck_position = counter
+			counter += 1
+	
+	print(deck)
+	return deck
+
 func play_card(card):
 	animate_card_to_active_position(card)
 

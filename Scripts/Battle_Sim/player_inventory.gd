@@ -4,8 +4,7 @@ extends Node2D
 var inventory_db = []
 var inventory = []
 
-func build_inventory():
-	clear_cards()
+func initial_build_inventory():
 	inventory = []
 	inventory_db = Global.player_active_inventory
 
@@ -26,7 +25,19 @@ func build_inventory():
 			new_card.card_stats.inventory_position = counter
 			new_card.update_card_ui()
 		counter += 1
-	
+
+	return inventory
+
+func build_inventory():
+	var counter = 0
+	inventory = []
+	var card_position = 0
+	for i in $"../NextTurn/DeckBuilder/CardManager".inventory_card_slot_reference:
+		inventory.push_back(i)
+		#i.card_stats.inventory_position = counter
+		#counter += 1
+		if i != null: i.reparent(self)
+
 	return inventory
 
 func clear_cards():

@@ -9,7 +9,7 @@
 
 [node name="PlayerInventoryScreen" type="Node2D"]
 visible = false
-z_index = 4
+z_index = 1
 script = ExtResource("1_ek0gf")
 
 [node name="DeckCardSlots" type="Node2D" parent="."]
@@ -19,14 +19,14 @@ script = ExtResource("3_4n06j")
 script = ExtResource("4_u7odf")
 
 [node name="ActiveDeck" type="Node2D" parent="."]
-visible = false
 script = ExtResource("5_3rxlr")
 
 [node name="CurrentInventory" type="Node2D" parent="."]
-visible = false
 script = ExtResource("6_uxh4d")
 
 [node name="SellZone" parent="." instance=ExtResource("6_i6oqa")]
+process_mode = 4
+visible = false
 
 [node name="UpgradeButton" type="CheckButton" parent="."]
 offset_left = 38.0

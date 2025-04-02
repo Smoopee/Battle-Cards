@@ -211,6 +211,7 @@ func inventory_screen_toggle(toggle):
 		$ClassImage.visible = false
 		$Skills.visible = false
 		$PlayerHealthBar.visible = false
+		$Area2D.process_mode = Node.PROCESS_MODE_DISABLED
 		organize_consumables_horiziontal()
 	if !toggle:
 		$RageBar.visible = true
@@ -219,6 +220,7 @@ func inventory_screen_toggle(toggle):
 		$ClassImage.visible = true
 		$Skills.visible = true
 		$PlayerHealthBar.visible = true
+		$Area2D.process_mode = Node.PROCESS_MODE_INHERIT
 		organize_consumables()
 
 func active_deck_access():

@@ -47,7 +47,6 @@ func create_references():
 	deck_card_slot_reference = $"../PlayerDeck".card_slot_reference
 	inventory_card_slot_reference = $"../PlayerInventory".card_slot_reference
 
-
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -70,6 +69,7 @@ func _input(event):
 				finish_drag()
 
 func start_drag(card):
+	var reward = ($"../../../BattleRewards".reward)
 	card_being_dragged = card
 	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_being_dragged.scale = Vector2(1.1, 1.1)
@@ -121,12 +121,11 @@ func finish_drag():
 			
 	if raycast_check_for_card() and inventory_card_slot_found and card_being_dragged.card_stats.in_enemy_deck:
 		if inventory_full: 
-			print("Deck is full")
+			print("Inventory is full")
 			inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
 			card_reset()
 			return
 			
-	
 	if deck_card_slot_reference_index  > -1 and deck_card_slot_found != null:
 		previous_card_slot = deck_card_slot_reference_index
 		deck_card_slot_reference[deck_card_slot_reference_index] = null
@@ -170,6 +169,7 @@ func finish_drag():
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
 	card_sorted = false
 	card_reset()
+
 
 func raycast_check_for_deck_slot():
 	var space_state = get_world_2d().direct_space_state
@@ -582,14 +582,14 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
-	card.z_index = 2
+	card.z_index = 1
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 1
+	card.z_index = 0
 
 func stop_tooltip_timer():
 	$"../../../TooltipTimer".stop()

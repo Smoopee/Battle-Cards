@@ -16,6 +16,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	Global.intermission_tracker += 1
+	toggle_inventory()
 
 func _process(delta):
 	if card_being_dragged:
@@ -124,6 +125,7 @@ func connect_card_signals(card):
 
 func on_hovered_over(card):
 	if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
+	if $ConsumableManger.consumable_being_dragged: return
 	card.mouse_exit = false
 	card.scale = Vector2(1.1, 1.1)
 	$TooltipTimer.start()
@@ -132,59 +134,32 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
-	card.z_index = 2
+	print("In intermision")
+	card.z_index = 1
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 1
+	card.z_index = 0
 
 func toggle_inventory():
-	print(is_toggle_inventory)
 	#From player screen to Inventory
 	if is_toggle_inventory == true:
-		print("in toggle inventory true")
 		$PlayerInventoryScreen.visible = true
-		$PlayerInventoryScreen/InventorySlots.visible = true
-		$PlayerInventoryScreen/CurrentInventory.visible = true
-		$PlayerInventoryScreen/DeckCardSlots.visible = true
-		$PlayerInventoryScreen/ActiveDeck.visible = true
 		$CardSelector.visible = false
 		$Player/Berserker.inventory_screen_toggle(true)
-		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
-			if i == null: continue
-			i.visible = true
-			i.enable_collision()
-		for i in $PlayerInventoryScreen.deck_card_slot_reference:
-			if i == null: continue
-			i.visible = true
-			i.enable_collision()
+		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
 		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
-		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_INHERIT
-		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_INHERIT
 		is_toggle_inventory = false
 	#From Inventory to Player Screen
 	else:
-		print("in toggle inventory false")
-		$PlayerInventoryScreen/CurrentInventory.visible = false
-		$PlayerInventoryScreen/InventorySlots.visible = false
-		$PlayerInventoryScreen/DeckCardSlots.visible = false
-		$PlayerInventoryScreen/ActiveDeck.visible = false
+		$PlayerInventoryScreen.visible = false
 		$CardSelector.visible = true
 		$Player/Berserker.inventory_screen_toggle(false)
-		for i in $PlayerInventoryScreen.inventory_card_slot_reference:
-			if i == null: continue
-			i.visible = false
-			i.disable_collision()
-		for i in $PlayerInventoryScreen.deck_card_slot_reference:
-			if i == null: continue
-			i.visible = false
-			i.disable_collision()
 		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
-		$PlayerInventoryScreen/InventorySlots.process_mode = Node.PROCESS_MODE_DISABLED
-		$PlayerInventoryScreen/DeckCardSlots.process_mode = Node.PROCESS_MODE_DISABLED
+		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
 
 func _on_tooltip_timer_timeout():

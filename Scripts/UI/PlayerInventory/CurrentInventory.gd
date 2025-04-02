@@ -61,7 +61,8 @@ func remove_card(card):
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", new_position, 0.1)
+	tween.tween_property(card, "position", new_position, .1)
+
 
 func fill_card_slots(new_card, index):
 	card_slot_reference.push_back(new_card)

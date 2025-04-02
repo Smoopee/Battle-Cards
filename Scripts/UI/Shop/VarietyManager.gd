@@ -26,17 +26,7 @@ var card_being_dragged
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	inventory_reference = $"../PlayerInventory"
-	deck_reference = $"../PlayerDeck"
-	
-	for i in $"../DeckCardSlots".get_children():
-		deck_card_slot_array.push_front(i)
-	
-	for i in $"../InventorySlots".get_children():
-		inventory_card_slot_array.push_front(i)
-	
-	deck_card_slot_reference = $"../PlayerDeck".card_slot_reference
-	inventory_card_slot_reference = $"../PlayerInventory".card_slot_reference
+
 
 func _process(delta):
 	if card_being_dragged:

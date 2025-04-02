@@ -81,9 +81,11 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		get_node("Timer").start()
 		await $Timer.timeout
-		
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
+		
+		get_node("Timer").start()
+		await $Timer.timeout
 		
 		is_dead = death_checker()
 		if is_dead: break
@@ -92,7 +94,6 @@ func combat(player_deck_list, enemy_deck_list):
 	if is_dead: return
 	round_counter += round_incrementer
 	emit_signal("end_of_round")
-	store_active_decks()
 	next_turn_handler()
 
 func on_start():
@@ -121,9 +122,11 @@ func damage_func(i):
 	if i.card_stats.in_enemy_deck: 
 		damage = i.card_stats.dmg + enemy.enemy_stats.attack - player.player_stats.defense
 		damage -= player.player_stats.armor
+		
 	else:  
 		damage = i.card_stats.dmg + player.player_stats.attack - enemy.enemy_stats.defense
 		damage -= enemy.enemy_stats.armor
+
 	
 	if crit_check(i): 
 		damage *= 2
@@ -236,106 +239,45 @@ func build_enemy_deck_list():
 func build_player_inventory_list():
 	return player_inventory.build_inventory()
 
-func store_active_decks():
-	var blank = load("res://Resources/Cards/blank.tres")
-	
-	var temp_inventory = []
-	for i in player_inventory_list:
-		if i != null:
-			temp_inventory.push_back(i.card_stats)
-		else: 
-			temp_inventory.push_back(null)
-	Global.player_active_inventory = temp_inventory
-
-	var temp_deck = []
-	for i in player_deck_list:
-		if i.card_stats.is_blank == false:
-			temp_deck.push_back(i.card_stats)
-		else:
-			temp_deck.push_back(null)
-	Global.player_active_deck = temp_deck
-
-	var temp_enemy_deck = []
-	for i in enemy_deck_list:
-		if i != blank:
-			temp_enemy_deck.push_back(i.card_stats)
-		else:
-			temp_enemy_deck.push_back(null)
-	Global.enemy_active_deck = temp_enemy_deck
 
 func next_turn_handler():
 	$NextTurn.next_turn()
-
 	$NextTurn.visible = true
 	$CanvasLayer/ContinueButton.visible = true
-	for i in $player_deck.get_children():
-		i.visible = false
-		if i.is_in_group("card"): i.queue_free()
-	for i in enemy_node.get_children():
-		if i.is_in_group("card"): i.queue_free()
-		
 	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = true
 
-	enemy_node.create_enemy_cards()
-
-func recall_active_decks():
-	var blank = load("res://Resources/Cards/blank.tres")
-	
-	var temp_inventory = []
-	for i in $NextTurn/DeckBuilder/CardManager.inventory_card_slot_reference:
-		if i != null:
-			
-			temp_inventory.push_back(i.card_stats.duplicate())
-		else:
-			temp_inventory.push_back(null)
-	Global.player_active_inventory = temp_inventory
-
-	var temp_deck = []
-	
-	for i in $NextTurn/DeckBuilder/CardManager.deck_card_slot_reference:
-		if i != null:
-			temp_deck.push_back(i.card_stats.duplicate())
-		else:
-			temp_deck.push_back(blank)
-	Global.player_active_deck = temp_deck
 
 func end_fight_cleanup():
+	$NextTurn.next_turn()
 	$BattleRewards.update_rewards()
 	$BattleRewards.visible = true
-	$NextTurn.next_turn()
+	
 	$NextTurn.visible = true
 	Global.enemy_active_deck = []
 	for i in $player_deck.get_children():
-		i.visible = false
-		if i.is_in_group("card"): i.queue_free()
+		i.card_stats.cd_remaining = 0
+		i.card_stats.on_cd = false
+		i.update_card_ui()
 	for i in enemy_node.get_children():
 		i.queue_free()
 	$UI/Labels.visible = false
+	print("end fight cleanup")
+	
 
 func _on_start_button_button_down():
-	player_deck_list = build_player_deck_list()
-	player_inventory_list = build_player_inventory_list()
-	enemy_deck_list = build_enemy_deck_list() 
-	
+	player_deck_list = $player_deck.initial_build_deck()
+	player_inventory_list = $player_inventory.initial_build_inventory()
+	enemy_deck_list = enemy_node.initial_build_deck()
 	
 	on_start()
 	combat(player_deck_list, enemy_deck_list)
 	$CanvasLayer/StartButton.visible = false
 
 func _on_continue_button_button_down():
-	for i in $NextTurn/DeckBuilder/EnemyCards.get_children():
-		i.queue_free()
-	recall_active_decks()
-	
-	for i in $Enemy.get_children():
-		i.visible = true
-
 	$NextTurn.visible = false
+	$player_inventory.visible = false
 	$CanvasLayer/ContinueButton.visible = false
-	
 	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
-	$Player.process_mode = Node.PROCESS_MODE_INHERIT
-	
 	$ConsumableManger.visible = true
 	$ConsumableManger.process_mode = Node.PROCESS_MODE_INHERIT
 	

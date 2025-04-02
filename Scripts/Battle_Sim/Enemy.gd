@@ -39,9 +39,7 @@ func _ready():
 	enemy_health_bar.max_value = Global.max_enemy_health
 	enemy_health_bar.value = Global.enemy_health
 
-func build_deck():
-	discard_offset = 0
-	deck_offset = 0
+func initial_build_deck():
 	if Global.enemy_active_deck == []:
 		enemy_deck = enemy.deck
 	else: 
@@ -68,6 +66,8 @@ func build_deck():
 	return deck
 
 func build_deck_position():
+	discard_offset = 0
+	deck_offset = 0
 	var temp_z_index = 13
 	for i in deck:
 		i.is_discarded = false
@@ -99,33 +99,27 @@ func change_enemy_health():
 	enemy.change_enemy_health()
 
 #==================================================================================================
-func create_enemy_cards():
-	fetch_enemy_cards()
+func build_deck():
 	enemy_inventory = []
-
-	for i in range(enemy_cards_db.size()):
-		var card_scene = load(enemy_cards_db[i].card_scene_path).instantiate()
-		card_scene.card_stats = enemy_cards_db[i]
-		$"../NextTurn/DeckBuilder/EnemyCards".add_child(card_scene)
-		add_card_to_hand(card_scene)
+	
+	for i in get_children():
+		if i.is_in_group("card"):
+			enemy_inventory.push_back(i)
+	
+	enemy_inventory.shuffle()
 	
 	var card_position = 0
 	for i in enemy_inventory:
-		i.upgrade_card(i.card_stats.upgrade_level)
-		i.update_card_ui()
 		i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
 		i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
+		i.scale = Vector2(1,1)
+		update_hand_positions()
 		card_position += 1
 
-func fetch_enemy_cards():
-	Global.enemy_active_deck.shuffle()
-	enemy_cards_db = Global.enemy_active_deck
-
-func add_card_to_hand(card):
-	enemy_inventory.push_back(card)
-	update_hand_positions()
+	
+	return enemy_inventory
 
 func update_hand_positions():
 	for i in range(enemy_inventory.size()):

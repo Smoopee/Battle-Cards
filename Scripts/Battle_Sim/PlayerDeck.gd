@@ -20,30 +20,31 @@ func _ready():
 		card_slot_array.push_front(i)
 
 func create_inventory():
+	var blank = load("res://Resources/Cards/blank.tres")
 	card_slot_reference = []
-	clear_cards()
 	fetch_inventory()
 	
 	var card_position = 0
-	for i in range(deck_db.size()):
-		if deck_db[i] == null:
-			fill_card_slots(deck_db[i], card_position)
+	for i in deck_db:
+		if i.card_stats == blank:
+			fill_card_slots(null, card_position)
 			card_position += 1
-			continue
-		var card_scene = load(deck_db[i].card_scene_path).instantiate()
-		card_scene.card_stats = deck_db[i]
-		add_child(card_scene)
-		#card_scene.upgrade_card(card_scene.card_stats.upgrade_level)
-		card_scene.update_card_ui()
-		if reward_screen: card_scene.card_shop_ui()
-		card_scene.card_stats.inventory_position = card_position
-		card_scene.card_stats.is_players = true
-		fill_card_slots(card_scene, card_position)
-		card_position += 1
+			i.queue_free()
+			
+		else:
+			i.enable_collision()
+			i.card_stats.is_discarded = false
+			i.z_index = 1
+			i.scale = Vector2(1, 1)
+			i.update_card_ui()
+			if reward_screen: i.card_shop_ui()
+			i.card_stats.deck_position = card_position
+			fill_card_slots(i, card_position)
+			card_position += 1
 		
 	while card_slot_reference.size() < NUMBER_OF_DECKSLOTS:
 		card_slot_reference.push_back(null)
-		
+
 
 func clear_cards():
 	for i in get_children():
@@ -51,8 +52,7 @@ func clear_cards():
 			i.queue_free()
 
 func fetch_inventory():
-	if reward_screen == true: deck_db = Global.player_deck
-	else: deck_db = Global.player_active_deck
+	deck_db = $"../../..".player_deck_list
 
 func remove_card(card):
 	if reward_screen == true: 

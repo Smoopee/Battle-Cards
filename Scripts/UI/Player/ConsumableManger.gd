@@ -49,6 +49,9 @@ func finish_drag():
 	consumable_used = false
 	consumable_leftover = false
 	
+	print("in consumable manager")
+
+	
 	var raycast_object
 	if raycast_check_for_player_card(): raycast_object = raycast_check_for_player_card()
 	elif raycast_check_for_enemy_card(): raycast_object = raycast_check_for_enemy_card()
@@ -134,7 +137,7 @@ func raycast_check_for_enemy_card():
 func consumable_reset():
 	print("in consumable reset")
 	consumable_being_dragged.scale = Vector2(1, 1)
-	consumable_being_dragged.z_index = 1
+	#consumable_being_dragged.z_index = 0
 	consumable_being_dragged.update_stack_ui()
 	consumable_being_dragged.toggle_info_ui(true)
 	consumable_being_dragged = null
@@ -142,6 +145,7 @@ func consumable_reset():
 func animate_consumable_back_to_position(consumable, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(consumable, "global_position", new_position, 0.1)
+	tween.tween_property(consumable, "z_index", 0, 0)
 	if place_holder_used:
 		await tween.finished
 		print("in place holder used")

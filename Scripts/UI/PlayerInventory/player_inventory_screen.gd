@@ -507,5 +507,3 @@ func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
-
-

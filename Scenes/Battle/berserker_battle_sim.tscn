@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://xwc4sjwi65t"]
+[gd_scene load_steps=24 format=3 uid="uid://xwc4sjwi65t"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/berserker_battle_sim.gd" id="1_grqco"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="3_xdgva"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="13_5qleq"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/NextTurn.gd" id="14_cprqu"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/DeckBuilder.gd" id="15_q4ygm"]
-[ext_resource type="Script" path="res://Scripts/Battle_Sim/EnemyCards.gd" id="16_65eg7"]
 [ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/InventorySlots.gd" id="17_2p4it"]
 [ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/DeckCardSlots.gd" id="18_fyuy6"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="19_sxdom"]
@@ -183,9 +182,6 @@ script = ExtResource("14_cprqu")
 
 [node name="DeckBuilder" type="Node2D" parent="NextTurn"]
 script = ExtResource("15_q4ygm")
-
-[node name="EnemyCards" type="Node2D" parent="NextTurn/DeckBuilder"]
-script = ExtResource("16_65eg7")
 
 [node name="InventorySlots" type="Node2D" parent="NextTurn/DeckBuilder"]
 script = ExtResource("17_2p4it")

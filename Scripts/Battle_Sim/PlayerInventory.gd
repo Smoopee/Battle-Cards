@@ -24,43 +24,35 @@ func _ready():
 
 func create_inventory():
 	card_slot_reference = []
-	clear_cards()
 	fetch_inventory()
 	
 	var card_position = 0
-	for i in range(inventory_db.size()):
-		if inventory_db[i] == null:
-			fill_card_slots(inventory_db[i], card_position)
+	for i in inventory_db:
+		if inventory_db[card_position] == null:
+			fill_card_slots(inventory_db[card_position], card_position)
 			card_position += 1
 			continue
-		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
-		card_scene.card_stats = inventory_db[i]
-		add_child(card_scene)
-		card_scene.upgrade_card(card_scene.card_stats.upgrade_level)
-		if reward_screen: card_scene.card_shop_ui()
-		card_scene.card_stats.inventory_position = card_position
-		card_scene.card_stats.is_players = true
-		fill_card_slots(card_scene, card_position)
+
+		i.enable_collision()
+		i.card_stats.is_discarded = false
+		i.z_index = 1
+		i.scale = Vector2(1, 1)
+		i.update_card_ui()
+		if reward_screen: i.card_shop_ui()
+		i.card_stats.inventory_position = card_position
+		fill_card_slots(i, card_position)
 		card_position += 1
 		
 	while card_slot_reference.size() < NUMBER_OF_INVENTORY_SLOTS:
 		card_slot_reference.push_back(null)
-		
-
+	
 func fetch_inventory():
-	if reward_screen == true: 
-		inventory_db = Global.player_inventory
-	else: inventory_db = Global.player_active_inventory
+	inventory_db = $"../../../player_inventory".inventory
 
 func clear_cards():
 	for i in get_children():
 		if i.is_in_group("card"):
 			i.queue_free()
-
-func calculate_card_position(index):
-	var total_width = (inventory.size() - 1) * CARD_WIDTH
-	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
-	return x_offset
 
 func remove_card(card):
 	if reward_screen == true:
