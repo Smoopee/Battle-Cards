@@ -12,7 +12,7 @@ const CONSUMABLE_Y_HORIZONTAL_POSITION = 950
 
 @export var character_stats_resource: Character_Resource
 
-var player_stats: Character_Resource = null
+var character_stats: Character_Resource = null
 var battle_sim
 var deck
 var consumable_orientation = true
@@ -35,12 +35,12 @@ func _ready():
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 
 func set_stats(stats = Character_Resource) -> void:
-	player_stats = load("res://Resources/Character/berserker.tres").duplicate()
+	character_stats = load("res://Resources/Character/berserker.tres").duplicate()
 
 func set_stat_container():
-	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(player_stats.attack)
-	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text =  str(player_stats.defense)
-	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text =  str(player_stats.armor)
+	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack)
+	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text =  str(character_stats.defense)
+	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text =  str(character_stats.armor)
 
 func set_talents():
 	for i in Global.player_talent_array:
@@ -93,7 +93,7 @@ func add_consumable(consumable):
 	new_instance.consumable_stats = consumable
 	$Consumables.add_child(new_instance)
 	organize_consumables()
-	
+
 func change_player_health():
 	$PlayerHealthBar.value = Global.player_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
@@ -102,8 +102,7 @@ func change_rage(source, value):
 	var rage_bar = $RageBar
 	rage_bar.value += value
 	if  rage_bar.value  >= 100:
-		player_stats.attack += rage_attack_increase
-		change_attack_label()
+		change_attack(rage_attack_increase)
 		rage_bar.value = 0
 		rage_bar.max_value += 10
 		rage_attack_buff()
@@ -117,19 +116,22 @@ func rage_attack_buff():
 	var new_buff = load("res://Scenes/Buffs/rage_attack_increase_buff.tscn").instantiate()
 	add_buff(new_buff, self)
 
-func change_attack_label():
-	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(player_stats.attack) 
+func change_attack(amount):
+	character_stats.attack += amount
+	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack) 
+	
+func change_defense(amount):
+	character_stats.defense += amount
+	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(character_stats.defense)
 
-func change_defense_label():
-	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(player_stats.defense)
-
-func change_armor_label():
-	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text = str(player_stats.armor)
+func change_armor(amount):
+	character_stats.armor += amount
+	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text = str(character_stats.armor)
 
 func change_block():
 	$BlockSymbol.visible = true
-	$BlockSymbol/Label.text = str(player_stats.block)
-	if player_stats.block <= 0: $BlockSymbol.visible = false
+	$BlockSymbol/Label.text = str(character_stats.block)
+	if character_stats.block <= 0: $BlockSymbol.visible = false
 
 func add_buff(buff, source):
 	$BuffContainer.add_child(buff)
@@ -138,8 +140,6 @@ func add_buff(buff, source):
 
 func remove_buff(buff):
 	for i in $BuffContainer.get_children():
-		print(i.buff_name)
-		print(buff)
 		if i.buff_name == buff:
 			i.queue_free()
 	organize_buffs()
@@ -178,25 +178,25 @@ func connect_signals(battle_sim):
 	battle_sim.connect("physical_damage", physical_damage_dealt)
 	battle_sim.connect("end_of_turn", end_of_turn)
 
-func physical_damage_taken(card, source, damage):
+func physical_damage_taken(source, target, card):
 	if source == self: return
-	change_rage(source, damage)
+	change_rage(source, battle_sim.damage)
 	block_damage()
 
-func physical_damage_dealt(card, source, damage):
+func physical_damage_dealt(source, target, card):
 	if source != self: return
-	change_rage(source, damage)
+	change_rage(source, battle_sim.damage)
 
 func end_of_turn():
 	change_rage(self, rage_degeneration)
 
 func block_damage():
 	var mitigated_damage
-	mitigated_damage = battle_sim.damage - player_stats.block
+	mitigated_damage = battle_sim.damage - character_stats.block
 	if mitigated_damage < 0: mitigated_damage = 0
 	
 	battle_sim.damage = mitigated_damage
-	player_stats.block = 0 
+	character_stats.block = 0 
 	change_block()
 
 func _on_buff_container_child_order_changed():
@@ -216,7 +216,7 @@ func inventory_screen_toggle(toggle):
 	if !toggle:
 		$RageBar.visible = true
 		$StatContainer.visible = true
-		if player_stats.block >= 0: $BlockSymbol.visible = true
+		if character_stats.block >= 0: $BlockSymbol.visible = true
 		$ClassImage.visible = true
 		$Skills.visible = true
 		$PlayerHealthBar.visible = true

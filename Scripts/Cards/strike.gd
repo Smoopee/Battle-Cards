@@ -20,10 +20,19 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
+	var target
+	var source
+	if card_stats.is_players: 
+		target = enemy
+		source = player
+	else: 
+		target = player
+		source = enemy
+
 	var battle_sim = get_tree().get_first_node_in_group("battle sim")
-	battle_sim.damage_func(self)
+	battle_sim.physical_damage_card(source, target, self)
 	if card_stats.item_enchant == "Bleed":
-		battle_sim.bleed_func(self)
+		battle_sim.bleed_func(source, target, self)
 
 func upgrade_card(num):
 	match num:
@@ -63,7 +72,7 @@ func item_enchant(enchant):
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 	update_card_ui()
-	
+
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
 	$UpgradeBorder.texture = load(card_stats.card_art_path)

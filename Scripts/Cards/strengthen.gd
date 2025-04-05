@@ -24,15 +24,8 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var target = player
-	if card_stats.in_enemy_deck == true:
-		target = enemy
-		enemy.enemy_stats.attack += card_stats.effect1
-		#enemy.change_attack_label()
-	else:
-		player.player_stats.attack += card_stats.effect1
-		player.change_attack_label()
-	
+	var target = card_stats.card_owner
+
 	for i in get_tree().get_nodes_in_group("buff"):
 		if i.buff_name == card_stats.name and i.attached_to == target: 
 			i.increase_buff(self)

@@ -21,6 +21,7 @@ func initial_build_inventory():
 			new_card.card_stats = inventory_db[i]
 			new_card.upgrade_card(new_card.card_stats.upgrade_level)
 			new_card.item_enchant(new_card.card_stats.item_enchant)
+			new_card.card_stats.card_owner = get_tree().get_first_node_in_group("character")
 			new_card.card_stats.is_players = true
 			new_card.card_stats.inventory_position = counter
 			new_card.update_card_ui()

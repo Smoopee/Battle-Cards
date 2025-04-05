@@ -23,10 +23,8 @@ var deck = []
 
 var enemy_health_bar
 
-
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
-	print(enemy)
 	add_child(enemy)
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
@@ -95,7 +93,8 @@ func animate_card_to_discard_position(card):
 	tween.tween_property(card, "position", Vector2(1450 - discard_offset, 200), 0.1 * Global.COMBAT_SPEED)
 	discard_offset += 20
 
-func change_enemy_health():
+func change_enemy_health(amount):
+	enemy.character_stats.health += amount
 	enemy.change_enemy_health()
 
 #==================================================================================================
@@ -112,13 +111,14 @@ func build_deck():
 	for i in enemy_inventory:
 		i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
 		i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
+		i.enable_collision()
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
 		i.scale = Vector2(1,1)
 		update_hand_positions()
 		card_position += 1
 
-	
+	deck = enemy_inventory
 	return enemy_inventory
 
 func update_hand_positions():

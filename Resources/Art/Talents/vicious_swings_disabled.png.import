@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd6wda7kchkfj"
-path="res://.godot/imported/berserker_template_card1.png-541f3edb09c65076aff3343dbace0eca.ctex"
+uid="uid://cr37hhphjvemf"
+path="res://.godot/imported/vicious_swings_disabled.png-a71bdb6be85c65d9fab84c793e376253.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/berserker_template_card1.png"
-dest_files=["res://.godot/imported/berserker_template_card1.png-541f3edb09c65076aff3343dbace0eca.ctex"]
+source_file="res://Resources/Art/Talents/vicious_swings_disabled.png"
+dest_files=["res://.godot/imported/vicious_swings_disabled.png-a71bdb6be85c65d9fab84c793e376253.ctex"]
 
 [params]
 

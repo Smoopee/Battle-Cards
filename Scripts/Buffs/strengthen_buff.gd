@@ -3,23 +3,37 @@ extends Node2D
 var count = 0
 var buff_name = "Strengthen"
 var attached_to
+var buff_effect1
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = buff_name
-	update_tooltip("Effect", "+" + str(count) + " Atk",  "Effect: ")
+	tooltip_template()
 
 func buff_initializer(source, target):
-	buff_counter(source.card_stats.effect1)
+	buff_effect1 = source.card_stats.effect1
 	attached_to = target
+	
+	buff_counter(buff_effect1)
+	attached_to.change_attack(buff_effect1)
 
 func buff_counter(amount = null):
 	if amount == null: return
 	count += amount
 	$BuffCounters.text = str(count)
-	update_tooltip("Effect", "Attack increased by " + str(count))
+	tooltip_template()
 
 func increase_buff(source):
 	buff_counter(source.card_stats.effect1)
+
+func on_buff_removed():
+	attached_to.change_attack(-buff_effect1)
+
+
+
+
+#============ TOOL TIPS  ==========================================================================
+func tooltip_template():
+	update_tooltip("Effect", "+" + str(count) + " Atk", "Effect: ")
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
@@ -58,8 +72,14 @@ func update_tooltip(identifier, body = null, header = null,):
 	else:
 		tooltip.get_child(1).text = str(body)
 
+
+
+
+#==================================================================================================
 func _on_panel_mouse_entered():
 	toggle_tooltip_show()
 
 func _on_panel_mouse_exited():
+	toggle_tooltip_hide()
+
 	toggle_tooltip_hide()

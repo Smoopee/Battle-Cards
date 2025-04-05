@@ -527,20 +527,21 @@ func on_hovered_over(card):
 	if card_being_dragged and hover_on_upgrade_test == true: return
 	card.mouse_exit = false
 	card.scale = Vector2(1.1, 1.1)
+	if $"../ConsumableManger".consumable_being_dragged: return
 	$"../TooltipTimer".start()
 	await $"../TooltipTimer".timeout
 	if card == null: return
 	if card.mouse_exit or card_being_dragged: return
 	card.scale = Vector2(2, 2)
 	card.toggle_tooltip_show()
-	card.z_index = 1
+	card.z_index = 2
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 0
+	card.z_index = 1
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.

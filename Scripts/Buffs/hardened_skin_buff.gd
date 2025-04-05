@@ -4,33 +4,42 @@ var count = 0
 var buff_name = "Hardened Skin"
 var attached_to
 var buff_effect1
-var buff_effect2
-var buff_effect3
-var buff_effect4
-var buff_effect5
 
 
 func _ready():
 	get_tree().get_nodes_in_group("battle sim")[0].connect("end_of_round", buff_decrement)
 	$PopupPanel/VBoxContainer/Name.text = buff_name
 
-func buff_initializer(source,target):
+func buff_initializer(source, target):
 	buff_effect1 = source.card_stats.effect1
 	attached_to = target
+	
 	buff_counter(source.card_stats.buff_count)
-	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")
+	attached_to.change_armor(buff_effect1)
+	tooltip_template()
 
 func buff_counter(amount = null):
 	if amount == null: return
 	count += amount
 	$BuffCounters.text = str(count)
-	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")
+	tooltip_template()
 
 func buff_decrement(amount = null):
 	count -= 1
 	$BuffCounters.text = str(count)
+	tooltip_template()
+	if count <= 0: 
+		on_buff_removed()
+		queue_free()
+
+func on_buff_removed():
+	attached_to.change_armor(-buff_effect1)
+
+
+
+#============ TOOL TIPS  ==========================================================================
+func tooltip_template():
 	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")
-	if count <= 0: queue_free()
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return
@@ -69,6 +78,10 @@ func update_tooltip(identifier, body = null, header = null,):
 	else:
 		tooltip.get_child(1).text = str(body)
 
+
+
+
+#==================================================================================================
 func _on_panel_mouse_entered():
 	toggle_tooltip_show()
 

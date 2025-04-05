@@ -24,10 +24,19 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
+	var target
+	var source
+	if card_stats.is_players: 
+		target = enemy
+		source = player
+	else: 
+		target = player
+		source = enemy
+		
 	var battle_sim = get_tree().get_first_node_in_group("battle sim")
-	battle_sim.damage_func(self)
+	battle_sim.physical_damage_card(source, target, self)
 	if card_stats.item_enchant == "Bleed":
-		battle_sim.bleed_func(self)
+		battle_sim.bleed_func(source, target, self)
 
 func upgrade_card(num):
 	match num:
@@ -205,3 +214,22 @@ func change_cd(amount):
 		card_stats.cd = 0
 		card_stats.on_cd = false
 	update_card_ui()
+
+func add_modifier(modifier):
+	$Modifiers.add_child(modifier)
+	organzie_card_modifiers()
+
+func organzie_card_modifiers():
+	var counter = 0
+	var x_offset = 0
+	var y_offset = 0
+	
+	for i in $Modifiers.get_children():
+		if counter >= 5: 
+			x_offset = -32
+			y_offset = 0
+			counter = 0
+		i.position = Vector2(x_offset + 62, y_offset + -80)
+		y_offset += 30
+		counter += 1
+	

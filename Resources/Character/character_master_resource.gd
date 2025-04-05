@@ -15,3 +15,4 @@ class_name Character_Resource
 @export var armor: int
 @export var defense: int
 @export var block: int
+@export var speed: int

@@ -10,6 +10,7 @@ class_name Cards_Resource
 @export var cd: int
 @export var cd_remaining: int
 @export var on_cd: bool
+@export var priority: int
 @export var effect1: int
 @export var effect2: int
 @export var effect3: int

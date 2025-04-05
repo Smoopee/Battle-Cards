@@ -3,6 +3,10 @@ extends Node2D
 var talent_name = "Indomitable"
 var tooltip = "WIP"
 var talent_scene_path = "res://Scenes/Characters/Berserker/Talents/indomitable.tscn"
+var pressed_texture  = "res://Resources/Art/Talents/indomitable_pressed.png"
+var not_pressed_texture = "res://Resources/Art/Talents/indomitable_not_pressed.png"
+var hover_texture = "res://Resources/Art/Talents/indomitable_hover.png"
+var disabled_texture = "res://Resources/Art/Talents/indomitable_disabled.png"
 
 func ready():
 	talent_name = "Indomitable"

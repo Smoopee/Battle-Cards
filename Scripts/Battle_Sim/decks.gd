@@ -78,8 +78,6 @@ func build_deck():
 			i.reparent(self)
 			i.card_stats.deck_position = counter
 			counter += 1
-	
-	print(deck)
 	return deck
 
 func play_card(card):

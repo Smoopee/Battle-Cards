@@ -45,8 +45,6 @@ func update_rewards():
 	new_scene.card_stats = enemy_reward
 	new_scene.card_stats.in_enemy_deck = true
 	new_scene.card_stats.is_players = true
-	print("set player = true")
-	print(new_scene.card_stats.is_players)
 	new_scene.card_stats.cd_remaining = 0
 	new_scene.card_stats.on_cd = false
 	new_scene.get_node("Area2D").collision_mask = 1

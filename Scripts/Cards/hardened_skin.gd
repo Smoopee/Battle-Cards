@@ -24,13 +24,7 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var target = player
-	if card_stats.in_enemy_deck == true:
-		target = enemy
-		enemy.enemy_stats.armor += card_stats.effect1
-	else:
-		player.player_stats.armor += card_stats.effect1
-		player.change_armor_label()
+	var target = card_stats.card_owner
 	
 	var new_buff = load(card_stats.buff_scene_path).instantiate()
 	target.add_buff(new_buff, self)

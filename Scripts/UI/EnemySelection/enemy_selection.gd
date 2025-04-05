@@ -94,7 +94,7 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func enemy_loader(enemy):
-	Global.current_enemy = enemy.enemy_stats
+	Global.current_enemy = enemy.character_stats
 	Global.max_enemy_health = Global.current_enemy.health
 	Global.enemy_health = Global.max_enemy_health
 
@@ -134,14 +134,14 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
-	card.z_index = 1
+	card.z_index = 2
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 0
+	card.z_index = 1
 
 func toggle_inventory():
 	#From player screen to Inventory

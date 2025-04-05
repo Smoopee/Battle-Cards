@@ -33,27 +33,22 @@ func effect(player_deck, enemy_deck, player, enemy):
 			print("Entered Battle Stance")
 			card_stats.card_mode = "Battle Stance"
 			card_stats.buff_scene_path = "res://Scenes/Buffs/battle_stance_buff.tscn"
-			player.player_stats.attack += card_stats.effect1
-			player.change_attack_label()
-			player.player_stats.defense -= card_stats.effect2
-			player.change_defense_label()
+			player.change_attack(card_stats.effect1)
+			player.change_defense(-card_stats.effect2)
 			player.remove_buff("Defensive Stance")
 			
 		"Battle Stance":
 			print("Enetered Defensive Stance")
 			card_stats.card_mode = "Defensive Stance"
 			card_stats.buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
-			player.player_stats.defense += card_stats.effect2
-			player.change_defense_label()
-			player.player_stats.attack -= card_stats.effect1
-			player.change_attack_label()
+			player.change_defense(card_stats.effect2)
+			player.change_attack(-card_stats.effect1)
 			player.remove_buff("Battle Stance")
 		_: 
 			print("Entered Defensive Stance")
 			card_stats.card_mode = "Defensive Stance"
 			card_stats.buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
-			player.player_stats.defense += card_stats.effect2
-			player.change_defense_label()
+			player.change_defense(card_stats.effect2)
 			
 	var new_buff = load(card_stats.buff_scene_path).instantiate()
 	target.add_buff(new_buff, self)

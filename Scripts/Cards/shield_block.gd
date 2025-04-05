@@ -27,9 +27,9 @@ func effect(player_deck, enemy_deck, player, enemy):
 	var target = player
 	if card_stats.in_enemy_deck == true:
 		target = enemy
-		enemy.enemy_stats.block += card_stats.effect1
+		enemy.character_stats.block += card_stats.effect1
 	else:
-		player.player_stats.block += card_stats.effect1
+		player.character_stats.block += card_stats.effect1
 		player.change_block()
 
 func upgrade_card(num):

@@ -13,6 +13,7 @@ dmg = 0
 cd = 2
 cd_remaining = 0
 on_cd = false
+priority = 0
 effect1 = 2
 effect2 = 0
 effect3 = 0

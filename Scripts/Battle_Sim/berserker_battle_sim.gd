@@ -6,6 +6,7 @@ signal bleed_damage
 signal end_of_turn
 signal end_of_round
 signal start_of_battle
+signal bleed_applied
 #===================================================================================================
 var current_screen = ""
 
@@ -40,7 +41,7 @@ func _ready():
 func connect_signal_setup():
 	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
 	player =  get_tree().get_nodes_in_group("character")[0]
-	
+
 	player.connect_signals(self)
 
 func combat(player_deck_list, enemy_deck_list):
@@ -65,19 +66,12 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
-		if !player_card.card_stats.on_cd: 
-			player_card.attack_animation(player)
-			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
-			cooldown_keeper(player_card)
-			
-		if !enemy_card.card_stats.on_cd:
-			enemy_card.attack_animation(enemy)
-			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
-			cooldown_keeper(enemy_card)
+		play_card(player_card, enemy_card)
 		
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
-		bleed_damage_keeper()
+		bleed_damage_keeper(player)
+		bleed_damage_keeper(enemy)
 		
 		get_node("Timer").start()
 		await $Timer.timeout
@@ -99,6 +93,31 @@ func combat(player_deck_list, enemy_deck_list):
 func on_start():
 	emit_signal("start_of_battle")
 
+func play_card(player_card, enemy_card):
+	var first = play_order_check(player_card, enemy_card)
+	var second
+	if first == player_card: second = enemy_card
+	else: second = player_card
+
+	if !first.card_stats.on_cd: 
+		first.attack_animation(first.card_stats.card_owner)
+		first.effect(player_deck_list, enemy_deck_list, player, enemy)
+		cooldown_keeper(first)
+		
+	if !second.card_stats.on_cd:
+		second.attack_animation(second.card_stats.card_owner)
+		second.effect(player_deck_list, enemy_deck_list, player, enemy)
+		cooldown_keeper(second)
+
+func play_order_check(player_card, enemy_card):
+	if player_card.card_stats.priority > enemy_card.card_stats.priority:
+		return player_card
+	if enemy_card.card_stats.priority > player_card.card_stats.priority:
+		return enemy_card
+	if enemy.character_stats.speed > player.character_stats.speed:
+		return enemy_card
+	return player_card
+
 func death_checker():
 	if Global.player_health <= 0: 
 		print("You have Died!")
@@ -117,42 +136,39 @@ func crit_check(i):
 		return true
 	else: return false
 
-func damage_func(i):
+func physical_damage_card(source, target, card = null):
 	var crit = false
-	if i.card_stats.in_enemy_deck: 
-		damage = i.card_stats.dmg + enemy.enemy_stats.attack - player.player_stats.defense
-		damage -= player.player_stats.armor
-		
-	else:  
-		damage = i.card_stats.dmg + player.player_stats.attack - enemy.enemy_stats.defense
-		damage -= enemy.enemy_stats.armor
-
 	
-	if crit_check(i): 
+	apply_attack(source, card)
+	apply_armor(target)
+	apply_defense(target)
+
+	if crit_check(card): 
 		damage *= 2
 		crit = true
 	
-	if i.card_stats.in_enemy_deck: 
-		emit_signal("physical_damage", i, enemy, damage)
-		change_health(false, damage)
-		ui.change_enemy_damage_number(damage, crit)
-		
-	else:
-		emit_signal("physical_damage", i, player, damage)
-		change_health(true, damage)
-		ui.change_player_damage_number(damage, crit)
+	emit_signal("physical_damage", source, target, card)
+	$UI.physical_damage_dealt(target, damage)
+	change_health(target, damage)
 
-func more_damage(source, target, damage):
-	if source == enemy:
-		damage = damage - player.player_stats.defense - player.player_stats.armor
-		emit_signal("physical_damage", source, enemy, damage)
-		change_health(false, damage)
-		ui.change_enemy_damage_number(damage, null)
-	else:
-		damage = damage - enemy.enemy_stats.defense - enemy.enemy_stats.armor
-		emit_signal("physical_damage", source, player, damage)
-		change_health(true, damage)
-		ui.change_player_damage_number(damage, null)
+func physical_damage_other(source, target, p_damage):
+	damage = p_damage
+	apply_armor(target)
+	apply_defense(target)
+	emit_signal("physical_damage", source, target, null)
+	$UI.physical_damage_dealt(target, damage)
+	change_health(target, damage)
+	
+func apply_attack(source, card):
+	damage = card.card_stats.dmg + source.character_stats.attack
+
+func apply_armor(target):
+	damage -= target.character_stats.armor
+	if damage < 0: damage = 0
+
+func apply_defense(target):
+	damage -= target.character_stats.defense
+	if damage < 0: damage = 0
 
 func reflect_damage(target, amount):
 	print("In reflect damage")
@@ -163,74 +179,40 @@ func reflect_damage(target, amount):
 		change_health(false, amount)
 		ui.change_enemy_reflect_number(amount)
 
-func true_damage(target, amount):
-	if target == get_tree().get_first_node_in_group("character"): target = false
-	else: target = true
-	change_health(target, amount)
-
-func bleed_func(i):
-	if i.card_stats.bleed_dmg <= 0: return
-	
-	if i.card_stats.in_enemy_deck: 
-		player.player_stats.bleeding_dmg += i.card_stats.bleed_dmg
-		print("Player is bleeding")
-	else: 
-		enemy.enemy_stats.bleeding_dmg += i.card_stats.bleed_dmg
-		print("Enemy is bleeding")
+func bleed_func(source, target, card):
+	if card.card_stats.bleed_dmg <= 0: return
+	target.character_stats.bleeding_dmg += card.card_stats.bleed_dmg
+	emit_signal("bleed_applied", source, target, card)
 
 func add_bleed_damage(target, amount):
-	if target == enemy:
-		enemy.enemy_stats.bleeding_dmg += amount
-	
-	if target == player:
-		player.player_stats.bleeding_dmg += amount
+	target.character_stats.bleeding_dmg += amount
 
-func bleed_damage_keeper():
-	if player.player_stats.bleeding_dmg > 0:
-		emit_signal("bleed_damage", player, player.player_stats.bleeding_dmg)
-		ui.change_player_bleed_taken(player.player_stats.bleeding_dmg)
-		change_health(false, player.player_stats.bleeding_dmg)
-	if player.player_stats.bleeding_dmg> 0: player.player_stats.bleeding_dmg-= 1
-	
-	if enemy.enemy_stats.bleeding_dmg > 0:
-		emit_signal("bleed_damage", enemy, enemy.enemy_stats.bleeding_dmg)
-		ui.change_enemy_bleed_taken(enemy.enemy_stats.bleeding_dmg)
-		change_health(true, enemy.enemy_stats.bleeding_dmg)
-	if enemy.enemy_stats.bleeding_dmg> 0: enemy.enemy_stats.bleeding_dmg-= 1
+func bleed_damage_keeper(target):
+	if target.character_stats.bleeding_dmg > 0:
+		emit_signal("bleed_damage", target, target.character_stats.bleeding_dmg)
+		change_health(target, target.character_stats.bleeding_dmg)
+	if target.character_stats.bleeding_dmg> 0: target.character_stats.bleeding_dmg-= 1
 
 func change_health(character, value):
-	#If character is true, Enemy Loses Health
-	if character:
-		Global.change_enemy_health(-value)
-		enemy.enemy_stats.health -= value
-		enemy_node.change_enemy_health()
-	else:
+	if character == player:
 		Global.change_player_health(-value)
-		player.player_stats.health -= value
 		player.change_player_health()
-
-func heal_func(i):
-	if i.card_stats.heal <= 0: return
-	var player_card = true
-	if i.card_stats.in_enemy_deck: player_card = false
 	
-	var heal = i.card_stats.heal
+	else:
+		Global.change_enemy_health(-value)
+		enemy_node.change_enemy_health(-value)
+
+func heal_func(source, target, card):
+	var heal = card.card_stats.heal
 	
-	if crit_check(i): heal *= 2
-	change_health(!player_card, -heal)
-
-func more_healing(target, amount):
-	if target == enemy:
-		change_health(true, -amount)
-		ui.change_enemy_heal_number(amount, false)
-
-	if target == player:
-		change_health(false, -amount)
-		ui.change_player_heal_number(amount, false)
+	if crit_check(card): heal *= 2
+	change_health(target, -heal)
 
 func cooldown_keeper(card):
 	card.card_stats.cd_remaining = card.card_stats.cd + 1
 	card.card_stats.on_cd = true
+
+#==================Non Battle Functions============================================================
 
 func build_player_deck_list():
 	return player_deck.build_deck()
@@ -239,30 +221,23 @@ func build_enemy_deck_list():
 func build_player_inventory_list():
 	return player_inventory.build_inventory()
 
-
 func next_turn_handler():
 	$NextTurn.next_turn()
 	$NextTurn.visible = true
 	$CanvasLayer/ContinueButton.visible = true
 	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = true
 
-
 func end_fight_cleanup():
-	$NextTurn.next_turn()
+	$NextTurn.end_fight()
 	$BattleRewards.update_rewards()
 	$BattleRewards.visible = true
 	
 	$NextTurn.visible = true
 	Global.enemy_active_deck = []
-	for i in $player_deck.get_children():
-		i.card_stats.cd_remaining = 0
-		i.card_stats.on_cd = false
-		i.update_card_ui()
 	for i in enemy_node.get_children():
 		i.queue_free()
 	$UI/Labels.visible = false
 	print("end fight cleanup")
-	
 
 func _on_start_button_button_down():
 	player_deck_list = $player_deck.initial_build_deck()
@@ -282,7 +257,7 @@ func _on_continue_button_button_down():
 	$ConsumableManger.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	player_deck_list = build_player_deck_list()
-	enemy_deck_list = build_enemy_deck_list() 
+	enemy_deck_list = enemy_node.deck
 	player_inventory_list = build_player_inventory_list()
 	
 	combat(player_deck_list, enemy_deck_list)

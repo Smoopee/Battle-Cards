@@ -10,11 +10,14 @@ extends Control
 @onready var combat_log = $ColorRect/RichTextLabel
 @onready var enemy_bleeding_label = $Labels/EnemyBleedTaken
 @onready var player_bleeding_label = $Labels/PlayerBleedTaken
+var player
+var enemy
 
 var center_screen_x
 var center_screen_y
 
 func _ready():
+	
 	enemy_bleeding_label.position = $"../Enemy".enemy.position + Vector2(35, 60)
 	enemy_bleeding_label.text = ""
 	player_bleeding_label.position = $"../Player".position + Vector2(35, -80)
@@ -24,6 +27,27 @@ func _ready():
 		
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
+	connect_signals($"..")
+
+func connect_signals(battle_sim):
+	battle_sim.connect("bleed_damage", bleed_damage_taken)
+
+
+func bleed_damage_taken(target, damage):
+	var player = $"..".player
+	var enemy = $"..".enemy
+	if target == player: 
+		change_player_bleed_taken(damage)
+	else: 
+		change_enemy_bleed_taken(damage)
+
+func physical_damage_dealt(target, damage):
+	enemy = $"..".enemy
+	if target == enemy: 
+		change_player_damage_number(damage, 0)
+	else: 
+		change_enemy_damage_number(damage, 0)
+
 
 func change_player_damage_number(value, crit):
 	player_damage_number.modulate.a = 1

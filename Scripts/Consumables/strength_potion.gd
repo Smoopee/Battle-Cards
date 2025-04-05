@@ -8,12 +8,12 @@ var usable = true
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = consumable_name
 	update_tooltip("Effect","WIP",  "Effect: ")
+	
 
 func consumable_effect(player):
 	print("In strength potion consumable")
 	if Global.current_scene != "battle_sim": return false
-	player.player_stats.attack += 20
-	player.change_attack_label()
+	player.add_buff(load("res://Scenes/Buffs/strength_potion_buff.tscn").instantiate(), self)
 	return true
 
 func toggle_tooltip_show():

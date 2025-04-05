@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fhcfrywt4foa"
-path="res://.godot/imported/Template_card.png-9202c6d948ca06d803f9df72c424c9ea.ctex"
+uid="uid://d1c8847ky367p"
+path="res://.godot/imported/fueled_by_rage_hover.png-fc80fb8595ab67b0253714876dd093d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/Template_card.png"
-dest_files=["res://.godot/imported/Template_card.png-9202c6d948ca06d803f9df72c424c9ea.ctex"]
+source_file="res://Resources/Art/Talents/fueled_by_rage_hover.png"
+dest_files=["res://.godot/imported/fueled_by_rage_hover.png-fc80fb8595ab67b0253714876dd093d6.ctex"]
 
 [params]
 

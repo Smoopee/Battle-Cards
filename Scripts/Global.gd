@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .2
+const COMBAT_SPEED = .7
 
 
 var save_file_path = "user://SaveData/"

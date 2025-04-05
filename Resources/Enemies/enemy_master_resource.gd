@@ -15,3 +15,4 @@ class_name Enemy_Resource
 @export var attack: int
 @export var defense: int
 @export var block: int
+@export var speed: int

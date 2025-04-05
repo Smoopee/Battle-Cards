@@ -135,14 +135,14 @@ func on_hovered_over(card):
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
 	print("In intermision")
-	card.z_index = 1
+	card.z_index = 2
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 0
+	card.z_index = 1
 
 func toggle_inventory():
 	#From player screen to Inventory

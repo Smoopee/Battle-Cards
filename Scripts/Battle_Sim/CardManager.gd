@@ -582,14 +582,14 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
-	card.z_index = 1
+	card.z_index = 2
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 0
+	card.z_index = 1
 
 func stop_tooltip_timer():
 	$"../../../TooltipTimer".stop()
