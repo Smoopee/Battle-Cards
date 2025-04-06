@@ -12,7 +12,7 @@ func _ready():
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
 
-func skill_effect(card, source, amount):
+func skill_effect(source, target, card):
 	$SkillUI/InfoLabel.visible = true
 	if attached_to != source: return
 	if card.card_stats.card_type.find("Attack") >= 0:

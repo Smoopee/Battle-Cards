@@ -147,15 +147,15 @@ func physical_damage_card(source, target, card = null):
 		damage *= 2
 		crit = true
 	
-	emit_signal("physical_damage", source, target, card)
+	emit_signal("physical_damage", source, target, damage, card)
 	$UI.physical_damage_dealt(target, damage)
 	change_health(target, damage)
 
-func physical_damage_other(source, target, p_damage):
+func physical_damage_other(source, target, p_damage, card):
 	damage = p_damage
 	apply_armor(target)
 	apply_defense(target)
-	emit_signal("physical_damage", source, target, null)
+	emit_signal("physical_damage", source, target, p_damage)
 	$UI.physical_damage_dealt(target, damage)
 	change_health(target, damage)
 	
@@ -246,7 +246,7 @@ func _on_start_button_button_down():
 	
 	on_start()
 	combat(player_deck_list, enemy_deck_list)
-	$CanvasLayer/StartButton.visible = false
+	$StartButton.visible = false
 
 func _on_continue_button_button_down():
 	$NextTurn.visible = false
@@ -294,3 +294,7 @@ func _on_talent_button_button_down():
 func _on_timer_timeout():
 	pass # Replace with function body.
 
+
+
+func _on_confirm_button_button_down():
+	pass # Replace with function body.

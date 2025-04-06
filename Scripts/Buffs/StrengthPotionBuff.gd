@@ -15,7 +15,7 @@ func _ready():
 
 func buff_initializer(source, target):
 	buff_counter(1)
-	buff_effect1 = 20
+	buff_effect1 = 200
 	attached_to = target
 	target.change_attack(buff_effect1)
 	print(buff_effect1)

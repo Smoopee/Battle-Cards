@@ -27,10 +27,10 @@ func on_hoovered_off_card():
 func highlight_card(hoovered):
 	if hoovered:
 		scale = Vector2(1.05, 1.05)
-		z_index = 1
+		z_index = 2
 	else:
 		scale = Vector2(1, 1)
-		z_index = 0
+		z_index = 1
 
 func _on_area_2d_mouse_entered():
 	on_hoovered_over_card()

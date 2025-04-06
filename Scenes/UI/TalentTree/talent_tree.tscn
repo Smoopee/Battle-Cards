@@ -18,7 +18,7 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
-[node name="TalentTree" type="Control"]
+[node name="TalentTree" type="Control" groups=["talent tree"]]
 z_index = 3
 layout_mode = 3
 anchors_preset = 15
@@ -35,7 +35,7 @@ script = ExtResource("1_7fw2i")
 group1 = ExtResource("2_bvv1t")
 group2 = ExtResource("2_0yu7o")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="BGDimmer" type="Panel" parent="."]
 show_behind_parent = true
 z_index = 2
 z_as_relative = false
@@ -52,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cqynh")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="TalentPanel" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 357.0
 offset_top = 95.5
@@ -60,7 +60,7 @@ offset_right = 635.0
 offset_bottom = 408.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_uyuc5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TalentPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,11 +72,11 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Tier2Buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="Tier2Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+[node name="TextureButton" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -86,7 +86,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="TextureButton2" type="TextureButton" parent="Panel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+[node name="TextureButton2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -96,7 +96,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="TextureButton3" type="TextureButton" parent="Panel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+[node name="TextureButton3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -106,11 +106,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier1Buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="Tier1Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+[node name="TextureButton" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -120,7 +120,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="TextureButton2" type="TextureButton" parent="Panel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+[node name="TextureButton2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -130,7 +130,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="TextureButton3" type="TextureButton" parent="Panel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+[node name="TextureButton3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -140,21 +140,61 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="ConfirmButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="ConfirmButton" type="Button" parent="TalentPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "Confirm
 "
 
-[node name="ResetButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="TalentPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 16
 text = "Reset
 "
 
-[connection signal="mouse_entered" from="Panel/VBoxContainer/Tier1Buttons/TextureButton" to="." method="_on_texture_button_mouse_entered"]
-[connection signal="mouse_exited" from="Panel/VBoxContainer/Tier1Buttons/TextureButton" to="." method="_on_texture_button_mouse_exited"]
-[connection signal="button_down" from="Panel/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_button_down"]
-[connection signal="button_down" from="Panel/VBoxContainer/ResetButton" to="." method="_on_reset_button_button_down"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 261.0
+offset_right = 628.0
+offset_bottom = 325.0
+mouse_filter = 2
+
+[node name="Tier2Block" type="Panel" parent="VBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Tier2Block"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Reach Level 7"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tier1Block" type="Panel" parent="VBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Tier1Block"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Reach Level 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier1Buttons/TextureButton" to="." method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier1Buttons/TextureButton" to="." method="_on_texture_button_mouse_exited"]
+[connection signal="button_down" from="TalentPanel/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_button_down"]
+[connection signal="button_down" from="TalentPanel/VBoxContainer/ResetButton" to="." method="_on_reset_button_button_down"]

@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://douvo7o182s2"]
+[gd_scene load_steps=4 format=3 uid="uid://douvo7o182s2"]
 
+[ext_resource type="Script" path="res://Scripts/UI/UIElements/bottom_nav_bar.gd" id="1_ku0vv"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="1_l5a5a"]
+[ext_resource type="Texture2D" uid="uid://dx3kt0kk38b3n" path="res://Resources/Art/UIElements/alert.png" id="2_3dam2"]
 
-[node name="BottomNavBar" type="CanvasLayer"]
+[node name="BottomNavBar" type="CanvasLayer" groups=["bottom ui"]]
+script = ExtResource("1_ku0vv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 self_modulate = Color(0.317647, 0.317647, 0.317647, 0.760784)
@@ -41,9 +44,22 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 text = "Talents"
 
+[node name="AlertIndicator" type="TextureRect" parent="ColorRect/HBoxContainer/TalentButton"]
+visible = false
+layout_mode = 0
+offset_left = 105.0
+offset_top = -6.0
+offset_right = 121.0
+offset_bottom = 10.0
+texture = ExtResource("2_3dam2")
+
 [node name="MenuButton" type="Button" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
 text = "Menu"
+
+[node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Inventory"
 
 [node name="BackButton" type="Button" parent="ColorRect/HBoxContainer"]
 visible = false
@@ -51,6 +67,5 @@ layout_mode = 2
 text = "Back
 "
 
-[node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer"]
-layout_mode = 2
-text = "Inventory"
+[connection signal="button_down" from="ColorRect/HBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
+[connection signal="button_down" from="ColorRect/HBoxContainer/BackButton" to="." method="_on_back_button_button_down"]

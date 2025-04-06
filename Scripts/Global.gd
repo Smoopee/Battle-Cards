@@ -2,6 +2,7 @@ extends Node
 
 const COMBAT_SPEED = .7
 
+signal level_up
 
 var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"
@@ -10,10 +11,10 @@ var playerData = PlayerData.new()
 @onready var player_health: int
 @onready var max_player_health: int
 
-@onready var player_level: int = 1
+@onready var player_level: int 
 @onready var player_gold: int
 @onready var player_xp: int = 0
-@onready var xp_threshold = 30
+@onready var xp_threshold = 2
 
 @onready var enemy_health: int
 @onready var max_enemy_health: int
@@ -92,6 +93,7 @@ func gain_xp(amount):
 	while player_xp >= xp_threshold:
 		player_xp -= xp_threshold
 		player_level += 1
+		emit_signal("level_up")
 
 func set_player_inventory():
 	player_inventory_db = ["Hardened Skin", "Strike"]
