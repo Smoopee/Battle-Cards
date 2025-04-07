@@ -16,7 +16,7 @@ func set_talent():
 	if Global.current_scene == "battle_sim":
 		get_tree().get_nodes_in_group("battle sim")[0].connect("physical_damage", talent_effect)
 
-func talent_effect(card, source, value):
+func talent_effect(source, target, damage, card):
 	var temp = get_tree().get_nodes_in_group("character")[0]
 	if source != temp: return
 	var enemy = get_tree().get_nodes_in_group("enemy")[0]

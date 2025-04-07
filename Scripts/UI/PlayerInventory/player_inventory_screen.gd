@@ -199,8 +199,8 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func update_player_gold():
-	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
-
+	$"../PlayerUI".change_player_gold() 
+ 
 func _on_upgrade_button_toggled(toggled_on):
 	upgrade_mode = toggled_on
 
@@ -507,3 +507,11 @@ func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
+
+func toggle_sell_zone(toggle):
+	if toggle:
+		$SellZone.visible = true
+		$SellZone.process_mode = PROCESS_MODE_INHERIT
+	else:
+		$SellZone.visible = false
+		$SellZone.process_mode = Node.PROCESS_MODE_DISABLED

@@ -30,7 +30,7 @@ var previous_card_slot
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	merchant_inventory_reference = $"../MerchantCards"
+	merchant_inventory_reference = $"../CardSelectionCreator"
 	
 	inventory_card_slot_reference = $"../PlayerInventoryScreen".inventory_card_slot_reference
 	deck_card_slot_reference = $"../PlayerInventoryScreen".deck_card_slot_reference
@@ -69,12 +69,6 @@ func finish_drag_card():
 	deck_card_slot_index = deck_card_slot_array.find(deck_card_slot_found)
 	inventory_card_slot_index = inventory_card_slot_array.find(inventory_card_slot_found)
 
-	if raycast_check_for_card() and card_being_dragged.card_stats.is_enchantment and not card_being_dragged.card_stats.is_players:
-		enchant_from_merchant(card_being_dragged, raycast_check_for_card())
-		print("Enchant card from merchant")
-		card_reset()
-		return
-	
 	if raycast_check_for_deck_slot() and not deck_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_deck(card_being_dragged, deck_card_slot_found)
 		print("Buy card for Deck")
@@ -91,13 +85,12 @@ func finish_drag_card():
 		var temp = upgrade_from_merchant(card_being_dragged, raycast_check_for_upgrade_card())
 		print("Upgrade from merchant")
 		hover_on_upgrade_test = false
-		#on_hovered_over(temp)
 		card_reset()
 		hover_on_upgrade_test = true
 		return
 	
 	if !card_being_dragged.card_stats.is_players:
-		$"../MerchantCards".add_card_to_hand(card_being_dragged)
+		$"../CardSelectionCreator".add_card_to_hand(card_being_dragged)
 	
 	card_reset()
 
@@ -257,21 +250,8 @@ func upgrade_from_merchant(upgrade_card, base_card):
 		return base_card
 	pass
 
-func enchant_from_merchant(enchant_card, base_card):
-	if Global.player_gold < enchant_card.card_stats.buy_price:
-			merchant_inventory_reference.add_card_to_hand(enchant_card)
-			print("Not enough gold")
-			return
-	Global.player_gold -= enchant_card.card_stats.buy_price
-	merchant_inventory_reference.remove_card_from_hand(enchant_card)
-	enchant_card.queue_free()
-	base_card.item_enchant(enchant_card.card_stats.enchanting_with)
-	base_card.update_card_ui()
-	base_card.card_shop_ui()
-	update_player_gold()
-
 func update_player_gold():
-	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
+	$"../BottomNavBar/ColorRect/PlayerUI".change_player_gold() 
 
 func card_reset():
 	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
@@ -279,29 +259,3 @@ func card_reset():
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
 
-func _on_tooltip_timer_timeout():
-	pass # Replace with function body.
-
-func connect_card_signals(card):
-	card.connect("hovered_on", on_hovered_over)
-	card.connect("hovered_off", on_hovered_off)
-
-func on_hovered_over(card):
-	if card == null: return
-	if card_being_dragged and hover_on_upgrade_test == true: return
-	card.mouse_exit = false
-	card.scale = Vector2(1.1, 1.1)
-	$"../TooltipTimer".start()
-	await $"../TooltipTimer".timeout
-	if card == null: return
-	if card.mouse_exit or card_being_dragged: return
-	card.scale = Vector2(2, 2)
-	card.toggle_tooltip_show()
-	card.z_index = 1
-
-func on_hovered_off(card):
-	if card_being_dragged: return
-	card.mouse_exit = true
-	card.toggle_tooltip_hide()
-	card.scale = Vector2(1, 1)
-	card.z_index = 0

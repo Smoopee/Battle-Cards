@@ -115,7 +115,7 @@ func instantiate_player_deck():
 		player_deck.push_back(card)
 
 func set_player_skills():
-	player_skills_db = ["Right on Time"]
+	player_skills_db = ["Right on Time", "Building Momentum"]
 
 func instantiate_player_skills():
 	for i in player_skills_db:

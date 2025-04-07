@@ -45,7 +45,7 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
-[node name="Strike" type="Node2D" groups=["card"]]
+[node name="Strike" type="Node2D" groups=["berserker", "card"]]
 script = ExtResource("1_qbtse")
 
 [node name="CardImage" type="Sprite2D" parent="."]
@@ -53,6 +53,7 @@ texture_filter = 1
 texture = ExtResource("2_2kv1a")
 
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
 
 [node name="ItemEnchantImage" type="Sprite2D" parent="."]
 position = Vector2(50, 64.4)

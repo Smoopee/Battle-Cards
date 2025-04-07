@@ -45,7 +45,7 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
-[node name="ShieldBlock" type="Node2D" groups=["card"]]
+[node name="ShieldBlock" type="Node2D" groups=["berserker", "card"]]
 script = ExtResource("1_x5ji7")
 
 [node name="CardImage" type="Sprite2D" parent="."]

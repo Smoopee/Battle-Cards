@@ -1,26 +1,26 @@
 extends Node2D
 
 var skill_stats: Skills_Resource = null
-var skill_name = "Third Wheel"
+var skill_name = "Building Momentum"
 var attached_to 
 var counter = 0
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = skill_name
-	update_tooltip("Effect","Every 3rd Attack get +5 Damage",  "Effect: ")
+	update_tooltip("Effect","WIP",  "Effect: ")
 	
 	if Global.current_scene == "battle_sim":
-		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
+		get_tree().get_first_node_in_group("battle sim").connect("card_etb", skill_effect)
 
-func skill_effect(source, target, card):
+func skill_effect(card):
 	$SkillUI/InfoLabel.visible = true
-	if attached_to != source: return
+	if attached_to != card.card_stats.card_owner: return
 	if card.card_stats.card_type.find("Attack") >= 0:
-		if counter >= 3:
-			get_tree().get_first_node_in_group("battle sim").damage += 5
-			counter = 1
-		else: counter += 1
+		counter += 1
+	else: counter = 0
 	update_counter_text()
+	card.card_stats.card_owner.additional_rage_generation = counter
+	
 
 func upgrade_skill(num):
 	match num:

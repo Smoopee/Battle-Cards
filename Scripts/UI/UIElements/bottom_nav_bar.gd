@@ -30,3 +30,7 @@ func talent_alert_toggle(toggle):
 		$ColorRect/HBoxContainer/TalentButton/AlertIndicator.visible = true
 	else: 
 		$ColorRect/HBoxContainer/TalentButton/AlertIndicator.visible = false
+
+func change_player_gold():
+	$ColorRect/PlayerUI.change_player_gold()
+	

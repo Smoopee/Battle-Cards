@@ -20,6 +20,7 @@ var consumable_orientation = true
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
 var rage_attack_increase = 5
+var additional_rage_generation = 0
 
 func _ready():
 	battle_sim = get_tree().get_first_node_in_group("battle sim")
@@ -119,7 +120,7 @@ func rage_attack_buff():
 func change_attack(amount):
 	character_stats.attack += amount
 	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack) 
-	
+
 func change_defense(amount):
 	character_stats.defense += amount
 	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(character_stats.defense)
@@ -178,14 +179,14 @@ func connect_signals(battle_sim):
 	battle_sim.connect("physical_damage", physical_damage_dealt)
 	battle_sim.connect("end_of_turn", end_of_turn)
 
-func physical_damage_taken(source, target, card):
+func physical_damage_taken(source, target, damage, card):
 	if source == self: return
-	change_rage(source, battle_sim.damage)
+	change_rage(source, battle_sim.damage + additional_rage_generation)
 	block_damage()
 
-func physical_damage_dealt(source, target, card):
+func physical_damage_dealt(source, target, damage, card):
 	if source != self: return
-	change_rage(source, battle_sim.damage)
+	change_rage(source, battle_sim.damage + additional_rage_generation)
 
 func end_of_turn():
 	change_rage(self, rage_degeneration)

@@ -237,7 +237,15 @@ offset_right = 1033.0
 offset_bottom = 504.0
 text = "Start"
 
+[node name="ContinueButton" type="Button" parent="."]
+offset_left = 1755.0
+offset_top = 955.0
+offset_right = 1891.0
+offset_bottom = 979.0
+text = "Continue"
+
 [connection signal="toggled" from="NextTurn/DeckBuilder/UpgradeButton" to="NextTurn/DeckBuilder/CardManager" method="_on_upgrade_button_toggled"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="TooltipTimer" to="NextTurn/DeckBuilder/CardManager" method="_on_tooltip_timer_timeout"]
 [connection signal="button_down" from="StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_down" from="ContinueButton" to="." method="_on_continue_button_button_down"]

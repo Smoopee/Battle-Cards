@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=3 uid="uid://81n3gvx42dfs"]
+
+[ext_resource type="Script" path="res://Scripts/UI/LevelUpSelection/level_up_selection.gd" id="1_aiy27"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="2_0x6gc"]
+[ext_resource type="Script" path="res://Scripts/UI/LevelUpSelection/RewardSelection.gd" id="2_sljq4"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="3_bg74u"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="4_d2t8d"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_2psu5"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="5_abffh"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="6_3387g"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manger.tscn" id="7_gqrgq"]
+[ext_resource type="Script" path="res://Scripts/UI/LevelUpSelection/CardSelection.gd" id="10_shfif"]
+[ext_resource type="Script" path="res://Scripts/UI/LevelUpSelection/CardSelectionManager.gd" id="11_s1c72"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4ycnr"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ngbit"]
+
+[node name="LevelUpSelection" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_aiy27")
+
+[node name="RewardSelection" type="Node2D" parent="."]
+script = ExtResource("2_sljq4")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("2_0x6gc")]
+visible = true
+
+[node name="TalentTree" parent="." instance=ExtResource("4_d2t8d")]
+visible = false
+group1 = SubResource("ButtonGroup_4ycnr")
+group2 = SubResource("ButtonGroup_ngbit")
+
+[node name="BottomNavBar" parent="." instance=ExtResource("5_abffh")]
+
+[node name="Player" parent="." instance=ExtResource("5_2psu5")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("6_3387g")]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("7_gqrgq")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("3_bg74u")
+
+[node name="HeaderPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(500, 0)
+offset_left = 700.0
+offset_top = 42.0
+offset_right = 1277.0
+offset_bottom = 101.0
+
+[node name="Label" type="Label" parent="HeaderPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 577.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 32
+text = "LEVEL UP SELECTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="CardSelectionCreator" type="Node2D" parent="."]
+script = ExtResource("10_shfif")
+
+[node name="CardSelectionManager" type="Node2D" parent="."]
+script = ExtResource("11_s1c72")
+
+[connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]

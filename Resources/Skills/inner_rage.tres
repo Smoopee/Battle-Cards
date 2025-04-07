@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://c70pc1oujcn7b"]
+
+[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_hdc6e"]
+
+[resource]
+script = ExtResource("1_hdc6e")
+skill_art_path = "res://Resources/Art/Skills/inner_rage_skill.png"
+skill_scene_path = "res://Scenes/Skills/inner_rage.tscn"
+skill_name = "Inner Rage"
+buff_type = []
+buy_price = 0
+upgrade_level = 1

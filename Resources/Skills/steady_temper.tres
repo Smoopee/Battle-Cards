@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://c2temxqranij7"]
+
+[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_er46k"]
+
+[resource]
+script = ExtResource("1_er46k")
+skill_art_path = "res://Resources/Art/Skills/steady_temper_skill.png"
+skill_scene_path = "res://Scenes/Skills/steady_temper.tscn"
+skill_name = "Steady Temper"
+buy_price = 0
+upgrade_level = 0

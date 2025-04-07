@@ -1,12 +1,13 @@
 extends Node2D
 
-#Proof of concept=================================================================================
+
 signal physical_damage
 signal bleed_damage
 signal end_of_turn
 signal end_of_round
 signal start_of_battle
 signal bleed_applied
+signal card_etb
 #===================================================================================================
 var current_screen = ""
 
@@ -100,11 +101,13 @@ func play_card(player_card, enemy_card):
 	else: second = player_card
 
 	if !first.card_stats.on_cd: 
+		emit_signal("card_etb", first)
 		first.attack_animation(first.card_stats.card_owner)
 		first.effect(player_deck_list, enemy_deck_list, player, enemy)
 		cooldown_keeper(first)
 		
 	if !second.card_stats.on_cd:
+		emit_signal("card_etb", second)
 		second.attack_animation(second.card_stats.card_owner)
 		second.effect(player_deck_list, enemy_deck_list, player, enemy)
 		cooldown_keeper(second)
@@ -224,8 +227,7 @@ func build_player_inventory_list():
 func next_turn_handler():
 	$NextTurn.next_turn()
 	$NextTurn.visible = true
-	$CanvasLayer/ContinueButton.visible = true
-	$CanvasLayer/ColorRect/HBoxContainer/TalentButton.visible = true
+	$ContinueButton.visible = true
 
 func end_fight_cleanup():
 	$NextTurn.end_fight()
@@ -251,7 +253,7 @@ func _on_start_button_button_down():
 func _on_continue_button_button_down():
 	$NextTurn.visible = false
 	$player_inventory.visible = false
-	$CanvasLayer/ContinueButton.visible = false
+	$ContinueButton.visible = false
 	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
 	$ConsumableManger.visible = true
 	$ConsumableManger.process_mode = Node.PROCESS_MODE_INHERIT
@@ -292,9 +294,4 @@ func _on_talent_button_button_down():
 	current_screen = "talents"
 
 func _on_timer_timeout():
-	pass # Replace with function body.
-
-
-
-func _on_confirm_button_button_down():
 	pass # Replace with function body.

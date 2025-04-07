@@ -7,9 +7,14 @@ extends Node2D
 
 var center_screen_x
 var reward
+var level_up_screen = false
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
+	Global.connect("level_up", level_up)
+
+func level_up():
+	level_up_screen = true
 
 func update_rewards():
 	var enemy_reward = $"../Enemy".enemy_reward()
@@ -80,5 +85,10 @@ func _on_button_button_down():
 	Global.battle_tracker += 1
 	Global.player_consumables = $"../Player/Berserker".get_consumable_array()
 	Global.save_function()
-	Global.current_scene = "intermission"
-	get_tree().change_scene_to_file(("res://Scenes/UI/Intermission/intermission.tscn"))
+	
+	if level_up_screen == true:
+		Global.current_scene = "level up selection"
+		get_tree().change_scene_to_file("res://Scenes/UI/LevelUpSelection/level_up_selection.tscn")
+	else:
+		Global.current_scene = "intermission"
+		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
