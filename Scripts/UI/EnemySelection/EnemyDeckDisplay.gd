@@ -36,7 +36,7 @@ func create_enemy_cards(enemy):
 
 func fetch_enemy_cards(enemy):
 	enemy_inventory = []
-	enemy_cards_db = enemy.enemy_deck
+	enemy_cards_db = enemy.deck
 
 func add_card_to_hand(card):
 	enemy_inventory.push_back(card)

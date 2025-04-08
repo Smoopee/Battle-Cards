@@ -271,7 +271,7 @@ func enchant_from_merchant(enchant_card, base_card):
 	update_player_gold()
 
 func update_player_gold():
-	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
+	$"../BottomNavBar".change_player_gold() 
 
 func card_reset():
 	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP

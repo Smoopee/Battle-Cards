@@ -11,6 +11,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	toggle_inventory()
 	player_inventory.toggle_sell_zone(true)
+	$RewardSelection.reward_selection()
 
 func _process(delta):
 	if card_being_dragged:

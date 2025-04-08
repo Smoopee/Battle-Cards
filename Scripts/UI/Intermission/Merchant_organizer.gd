@@ -1,6 +1,5 @@
 extends Node2D
 
-const CARD_SCENE_PATH = "res://Scenes/UI/card.tscn"
 const CARD_WIDTH = 350
 const MERCHANT_Y_POSITION = 400
 
@@ -24,7 +23,10 @@ func _ready():
 		var new_instance = load(merchant_db_reference.MERCHANTS[merchant_selection_array[selection]])
 		merchant_array.push_front(new_instance)
 		merchant_selection_array.remove_at(selection)
-		
+	
+	if Global.intermission_tracker == 0:
+		var town = load("res://Scenes/Merchants/go_to_town.tscn")
+		merchant_array.push_front(town)
 	create_encounter(merchant_array)
 
 func create_encounter(merchant_array):

@@ -19,6 +19,7 @@ func create_merchant_inventory():
 		skill_scene.skill_stats = inventory_db[i]
 		add_child(skill_scene)
 		add_skill_to_inventory(skill_scene)
+		skill_scene.upgrade_skill(skill_scene.skill_stats.upgrade_level)
 	
 	var skill_position = 0
 	for i in inventory:

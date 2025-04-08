@@ -63,7 +63,7 @@ func raycast_check_for_consumable_drop_off():
 	return null 
 
 func update_player_gold():
-	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
+	$"../BottomNavBar".change_player_gold() 
 
 func buy_consumable():
 	if Global.player_gold < consumable_being_dragged.consumable_stats.buy_price:

@@ -10,11 +10,11 @@ func _ready():
 	update_tooltip("Effect","Every 3rd Attack get +5 Damage",  "Effect: ")
 	
 	if Global.current_scene == "battle_sim":
-		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
+		get_tree().get_first_node_in_group("battle sim").connect("card_etb", skill_effect)
 
-func skill_effect(source, target, card):
+func skill_effect(card):
 	$SkillUI/InfoLabel.visible = true
-	if attached_to != source: return
+	if attached_to != card.card_stats.card_owner: return
 	if card.card_stats.card_type.find("Attack") >= 0:
 		if counter >= 3:
 			get_tree().get_first_node_in_group("battle sim").damage += 5

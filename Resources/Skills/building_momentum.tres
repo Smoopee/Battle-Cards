@@ -9,3 +9,4 @@ skill_scene_path = "res://Scenes/Skills/building_momentum.tscn"
 skill_name = "Building Momentum"
 buy_price = 0
 upgrade_level = 1
+skill_pool = ["Berserker"]

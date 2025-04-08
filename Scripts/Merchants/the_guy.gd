@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var inventory = []
 var inventory_selection = []
 
@@ -11,7 +10,6 @@ var consumable_db_reference
 
 func _ready():
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
-
 
 func get_inventory():
 	get_inventory_selection()

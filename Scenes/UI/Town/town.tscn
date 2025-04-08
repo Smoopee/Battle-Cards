@@ -1,0 +1,51 @@
+[gd_scene load_steps=13 format=3 uid="uid://sxlo5qwddonj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/town.gd" id="1_nx4ua"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="2_6s1ch"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="3_5cc7h"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="4_weru0"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_ymi6y"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="6_nvmbr"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="7_akk70"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="8_uy83i"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEvents.gd" id="9_byyhi"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="10_3ol5f"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_1pfxk"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_wkhi6"]
+
+[node name="Town" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_nx4ua")
+
+[node name="TalentTree" parent="." instance=ExtResource("2_6s1ch")]
+visible = false
+group1 = SubResource("ButtonGroup_1pfxk")
+group2 = SubResource("ButtonGroup_wkhi6")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("3_5cc7h")]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("4_weru0")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("5_ymi6y")
+
+[node name="Player" parent="." instance=ExtResource("6_nvmbr")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("7_akk70")]
+
+[node name="CardSelector" parent="." instance=ExtResource("8_uy83i")]
+visibility_layer = 3
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="TownEvents" type="Node2D" parent="."]
+script = ExtResource("9_byyhi")
+
+[node name="ConsumableManger" parent="." instance=ExtResource("10_3ol5f")]
+
+[connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]

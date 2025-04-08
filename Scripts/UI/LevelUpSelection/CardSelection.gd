@@ -11,11 +11,9 @@ var card_db_reference
 var center_screen_x
 
 func _ready():
-	card_db_reference = preload("res://Resources/Cards/card_db.gd")
+	card_db_reference = load("res://Resources/Cards/card_db.gd")
 	center_screen_x = get_viewport().size.x / 2
-	
-	get_inventory()
-	create_card_selection()
+
 
 # Creating Data for Cards ==========================================================================
 func get_inventory():

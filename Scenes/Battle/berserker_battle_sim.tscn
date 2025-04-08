@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="8_i22sw"]
 [ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_a1ix2"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="10_v36ef"]
-[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manger.tscn" id="11_vlpbx"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="11_vlpbx"]
 [ext_resource type="AudioStream" uid="uid://cxtsqm0vys3fa" path="res://Resources/Sound/Background/BattleBackground.wav" id="12_3imj5"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/NextTurn.gd" id="14_cprqu"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/DeckBuilder.gd" id="15_q4ygm"]

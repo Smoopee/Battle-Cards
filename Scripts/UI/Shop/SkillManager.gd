@@ -67,7 +67,7 @@ func raycast_check_for_skill_drop_off():
 	return null 
 
 func update_player_gold():
-	$"../CanvasLayer/ColorRect/PlayerUI".change_player_gold() 
+	$"../BottomNavBar".change_player_gold() 
 
 func skill_reset():
 	skill_being_dragged.scale = Vector2(1, 1)

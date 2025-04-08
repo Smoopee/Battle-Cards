@@ -1,0 +1,42 @@
+[gd_scene load_steps=11 format=3 uid="uid://bebuoheehbwau"]
+
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="1_ku0kv"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Beg/BegScreen.gd" id="1_vtu44"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="2_om1gx"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="3_e2yb4"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="4_yppjs"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="5_khlbp"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="6_fuiqs"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="7_ese2q"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4l456"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_lm8iq"]
+
+[node name="BegScreen" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_vtu44")
+
+[node name="Player" parent="." instance=ExtResource("1_ku0kv")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("2_om1gx")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("3_e2yb4")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("4_yppjs")]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("5_khlbp")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("6_fuiqs")]
+visible = false
+group1 = SubResource("ButtonGroup_4l456")
+group2 = SubResource("ButtonGroup_lm8iq")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("7_ese2q")]

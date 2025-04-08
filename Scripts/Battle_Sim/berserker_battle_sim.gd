@@ -101,12 +101,14 @@ func play_card(player_card, enemy_card):
 	else: second = player_card
 
 	if !first.card_stats.on_cd: 
+		damage = 0
 		emit_signal("card_etb", first)
 		first.attack_animation(first.card_stats.card_owner)
 		first.effect(player_deck_list, enemy_deck_list, player, enemy)
 		cooldown_keeper(first)
 		
 	if !second.card_stats.on_cd:
+		damage = 0
 		emit_signal("card_etb", second)
 		second.attack_animation(second.card_stats.card_owner)
 		second.effect(player_deck_list, enemy_deck_list, player, enemy)
@@ -158,12 +160,12 @@ func physical_damage_other(source, target, p_damage, card):
 	damage = p_damage
 	apply_armor(target)
 	apply_defense(target)
-	emit_signal("physical_damage", source, target, p_damage)
+	emit_signal("physical_damage", source, target, p_damage, card)
 	$UI.physical_damage_dealt(target, damage)
 	change_health(target, damage)
 	
 func apply_attack(source, card):
-	damage = card.card_stats.dmg + source.character_stats.attack
+	damage += card.card_stats.dmg + source.character_stats.attack
 
 func apply_armor(target):
 	damage -= target.character_stats.armor

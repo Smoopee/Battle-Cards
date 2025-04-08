@@ -104,7 +104,6 @@ func load_player_selected_talents():
 				i.button_pressed = true
 				tier2_chosen = true
 
-
 func disable_out_of_reach_talents():
 	if !tier1_access:
 		for i in group1.get_buttons():

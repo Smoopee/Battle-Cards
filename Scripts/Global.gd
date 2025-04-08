@@ -14,7 +14,7 @@ var playerData = PlayerData.new()
 @onready var player_level: int 
 @onready var player_gold: int
 @onready var player_xp: int = 0
-@onready var xp_threshold = 2
+@onready var xp_threshold = 10
 
 @onready var enemy_health: int
 @onready var max_enemy_health: int
@@ -115,7 +115,7 @@ func instantiate_player_deck():
 		player_deck.push_back(card)
 
 func set_player_skills():
-	player_skills_db = ["Right on Time", "Building Momentum"]
+	player_skills_db = ["Right on Time", "Building Momentum", "Steady Temper", "Inner Rage", "Third Wheel"]
 
 func instantiate_player_skills():
 	for i in player_skills_db:

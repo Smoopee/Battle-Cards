@@ -92,7 +92,7 @@ func finish_drag_card():
 	if !card_being_dragged.card_stats.is_players:
 		$"../CardSelectionCreator".add_card_to_hand(card_being_dragged)
 	
-	card_reset()
+	no_card_reset()
 
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
@@ -258,4 +258,10 @@ func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
+	get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 
+func no_card_reset():
+	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
+	card_being_dragged.scale = Vector2(1, 1)
+	card_being_dragged.z_index = 1
+	card_being_dragged = null

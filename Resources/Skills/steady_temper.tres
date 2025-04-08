@@ -9,3 +9,4 @@ skill_scene_path = "res://Scenes/Skills/steady_temper.tscn"
 skill_name = "Steady Temper"
 buy_price = 0
 upgrade_level = 0
+skill_pool = ["Berserker"]

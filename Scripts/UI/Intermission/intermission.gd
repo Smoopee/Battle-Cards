@@ -43,10 +43,11 @@ func finish_drag():
 	
 	if merchant_found:
 		Global.current_merchant = merchant_found.merchant_scene_path
-		inventory_and_deck_save()
-		Global.save_function()
-		Global.current_scene = "shop"
-		get_tree().change_scene_to_file(("res://Scenes/UI/Shop/shop.tscn"))
+		if merchant_found.merchant_type == "Town":
+			go_to_town()
+		else:
+			go_to_shop()
+		
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
@@ -164,3 +165,15 @@ func toggle_inventory():
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.
+
+func go_to_shop():
+	inventory_and_deck_save()
+	Global.save_function()
+	Global.current_scene = "shop"
+	get_tree().change_scene_to_file("res://Scenes/UI/Shop/shop.tscn")
+
+func go_to_town():
+	inventory_and_deck_save()
+	Global.save_function()
+	Global.current_scene = "town"
+	get_tree().change_scene_to_file("res://Scenes/UI/Town/town.tscn")
