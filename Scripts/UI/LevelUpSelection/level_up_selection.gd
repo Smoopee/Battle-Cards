@@ -80,3 +80,6 @@ func toggle_inventory():
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.
+
+func _on_continue_button_down():
+	get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")

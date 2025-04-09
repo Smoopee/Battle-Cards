@@ -4,7 +4,6 @@ var card_levels = []
 var skill_levels = []
 
 
-
 func reward_selection():
 	card_levels = [2,5,8,11,14]
 	skill_levels = [3,6,9,12,15]

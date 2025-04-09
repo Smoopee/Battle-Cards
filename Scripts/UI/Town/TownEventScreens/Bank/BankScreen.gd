@@ -1,21 +1,25 @@
 extends Node2D
 
 
-const COLLISION_MASK_CARD_SELECTOR = 16
+const COLLISION_MASK_PLAYER = 8
 const COLLISION_MASK_EVENT = 32
 
 @onready var player_inventory = $PlayerInventoryScreen
 var screen_size
 var card_being_dragged
-var card_selector_reference
 
 var intermission_screen = true
 var is_toggle_inventory = false
+var previous_position
 
 func _ready():
 	screen_size = get_viewport_rect().size
 	toggle_inventory()
-	card_selector_reference = $CardSelector
+	check_for_investment()
+	
+	
+		
+
 
 func _process(delta):
 	if card_being_dragged:
@@ -29,8 +33,9 @@ func _input(event):
 		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			var card = raycast_check_for_card_selector()
+			var card = raycast_check_for_event()
 			if card:
+				previous_position = card.position
 				start_drag(card)
 		else:
 			if card_being_dragged:
@@ -40,32 +45,20 @@ func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var event_found = raycast_check_for_event()
 	
-	if event_found:
-		event_found.effect()
-		$BottomNavBar.change_player_gold()
-		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
+	if raycast_check_for_player():
+		invest()
+		animate_card_to_position(card_being_dragged, previous_position)
 		card_being_dragged = null
-		Global.intermission_tracker = 0
-		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+		#get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 		
 	else:
-		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
+		animate_card_to_position(card_being_dragged, previous_position)
 		card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 
-func raycast_check_for_card_selector():
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD_SELECTOR
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return get_card_with_highest_z_index(result)
-	return null 
 
 func raycast_check_for_event():
 	var space_state = get_world_2d().direct_space_state
@@ -77,6 +70,18 @@ func raycast_check_for_event():
 	if result.size() > 0:
 		return result[0].collider.get_parent()
 	return null 
+
+func raycast_check_for_player():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_PLAYER
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
 
 func get_card_with_highest_z_index(cards):
 	var highest_z_card = cards[0].collider.get_parent()
@@ -147,3 +152,25 @@ func toggle_inventory():
 
 func _on_tooltip_timer_timeout():
 	pass
+
+func animate_card_to_position(card, new_position):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", new_position, .1)
+
+func invest():
+	if Global.player_gold < card_being_dragged.invest_price:
+		print("Not enough gold to invest")
+		return
+	Global.player_gold -= card_being_dragged.invest_price
+	$BottomNavBar.change_player_gold()
+	InvestmentTracker.investment_amount += card_being_dragged.invest_price
+	InvestmentTracker.set_investment()
+
+func check_for_investment():
+	if InvestmentTracker.investment_amount > 0:
+		InvestmentTracker.cash_in()
+	$BottomNavBar.change_player_gold()
+
+func _on_continue_button_down():
+	Global.intermission_tracker = 0
+	get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")

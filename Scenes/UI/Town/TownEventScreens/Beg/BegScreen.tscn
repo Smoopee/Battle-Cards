@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bebuoheehbwau"]
+[gd_scene load_steps=13 format=3 uid="uid://bebuoheehbwau"]
 
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="1_ku0kv"]
 [ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Beg/BegScreen.gd" id="1_vtu44"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="5_khlbp"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="6_fuiqs"]
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="7_ese2q"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Beg/Selection.gd" id="9_dcupu"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="9_wfym5"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_4l456"]
 
@@ -40,3 +42,8 @@ group2 = SubResource("ButtonGroup_lm8iq")
 [node name="TooltipTimer" type="Timer" parent="."]
 
 [node name="BottomNavBar" parent="." instance=ExtResource("7_ese2q")]
+
+[node name="CardSelector" parent="." instance=ExtResource("9_wfym5")]
+
+[node name="Selection" type="Node2D" parent="."]
+script = ExtResource("9_dcupu")

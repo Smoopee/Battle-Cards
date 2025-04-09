@@ -27,9 +27,9 @@ func _ready():
 	if Global.intermission_tracker == 0:
 		var town = load("res://Scenes/Merchants/go_to_town.tscn")
 		merchant_array.push_front(town)
-	create_encounter(merchant_array)
+	create_encounter()
 
-func create_encounter(merchant_array):
+func create_encounter():
 	for i in range(merchant_array.size()):
 		var new_merchant = merchant_array[i].instantiate()
 		add_child(new_merchant)

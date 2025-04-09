@@ -87,4 +87,12 @@ process_mode = 4
 visible = false
 script = ExtResource("13_hwkwr")
 
+[node name="Continue" type="Button" parent="."]
+offset_left = 1727.0
+offset_top = 911.0
+offset_right = 1863.0
+offset_bottom = 935.0
+text = "Continue"
+
 [connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]
+[connection signal="button_down" from="Continue" to="." method="_on_continue_button_down"]

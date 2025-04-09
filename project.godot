@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://Scripts/Global.gd"
 Popups="*res://Scenes/UI/popups.tscn"
+InvestmentTracker="*res://Scripts/InvestmentTracker.gd"
 
 [display]
 
