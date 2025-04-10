@@ -194,7 +194,7 @@ func toggle_cd():
 
 func toggle_shop_ui(show):
 	if show: $CardUI/ShopPanel.visible = true
-	if Global.current_scene == "shop": return
+	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
 	if !show:  $CardUI/ShopPanel.visible = false
 
 func change_cd_remaining(amount):

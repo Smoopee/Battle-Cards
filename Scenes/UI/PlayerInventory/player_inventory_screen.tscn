@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://8sds3v74n7g" path="res://Scenes/UI/UIElements/sell_zone.tscn" id="6_i6oqa"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/CurrentInventory.gd" id="6_uxh4d"]
 
-[node name="PlayerInventoryScreen" type="Node2D"]
+[node name="PlayerInventoryScreen" type="Node2D" groups=["player inventory"]]
 visible = false
 z_index = 1
 script = ExtResource("1_ek0gf")
@@ -25,7 +25,6 @@ script = ExtResource("5_3rxlr")
 script = ExtResource("6_uxh4d")
 
 [node name="SellZone" parent="." instance=ExtResource("6_i6oqa")]
-process_mode = 4
 visible = false
 
 [node name="UpgradeButton" type="CheckButton" parent="."]

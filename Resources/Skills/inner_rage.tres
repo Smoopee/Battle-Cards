@@ -9,4 +9,4 @@ skill_scene_path = "res://Scenes/Skills/inner_rage.tscn"
 skill_name = "Inner Rage"
 buy_price = 0
 upgrade_level = 1
-skill_pool = ["Berserker"]
+skill_pool = ["Berserker", "Rage"]

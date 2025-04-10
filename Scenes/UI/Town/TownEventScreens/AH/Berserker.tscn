@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cns5k6hftb2qk"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/Berserker.gd" id="1_5an5l"]
+[ext_resource type="Texture2D" uid="uid://cmgm5iw1r71sh" path="res://Resources/Art/TownEvents/AHScreen/Berserker.png" id="2_f46pq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fklnl"]
+size = Vector2(140, 175)
+
+[node name="Berserker" type="Node2D"]
+script = ExtResource("1_5an5l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_f46pq")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_fklnl")
