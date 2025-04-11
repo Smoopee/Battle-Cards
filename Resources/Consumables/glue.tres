@@ -11,3 +11,4 @@ buy_price = 5
 target = "card"
 stack_amount = 1
 max_stacks = 2
+tags = ["CD", "Common"]

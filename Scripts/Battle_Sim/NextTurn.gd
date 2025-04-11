@@ -2,6 +2,7 @@ extends Node2D
 
 
 func next_turn():
+	print("next turn handler")
 	$DeckBuilder/PlayerInventory.create_inventory()
 	$DeckBuilder/PlayerDeck.create_inventory()
 	$DeckBuilder/CardManager.create_references()

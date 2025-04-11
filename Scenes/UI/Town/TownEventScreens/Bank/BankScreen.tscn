@@ -43,9 +43,11 @@ group2 = SubResource("ButtonGroup_d4xqs")
 [node name="BottomNavBar" parent="." instance=ExtResource("7_cj50w")]
 
 [node name="Continue" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Continue"
+offset_left = 1727.0
+offset_top = 958.0
+offset_right = 1863.0
+offset_bottom = 982.0
+text = "Leave"
 
 [node name="Selection" type="Node2D" parent="."]
 script = ExtResource("9_08chq")

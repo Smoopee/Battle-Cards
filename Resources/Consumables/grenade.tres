@@ -11,3 +11,4 @@ buy_price = 3
 target = "enemy"
 stack_amount = 1
 max_stacks = 1
+tags = ["Damage", "Common"]

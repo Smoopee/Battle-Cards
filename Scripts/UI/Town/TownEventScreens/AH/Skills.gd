@@ -12,12 +12,12 @@ func effect():
 	center_screen_x = get_viewport().size.x / 2
 	get_tree().get_first_node_in_group("card manager").ah_mode = "Skills"
 	
-	var berserker = load("res://Scenes/UI/Town/TownEventScreens/AH/Berserker.tscn")
-	var common
-	var attack  = load("res://Scenes/UI/Town/TownEventScreens/AH/Attacks.tscn")
-	var cd 
+	var berserker = load("res://Scenes/UI/Town/TownEventScreens/AH/Tags/Berserker.tscn")
+	var common = load("res://Scenes/UI/Town/TownEventScreens/AH/Tags/Common.tscn")
+	var attack  = load("res://Scenes/UI/Town/TownEventScreens/AH/Tags/Attacks.tscn")
+	var cd  = load("res://Scenes/UI/Town/TownEventScreens/AH/Tags/Cooldown.tscn")
 	
-	selection_array = [berserker, attack]
+	selection_array = [berserker, attack, common, cd]
 	
 	create_encounter()
 

@@ -232,4 +232,4 @@ func organzie_card_modifiers():
 		i.position = Vector2(x_offset + 62, y_offset + -80)
 		y_offset += 30
 		counter += 1
-	
+

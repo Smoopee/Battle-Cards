@@ -1,6 +1,7 @@
 extends Node
 
-const COMBAT_SPEED = .7
+const COMBAT_SPEED = .01
+
 
 signal level_up
 
@@ -31,6 +32,7 @@ var playerData = PlayerData.new()
 @onready var player_inventory = []
 @onready var player_talent_array = []
 @onready var player_class = ""
+var rested_xp = 0
 
 @onready var current_merchant = "res://Scenes/Merchants/grack.tscn"
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
@@ -44,6 +46,7 @@ var skill_db_reference
 var card_db_reference
 var consumable_db_reference
 var card_node_reference = 3
+
 
 var mouse_occupied = false
 
@@ -89,6 +92,14 @@ func change_enemy_health(amount):
 		enemy_health = max_enemy_health
 
 func gain_xp(amount):
+	if rested_xp > 0:
+		if rested_xp >= amount:
+			amount *= 2
+			rested_xp -= amount
+		else:
+			amount += rested_xp
+			rested_xp = 0
+
 	player_xp += amount
 	while player_xp >= xp_threshold:
 		player_xp -= xp_threshold
@@ -123,7 +134,7 @@ func instantiate_player_skills():
 		player_skills.push_back(skill)
 
 func set_player_consumables():
-	player_consumables_db = ["Health Potion", "Battery", "Glue", "Strength Potion", "Grenade"]
+	player_consumables_db = ["Health Potion", "Cheese", "Glue", "Strength Potion", "Grenade"]
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:

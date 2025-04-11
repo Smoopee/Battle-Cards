@@ -6,7 +6,7 @@ const INVENTORY_Y_POSITION = 376
 var inventory_db = []
 var inventory = []
 var center_screen_x
-var animation_canel = true
+
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2

@@ -11,3 +11,4 @@ buy_price = 5
 target = "character"
 stack_amount = 1
 max_stacks = 5
+tags = ["Heal", "Common"]

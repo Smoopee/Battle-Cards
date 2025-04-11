@@ -9,17 +9,16 @@ var selection = []
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	var cards = load("res://Scenes/UI/Town/TownEventScreens/AH/Cards.tscn")
-	var consumables = load("res://Scenes/UI/Town/TownEventScreens/AH/Consumables.tscn")
-	var skills = load("res://Scenes/UI/Town/TownEventScreens/AH/Skills.tscn")
+	var offensive = load("res://Scenes/UI/Town/TownEventScreens/Dummy/Offensive.tscn")
+	var defensive = load("res://Scenes/UI/Town/TownEventScreens/Dummy/Defensive.tscn")
 	
-	selection_array = [cards, consumables, skills]
+	selection_array = [offensive, defensive]
 	create_encounter()
 
 func create_encounter():
 	for i in range(selection_array.size()):
 		var new_selection = selection_array[i].instantiate()
-		get_tree().get_first_node_in_group("organizer").add_child(new_selection)
+		add_child(new_selection)
 		selection.push_back(new_selection)
 		update_card_positions()
 

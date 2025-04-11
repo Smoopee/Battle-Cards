@@ -17,26 +17,33 @@ func _ready():
 
 func create_enemy_cards():
 	fetch_enemy_cards()
-
-	for i in range(enemy_cards_db.size()):
-		var card_scene = load(enemy_cards_db[i].card_scene_path).instantiate()
-		card_scene.card_stats = enemy_cards_db[i]
-		add_child(card_scene)
-		add_card_to_hand(card_scene)
 	
-	var card_position = 0
-	for i in enemy_inventory:
-		i.upgrade_card(i.card_stats.upgrade_level)
-		i.update_card_ui()
-		i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
-		i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
-		i.card_stats.inventory_position = card_position
-		i.card_stats.is_players = false
-		card_position += 1
-
+	var counter = 0
+	var blank = load("res://Resources/Cards/blank.tres")
+	for i in range(enemy_cards_db.size()):
+		if enemy_cards_db[i] == null:
+			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
+			load_blank.card_stats = blank
+			load_blank.card_stats.deck_position = counter
+			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+			load_blank.card_stats.is_players = true
+			add_card_to_hand(load_blank)
+			add_child(load_blank)
+		else:
+			var card_scene = load(enemy_cards_db[i].card_scene_path).instantiate()
+			card_scene.card_stats = enemy_cards_db[i]
+			card_scene.upgrade_card(card_scene.card_stats.upgrade_level)
+			card_scene.update_card_ui()
+			card_scene.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
+			card_scene.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
+			card_scene.card_stats.inventory_position = counter
+			card_scene.card_stats.is_players = false
+			add_card_to_hand(card_scene)
+			add_child(card_scene)
+			
+		counter += 1
 func fetch_enemy_cards():
 	enemy_cards_db = $"../Enemy".enemy_deck
-
 
 func add_card_to_hand(card):
 	enemy_inventory.push_back(card)

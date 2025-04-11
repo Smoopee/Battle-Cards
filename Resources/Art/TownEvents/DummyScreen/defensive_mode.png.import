@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bggno0g0xycfo"
-path="res://.godot/imported/Buffs.png-c3d5bc45e558a818ab181c3d03569963.ctex"
+uid="uid://b5af68auygme4"
+path="res://.godot/imported/defensive_mode.png-a5cdcfc2379dc945e22ae0892e5331dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/TownEvents/AHScreen/Buffs.png"
-dest_files=["res://.godot/imported/Buffs.png-c3d5bc45e558a818ab181c3d03569963.ctex"]
+source_file="res://Resources/Art/TownEvents/DummyScreen/defensive_mode.png"
+dest_files=["res://.godot/imported/defensive_mode.png-a5cdcfc2379dc945e22ae0892e5331dc.ctex"]
 
 [params]
 

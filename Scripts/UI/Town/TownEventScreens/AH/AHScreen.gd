@@ -108,7 +108,6 @@ func inventory_and_deck_save():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 
-
 func connect_card_signals(card):
 	card.connect("hovered_on", on_hovered_over)
 	card.connect("hovered_off", on_hovered_off)
@@ -166,3 +165,16 @@ func setup_ah(tag):
 		$AHSkillManager.process_mode = Node.PROCESS_MODE_INHERIT
 	
 		$AHSkillDisplay.setup(tag)
+	
+	if ah_mode == "Consumables":
+		$AHConsumableDisplay.visible = true
+		$AHConsumableDisplay.process_mode = Node.PROCESS_MODE_INHERIT
+		$AHConsumableManager.visible = true
+		$AHConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
+		
+		$AHConsumableDisplay.setup(tag)
+
+
+func _on_leave_button_down():
+	Global.intermission_tracker = 0
+	get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")

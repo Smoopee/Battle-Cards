@@ -82,13 +82,20 @@ func _on_button_button_down():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 	
-	Global.battle_tracker += 1
+	
 	Global.player_consumables = $"../Player/Berserker".get_consumable_array()
 	Global.save_function()
 	
-	if level_up_screen == true:
+	
+	if Global.intermission_tracker >= 2:
+		Global.current_scene = "enemy selection"
+		Global.intermission_tracker = 0
+		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+	elif level_up_screen == true:
+		Global.battle_tracker += 1
 		Global.current_scene = "level up selection"
 		get_tree().change_scene_to_file("res://Scenes/UI/LevelUpSelection/level_up_selection.tscn")
 	else:
 		Global.current_scene = "intermission"
+		Global.battle_tracker += 1
 		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")

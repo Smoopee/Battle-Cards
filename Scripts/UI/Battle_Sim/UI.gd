@@ -31,7 +31,7 @@ func _ready():
 
 func connect_signals(battle_sim):
 	battle_sim.connect("bleed_damage", bleed_damage_taken)
-
+	battle_sim.connect("end_of_round", end_of_round)
 
 func bleed_damage_taken(target, damage):
 	var player = $"..".player
@@ -142,6 +142,12 @@ func change_player_bleed_taken(value):
 	await tween.finished
 	player_drip.visible = false
 	player_drip.position = original_position
+
+func end_of_round(value):
+	$Labels/Rounds.text = "Round: " + str(value)
+
+
+
 
 func update_combat_log_bleed(source, value, player, enemy, is_player, card, other):
 	var red = Color(1.0,0.0,0.0,1.0)

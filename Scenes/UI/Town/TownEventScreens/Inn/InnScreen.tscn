@@ -1,3 +1,71 @@
-[gd_scene format=3 uid="uid://ct4uf5i6xix78"]
+[gd_scene load_steps=14 format=3 uid="uid://ct4uf5i6xix78"]
 
-[node name="InnScreen" type="Node2D"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Inn/InnScreen.gd" id="1_w633f"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="2_8kfc0"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="3_6wakq"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="4_7eiop"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="5_2l240"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="6_yassq"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="7_a3pi5"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="8_d17de"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Inn/CreateFood.gd" id="9_u5vo8"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Inn/FoodManager.gd" id="10_8qfjd"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ctpbg"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_7w1wb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_632ne"]
+size = Vector2(150.5, 230)
+
+[node name="InnScreen" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_w633f")
+
+[node name="Player" parent="." instance=ExtResource("2_8kfc0")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("3_6wakq")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("4_7eiop")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("5_2l240")]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("6_yassq")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("7_a3pi5")]
+visible = false
+group1 = SubResource("ButtonGroup_ctpbg")
+group2 = SubResource("ButtonGroup_7w1wb")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("8_d17de")]
+
+[node name="CreateFood" type="Node2D" parent="."]
+script = ExtResource("9_u5vo8")
+
+[node name="FoodManager" type="Node2D" parent="."]
+script = ExtResource("10_8qfjd")
+
+[node name="ConsumableDropOff" type="Area2D" parent="."]
+position = Vector2(934, 741)
+collision_layer = 16384
+collision_mask = 16384
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConsumableDropOff"]
+position = Vector2(-101, 63)
+shape = SubResource("RectangleShape2D_632ne")
+
+[node name="Rest" type="Button" parent="."]
+offset_left = 1767.0
+offset_top = 947.0
+offset_right = 1839.0
+offset_bottom = 971.0
+text = "Rest"
+
+[connection signal="button_down" from="Rest" to="." method="_on_rest_button_down"]

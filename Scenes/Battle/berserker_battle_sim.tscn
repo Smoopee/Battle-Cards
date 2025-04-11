@@ -60,7 +60,6 @@ offset_bottom = 1015.0
 color = Color(0.254902, 0.254902, 0.254902, 0.752941)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/ColorRect"]
-visible = false
 layout_mode = 0
 offset_left = 13.0
 offset_top = 10.0
@@ -166,6 +165,14 @@ offset_bottom = 239.0
 theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 33
+
+[node name="Rounds" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 42.0
+offset_right = 123.0
+offset_bottom = 58.0
+text = "Round: 1"
 
 [node name="BattleRewards" parent="." instance=ExtResource("9_a1ix2")]
 visible = false

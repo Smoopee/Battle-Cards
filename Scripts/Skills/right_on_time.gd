@@ -11,7 +11,7 @@ func _ready():
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("end_of_round", skill_effect)
 
-func skill_effect():
+func skill_effect(round):
 	var temp_array = []
 	
 	for i in attached_to.active_deck_access():

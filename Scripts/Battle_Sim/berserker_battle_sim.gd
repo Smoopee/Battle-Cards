@@ -27,6 +27,7 @@ var enemy_skill_list = []
 var player_armor = 0
 var enemy_armor = 0
 var round_counter = 1
+var round_limit = 10
 
 var player_bleed_dmg = 0
 var enemy_bleed_dmg = 0
@@ -40,12 +41,15 @@ func _ready():
 	get_node("Timer").wait_time *= Global.COMBAT_SPEED
 
 func connect_signal_setup():
-	enemy =  get_tree().get_nodes_in_group("enemy")[0] 
-	player =  get_tree().get_nodes_in_group("character")[0]
+	enemy = get_tree().get_nodes_in_group("enemy")[0] 
+	player = get_tree().get_nodes_in_group("character")[0]
 
 	player.connect_signals(self)
 
 func combat(player_deck_list, enemy_deck_list):
+	if round_counter > round_limit:
+		end_fight_cleanup()
+		return
 	var is_dead
 	var round_incrementer = 1
 
@@ -88,7 +92,7 @@ func combat(player_deck_list, enemy_deck_list):
 	
 	if is_dead: return
 	round_counter += round_incrementer
-	emit_signal("end_of_round")
+	emit_signal("end_of_round", round_counter)
 	next_turn_handler()
 
 func on_start():

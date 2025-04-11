@@ -38,6 +38,7 @@ func _ready():
 	enemy_health_bar.value = Global.enemy_health
 
 func initial_build_deck():
+	
 	if Global.enemy_active_deck == []:
 		enemy_deck = enemy.deck
 	else: 
@@ -45,20 +46,28 @@ func initial_build_deck():
 
 	deck = []
 	var counter = 0
-	
-	var card_position = 0
+	var blank = load("res://Resources/Cards/blank.tres")
 	for i in range(enemy_deck.size()):
-		var new_card = load(enemy_deck[i].card_scene_path).instantiate()
-		add_child(new_card)
-		deck.push_back(new_card)
-		new_card.card_stats = enemy_deck[i]
-		new_card.upgrade_card(new_card.card_stats.upgrade_level)
-		new_card.item_enchant(new_card.card_stats.item_enchant)
-		new_card.card_stats.is_players = false
-		new_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
-		new_card.card_stats.in_enemy_deck = true
-		new_card.card_stats.deck_position = counter
-		new_card.update_card_ui()
+		if enemy_deck[i] == null:
+			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
+			load_blank.card_stats = blank
+			load_blank.card_stats.deck_position = counter
+			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+			load_blank.card_stats.is_players = true
+			deck.push_back(load_blank)
+			add_child(load_blank)
+		else:
+			var new_card = load(enemy_deck[i].card_scene_path).instantiate()
+			add_child(new_card)
+			deck.push_back(new_card)
+			new_card.card_stats = enemy_deck[i]
+			new_card.upgrade_card(new_card.card_stats.upgrade_level)
+			new_card.item_enchant(new_card.card_stats.item_enchant)
+			new_card.card_stats.is_players = false
+			new_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
+			new_card.card_stats.in_enemy_deck = true
+			new_card.card_stats.deck_position = counter
+			new_card.update_card_ui()
 		
 		counter += 1
 	return deck
@@ -99,6 +108,7 @@ func change_enemy_health(amount):
 
 #==================================================================================================
 func build_deck():
+	var blank = load("res://Resources/Cards/blank.tres")
 	enemy_inventory = []
 	
 	for i in get_children():
@@ -106,16 +116,26 @@ func build_deck():
 			enemy_inventory.push_back(i)
 	
 	enemy_inventory.shuffle()
-	
+
 	var card_position = 0
 	for i in enemy_inventory:
-		i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
-		i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
-		i.enable_collision()
-		i.card_stats.inventory_position = card_position
-		i.card_stats.is_players = false
-		i.scale = Vector2(1,1)
-		update_hand_positions()
+		if i == null:
+			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
+			load_blank.card_stats = blank
+			load_blank.card_stats.deck_position = card_position
+			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+			load_blank.card_stats.is_players = true
+			deck.push_back(load_blank)
+			add_child(load_blank)
+		else:
+			i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
+			i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
+			i.enable_collision()
+			i.card_stats.inventory_position = card_position
+			i.card_stats.is_players = false
+			i.scale = Vector2(1,1)
+			update_hand_positions()
+		
 		card_position += 1
 
 	deck = enemy_inventory

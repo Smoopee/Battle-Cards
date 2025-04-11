@@ -145,5 +145,7 @@ func toggle_inventory():
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
 
-func _on_tooltip_timer_timeout():
-	pass
+
+func _on_leave_button_down():
+	Global.intermission_tracker = 0
+	get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")

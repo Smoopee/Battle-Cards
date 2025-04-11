@@ -12,11 +12,11 @@ func _ready():
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
 
-func skill_effect(source, target, card):
+func skill_effect(source, target, damage, card):
 	print("In skills effect for paper shield")
 	if one_shot == false: return
 	if source == attached_to: return
-	if card.card_stats.dmg >= 6:
+	if damage >= 6:
 		get_tree().get_first_node_in_group("battle sim").damage = 0
 		one_shot = false
 		print("WE BLOCKED WITH A PAPER SHIELD")

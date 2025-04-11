@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0htbdid3xsiu"
-path="res://.godot/imported/Attacks.png-54d13c920e647eaf3c216601c06f1114.ctex"
+uid="uid://c2og57u3xsb0p"
+path="res://.godot/imported/Potion.png-5b95667ad34f03f06d406ca1d3791e04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/TownEvents/AHScreen/Attacks.png"
-dest_files=["res://.godot/imported/Attacks.png-54d13c920e647eaf3c216601c06f1114.ctex"]
+source_file="res://Resources/Art/TownEvents/AHScreen/Tags/Potion.png"
+dest_files=["res://.godot/imported/Potion.png-5b95667ad34f03f06d406ca1d3791e04.ctex"]
 
 [params]
 

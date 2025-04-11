@@ -86,15 +86,12 @@ func change_armor(amount):
 	$EnemyUI/StatContainer/ArmorLabel.text = str(character_stats.armor)
 
 
-
-
 func get_reward():
 	var rng = RandomNumberGenerator.new()
 	var reward_array = $Deck.enemy_deck + $Skills.enemy_skills 
 	reward_array.push_back("Doulbe Reward")
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
 	return reward_array[reward_index]
-
 
 func active_deck_access():
 	return Global.enemy_active_deck

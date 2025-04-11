@@ -11,14 +11,13 @@ func _ready():
 	update_tooltip("Effect", "+" + str(buff_effect1) + " Atk",  "Effect: ")
 	
 	get_tree().get_nodes_in_group("battle sim")[0].connect("end_of_round", buff_decrement)
-	$PopupPanel/VBoxContainer/Name.text = buff_name
+
 
 func buff_initializer(source, target):
 	buff_counter(1)
 	buff_effect1 = 200
 	attached_to = target
 	target.change_attack(buff_effect1)
-	print(buff_effect1)
 
 
 func buff_counter(amount = null):

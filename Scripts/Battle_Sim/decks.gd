@@ -26,7 +26,6 @@ func initial_build_deck():
 	
 	var counter = 0
 	
-	var card_position = 0
 	for i in range(deck_db.size()):
 		var new_card = load(deck_db[i].card_scene_path).instantiate()
 		add_child(new_card)
@@ -77,7 +76,8 @@ func build_deck():
 			deck.push_back(i)
 			i.reparent(self)
 			i.card_stats.deck_position = counter
-			counter += 1
+			
+		counter += 1
 	return deck
 
 func play_card(card):

@@ -47,3 +47,12 @@ group2 = SubResource("ButtonGroup_lm8iq")
 
 [node name="Selection" type="Node2D" parent="."]
 script = ExtResource("9_dcupu")
+
+[node name="Leave" type="Button" parent="."]
+offset_left = 1773.0
+offset_top = 960.0
+offset_right = 1861.0
+offset_bottom = 984.0
+text = "Leave"
+
+[connection signal="button_down" from="Leave" to="." method="_on_leave_button_down"]

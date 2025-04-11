@@ -25,7 +25,6 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
-		print("inventory toggle")
 		toggle_inventory()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

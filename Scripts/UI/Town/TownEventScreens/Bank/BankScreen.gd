@@ -17,10 +17,6 @@ func _ready():
 	toggle_inventory()
 	check_for_investment()
 	
-	
-		
-
-
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -49,7 +45,6 @@ func finish_drag():
 		invest()
 		animate_card_to_position(card_being_dragged, previous_position)
 		card_being_dragged = null
-		#get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 		
 	else:
 		animate_card_to_position(card_being_dragged, previous_position)
@@ -81,7 +76,6 @@ func raycast_check_for_player():
 	if result.size() > 0:
 		return result[0].collider.get_parent()
 	return null 
-
 
 func get_card_with_highest_z_index(cards):
 	var highest_z_card = cards[0].collider.get_parent()

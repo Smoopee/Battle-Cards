@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bqllpgt14t7ii"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/Attacks.gd" id="1_32mi5"]
-[ext_resource type="Texture2D" uid="uid://c0htbdid3xsiu" path="res://Resources/Art/TownEvents/AHScreen/Attacks.png" id="2_61dcd"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/Tags/Attacks.gd" id="1_32mi5"]
+[ext_resource type="Texture2D" uid="uid://c0htbdid3xsiu" path="res://Resources/Art/TownEvents/AHScreen/Tags/Attacks.png" id="2_61dcd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7gtvr"]
 size = Vector2(140, 175)
