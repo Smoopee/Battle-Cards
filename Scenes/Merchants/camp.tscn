@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://448qbl7atve5"]
+
+[ext_resource type="Script" path="res://Scripts/Merchants/camp.gd" id="1_f0e0r"]
+[ext_resource type="Texture2D" uid="uid://dkmkep31nct7h" path="res://Resources/Art/Merchants/camp_merchant.png" id="2_pme53"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqq42"]
+size = Vector2(146, 180)
+
+[node name="Camp" type="Node2D"]
+script = ExtResource("1_f0e0r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pme53")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_eqq42")

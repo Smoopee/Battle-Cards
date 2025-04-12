@@ -1,0 +1,49 @@
+[gd_scene load_steps=13 format=3 uid="uid://ch8rxotq16tu"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Camp/Camp.gd" id="1_n7dit"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="1_onpyk"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="2_3so1q"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="3_yn6gh"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="4_ewa1y"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_b0wc1"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="6_nxnri"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="7_b7nqx"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="9_q0cmi"]
+[ext_resource type="Script" path="res://Scripts/UI/Camp/CampEvents.gd" id="10_rgre6"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_gvebj"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4l7y7"]
+
+[node name="Camp" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_n7dit")
+
+[node name="TalentTree" parent="." instance=ExtResource("1_onpyk")]
+visible = false
+group1 = SubResource("ButtonGroup_gvebj")
+group2 = SubResource("ButtonGroup_4l7y7")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("2_3so1q")]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("3_yn6gh")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("4_ewa1y")
+
+[node name="Player" parent="." instance=ExtResource("5_b0wc1")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("6_nxnri")]
+
+[node name="CardSelector" parent="." instance=ExtResource("7_b7nqx")]
+visibility_layer = 3
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("9_q0cmi")]
+
+[node name="CampEvents" type="Node2D" parent="."]
+script = ExtResource("10_rgre6")

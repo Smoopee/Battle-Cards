@@ -41,8 +41,11 @@ func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	
 	if raycast_check_for_event():
-		get_tree().change_scene_to_file(raycast_check_for_event().event_scene_path)
-		
+		var activity = raycast_check_for_event().effect()
+		if activity == "Hunt": hunt()
+		elif activity == "Eat": eat()
+		elif activity == "Rest": rest()
+		change_scenes()
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
@@ -158,3 +161,19 @@ func toggle_inventory():
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
 
+func hunt():
+	Global.player_gold += 20
+
+func eat():
+	Global.change_player_health(30)
+
+func rest():
+	Global.rested_xp += 5
+
+func change_scenes():
+	inventory_and_deck_save()
+	Global.player_consumables = $Player/Berserker.get_consumable_array()
+	Global.save_function()
+	Global.intermission_tracker = 0
+	Global.current_scene = "enemy_selection"
+	get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")

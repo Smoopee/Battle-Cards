@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .01
+const COMBAT_SPEED = .5
 
 
 signal level_up
@@ -126,7 +126,7 @@ func instantiate_player_deck():
 		player_deck.push_back(card)
 
 func set_player_skills():
-	player_skills_db = ["Right on Time", "Building Momentum", "Steady Temper", "Inner Rage", "Third Wheel"]
+	player_skills_db = []
 
 func instantiate_player_skills():
 	for i in player_skills_db:
@@ -134,7 +134,7 @@ func instantiate_player_skills():
 		player_skills.push_back(skill)
 
 func set_player_consumables():
-	player_consumables_db = ["Health Potion", "Cheese", "Glue", "Strength Potion", "Grenade"]
+	player_consumables_db = ["Health Potion"]
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:

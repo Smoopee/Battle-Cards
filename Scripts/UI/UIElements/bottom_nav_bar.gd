@@ -2,18 +2,8 @@ extends CanvasLayer
 
 var screen = ""
 
-func _ready():
-	pass
-
-
 func _on_talent_button_button_down():
-	get_tree().get_first_node_in_group("talent tree").visible = true
-	$ColorRect/HBoxContainer/TalentButton.visible = false
-	$ColorRect/HBoxContainer/MenuButton.visible = false
-	$ColorRect/HBoxContainer/InventoryButton.visible = false
-	$ColorRect/HBoxContainer/BackButton.visible = true
-	
-	screen = "talents"
+	toggle_talent_screen()
 
 func _on_back_button_button_down():
 	if screen == "talents":
@@ -34,3 +24,11 @@ func talent_alert_toggle(toggle):
 func change_player_gold():
 	$ColorRect/PlayerUI.change_player_gold()
 	
+func toggle_talent_screen():
+	get_tree().get_first_node_in_group("talent tree").visible = true
+	$ColorRect/HBoxContainer/TalentButton.visible = false
+	$ColorRect/HBoxContainer/MenuButton.visible = false
+	$ColorRect/HBoxContainer/InventoryButton.visible = false
+	$ColorRect/HBoxContainer/BackButton.visible = true
+	
+	screen = "talents"

@@ -30,7 +30,7 @@ var previous_card_slot
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	merchant_inventory_reference = $"../AHCardDisplay"
+	merchant_inventory_reference = $"../CardDisplay"
 	
 	inventory_card_slot_reference = $"../PlayerInventoryScreen".inventory_card_slot_reference
 	deck_card_slot_reference = $"../PlayerInventoryScreen".deck_card_slot_reference

@@ -45,6 +45,8 @@ func finish_drag():
 		Global.current_merchant = merchant_found.merchant_scene_path
 		if merchant_found.merchant_type == "Town":
 			go_to_town()
+		elif merchant_found.merchant_type == "Camp":
+			go_camping()
 		else:
 			go_to_shop()
 		
@@ -177,3 +179,9 @@ func go_to_town():
 	Global.save_function()
 	Global.current_scene = "town"
 	get_tree().change_scene_to_file("res://Scenes/UI/Town/town.tscn")
+
+func go_camping():
+	inventory_and_deck_save()
+	Global.save_function()
+	Global.current_scene = "camp"
+	get_tree().change_scene_to_file("res://Scenes/UI/Camp/Camp.tscn")

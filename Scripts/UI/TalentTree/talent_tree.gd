@@ -129,6 +129,9 @@ func _on_texture_button_mouse_exited():
 	pass
 
 func _on_reset_button_button_down():
+	reset_talents()
+
+func reset_talents():
 	for i in get_tree().get_nodes_in_group("talent_button"):
 		i.button_pressed = false
 		i.disabled = false

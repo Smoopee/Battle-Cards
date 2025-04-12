@@ -24,9 +24,14 @@ func _ready():
 		merchant_array.push_front(new_instance)
 		merchant_selection_array.remove_at(selection)
 	
+	print(Global.intermission_tracker)
 	if Global.intermission_tracker == 0:
 		var town = load("res://Scenes/Merchants/go_to_town.tscn")
 		merchant_array.push_front(town)
+	if Global.intermission_tracker >= 1:
+		var camp = load("res://Scenes/Merchants/camp.tscn")
+		merchant_array.push_front(camp)
+	
 	create_encounter()
 
 func create_encounter():

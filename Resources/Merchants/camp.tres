@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" load_steps=2 format=3 uid="uid://d3vkcuuwptr4f"]
+
+[ext_resource type="Script" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_fexnq"]
+
+[resource]
+script = ExtResource("1_fexnq")
+merchant_art_path = "res://Resources/Art/Merchants/camp_merchant.png"
+merchant_scene_path = "res://Scenes/Merchants/camp.tscn"
+name = "Camp"

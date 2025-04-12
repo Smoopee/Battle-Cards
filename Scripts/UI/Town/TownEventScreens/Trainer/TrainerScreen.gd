@@ -9,14 +9,13 @@ var screen_size
 var card_being_dragged
 var card_selector_reference
 
+var intermission_screen = true
 var is_toggle_inventory = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	card_selector_reference = $CardSelector
-	Global.intermission_tracker += 1
 	toggle_inventory()
-
+	card_selector_reference = $CardSelector
 
 func _process(delta):
 	if card_being_dragged:
@@ -39,10 +38,16 @@ func _input(event):
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
+	var event_found = raycast_check_for_event()
 	
-	if raycast_check_for_event():
-		get_tree().change_scene_to_file(raycast_check_for_event().event_scene_path)
-		
+	if event_found:
+		var event = event_found.effect()
+		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
+		card_being_dragged = null
+		if event == "Cards" : instantiate_card_merchant()
+		elif event == "Skills" : instantiate_skill_merchant()
+		elif event == "Talents" : reset_talents()
+
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
@@ -101,19 +106,6 @@ func inventory_and_deck_save():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 
-func _on_skip_button_button_down():
-	Global.player_gold += 5
-	inventory_and_deck_save()
-	Global.player_consumables = $Player/Berserker.get_consumable_array()
-	Global.save_function()
-	if Global.intermission_tracker <= 1: 
-		Global.intermission_tracker += 1
-		Global.current_scene = "intermission"
-		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
-	else:
-		Global.intermission_tracker = 0
-		Global.current_scene = "enemy_selection"
-		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 
 func connect_card_signals(card):
 	card.connect("hovered_on", on_hovered_over)
@@ -130,7 +122,6 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2)
-	print("In intermision")
 	card.z_index = 2
 
 func on_hovered_off(card):
@@ -144,17 +135,43 @@ func toggle_inventory():
 	#From player screen to Inventory
 	if is_toggle_inventory == true:
 		$PlayerInventoryScreen.visible = true
-		$CardSelector.visible = false
 		$Player/Berserker.inventory_screen_toggle(true)
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
-		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = false
 	#From Inventory to Player Screen
 	else:
 		$PlayerInventoryScreen.visible = false
-		$CardSelector.visible = true
 		$Player/Berserker.inventory_screen_toggle(false)
-		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
 
+func _on_leave_button_down():
+	Global.intermission_tracker = 0
+	get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+
+func instantiate_card_merchant():
+	$Selection.visible = false
+	$Selection.process_mode = Node.PROCESS_MODE_DISABLED
+	$CardDisplay.visible = true
+	$CardDisplay.process_mode = Node.PROCESS_MODE_INHERIT
+	$CardManager.visible = true
+	$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
+	$CardDisplay.setup()
+
+func instantiate_skill_merchant():
+	$Selection.visible = false
+	$Selection.process_mode = Node.PROCESS_MODE_DISABLED
+	$SkillDisplay.visible = true
+	$SkillDisplay.process_mode = Node.PROCESS_MODE_INHERIT
+	$SkillManager.visible = true
+	$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
+	$SkillDisplay.setup()
+	
+func reset_talents():
+	$Selection.visible = false
+	$Selection.process_mode = Node.PROCESS_MODE_DISABLED
+	$ResetTalents.visible = true
+	$ResetTalents.process_mode = Node.PROCESS_MODE_INHERIT
+	$CardSelector.visible = false
+	$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
+	$ResetTalents.setup()

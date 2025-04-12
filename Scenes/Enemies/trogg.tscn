@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dswvx8admntjv"]
+[gd_scene load_steps=13 format=3 uid="uid://dswvx8admntjv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_owa5p"]
 [ext_resource type="Resource" uid="uid://jefsr26pv8bu" path="res://Resources/Enemies/Trogg.tres" id="2_ngcah"]
 [ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="3_k3je5"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Runes.gd" id="4_6ljk6"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Skills.gd" id="5_te5x3"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_dl2cu"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_mb6ag"]
@@ -33,6 +34,9 @@ collision_mask = 128
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-0.25, -1)
 shape = SubResource("RectangleShape2D_iq8io")
+
+[node name="Runes" type="Node2D" parent="."]
+script = ExtResource("4_6ljk6")
 
 [node name="Deck" type="Node2D" parent="."]
 script = ExtResource("1_l5y18")
