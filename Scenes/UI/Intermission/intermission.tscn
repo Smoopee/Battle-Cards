@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://u7bfx5wgbwtw"]
+[gd_scene load_steps=14 format=3 uid="uid://u7bfx5wgbwtw"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_i1rkl"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="8_5acn1"]
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="9_05tst"]
+[ext_resource type="PackedScene" uid="uid://bua11o6oudri4" path="res://Scenes/UI/Player/rune_manager.tscn" id="9_i2n8q"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="10_lr1so"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_lnys5"]
@@ -39,6 +40,8 @@ texture = ExtResource("5_3txuy")
 
 [node name="ConsumableManger" parent="." instance=ExtResource("10_lr1so")]
 visible = false
+
+[node name="RuneManager" parent="." instance=ExtResource("9_i2n8q")]
 
 [node name="TalentTree" parent="." instance=ExtResource("8_5acn1")]
 visible = false

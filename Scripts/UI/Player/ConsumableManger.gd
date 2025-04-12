@@ -167,7 +167,7 @@ func on_consumable_use():
 	consumable_being_dragged.queue_free()
 	consumable_being_dragged = null
 	consumable_used = true
-	
+
 
 func use_consumable(target):
 	print("use consumable")

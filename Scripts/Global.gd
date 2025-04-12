@@ -24,10 +24,12 @@ var playerData = PlayerData.new()
 @onready var player_deck = []
 @onready var player_skills = []
 @onready var player_consumables = []
+@onready var player_runes = []
 @onready var player_inventory_db = []
 @onready var player_deck_db
 @onready var player_skills_db
 @onready var player_consumables_db
+@onready var player_runes_db
 @onready var player_active_inventory = []
 @onready var player_inventory = []
 @onready var player_talent_array = []
@@ -44,6 +46,7 @@ var current_scene = ""
 
 var skill_db_reference
 var card_db_reference
+var rune_db_reference
 var consumable_db_reference
 var card_node_reference = 3
 
@@ -55,6 +58,7 @@ func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
+	rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
 	max_player_health = 200
 	player_health = max_player_health
 	
@@ -65,6 +69,8 @@ func _ready():
 	instantiate_player_skills()
 	set_player_consumables()
 	instantiate_player_consumables()
+	set_player_runes()
+	instantiate_player_runes()
 	
 	load_data()
 	load_function()
@@ -140,6 +146,14 @@ func instantiate_player_consumables():
 	for i in player_consumables_db:
 		var consumable = load(consumable_db_reference.CONSUMABLES[i]).duplicate()
 		player_consumables.push_back(consumable)
+
+func set_player_runes():
+	player_runes_db = ["Concealed"]
+
+func instantiate_player_runes():
+	for i in player_runes_db:
+		var rune = load(rune_db_reference.RUNES[i]).duplicate()
+		player_runes.push_back(rune)
 
 func load_data():
 	playerData = ResourceLoader.load(save_file_path + save_file_name).duplicate(true)

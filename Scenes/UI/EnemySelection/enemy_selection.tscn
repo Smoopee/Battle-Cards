@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=15 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyDeckDisplay.gd" id="8_xkyks"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="9_abhd6"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="9_r1ycm"]
+[ext_resource type="PackedScene" uid="uid://bua11o6oudri4" path="res://Scenes/UI/Player/rune_manager.tscn" id="10_objcs"]
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="11_l63ti"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_gq20e"]
@@ -43,6 +44,8 @@ z_index = 3
 
 [node name="ConsumableManger" parent="." instance=ExtResource("9_abhd6")]
 visible = false
+
+[node name="RuneManager" parent="." instance=ExtResource("10_objcs")]
 
 [node name="TalentTree" parent="." instance=ExtResource("9_r1ycm")]
 visible = false
