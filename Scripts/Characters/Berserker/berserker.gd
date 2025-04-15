@@ -191,6 +191,13 @@ func organize_runes():
 		y_offset += 30
 		counter += 1
 
+func get_rune_array():
+	var rune_array = []
+	for i in $Runes.get_children():
+		rune_array.push_back(i.rune_stats)
+	
+	return rune_array
+
 #BUFFS ============================================================================================
 func add_buff(buff, source):
 	$BuffContainer.add_child(buff)

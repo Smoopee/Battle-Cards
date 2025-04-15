@@ -10,13 +10,15 @@ func _ready():
 	update_tooltip("Effect","WIP",  "Effect: ")
 
 func consumable_effect(card):
-	if Global.current_scene != "battle_sim": return false
+	#if Global.current_scene != "battle_sim" or "deck_builder": return false
 	if card.card_stats.in_enemy_deck != true: return false
-	card.card_stats.on_cd = true
 	
+	
+	card.card_stats.on_cd = true
 	card.change_cd(2)
 	card.change_cd_remaining(2)
 	card.add_modifier(load("res://Scenes/Modifiers/glue_modifier.tscn").instantiate())
+	
 	return true
 
 func toggle_tooltip_show():

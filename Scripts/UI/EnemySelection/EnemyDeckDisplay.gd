@@ -13,7 +13,6 @@ var center_screen_x
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	#	create_enemy_cards()
 
 func create_enemy_cards(enemy):
 	fetch_enemy_cards(enemy)

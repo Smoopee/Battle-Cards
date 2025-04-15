@@ -11,7 +11,7 @@ var mouse_exit = false
 
 
 func _ready():
-	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
+	#get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
@@ -41,25 +41,25 @@ func effect(player_deck, enemy_deck, player, enemy):
 func upgrade_card(num):
 	match num:
 		1:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			card_stats.upgrade_level = 1
 			card_stats.dmg = 2
 			card_stats.sell_price = 1
 			card_stats.buy_price = 2
 		2: 
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
 			card_stats.dmg = 4
 			card_stats.sell_price = 2
 			card_stats.buy_price = 4
 		3:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
 			card_stats.dmg = 8 
 			card_stats.sell_price = 4
 			card_stats.buy_price = 8
 		4:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
 			card_stats.dmg = 16
 			card_stats.sell_price = 8
@@ -79,7 +79,7 @@ func item_enchant(enchant):
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
-	$UpgradeBorder.texture = load(card_stats.card_art_path)
+	$UpgradeBorder.texture = load(card_stats.card_upgrade_art_path)
 	$CardUI/DmgNumContainer/DamagPanel/DamageLabel.text = str(card_stats.dmg)
 	if card_stats.cd > 0:
 		$CardUI/CDPanel.visible = true

@@ -98,7 +98,6 @@ func animate_rune_back_to_position(rune, new_position):
 	tween.tween_property(rune, "z_index", 0, 0)
 
 
-
 func use_rune(target):
 	print("use rune")
 	

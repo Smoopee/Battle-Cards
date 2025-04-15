@@ -1,5 +1,7 @@
 extends Node2D
 
+signal build_enemy_deck
+
 const DECK_Y_POSITION = 215
 const DECK_X_POSITION = 600
 const ENEMY_Y_POSITION = 180
@@ -26,6 +28,8 @@ var enemy_health_bar
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	add_child(enemy)
+	enemy.character_stats = Global.current_enemy
+	enemy.setup()
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
 	enemy.position = Vector2(center_screen_x, ENEMY_Y_POSITION)
@@ -139,6 +143,8 @@ func build_deck():
 		card_position += 1
 
 	deck = enemy_inventory
+	emit_signal("build_enemy_deck")
+	
 	return enemy_inventory
 
 func update_hand_positions():

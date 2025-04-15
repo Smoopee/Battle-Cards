@@ -1,5 +1,7 @@
 extends Node2D
 
+signal generate_reward
+
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = 170
 const SKILL_X_POSITION = 600
@@ -17,6 +19,8 @@ var character_stats: Enemy_Resource = null
 var enemy_scene_path = "res://Scenes/Enemies/trogg.tscn"
 var enemy_resource_path = "res://Resources/Enemies/Trogg.tres"
 
+var reward_array = []
+
 func _ready():
 	set_stats(enemy_stats_resource)
 	set_stat_container()
@@ -28,6 +32,11 @@ func _ready():
 	$EnemyUI/EnemyHealthBar.value = character_stats.health
 	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
+
+func setup():
+	set_stat_container()
+	set_skills()
+	set_runes()
 
 func set_stats(stats = Enemy_Resource) -> void:
 	character_stats = load("res://Resources/Enemies/Trogg.tres").duplicate()
@@ -52,7 +61,6 @@ func set_runes():
 			var rune_resource = load(rune_db_reference.RUNES[i]).duplicate()
 			var rune_scene = load(rune_resource.rune_scene_path).instantiate()
 			$Runes.add_child(rune_scene)
-			print(rune_scene)
 			rune_scene.rune_stats = rune_resource
 			rune_scene.rune_stats.attached = true
 	
@@ -121,8 +129,9 @@ func change_armor(amount):
 
 func get_reward():
 	var rng = RandomNumberGenerator.new()
-	var reward_array = $Deck.enemy_deck + $Skills.enemy_skills 
-	reward_array.push_back("Doulbe Reward")
+	reward_array = $Deck.enemy_deck + $Skills.enemy_skills 
+	emit_signal("generate_reward")
+	
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
 	return reward_array[reward_index]
 

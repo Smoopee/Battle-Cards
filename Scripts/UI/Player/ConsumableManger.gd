@@ -137,7 +137,6 @@ func raycast_check_for_enemy_card():
 func consumable_reset():
 	print("in consumable reset")
 	consumable_being_dragged.scale = Vector2(1, 1)
-	#consumable_being_dragged.z_index = 0
 	consumable_being_dragged.update_stack_ui()
 	consumable_being_dragged.toggle_info_ui(true)
 	consumable_being_dragged = null

@@ -6,6 +6,7 @@ signal bleed_damage
 signal end_of_turn
 signal end_of_round
 signal start_of_battle
+signal start_of_round
 signal bleed_applied
 signal card_etb
 #===================================================================================================
@@ -54,6 +55,8 @@ func combat(player_deck_list, enemy_deck_list):
 	var round_incrementer = 1
 
 	print("It is turn " + str(round_counter))
+	
+	
 	player_deck.build_deck_position()
 	enemy_node.build_deck_position()
 	
@@ -268,6 +271,7 @@ func _on_continue_button_button_down():
 	enemy_deck_list = enemy_node.deck
 	player_inventory_list = build_player_inventory_list()
 	
+	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
 func _on_menu_button_button_down():

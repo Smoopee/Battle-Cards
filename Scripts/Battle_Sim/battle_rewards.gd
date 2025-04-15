@@ -22,30 +22,22 @@ func update_rewards():
 	$"../NextTurn/DeckBuilder/PlayerInventory".reward_screen = true
 	$"../NextTurn/DeckBuilder/UpgradeButton".visible = true
 	
+	if enemy_reward.get_script() == load("res://Resources/Cards/cards_master_resource.gd"):
+		card_reward(enemy_reward)
+	elif enemy_reward.get_script() == load("res://Resources/Skills/skills_master_resource.gd"):
+		skill_reward(enemy_reward)
+		
+	Global.player_gold += Global.current_enemy.gold
+	Global.gain_xp(Global.current_enemy.xp)
 	
-	#Gives double reward if enemy_rewards returns "Double Reward"
-	if type_string(typeof(enemy_reward)) == "String":
-		Global.player_gold += Global.current_enemy.gold * 2
-		Global.gain_xp(Global.current_enemy.xp * 2)
-		
-		xp_reward_label.text = str(Global.current_enemy.xp * 2)
-		gold_reward_label.text = str(Global.current_enemy.gold * 2)
-		
-		player_gold_label.text = str(Global.player_gold)
-		player_xp_label.text = str(Global.player_xp)
-		return
-		
-	else:
-		Global.player_gold += Global.current_enemy.gold
-		Global.gain_xp(Global.current_enemy.xp)
-		
-		
-		xp_reward_label.text = str(Global.current_enemy.xp)
-		gold_reward_label.text = str(Global.current_enemy.gold)
-		
-		player_gold_label.text = str(Global.player_gold)
-		player_xp_label.text = str(Global.player_xp)
-		
+	xp_reward_label.text = str(Global.current_enemy.xp)
+	gold_reward_label.text = str(Global.current_enemy.gold)
+	
+	player_gold_label.text = str(Global.player_gold)
+	player_xp_label.text = str(Global.player_xp)
+
+
+func card_reward(enemy_reward):
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
 	new_scene.card_stats = enemy_reward
 	new_scene.card_stats.in_enemy_deck = true
@@ -56,6 +48,18 @@ func update_rewards():
 	new_scene.get_node("Area2D").collision_layer = 1
 	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
+	new_scene.position = Vector2(center_screen_x, 350)
+	new_scene.z_index = 3
+	add_child(new_scene)
+	reward = new_scene
+
+func skill_reward(enemy_reward):
+	get_tree().get_first_node_in_group("character").inventory_screen_toggle(false)
+	var new_scene = load(enemy_reward.skill_scene_path).instantiate()
+	new_scene.skill_stats = enemy_reward
+	new_scene.get_node("Area2D").collision_mask = 512
+	new_scene.get_node("Area2D").collision_layer = 512
+	new_scene.upgrade_skill(new_scene.skill_stats.upgrade_level)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
 	add_child(new_scene)

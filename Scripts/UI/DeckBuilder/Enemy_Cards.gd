@@ -1,5 +1,6 @@
 extends Node2D
 
+signal build_enemy_deck
 
 const CARD_WIDTH = 160
 const ENEMY_CARD_COLLISION_LAYER = 64
@@ -26,7 +27,8 @@ func create_enemy_cards():
 			load_blank.card_stats = blank
 			load_blank.card_stats.deck_position = counter
 			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
-			load_blank.card_stats.is_players = true
+			load_blank.card_stats.in_enemy_deck = true
+			load_blank.card_stats.is_players = false
 			add_card_to_hand(load_blank)
 			add_child(load_blank)
 		else:
@@ -37,11 +39,15 @@ func create_enemy_cards():
 			card_scene.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
 			card_scene.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
 			card_scene.card_stats.inventory_position = counter
+			card_scene.card_stats.in_enemy_deck = true
 			card_scene.card_stats.is_players = false
 			add_card_to_hand(card_scene)
 			add_child(card_scene)
 			
 		counter += 1
+		
+	emit_signal("build_enemy_deck")
+	
 func fetch_enemy_cards():
 	enemy_cards_db = $"../Enemy".enemy_deck
 

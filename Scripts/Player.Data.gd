@@ -11,3 +11,4 @@ class_name PlayerData
 @export var battle_tracker : int
 @export var player_skills : Array
 @export var player_consumables: Array
+@export var player_runes: Array
