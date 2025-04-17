@@ -45,19 +45,7 @@ func rune_effect1():
 	one_shot = false
 
 func reward():
-	#Global.current_enemy.gold += 1000
-	
-	#for i in get_tree().get_first_node_in_group("enemy").reward_array:
-		#if i.get_script() == load("res://Resources/Cards/cards_master_resource.gd"):
-			#i.item_enchant = "Bleed"
-	
-	#for i in get_tree().get_first_node_in_group("enemy").reward_array:
-		#get_tree().get_first_node_in_group("enemy").reward_array = [load("res://Resources/Cards/strike.tres")]
-	
-	for i in get_tree().get_first_node_in_group("enemy").reward_array:
-		get_tree().get_first_node_in_group("enemy").reward_array = [load("res://Resources/Skills/third_wheel.tres")]
-	
-	print("Here is your concealed reward")
+	pass
 
 func toggle_tooltip_show():
 	if $PopupPanel/VBoxContainer.get_children() == []: return

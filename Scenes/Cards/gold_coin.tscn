@@ -183,6 +183,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CDPanel" type="Panel" parent="CardUI"]
+visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 offset_left = 56.0

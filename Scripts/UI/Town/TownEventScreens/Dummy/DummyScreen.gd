@@ -46,7 +46,7 @@ func finish_drag():
 		card_being_dragged = null
 		if mode == "Offensive" or "Defensive":
 			Global.current_scene = "deck_builder"
-			get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
+			get_tree().change_scene_to_file("res://Scenes/Battle/berserker_battle_sim.tscn")
 		else: return
 		
 	else:

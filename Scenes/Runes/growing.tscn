@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3wpikkej0xs4"]
+[gd_scene load_steps=5 format=3 uid="uid://dafc4hft4fpch"]
 
-[ext_resource type="Script" path="res://Scripts/Runes/concealing.gd" id="1_lgx2f"]
-[ext_resource type="Texture2D" uid="uid://diso5woo0pt0g" path="res://Resources/Art/Runes/concealed_rune.png" id="2_kgtoj"]
+[ext_resource type="Script" path="res://Scripts/Runes/Growing.gd" id="1_nnvcl"]
+[ext_resource type="Texture2D" uid="uid://ctbley10a2vwm" path="res://Resources/Art/Runes/growing_rune.png" id="2_6qalp"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnsmw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngkhr"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,7 +15,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xikjr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnymo"]
 bg_color = Color(0.688023, 0.596125, 0.233008, 1)
 border_width_left = 2
 border_width_top = 2
@@ -23,11 +23,11 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Concealed" type="Node2D"]
-script = ExtResource("1_lgx2f")
+[node name="Growing" type="Node2D"]
+script = ExtResource("1_nnvcl")
 
 [node name="RuneImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_kgtoj")
+texture = ExtResource("2_6qalp")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 32768
@@ -39,7 +39,7 @@ polygon = PackedVector2Array(-9, -17, 9, -17, 17, -9, 17, 9, 9, 17, -9, 17, -17,
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_fnsmw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ngkhr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -71,7 +71,7 @@ offset_left = -31.0
 offset_top = 18.0
 offset_right = -1.0
 offset_bottom = 48.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xikjr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnymo")
 
 [node name="ShopLabel" type="Label" parent="RuneUI/ShopPanel"]
 layout_mode = 1

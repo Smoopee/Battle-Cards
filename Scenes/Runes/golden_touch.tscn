@@ -67,10 +67,10 @@ mouse_filter = 2
 [node name="ShopPanel" type="Panel" parent="RuneUI"]
 visible = false
 layout_mode = 0
-offset_left = -32.0
-offset_top = 6.0
-offset_right = -2.0
-offset_bottom = 36.0
+offset_left = -31.0
+offset_top = 18.0
+offset_right = -1.0
+offset_bottom = 48.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdkqa")
 
 [node name="ShopLabel" type="Label" parent="RuneUI/ShopPanel"]

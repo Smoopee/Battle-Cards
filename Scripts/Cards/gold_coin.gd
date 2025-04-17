@@ -13,7 +13,8 @@ var mouse_exit = false
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
-	
+	if get_tree().get_first_node_in_group("battle sim") != null:
+		get_tree().get_first_node_in_group("battle sim").connect("end_fight", end_fight)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
@@ -22,8 +23,10 @@ func _ready():
 func set_stats(stats = Cards_Resource) -> void:
 	card_stats = load("res://Resources/Cards/gold_coin.tres").duplicate()
 
-func on_start(board):
-	pass
+func end_fight():
+	Global.player_gold += 30
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold()
+	print("You gain 30 gold from gold coin")
 
 func effect(player_deck, enemy_deck, player, enemy):
 	print("In gold coin card")
@@ -156,17 +159,7 @@ func update_damage_label(type):
 		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
 
 func attack_animation(user):
-	var tween = get_tree().create_tween()
-	if user.is_in_group("enemy"):
-		tween.tween_property($".", "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
-		tween.tween_property($".", "position", position + Vector2(0, 0), .5 * Global.COMBAT_SPEED )
-	else:
-		tween.tween_property($".", "position", position + Vector2(0, -64), .5 * Global.COMBAT_SPEED )
-		await tween.finished
-		$AudioStreamPlayer2D.stream 
-		$AudioStreamPlayer2D.play()
-		tween = get_tree().create_tween()
-		tween.tween_property($".", "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
+	pass
 
 func toggle_cd():
 	if card_stats.on_cd: 

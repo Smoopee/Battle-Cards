@@ -1,7 +1,5 @@
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
-
 signal hovered_on
 signal hovered_off
 
@@ -11,62 +9,63 @@ var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
 
-var original_card
-
 
 func _ready():
-	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
-
+	#get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "WIP",  "Effect: ")
+		update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage",  "Effect: ")
 
 func set_stats(stats = Cards_Resource) -> void:
-	card_stats = load("res://Resources/Cards/golden_touch.tres").duplicate()
+	card_stats = load("res://Resources/Cards/boulder.tres").duplicate()
 
 func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var coin = load("res://Scenes/Cards/gold_coin.tscn").instantiate().duplicate()
-	var player_card = get_tree().get_first_node_in_group("battle sim").player_card
-	if player_card.card_stats.is_blank: return
-	
-	get_tree().get_first_node_in_group("player deck").add_child(coin)
-	coin.card_stats = load("res://Resources/Cards/gold_coin.tres")
-	coin.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
-	coin.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
-	coin.upgrade_card(coin.card_stats.upgrade_level)
-	coin.card_stats.in_enemy_deck = false
-	coin.card_stats.card_owner = get_tree().get_first_node_in_group("character")
-	coin.card_stats.is_players = true
-	coin.card_stats.on_cd = false
-	coin.card_stats.cd_remaining = 0
-	coin.position = player_card.position
-	coin.z_index = player_card.z_index
-	
-	player_deck[player_card.card_stats.deck_position] = coin
-	get_tree().get_first_node_in_group("battle sim").player_card = coin
-	get_tree().get_first_node_in_group("card transform").add_card_transform(player_card.card_stats, coin.card_stats)
-	player_card.queue_free()
+	var target
+	var source
+	if card_stats.is_players: 
+		target = enemy
+		source = player
+	else: 
+		target = player
+		source = enemy
+		
+	var battle_sim = get_tree().get_first_node_in_group("battle sim")
+	battle_sim.physical_damage_card(source, target, self)
+	if card_stats.item_enchant == "Bleed":
+		battle_sim.bleed_func(source, target, self)
 
 func upgrade_card(num):
 	match num:
 		1:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			card_stats.upgrade_level = 1
+			card_stats.dmg = 10
+			card_stats.sell_price = 1
+			card_stats.buy_price = 2
 		2: 
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
+			card_stats.dmg = 20
+			card_stats.sell_price = 2
+			card_stats.buy_price = 4
 		3:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
+			card_stats.dmg = 40
+			card_stats.sell_price = 4
+			card_stats.buy_price = 8
 		4:
-			card_stats.card_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
+			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
+			card_stats.dmg = 80
+			card_stats.sell_price = 8
+			card_stats.buy_price = 16
 			
-	update_tooltip("Effect", "WIP")
+	update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage")
 	update_card_ui()
 
 func item_enchant(enchant):
@@ -80,7 +79,7 @@ func item_enchant(enchant):
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
 func update_card_image():
-	$UpgradeBorder.texture = load(card_stats.card_art_path)
+	$UpgradeBorder.texture = load(card_stats.card_upgrade_art_path)
 	$CardUI/DmgNumContainer/DamagPanel/DamageLabel.text = str(card_stats.dmg)
 	if card_stats.cd > 0:
 		$CardUI/CDPanel.visible = true

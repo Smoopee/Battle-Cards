@@ -48,7 +48,9 @@ func _ready():
 	player_deck_list = $"../player_deck".initial_build_deck()
 	player_inventory_list = $"../player_inventory".initial_build_inventory()
 	enemy_deck_list = enemy_node.initial_build_deck()
-
+	
+	emit_signal("start_of_battle")
+	
 func connect_signal_setup():
 	enemy = get_tree().get_nodes_in_group("enemy")[0] 
 	player = get_tree().get_nodes_in_group("character")[0]
@@ -253,8 +255,8 @@ func next_turn_handler():
 
 func end_fight_cleanup():
 	next_turn.end_fight()
-	$"../CardTransform".revert_cards()
 	emit_signal("end_fight")
+	$"../CardTransform".revert_cards()
 	$"../BattleRewards".update_rewards()
 	$"../BattleRewards".visible = true
 	
@@ -269,7 +271,6 @@ func _on_start_button_button_down():
 	combat(player_deck_list, enemy_deck_list)
 
 func on_start():
-	emit_signal("start_of_battle")
 	$"../StartButton".visible = false
 	next_turn.visible = false
 	$"../player_inventory".visible = false

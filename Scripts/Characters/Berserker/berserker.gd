@@ -177,6 +177,12 @@ func set_runes():
 	
 	organize_runes()
 
+func add_rune(rune):
+	var new_instance = load(rune.rune_scene_path).instantiate()
+	new_instance.rune_stats = rune
+	$Runes.add_child(new_instance)
+	organize_runes()
+
 func organize_runes():
 	var counter = 0
 	var x_offset = 0

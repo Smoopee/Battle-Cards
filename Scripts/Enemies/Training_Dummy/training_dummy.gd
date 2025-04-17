@@ -4,6 +4,8 @@ const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = 170
 const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = 0
+const RUNE_X_POSITION = -75
+const RUNE_Y_POSITION = -60
 
 @export var enemy_stats_resource: Enemy_Resource
 
@@ -22,11 +24,12 @@ func _ready():
 	set_skills()
 	set_enemy_gold()
 	set_enemy_xp()
-	$EnemyUI/EnemyHealthBar.max_value = character_stats.health
-	$EnemyUI/EnemyHealthBar.value = character_stats.health
-	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
-	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 
+func setup():
+	set_stat_container()
+	set_skills()
+	set_runes()
+	
 func set_stats(stats = Enemy_Resource) -> void:
 	character_stats = load("res://Resources/Enemies/training_dummy.tres").duplicate()
 
@@ -34,6 +37,11 @@ func set_stat_container():
 	$EnemyUI/StatContainer/AttackLabel.text = "Atk: " + str(character_stats.attack)
 	$EnemyUI/StatContainer/DefenseLabel.text = "Def: " + str(character_stats.defense)
 	$EnemyUI/StatContainer/ArmorLabel.text = "Armor: " +  str(character_stats.armor)
+	
+	$EnemyUI/EnemyHealthBar.max_value = character_stats.max_health
+	$EnemyUI/EnemyHealthBar.value = character_stats.max_health
+	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
+	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 
 func set_skills():
 	for i in $Skills.enemy_skills:
@@ -42,6 +50,43 @@ func set_skills():
 		$Skills.add_child(new_instance)
 	
 	organize_skills()
+
+func set_runes():
+	var already_owned = false
+	var rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
+	for i in character_stats.runes:
+		
+		for j in $Runes.get_children():
+			if j.rune_name == i: already_owned = true
+		
+		if rune_db_reference.RUNES[i] != null and !already_owned:
+			var rune_resource = load(rune_db_reference.RUNES[i]).duplicate()
+			var rune_scene = load(rune_resource.rune_scene_path).instantiate()
+			$Runes.add_child(rune_scene)
+			rune_scene.rune_stats = rune_resource
+			rune_scene.rune_stats.attached = true
+			rune_scene.connect_rune()
+			
+		already_owned = false
+	orgainze_runes()
+
+func add_rune(rune):
+	character_stats.runes.push_back(rune)
+	set_runes()
+
+func orgainze_runes():
+	var counter = 0
+	var x_offset = 0
+	var y_offset = 0
+	
+	for i in $Runes.get_children():
+		if counter >= 5: 
+			x_offset = -32
+			y_offset = 0
+			counter = 0
+		i.position = Vector2(x_offset + RUNE_X_POSITION, y_offset + RUNE_Y_POSITION)
+		y_offset += 30
+		counter += 1
 
 func set_enemy_gold():
 	$EnemyUI/GoldAndXPBox/EnemyGold.text = str(character_stats.gold) + "g"

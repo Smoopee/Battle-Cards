@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://g6rlqgpm2l0m"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_paswu"]
+
+[resource]
+script = ExtResource("1_paswu")
+enchantment_art_path = "res://Resources/Art/Enchantments/bleed_enchanment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/bleed.tscn"
+enchantment_name = "Bleed"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0

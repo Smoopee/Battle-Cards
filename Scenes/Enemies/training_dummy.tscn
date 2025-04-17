@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://de6ekk0kb28n4"]
+[gd_scene load_steps=12 format=3 uid="uid://de6ekk0kb28n4"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Training_Dummy/training_dummy.gd" id="1_cjr0v"]
 [ext_resource type="Texture2D" uid="uid://bbkl8fymc6l88" path="res://Resources/Art/TownEvents/training_dummy.png" id="2_6cpm3"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="4_7mpst"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Runes.gd" id="4_cy5w1"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="5_55emb"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Training_Dummy/Deck.gd" id="6_0vpow"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_4i6tm"]
@@ -26,6 +27,9 @@ script = ExtResource("6_0vpow")
 
 [node name="Skills" type="Node2D" parent="."]
 script = ExtResource("7_fvuoy")
+
+[node name="Runes" type="Node2D" parent="."]
+script = ExtResource("4_cy5w1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_6cpm3")

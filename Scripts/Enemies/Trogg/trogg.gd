@@ -28,10 +28,7 @@ func _ready():
 	set_runes()
 	set_enemy_gold()
 	set_enemy_xp()
-	$EnemyUI/EnemyHealthBar.max_value = character_stats.health
-	$EnemyUI/EnemyHealthBar.value = character_stats.health
-	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
-	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
+
 
 func setup():
 	set_stat_container()
@@ -45,6 +42,11 @@ func set_stat_container():
 	$EnemyUI/StatContainer/AttackLabel.text = "Atk: " + str(character_stats.attack)
 	$EnemyUI/StatContainer/DefenseLabel.text = "Def: " + str(character_stats.defense)
 	$EnemyUI/StatContainer/ArmorLabel.text = "Armor: " +  str(character_stats.armor)
+	
+	$EnemyUI/EnemyHealthBar.max_value = character_stats.max_health
+	$EnemyUI/EnemyHealthBar.value = character_stats.max_health
+	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
+	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 
 func set_skills():
 	for i in $Skills.enemy_skills:
@@ -55,16 +57,22 @@ func set_skills():
 	organize_skills()
 
 func set_runes():
+	var already_owned = false
 	var rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
 	for i in character_stats.runes:
-		if rune_db_reference.RUNES[i] != null:
+		
+		for j in $Runes.get_children():
+			if j.rune_name == i: already_owned = true
+		
+		if rune_db_reference.RUNES[i] != null and !already_owned:
 			var rune_resource = load(rune_db_reference.RUNES[i]).duplicate()
 			var rune_scene = load(rune_resource.rune_scene_path).instantiate()
 			$Runes.add_child(rune_scene)
 			rune_scene.rune_stats = rune_resource
 			rune_scene.rune_stats.attached = true
 			rune_scene.connect_rune()
-	
+			
+		already_owned = false
 	orgainze_runes()
 
 func add_rune(rune):
@@ -118,7 +126,7 @@ func change_enemy_health():
 
 func change_attack(amount):
 	character_stats.attack += amount
-	$EnemyUI/StatContainer/AttackLabel.text = str(character_stats.attack) 
+	$EnemyUI/StatContainer/AttackLabel.text = "Atk: " + str(character_stats.attack) 
 
 func change_defense(amount):
 	character_stats.defense += amount

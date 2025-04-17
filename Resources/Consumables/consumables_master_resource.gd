@@ -10,6 +10,7 @@ class_name Consumables_Resource
 @export var stack_amount: int
 @export var max_stacks: int
 @export var tags: Array
+@export var consumbale_rarity: int
 var inventory_position
 var screen_position
 var consumable_owner

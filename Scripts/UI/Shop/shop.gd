@@ -1,7 +1,6 @@
 extends Node2D
 
-@onready var merchant_cards = $MerchantCards
-
+var current_merhant_organizer
 var merchant_type 
 var is_inventory_toggle = true
 
@@ -12,21 +11,33 @@ func _ready():
 		$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
 		toggle_inventory()
 		$MerchantCards.create_merchant_inventory()
+		current_merhant_organizer = $MerchantCards
 	elif merchant.merchant_type == "Skill":
 		merchant_type = "Skill"
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
 		is_inventory_toggle = false
 		toggle_inventory()
 		$MerchantSkills.create_merchant_inventory()
+		current_merhant_organizer = $MerchantSkills
 	elif merchant.merchant_type == "Consumables":
 		merchant_type = "Consumables"
 		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
 		toggle_inventory()
 		$MerchantConsumables.create_merchant_inventory()
-	elif merchant.merchant_type == "Other":
-		merchant_type = "Other"
-		$VarietyManager.process_mode = Node.PROCESS_MODE_INHERIT
-		$VarietyManager.create_merchant_inventory()
+		current_merhant_organizer = $MerchantConsumables
+	elif merchant.merchant_type == "Enchantments":
+		merchant_type = "Enchantments"
+		$EnchantmentManager.process_mode = Node.PROCESS_MODE_INHERIT
+		toggle_inventory()
+		$MerchantEnchantments.create_merchant_inventory()
+		current_merhant_organizer = $MerchantEnchantments
+	elif merchant.merchant_type == "Runes":
+		merchant_type = "Runes"
+		$RunesManager.process_mode = Node.PROCESS_MODE_INHERIT
+		is_inventory_toggle = false
+		toggle_inventory()
+		$MerchantRunes.create_merchant_inventory()
+		current_merhant_organizer = $MerchantRunes
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
@@ -49,18 +60,17 @@ func _on_reroll_button_button_down():
 	if Global.player_gold < 5:
 		print("Not enough gold")
 		return
-	merchant_cards.inventory = []
+	current_merhant_organizer.inventory = []
 	
-	for i in merchant_cards.get_children():
-		if i.card_stats.is_players == false:
-			merchant_cards.remove_child(i)
-			i.queue_free()
+	for i in current_merhant_organizer.get_children():
+		current_merhant_organizer.remove_child(i)
+		i.queue_free()
 	
-	merchant_cards.inventory_db = []
-	merchant_cards.create_merchant_inventory()
+	current_merhant_organizer.inventory_db = []
+	current_merhant_organizer.create_merchant_inventory()
 	
 	Global.player_gold -= 5
-	$CanvasLayer/ColorRect/PlayerUI.change_player_gold()
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold()
 
 func inventory_and_deck_save():
 	var deck_and_inventory_reference = $PlayerInventoryScreen

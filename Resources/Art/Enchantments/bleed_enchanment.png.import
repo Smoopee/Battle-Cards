@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djgxqlpt171wb"
-path="res://.godot/imported/bleed_enchant.png-5a30fa8f58206cd5eb0bcfe8b253568f.ctex"
+uid="uid://b3rbnqa21xeb1"
+path="res://.godot/imported/bleed_enchanment.png-9e399ef252b08398735477930897a688.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Enchants/bleed_enchant.png"
-dest_files=["res://.godot/imported/bleed_enchant.png-5a30fa8f58206cd5eb0bcfe8b253568f.ctex"]
+source_file="res://Resources/Art/Enchantments/bleed_enchanment.png"
+dest_files=["res://.godot/imported/bleed_enchanment.png-9e399ef252b08398735477930897a688.ctex"]
 
 [params]
 

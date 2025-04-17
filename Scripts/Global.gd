@@ -146,7 +146,7 @@ func instantiate_player_consumables():
 		player_consumables.push_back(consumable)
 
 func set_player_runes():
-	player_runes_db = ["Concealing", "Golden Touch"]
+	player_runes_db = []
 
 func instantiate_player_runes():
 	for i in player_runes_db:

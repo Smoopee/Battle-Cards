@@ -3,13 +3,13 @@ extends Node2D
 var inventory = []
 var inventory_selection = []
 
-var merchant_scene_path = "res://Scenes/Merchants/the_guy.tscn"
-var merchant_type = "Consumables"
+var merchant_scene_path = "res://Scenes/Merchants/karver.tscn"
+var merchant_type = "Runes"
 
-var consumable_db_reference
+var rune_db_reference
 
 func _ready():
-	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
+	rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
 
 func get_inventory():
 	inventory = []
@@ -18,8 +18,8 @@ func get_inventory():
 	create_inventory()
 	
 func get_inventory_selection():
-	for i in consumable_db_reference.CONSUMABLES:
-		var temp = load(consumable_db_reference.CONSUMABLES[i])
+	for i in rune_db_reference.RUNES:
+		var temp = load(rune_db_reference.RUNES[i])
 		inventory_selection.push_back(temp)
 
 func create_inventory():
