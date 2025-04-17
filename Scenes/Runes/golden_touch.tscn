@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3wpikkej0xs4"]
+[gd_scene load_steps=5 format=3 uid="uid://rngwu64k6rne"]
 
-[ext_resource type="Script" path="res://Scripts/Runes/concealed.gd" id="1_7j5t6"]
-[ext_resource type="Texture2D" uid="uid://diso5woo0pt0g" path="res://Resources/Art/Runes/concealed_rune.png" id="2_ecvlv"]
+[ext_resource type="Script" path="res://Scripts/Runes/golden_touch.gd" id="1_iekl5"]
+[ext_resource type="Texture2D" uid="uid://cb6aa1qi6u6jh" path="res://Resources/Art/Runes/golden_touch_rune.png" id="2_yky2t"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnsmw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78up5"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,7 +15,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xikjr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdkqa"]
 bg_color = Color(0.688023, 0.596125, 0.233008, 1)
 border_width_left = 2
 border_width_top = 2
@@ -23,11 +23,11 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Concealed" type="Node2D"]
-script = ExtResource("1_7j5t6")
+[node name="GoldenTouch" type="Node2D"]
+script = ExtResource("1_iekl5")
 
 [node name="RuneImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_ecvlv")
+texture = ExtResource("2_yky2t")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 32768
@@ -39,7 +39,7 @@ polygon = PackedVector2Array(-9, -17, 9, -17, 17, -9, 17, 9, 9, 17, -9, 17, -17,
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_fnsmw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_78up5")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -71,7 +71,7 @@ offset_left = -32.0
 offset_top = 6.0
 offset_right = -2.0
 offset_bottom = 36.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xikjr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdkqa")
 
 [node name="ShopLabel" type="Label" parent="RuneUI/ShopPanel"]
 layout_mode = 1

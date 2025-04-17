@@ -5,7 +5,6 @@ const COLLISION_MASK_PLAYER = 8
 const COLLISION_MASK_ENEMY = 128
 
 
-
 var rune_offset = 0
 var center_screen_x
 var screen_size

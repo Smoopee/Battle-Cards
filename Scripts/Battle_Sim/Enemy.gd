@@ -42,20 +42,16 @@ func _ready():
 	enemy_health_bar.value = Global.enemy_health
 
 func initial_build_deck():
-	
-	if Global.enemy_active_deck == []:
-		enemy_deck = enemy.deck
-	else: 
-		enemy_deck = Global.enemy_active_deck
+	enemy_deck = enemy.deck
 
 	deck = []
-	var counter = 0
+	var card_position = 0
 	var blank = load("res://Resources/Cards/blank.tres")
 	for i in range(enemy_deck.size()):
 		if enemy_deck[i] == null:
 			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
 			load_blank.card_stats = blank
-			load_blank.card_stats.deck_position = counter
+			load_blank.card_stats.deck_position = card_position
 			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
 			load_blank.card_stats.is_players = true
 			deck.push_back(load_blank)
@@ -70,10 +66,10 @@ func initial_build_deck():
 			new_card.card_stats.is_players = false
 			new_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
 			new_card.card_stats.in_enemy_deck = true
-			new_card.card_stats.deck_position = counter
+			new_card.card_stats.deck_position = card_position
 			new_card.update_card_ui()
 		
-		counter += 1
+		card_position += 1
 	return deck
 
 func build_deck_position():
@@ -97,7 +93,7 @@ func animate_card_to_active_position(card):
 
 func discard(card):
 	card.is_discarded = true
-	card.z_index = 1
+	card.z_index = card.card_stats.deck_position
 	card.scale = Vector2(.55, .55)
 	animate_card_to_discard_position(card)
 
@@ -135,7 +131,7 @@ func build_deck():
 			i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
 			i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
 			i.enable_collision()
-			i.card_stats.inventory_position = card_position
+			i.card_stats.deck_position = card_position
 			i.card_stats.is_players = false
 			i.scale = Vector2(1,1)
 			update_hand_positions()
@@ -144,6 +140,7 @@ func build_deck():
 
 	deck = enemy_inventory
 	emit_signal("build_enemy_deck")
+	
 	
 	return enemy_inventory
 

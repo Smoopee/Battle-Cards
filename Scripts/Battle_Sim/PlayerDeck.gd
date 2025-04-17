@@ -52,15 +52,12 @@ func clear_cards():
 			i.queue_free()
 
 func fetch_inventory():
-	deck_db = $"../../..".player_deck_list
+	deck_db = get_tree().get_first_node_in_group("battle sim").player_deck_list
 
 func remove_card(card):
-	if reward_screen == true: 
-		if card in Global.player_deck:
-			Global.player_deck.erase(card)
-	else:
-		if card in Global.active_player_deck:
-			Global.player_active_deck.erase(card)
+	if card in Global.player_deck:
+		Global.player_deck.erase(card)
+
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()

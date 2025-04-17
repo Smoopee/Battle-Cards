@@ -27,22 +27,22 @@ func _ready():
 		
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
-	connect_signals($"..")
+	connect_signals(get_tree().get_first_node_in_group("battle sim"))
 
 func connect_signals(battle_sim):
 	battle_sim.connect("bleed_damage", bleed_damage_taken)
 	battle_sim.connect("end_of_round", end_of_round)
 
 func bleed_damage_taken(target, damage):
-	var player = $"..".player
-	var enemy = $"..".enemy
+	var player = get_tree().get_nodes_in_group("character")[0]
+	var enemy = get_tree().get_nodes_in_group("enemy")[0]
 	if target == player: 
 		change_player_bleed_taken(damage)
 	else: 
 		change_enemy_bleed_taken(damage)
 
 func physical_damage_dealt(target, damage):
-	enemy = $"..".enemy
+	enemy = get_tree().get_nodes_in_group("enemy")[0]
 	if target == enemy: 
 		change_player_damage_number(damage, 0)
 	else: 

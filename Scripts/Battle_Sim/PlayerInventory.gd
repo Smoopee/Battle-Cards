@@ -55,12 +55,8 @@ func clear_cards():
 			i.queue_free()
 
 func remove_card(card):
-	if reward_screen == true:
-		if card in Global.player_inventory:
-			Global.player_inventory.erase(card)
-	else:
-		if card in Global.player_active.inventory:
-			Global.player_active.inventory.erase(card)
+	if card in Global.player_inventory:
+		Global.player_inventory.erase(card)
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()

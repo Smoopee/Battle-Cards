@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .01
+const COMBAT_SPEED = .7
 
 
 signal level_up
@@ -20,7 +20,6 @@ var playerData = PlayerData.new()
 @onready var enemy_health: int
 @onready var max_enemy_health: int
 
-@onready var player_active_deck = []
 @onready var player_deck = []
 @onready var player_skills = []
 @onready var player_consumables = []
@@ -30,7 +29,6 @@ var playerData = PlayerData.new()
 @onready var player_skills_db
 @onready var player_consumables_db
 @onready var player_runes_db
-@onready var player_active_inventory = []
 @onready var player_inventory = []
 @onready var player_talent_array = []
 @onready var player_class = ""
@@ -148,7 +146,7 @@ func instantiate_player_consumables():
 		player_consumables.push_back(consumable)
 
 func set_player_runes():
-	player_runes_db = ["Concealed"]
+	player_runes_db = ["Concealing", "Golden Touch"]
 
 func instantiate_player_runes():
 	for i in player_runes_db:

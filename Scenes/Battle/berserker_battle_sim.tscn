@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://xwc4sjwi65t"]
+[gd_scene load_steps=27 format=3 uid="uid://xwc4sjwi65t"]
 
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/berserker_battle_sim.gd" id="1_grqco"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/Battle.gd" id="2_nmw3s"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="3_xdgva"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/player_inventory.gd" id="4_jdp0r"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="5_cfbk6"]
@@ -22,18 +23,19 @@
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="21_rtjmi"]
 [ext_resource type="Script" path="res://Scripts/Battle_Sim/CardManager.gd" id="21_t4lx0"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="22_bx334"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/CardTransform.gd" id="24_cxdv7"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_mdhh2"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_aggqm"]
 
-[node name="BerserkerBattleSim" type="Node2D" groups=["battle sim"]]
+[node name="BerserkerBattleSim" type="Node2D"]
 script = ExtResource("1_grqco")
 
-[node name="player_deck" type="Node2D" parent="."]
+[node name="player_deck" type="Node2D" parent="." groups=["player deck"]]
 script = ExtResource("3_xdgva")
 
-[node name="player_inventory" type="Node2D" parent="."]
+[node name="player_inventory" type="Node2D" parent="." groups=["player inventory"]]
 visible = false
 script = ExtResource("4_jdp0r")
 
@@ -43,6 +45,9 @@ script = ExtResource("5_cfbk6")
 [node name="Player" parent="." instance=ExtResource("6_1655o")]
 
 [node name="Berserker" parent="Player" instance=ExtResource("7_cu4js")]
+
+[node name="Battle" type="Node2D" parent="." groups=["battle sim"]]
+script = ExtResource("2_nmw3s")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -242,10 +247,10 @@ group2 = SubResource("ButtonGroup_aggqm")
 [node name="BottomNavBar" parent="." instance=ExtResource("21_rtjmi")]
 
 [node name="StartButton" type="Button" parent="."]
-offset_left = 945.0
-offset_top = 480.0
-offset_right = 1033.0
-offset_bottom = 504.0
+offset_left = 1797.0
+offset_top = 910.0
+offset_right = 1885.0
+offset_bottom = 934.0
 text = "Start"
 
 [node name="ContinueButton" type="Button" parent="."]
@@ -255,8 +260,11 @@ offset_right = 1891.0
 offset_bottom = 979.0
 text = "Continue"
 
+[node name="CardTransform" type="Node" parent="." groups=["card transform"]]
+script = ExtResource("24_cxdv7")
+
 [connection signal="toggled" from="NextTurn/DeckBuilder/UpgradeButton" to="NextTurn/DeckBuilder/CardManager" method="_on_upgrade_button_toggled"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="TooltipTimer" to="NextTurn/DeckBuilder/CardManager" method="_on_tooltip_timer_timeout"]
-[connection signal="button_down" from="StartButton" to="." method="_on_start_button_button_down"]
-[connection signal="button_down" from="ContinueButton" to="." method="_on_continue_button_button_down"]
+[connection signal="button_down" from="StartButton" to="Battle" method="_on_start_button_button_down"]
+[connection signal="button_down" from="ContinueButton" to="Battle" method="_on_continue_button_button_down"]

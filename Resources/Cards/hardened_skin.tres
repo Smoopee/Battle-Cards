@@ -6,6 +6,7 @@
 script = ExtResource("1_2uwtp")
 card_art_path = "res://Resources/Cards/CardArt/hardened_skin_card.png"
 card_scene_path = "res://Scenes/Cards/hardened_skin.tscn"
+card_upgrade_art_path = ""
 buff_scene_path = "res://Scenes/Buffs/hardened_skin_buff.tscn"
 name = "Hardened Skin"
 dmg = 0

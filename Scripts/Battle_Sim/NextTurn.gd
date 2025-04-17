@@ -1,5 +1,18 @@
 extends Node2D
 
+func initial_build():
+	$DeckBuilder/PlayerInventory.create_inventory()
+	$DeckBuilder/PlayerDeck.create_inventory()
+	$DeckBuilder/CardManager.create_references()
+	$"../Enemy".build_deck()
+	
+	$"../player_inventory".visible = true
+	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
+	$"../ConsumableManger".visible = false
+	$DeckBuilder/CardManager.inventory_toggle = true
+	$DeckBuilder/CardManager.toggle_inventory()
+	
+	visible = true
 
 func next_turn():
 	print("next turn handler")

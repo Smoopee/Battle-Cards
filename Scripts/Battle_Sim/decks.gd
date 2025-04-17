@@ -22,7 +22,7 @@ func initial_build_deck():
 	deck_offset = 0
 	clear_cards()
 	deck = []
-	deck_db = Global.player_active_deck
+	deck_db = Global.player_deck
 	
 	var counter = 0
 	
@@ -90,7 +90,7 @@ func animate_card_to_active_position(card):
 
 func discard(card):
 	card.card_stats.is_discarded = true
-	card.z_index = 1
+	card.z_index = card.card_stats.deck_position
 	card.scale = Vector2(.55, .55)
 	animate_card_to_discard_position(card)
 

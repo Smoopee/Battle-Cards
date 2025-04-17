@@ -6,7 +6,7 @@ var inventory = []
 
 func initial_build_inventory():
 	inventory = []
-	inventory_db = Global.player_active_inventory
+	inventory_db = Global.player_inventory
 
 	var counter = 0
 	

@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://ck735y50rlmfv"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://uiwosmw5ramf"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_fyxe4"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_7e6ch"]
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_fyxe4")
-card_art_path = "res://Resources/Cards/CardArt/rock.png"
-card_scene_path = "res://Scenes/Cards/rocks.tscn"
+script = ExtResource("1_7e6ch")
+card_art_path = "res://Resources/Cards/CardArt/gold_coin_card.png"
+card_scene_path = "res://Scenes/Cards/golden_coin.tscn"
 card_upgrade_art_path = ""
-buff_scene_path = "res://Resources/Cards/CardArt/rock.png"
-name = "Rock"
-dmg = 2
+buff_scene_path = ""
+name = "Gold Coin"
+dmg = 0
 cd = 0
 cd_remaining = 0
 on_cd = false
@@ -32,16 +31,16 @@ bleed_dmg = 0
 heal = 0
 critical_strike_chance = 0.0
 in_enemy_deck = false
-sell_price = 1
-buy_price = 2
+sell_price = 0
+buy_price = 0
 is_players = false
 item_enchant = ""
 screen_position = Vector2(0, 0)
 is_enchanted = false
 is_enchantment = false
 enchanting_with = ""
-card_pool = ["Trogg", "Attack", "Monster"]
-card_type = ["Attack"]
+card_pool = []
+card_type = []
 is_discarded = false
 is_blank = false
 is_updated = false

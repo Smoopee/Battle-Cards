@@ -50,8 +50,8 @@ func finish_drag():
 		Global.player_consumables = $Player/Berserker.get_consumable_array()
 		Global.player_runes = get_tree().get_first_node_in_group("character").get_rune_array()
 		Global.save_function()
-		Global.current_scene = "deck_builder"
-		get_tree().change_scene_to_file(("res://Scenes/UI/deck_builder.tscn"))
+		Global.current_scene = "battle_sim"
+		get_tree().change_scene_to_file("res://Scenes/Battle/berserker_battle_sim.tscn")
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null

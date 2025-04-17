@@ -63,6 +63,7 @@ func set_runes():
 			$Runes.add_child(rune_scene)
 			rune_scene.rune_stats = rune_resource
 			rune_scene.rune_stats.attached = true
+			rune_scene.connect_rune()
 	
 	orgainze_runes()
 

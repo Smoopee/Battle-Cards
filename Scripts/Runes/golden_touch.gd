@@ -1,44 +1,48 @@
 extends Node2D
 
+const ENEMY_CARD_COLLISION_LAYER = 64
+
 var rune_stats: Runes_Resource = null
-var rune_name = "Concealed"
+var rune_name = "Golden Touch"
+var one_shot = true
 
 
 func _ready():
 	$PopupPanel/VBoxContainer/Name.text = rune_name
-	update_tooltip("Effect","WIP",  "Effect: ")
-	print(rune_stats)
-	if rune_stats == null: return
-	if rune_stats.attached != true: return
-	
+	update_tooltip("Effect","WIP", "Effect: ")
+
+func connect_rune():
 	if get_tree().get_first_node_in_group("enemy deck") != null:
 		get_tree().get_first_node_in_group("enemy deck").connect("build_enemy_deck", rune_effect1)
-	
-	if get_tree().get_first_node_in_group("battle sim") != null:
-		get_tree().get_first_node_in_group("battle sim").connect("start_of_round", rune_effect2)
-		
+
+
 	if get_tree().get_first_node_in_group("enemy") != null:
 		if get_tree().get_first_node_in_group("enemy").has_signal("generate_reward"):
 			get_tree().get_first_node_in_group("enemy").connect("generate_reward", reward)
 
 func rune_effect1():
-	var conceal_card = load("res://Resources/Cards/CardArt/concealed_card.png")
-	for i in get_tree().get_first_node_in_group("enemy deck").get_children():
-		if i.is_in_group("card"):
-			i.get_node("CardImage").texture = conceal_card
-			i.get_node("ItemEnchantImage").visible = false
-			i.get_node("UpgradeBorder").visible = false
-			i.get_node("CardUI").visible = false
-
-func rune_effect2():
-	for i in get_tree().get_first_node_in_group("enemy deck").get_children():
-		if i.is_in_group("card"):
-			i.get_node("CardImage").texture = load(i.card_stats.card_art_path)
-			i.upgrade_card(i.card_stats.upgrade_level)
-			i.item_enchant(i.card_stats.item_enchant)
-			i.get_node("ItemEnchantImage").visible = true
-			i.get_node("UpgradeBorder").visible = true
-			i.get_node("CardUI").visible = true
+	if one_shot == false: return
+	var enemy_deck = get_tree().get_first_node_in_group("enemy deck").deck
+	var golden_touch_card = load("res://Scenes/Cards/golden_touch.tscn").instantiate().duplicate()
+	var rng = RandomNumberGenerator.new()
+	var rng_selection = rng.randi_range(0, enemy_deck.size()-1)
+	
+	get_tree().get_first_node_in_group("enemy deck").add_child(golden_touch_card)
+	golden_touch_card.card_stats = load("res://Resources/Cards/golden_touch.tres")
+	golden_touch_card.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
+	golden_touch_card.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
+	golden_touch_card.upgrade_card(golden_touch_card.card_stats.upgrade_level)
+	golden_touch_card.card_stats.in_enemy_deck = true
+	golden_touch_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
+	golden_touch_card.card_stats.is_players = false
+	
+	var selected_card = enemy_deck[rng_selection]
+	enemy_deck[rng_selection] = golden_touch_card
+	golden_touch_card.card_stats.deck_position = selected_card.card_stats.deck_position
+	get_tree().get_first_node_in_group("enemy deck").update_hand_positions()
+	selected_card.queue_free()
+	
+	one_shot = false
 
 func reward():
 	#Global.current_enemy.gold += 1000
