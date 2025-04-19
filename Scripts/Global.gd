@@ -9,16 +9,11 @@ var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"
 var playerData = PlayerData.new()
 
-@onready var player_health: int
-@onready var max_player_health: int
-
 @onready var player_level: int 
 @onready var player_gold: int
 @onready var player_xp: int = 0
 @onready var xp_threshold = 10
 
-@onready var enemy_health: int
-@onready var max_enemy_health: int
 
 @onready var player_deck = []
 @onready var player_skills = []
@@ -57,11 +52,6 @@ func _ready():
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
 	rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
-	max_player_health = 200
-	player_health = max_player_health
-	
-	max_enemy_health = current_enemy.health
-	enemy_health = max_enemy_health
 	
 	set_player_skills()
 	instantiate_player_skills()
@@ -85,15 +75,6 @@ func save():
 	ResourceSaver.save(playerData, save_file_path + save_file_name)
 	print("save")
 
-func change_player_health(amount):
-	player_health += amount
-	if player_health > max_player_health:
-		player_health = max_player_health
-
-func change_enemy_health(amount):
-	enemy_health += amount
-	if enemy_health > max_enemy_health:
-		enemy_health = max_enemy_health
 
 func gain_xp(amount):
 	if rested_xp > 0:
@@ -138,7 +119,7 @@ func instantiate_player_skills():
 		player_skills.push_back(skill)
 
 func set_player_consumables():
-	player_consumables_db = ["Health Potion", "Glue"]
+	player_consumables_db = ["Health Potion", "Glue", "Strength Potion"]
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:

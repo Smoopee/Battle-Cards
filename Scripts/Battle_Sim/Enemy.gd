@@ -19,11 +19,10 @@ var center_screen_y
 var discard_offset = 0
 var deck_offset = 0
 var enemy_deck = []
-var enemy_skills = []
 var enemy
 var deck = []
 
-var enemy_health_bar
+
 
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
@@ -35,11 +34,7 @@ func _ready():
 	enemy.position = Vector2(center_screen_x, ENEMY_Y_POSITION)
 	enemy.set_stats()
 	
-	enemy_health_bar = enemy.get_node("EnemyUI").get_node("EnemyHealthBar")
 	enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
-	
-	enemy_health_bar.max_value = Global.max_enemy_health
-	enemy_health_bar.value = Global.enemy_health
 
 func initial_build_deck():
 	enemy_deck = enemy.deck
@@ -52,7 +47,7 @@ func initial_build_deck():
 			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
 			load_blank.card_stats = blank
 			load_blank.card_stats.deck_position = card_position
-			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+			load_blank.card_stats.owner = get_tree().get_first_node_in_group("enemy")
 			load_blank.card_stats.is_players = true
 			deck.push_back(load_blank)
 			add_child(load_blank)
@@ -64,7 +59,8 @@ func initial_build_deck():
 			new_card.upgrade_card(new_card.card_stats.upgrade_level)
 			new_card.item_enchant(new_card.card_stats.item_enchant)
 			new_card.card_stats.is_players = false
-			new_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
+			new_card.card_stats.owner = get_tree().get_first_node_in_group("enemy")
+			new_card.card_stats.target = get_tree().get_first_node_in_group("character")
 			new_card.card_stats.in_enemy_deck = true
 			new_card.card_stats.deck_position = card_position
 			new_card.update_card_ui()
@@ -102,9 +98,6 @@ func animate_card_to_discard_position(card):
 	tween.tween_property(card, "position", Vector2(1450 - discard_offset, 200), 0.1 * Global.COMBAT_SPEED)
 	discard_offset += 20
 
-func change_enemy_health(amount):
-	enemy.character_stats.health += amount
-	enemy.change_enemy_health()
 
 #==================================================================================================
 func build_deck():
@@ -123,8 +116,8 @@ func build_deck():
 			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
 			load_blank.card_stats = blank
 			load_blank.card_stats.deck_position = card_position
-			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
-			load_blank.card_stats.is_players = true
+			load_blank.card_stats.owner = get_tree().get_first_node_in_group("enemy")
+			load_blank.card_stats.is_players = false
 			deck.push_back(load_blank)
 			add_child(load_blank)
 		else:
@@ -140,7 +133,6 @@ func build_deck():
 
 	deck = enemy_inventory
 	emit_signal("build_enemy_deck")
-	
 	
 	return enemy_inventory
 

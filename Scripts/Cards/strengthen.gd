@@ -24,7 +24,7 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var target = card_stats.card_owner
+	var target = card_stats.owner
 
 	for i in get_tree().get_nodes_in_group("buff"):
 		if i.buff_name == card_stats.name and i.attached_to == target: 

@@ -13,6 +13,8 @@ func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 
 func get_inventory():
+	inventory = []
+	inventory_selection = []
 	get_inventory_selection()
 	create_inventory()
 

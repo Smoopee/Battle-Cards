@@ -13,6 +13,8 @@ func _ready():
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
 
 func get_inventory():
+	inventory = []
+	inventory_selection = []
 	get_inventory_selection()
 	create_inventory()
 	

@@ -25,11 +25,18 @@ func create_inventory():
 	fetch_inventory()
 	
 	var card_position = 0
+	
+	
 	for i in deck_db:
+		if i == null:
+			fill_card_slots(null, card_position)
+			card_position += 1
+			continue
 		if i.card_stats == blank:
 			fill_card_slots(null, card_position)
 			card_position += 1
 			i.queue_free()
+			
 			
 		else:
 			i.enable_collision()

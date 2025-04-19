@@ -8,6 +8,7 @@ const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_DECK_SLOT = 2
 const COLLISION_MASK_INVENTORY_SLOT = 4
 const COLLISION_MASK_SELL_ZONE = 4096
+const COLLISION_MASK_MERCHANT = 32
 
 var hover_on_upgrade_test = true
 var upgrade_mode = false
@@ -82,7 +83,7 @@ func finish_drag():
 	var can_sort_deck =  deck_card_slot_found and deck_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players
 	var can_sort_inventory =  inventory_card_slot_found and inventory_card_slot_found.card_in_slot and card_being_dragged.card_stats.is_players
 	
-	if sell_zone_found: 
+	if sell_zone_found or raycast_check_for_merchant(): 
 		sell_card(card_being_dragged)
 		card_reset()
 		return
@@ -187,6 +188,17 @@ func raycast_check_for_sell_zone():
 		return result[0].collider.get_parent()
 	return null 
 
+func raycast_check_for_merchant():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_MERCHANT
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
 func get_card_with_lowest_z_index(cards):
 	var lowest_z_card = cards[0].collider.get_parent()
 	var lowest_z_index = lowest_z_card.z_index
@@ -233,7 +245,6 @@ func sell_card(card):
 	Global.player_gold += card.card_stats.sell_price
 	deck_reference.remove_card(card)
 	card.queue_free()
-	card
 	update_player_gold()
 
 func enchant_from_inventory(base_card):

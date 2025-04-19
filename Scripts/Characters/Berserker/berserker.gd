@@ -1,6 +1,9 @@
 extends Node2D
 
 signal rage_attack_gained
+signal health_changed
+signal dealt_physical_damage
+signal took_physical_damage
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = -100
@@ -34,8 +37,8 @@ func _ready():
 	set_stat_container()
 	
 	$RageBar.position = get_parent().position + Vector2(70, -38)
-	$PlayerHealthBar.max_value = Global.max_player_health
-	$PlayerHealthBar.value = Global.player_health
+	$PlayerHealthBar.max_value = character_stats.max_health
+	$PlayerHealthBar.value = character_stats.max_health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 
 #SETUP  ===========================================================================================
@@ -227,11 +230,28 @@ func _on_buff_container_child_order_changed():
 	if get_node_or_null("BuffContainer") == null: return
 	organize_buffs()
 
-#UI CHANGES ========================================================================================
-func change_player_health():
-	$PlayerHealthBar.value = Global.player_health
-	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
+#COMBAT FUNCTIONS ==================================================================================
+func take_physical_damage(damage):
+	damage -= character_stats.armor
+	damage -= character_stats.defense
+	emit_signal("took_physical_damage", damage)
+	change_health(-damage)
 
+func deal_physical_damage(damage):
+	damage += character_stats.attack
+	emit_signal("dealt_physical_damage", damage)
+	return damage
+
+func take_bleed_damage():
+	pass
+
+func change_health(amount):
+	character_stats.health += amount
+	$PlayerHealthBar.value = character_stats.health
+	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
+	emit_signal("health_changed")
+
+#UI CHANGES ========================================================================================
 func change_rage(source, value):
 	var rage_bar = $RageBar
 	rage_bar.value += value

@@ -22,6 +22,7 @@ func _ready():
 	elif merchant.merchant_type == "Consumables":
 		merchant_type = "Consumables"
 		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
+		is_inventory_toggle = false
 		toggle_inventory()
 		$MerchantConsumables.create_merchant_inventory()
 		current_merhant_organizer = $MerchantConsumables
@@ -45,7 +46,8 @@ func _input(event):
 
 func _on_exit_button_button_down():
 	inventory_and_deck_save()
-	Global.player_consumables = $Player/Berserker.get_consumable_array()
+	Global.player_consumables = get_tree().get_first_node_in_group("character").get_consumable_array()
+	Global.player_runes = get_tree().get_first_node_in_group("character").get_rune_array()
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
@@ -63,6 +65,8 @@ func _on_reroll_button_button_down():
 	current_merhant_organizer.inventory = []
 	
 	for i in current_merhant_organizer.get_children():
+		if merchant_type == "Card":
+			if i.card_stats.is_players: continue
 		current_merhant_organizer.remove_child(i)
 		i.queue_free()
 	

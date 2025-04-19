@@ -2,7 +2,7 @@ extends Node2D
 
 const COLLISION_MASK_SKILL = 256
 const COLLISION_MASK_MERCHANT_SKILL = 512
-const COLLISION_MASK_SKILL_DROP_OFF = 1024
+const COLLISION_MASK_PLAYER = 8
 
 var screen_size
 
@@ -30,7 +30,7 @@ func _input(event):
 
 func finish_drag_skill():
 	$"../MerchantSkills".animate_skill_to_position(skill_being_dragged, skill_previous_position)
-	if raycast_check_for_skill_drop_off(): 
+	if raycast_check_for_player(): 
 		var upgradeable_skill = check_for_upgrade_skill()
 		if upgradeable_skill:
 			upgrade_skill(upgradeable_skill)
@@ -55,12 +55,12 @@ func raycast_check_for_skill():
 		return result[0].collider.get_parent()
 	return null 
 
-func raycast_check_for_skill_drop_off():
+func raycast_check_for_player():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_SKILL_DROP_OFF
+	parameters.collision_mask = COLLISION_MASK_PLAYER
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()

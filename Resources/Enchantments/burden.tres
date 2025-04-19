@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://ba8jraeuqfbsf"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_q1vmc"]
+
+[resource]
+script = ExtResource("1_q1vmc")
+enchantment_art_path = "res://Resources/Art/Enchantments/burden_enchantment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/burden.tscn"
+enchantment_name = "Burden"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0

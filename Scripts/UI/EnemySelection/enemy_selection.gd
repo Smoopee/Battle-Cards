@@ -95,8 +95,7 @@ func get_card_with_highest_z_index(cards):
 
 func enemy_loader(enemy):
 	Global.current_enemy = enemy.character_stats
-	Global.max_enemy_health = Global.current_enemy.health
-	Global.enemy_health = Global.max_enemy_health
+
 
 func inventory_and_deck_save():
 	var temp_inventory = []

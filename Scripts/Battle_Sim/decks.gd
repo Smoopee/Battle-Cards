@@ -27,13 +27,18 @@ func initial_build_deck():
 	var counter = 0
 	
 	for i in range(deck_db.size()):
+		if deck_db[i] == null:
+			counter += 1
+			deck.push_back(null)
+			continue
 		var new_card = load(deck_db[i].card_scene_path).instantiate()
 		add_child(new_card)
 		deck.push_back(new_card)
 		new_card.card_stats = deck_db[i]
 		if first_test: new_card.upgrade_card(new_card.card_stats.upgrade_level)
 		new_card.item_enchant(new_card.card_stats.item_enchant)
-		new_card.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+		new_card.card_stats.owner = get_tree().get_first_node_in_group("character")
+		new_card.card_stats.target = get_tree().get_first_node_in_group("enemy")
 		new_card.card_stats.is_players = true
 		new_card.card_stats.deck_position = counter
 		counter += 1
@@ -68,7 +73,7 @@ func build_deck():
 			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
 			load_blank.card_stats = blank
 			load_blank.card_stats.deck_position = counter
-			load_blank.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+			load_blank.card_stats.owner = get_tree().get_first_node_in_group("character")
 			load_blank.card_stats.is_players = true
 			deck.push_back(load_blank)
 			add_child(load_blank)

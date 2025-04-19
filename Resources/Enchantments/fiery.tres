@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://clupd7rlprq7p"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_trrnd"]
+
+[resource]
+script = ExtResource("1_trrnd")
+enchantment_art_path = "res://Resources/Art/Enchantments/fiery_enchantment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/fiery.tscn"
+enchantment_name = "Fiery"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0

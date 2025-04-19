@@ -8,6 +8,7 @@ character_art_path = "res://Resources/Art/UIElements/player.png"
 character_scene_path = "res://Scenes/Characters/berserker.tscn"
 name = "Berserker"
 health = 120
+max_health = 120
 xp = 0
 gold = 0
 bleeding_dmg = 0

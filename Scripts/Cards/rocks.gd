@@ -11,7 +11,7 @@ var mouse_exit = false
 
 
 func _ready():
-	#get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
+	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
@@ -24,19 +24,9 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var target
-	var source
-	if card_stats.is_players: 
-		target = enemy
-		source = player
-	else: 
-		target = player
-		source = enemy
-		
-	var battle_sim = get_tree().get_first_node_in_group("battle sim")
-	battle_sim.physical_damage_card(source, target, self)
-	if card_stats.item_enchant == "Bleed":
-		battle_sim.bleed_func(source, target, self)
+	var damage = card_stats.dmg
+	damage = card_stats.owner.deal_physical_damage(damage)
+	card_stats.target.take_physical_damage(damage)
 
 func upgrade_card(num):
 	match num:

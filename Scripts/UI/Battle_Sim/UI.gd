@@ -17,6 +17,8 @@ var center_screen_x
 var center_screen_y
 
 func _ready():
+	player = get_tree().get_nodes_in_group("character")[0]
+	enemy = get_tree().get_nodes_in_group("enemy")[0]
 	
 	enemy_bleeding_label.position = $"../Enemy".enemy.position + Vector2(35, 60)
 	enemy_bleeding_label.text = ""
@@ -30,12 +32,12 @@ func _ready():
 	connect_signals(get_tree().get_first_node_in_group("battle sim"))
 
 func connect_signals(battle_sim):
-	battle_sim.connect("bleed_damage", bleed_damage_taken)
+	player.connect("took_physical_damage", change_enemy_damage_number)
+	enemy.connect("took_physical_damage", change_player_damage_number)
+
 	battle_sim.connect("end_of_round", end_of_round)
 
 func bleed_damage_taken(target, damage):
-	var player = get_tree().get_nodes_in_group("character")[0]
-	var enemy = get_tree().get_nodes_in_group("enemy")[0]
 	if target == player: 
 		change_player_bleed_taken(damage)
 	else: 
@@ -44,12 +46,11 @@ func bleed_damage_taken(target, damage):
 func physical_damage_dealt(target, damage):
 	enemy = get_tree().get_nodes_in_group("enemy")[0]
 	if target == enemy: 
-		change_player_damage_number(damage, 0)
+		change_player_damage_number(damage)
 	else: 
-		change_enemy_damage_number(damage, 0)
+		change_enemy_damage_number(damage)
 
-
-func change_player_damage_number(value, crit):
+func change_player_damage_number(value):
 	player_damage_number.modulate.a = 1
 	var new_position =  Vector2(center_screen_x, center_screen_y + 60)
 	player_damage_number.position = new_position
@@ -58,7 +59,7 @@ func change_player_damage_number(value, crit):
 	tween.tween_property(player_damage_number, "modulate:a", 0, .5)
 	player_damage_number.text = str(value) 
 
-func change_player_heal_number(value, crit):
+func change_player_heal_number(value):
 	if value <= 0: return
 	player_heal_number.modulate.a = 1
 	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
@@ -80,19 +81,17 @@ func change_player_reflect_number(value):
 	tween.tween_property(player_reflect_number, "modulate:a", 0, .5)
 	player_reflect_number.text = str(value) 
 
-func change_enemy_damage_number(value, crit):
-	enemy_damage_number.set("theme_override_font_sizes/font_size", 33)
+func change_enemy_damage_number(value):
 	enemy_damage_number.modulate.a = 1
 	var new_position =  Vector2(center_screen_x, center_screen_y - 60)
 	enemy_damage_number.position = new_position
 	var tween = get_tree().create_tween()
-	if crit:
-		tween.tween_property(enemy_damage_number, "theme_override_font_sizes/font_size", 60, 0)
 	tween.tween_property(enemy_damage_number, "position", new_position + Vector2(150, 0), 0.4)
 	tween.tween_property(enemy_damage_number, "modulate:a", 0, .5)
 	enemy_damage_number.text = str(value) 
+	
 
-func change_enemy_heal_number(value, crit):
+func change_enemy_heal_number(value):
 	if value <= 0: return
 	enemy_heal_number.modulate.a = 1
 	var new_position =  Vector2(center_screen_x, center_screen_y - 60)

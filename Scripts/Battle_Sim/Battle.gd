@@ -1,15 +1,18 @@
 extends Node2D
 
 
-signal physical_damage
+
 signal bleed_damage
+signal bleed_applied
+
 signal end_of_turn
 signal end_of_round
 signal start_of_battle
 signal start_of_round
-signal bleed_applied
 signal card_etb
 signal end_fight
+
+
 #===================================================================================================
 var current_screen = ""
 
@@ -25,8 +28,6 @@ var rng = RandomNumberGenerator.new()
 var player_inventory_list
 var player_deck_list 
 var enemy_deck_list
-var player_skill_list = []
-var enemy_skill_list = []
 var player_armor = 0
 var enemy_armor = 0
 var round_counter = 1
@@ -38,7 +39,6 @@ var enemy
 var player
 var player_card
 var enemy_card
-
 var damage
 
 func _ready():
@@ -50,7 +50,7 @@ func _ready():
 	enemy_deck_list = enemy_node.initial_build_deck()
 	
 	emit_signal("start_of_battle")
-	
+
 func connect_signal_setup():
 	enemy = get_tree().get_nodes_in_group("enemy")[0] 
 	player = get_tree().get_nodes_in_group("character")[0]
@@ -117,21 +117,21 @@ func play_card():
 		if !player_card.card_stats.on_cd: 
 			damage = 0
 			emit_signal("card_etb", player_card)
-			player_card.attack_animation(player_card.card_stats.card_owner)
+			player_card.attack_animation(player_card.card_stats.owner)
 			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(player_card)
 		
 		if !enemy_card.card_stats.on_cd:
 			damage = 0
 			emit_signal("card_etb", enemy_card)
-			enemy_card.attack_animation(enemy_card.card_stats.card_owner)
+			enemy_card.attack_animation(enemy_card.card_stats.owner)
 			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
 	else:
 		if !enemy_card.card_stats.on_cd: 
 			damage = 0
 			emit_signal("card_etb", enemy_card)
-			enemy_card.attack_animation(enemy_card.card_stats.card_owner)
+			enemy_card.attack_animation(enemy_card.card_stats.owner)
 			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
 		
@@ -139,7 +139,7 @@ func play_card():
 			print("Player card is " + str(player_card.card_stats.name))
 			damage = 0
 			emit_signal("card_etb", player_card)
-			player_card.attack_animation(player_card.card_stats.card_owner)
+			player_card.attack_animation(player_card.card_stats.owner)
 			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(player_card)
 
@@ -153,12 +153,12 @@ func play_order_check(player_card, enemy_card):
 	return player_card
 
 func death_checker():
-	if Global.player_health <= 0: 
+	if player.character_stats.health <= 0: 
 		print("You have Died!")
 		return true
 	else: false
 	
-	if Global.enemy_health <= 0: 
+	if enemy.character_stats.health <= 0: 
 		end_fight_cleanup()
 		return true
 	else: false
@@ -170,39 +170,6 @@ func crit_check(i):
 		return true
 	else: return false
 
-func physical_damage_card(source, target, card = null):
-	var crit = false
-	
-	apply_attack(source, card)
-	apply_armor(target)
-	apply_defense(target)
-
-	if crit_check(card): 
-		damage *= 2
-		crit = true
-	
-	emit_signal("physical_damage", source, target, damage, card)
-	ui.physical_damage_dealt(target, damage)
-	change_health(target, damage)
-
-func physical_damage_other(source, target, p_damage, card):
-	damage = p_damage
-	apply_armor(target)
-	apply_defense(target)
-	emit_signal("physical_damage", source, target, p_damage, card)
-	ui.physical_damage_dealt(target, damage)
-	change_health(target, damage)
-
-func apply_attack(source, card):
-	damage += card.card_stats.dmg + source.character_stats.attack
-
-func apply_armor(target):
-	damage -= target.character_stats.armor
-	if damage < 0: damage = 0
-
-func apply_defense(target):
-	damage -= target.character_stats.defense
-	if damage < 0: damage = 0
 
 func reflect_damage(target, amount):
 	print("In reflect damage")
@@ -228,13 +195,14 @@ func bleed_damage_keeper(target):
 	if target.character_stats.bleeding_dmg> 0: target.character_stats.bleeding_dmg-= 1
 
 func change_health(character, value):
+	return
 	if character == player:
-		Global.change_player_health(-value)
-		player.change_player_health()
+		character.change_health(-value)
 	
 	else:
-		Global.change_enemy_health(-value)
-		enemy_node.change_enemy_health(-value)
+		enemy.change_health(-value)
+	
+	emit_signal("on_change_health", character)
 
 func heal_func(source, target, card):
 	var heal = card.card_stats.heal
@@ -283,7 +251,7 @@ func on_start():
 	enemy_deck_list = enemy_node.deck
 	player_inventory_list = player_inventory.build_inventory()
 	emit_signal("start_of_round")
-	
+
 func _on_continue_button_button_down():
 	next_turn.visible = false
 	$"../player_inventory".visible = false

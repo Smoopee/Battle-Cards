@@ -1,8 +1,8 @@
 extends Node2D
 
 var skill_stats: Skills_Resource = null
-var skill_name = "Steady Temper"
-var attached_to 
+var skill_name = "Inner Rage"
+
 var counter = 0
 
 func _ready():

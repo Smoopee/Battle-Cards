@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://diaryjn8fd7lp"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_h5j56"]
+
+[resource]
+script = ExtResource("1_h5j56")
+enchantment_art_path = "res://Resources/Art/Enchantments/dejavu_enchantment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/dejavu.tscn"
+enchantment_name = "Dejavu"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0

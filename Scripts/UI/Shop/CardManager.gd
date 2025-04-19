@@ -63,17 +63,12 @@ func start_drag_card(card):
 	card_previous_position = card.position
 
 func finish_drag_card():
+	print("finish drag")
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
 	
 	deck_card_slot_index = deck_card_slot_array.find(deck_card_slot_found)
 	inventory_card_slot_index = inventory_card_slot_array.find(inventory_card_slot_found)
-
-	if raycast_check_for_card() and card_being_dragged.card_stats.is_enchantment and not card_being_dragged.card_stats.is_players:
-		enchant_from_merchant(card_being_dragged, raycast_check_for_card())
-		print("Enchant card from merchant")
-		card_reset()
-		return
 	
 	if raycast_check_for_deck_slot() and not deck_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_deck(card_being_dragged, deck_card_slot_found)
@@ -155,6 +150,7 @@ func raycast_check_for_inventory_slot():
 	if result.size() > 0:
 		return result[0].collider.get_parent()
 	return null 
+
 
 func get_card_with_highest_z_index(cards):
 	var highest_z_card = cards[0].collider.get_parent()
@@ -257,19 +253,6 @@ func upgrade_from_merchant(upgrade_card, base_card):
 		return base_card
 	pass
 
-func enchant_from_merchant(enchant_card, base_card):
-	if Global.player_gold < enchant_card.card_stats.buy_price:
-			merchant_inventory_reference.add_card_to_hand(enchant_card)
-			print("Not enough gold")
-			return
-	Global.player_gold -= enchant_card.card_stats.buy_price
-	merchant_inventory_reference.remove_card_from_hand(enchant_card)
-	enchant_card.queue_free()
-	base_card.item_enchant(enchant_card.card_stats.enchanting_with)
-	base_card.update_card_ui()
-	base_card.card_shop_ui()
-	update_player_gold()
-
 func update_player_gold():
 	$"../BottomNavBar".change_player_gold() 
 
@@ -297,11 +280,11 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.scale = Vector2(2, 2)
 	card.toggle_tooltip_show()
-	card.z_index = 1
+	card.z_index = 2
 
 func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1)
-	card.z_index = 0
+	card.z_index = 1

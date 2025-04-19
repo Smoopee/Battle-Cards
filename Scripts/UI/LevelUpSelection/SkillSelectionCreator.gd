@@ -23,7 +23,7 @@ func get_inventory():
 func get_inventory_selection():
 	for i in skill_db_reference.SKILLS:
 		var temp = load(skill_db_reference.SKILLS[i])
-		for j in temp.skill_pool:
+		for j in temp.tags:
 			if j == "Berserker":
 				inventory_selection.push_back(temp)
 

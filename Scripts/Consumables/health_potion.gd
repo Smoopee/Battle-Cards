@@ -10,8 +10,7 @@ func _ready():
 	update_tooltip("Effect","Reduce the next 6+ damage to 0, once per battle",  "Effect: ")
 
 func consumable_effect(player):
-	Global.change_player_health(50)
-	get_tree().get_first_node_in_group("character").change_player_health()
+	player.change_player_health(50)
 	return true
 
 func toggle_tooltip_show():

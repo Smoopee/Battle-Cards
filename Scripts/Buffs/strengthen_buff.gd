@@ -20,6 +20,7 @@ func buff_counter(amount = null):
 	if amount == null: return
 	count += amount
 	$BuffCounters.text = str(count)
+	attached_to.change_attack(amount)
 	tooltip_template()
 
 func increase_buff(source):
@@ -27,8 +28,6 @@ func increase_buff(source):
 
 func on_buff_removed():
 	attached_to.change_attack(-buff_effect1)
-
-
 
 
 #============ TOOL TIPS  ==========================================================================

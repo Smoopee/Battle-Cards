@@ -2,7 +2,7 @@ extends Node2D
 
 
 const COLLISION_MASK_MERCHANT_CONSUMABLE = 8192
-const COLLISION_MASK_CONSUMABLE_DROP_OFF = 16384
+const COLLISION_MASK_PLAYER = 8
 
 var screen_size
 
@@ -36,7 +36,7 @@ func start_drag_consumable(consumable):
 
 func finish_drag_consumable():
 	$"../MerchantConsumables".animate_consumable_to_position(consumable_being_dragged, consumable_previous_position)
-	if raycast_check_for_consumable_drop_off(): 
+	if raycast_check_for_player():
 		buy_consumable()
 	consumable_reset()
 
@@ -51,12 +51,12 @@ func raycast_check_for_merchant_consumable():
 		return result[0].collider.get_parent()
 	return null 
 
-func raycast_check_for_consumable_drop_off():
+func raycast_check_for_player():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CONSUMABLE_DROP_OFF
+	parameters.collision_mask = COLLISION_MASK_PLAYER
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()
