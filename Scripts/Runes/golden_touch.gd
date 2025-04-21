@@ -33,7 +33,7 @@ func rune_effect1():
 	golden_touch_card.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
 	golden_touch_card.upgrade_card(golden_touch_card.card_stats.upgrade_level)
 	golden_touch_card.card_stats.in_enemy_deck = true
-	golden_touch_card.card_stats.card_owner = get_tree().get_first_node_in_group("enemy")
+	golden_touch_card.card_stats.owner = get_tree().get_first_node_in_group("enemy")
 	golden_touch_card.card_stats.is_players = false
 	
 	var selected_card = enemy_deck[rng_selection]

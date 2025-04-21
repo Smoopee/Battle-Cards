@@ -87,7 +87,7 @@ func _on_button_button_down():
 	Global.player_deck = temp_deck
 	
 	
-	Global.player_consumables = $"../Player/Berserker".get_consumable_array()
+	Global.player_consumables = get_tree().get_first_node_in_group("character").get_consumable_array()
 	Global.save_function()
 	
 	

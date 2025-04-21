@@ -52,6 +52,4 @@ func end_fight():
 	$DeckBuilder/CardManager.toggle_inventory()
 	
 	for i in get_tree().get_nodes_in_group("card"):
-		i.card_stats.cd_remaining = 0
-		i.card_stats.on_cd = false
-		i.update_card_ui()
+		i.card_reset()

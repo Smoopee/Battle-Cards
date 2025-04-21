@@ -68,7 +68,7 @@ func create_skill_selection():
 		i.toggle_shop_ui(true)
 		i.skill_shop_ui()
 		i.skill_stats.inventory_position = skill_position
-		i.skill_stats.skill_owner = get_tree().get_first_node_in_group("merchant")
+		i.skill_stats.owner = get_tree().get_first_node_in_group("merchant")
 		skill_position += 1
 
 

@@ -20,31 +20,31 @@ func get_skill_selection():
 			for i in skill_db_reference.SKILLS:
 				var temp = load(skill_db_reference.SKILLS[i])
 				for j in temp.tags:
-					if j == "Trogg" and temp.skill_rarity <= 1:
+					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		2:
 			for i in skill_db_reference.SKILLS:
 				var temp = load(skill_db_reference.SKILLS[i])
 				for j in temp.tags:
-					if j == "Trogg" and temp.skill_rarity <= 1:
+					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		3:
 			for i in skill_db_reference.SKILLS:
 				var temp = load(skill_db_reference.SKILLS[i])
 				for j in temp.tags:
-					if j == "Trogg" and temp.skill_rarity <= 1:
+					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		4:
 			for i in skill_db_reference.SKILLS:
 				var temp = load(skill_db_reference.SKILLS[i])
 				for j in temp.tags:
-					if j == "Trogg" and temp.skill_rarity <= 1:
+					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		_:
 			for i in skill_db_reference.SKILLS:
 				var temp = load(skill_db_reference.SKILLS[i])
 				for j in temp.tags:
-					if j == "Trogg" and temp.skill_rarity <= 1:
+					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 
 func create_skill_array():

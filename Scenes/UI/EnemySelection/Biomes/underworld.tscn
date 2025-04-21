@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciki5gfpl66hw"]
+
+[ext_resource type="Texture2D" uid="uid://kya1wos47pf2" path="res://Resources/Art/Biomes/underworld_biome.png" id="1_u1ej8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfu1s"]
+size = Vector2(140, 175)
+
+[node name="Underworld" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_u1ej8")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_kfu1s")

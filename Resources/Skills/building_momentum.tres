@@ -10,4 +10,4 @@ skill_name = "Building Momentum"
 buy_price = 0
 upgrade_level = 1
 tags = ["Berserker", "Attack"]
-skill_rarity = 0
+rarity = 0

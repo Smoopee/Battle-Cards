@@ -2,7 +2,6 @@ extends Node2D
 
 var skill_stats: Skills_Resource = null
 var skill_name = "Building Momentum"
-var attached_to 
 var counter = 0
 
 func _ready():
@@ -14,12 +13,12 @@ func _ready():
 
 func skill_effect(card):
 	$SkillUI/InfoLabel.visible = true
-	if attached_to != card.card_stats.card_owner: return
+	if skill_stats.owner != card.card_stats.owner: return
 	if card.card_stats.card_type.find("Attack") >= 0:
 		counter += 1
 	else: counter = 0
 	update_counter_text()
-	card.card_stats.card_owner.additional_rage_generation = counter
+	card.card_stats.owner.additional_rage_generation = counter
 	
 
 func upgrade_skill(num):
@@ -89,7 +88,7 @@ func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
 
 func skill_shop_ui():
-	if skill_stats.skill_owner != get_tree().get_first_node_in_group("character"):
+	if skill_stats.owner != get_tree().get_first_node_in_group("character"):
 		$SkillUI/ShopPanel/ShopLabel.text =  str(skill_stats.buy_price)
 
 func toggle_shop_ui(show):

@@ -172,11 +172,6 @@ func get_card_with_lowest_z_index(cards):
 	return lowest_z_card
 
 func buy_card_for_deck(card, deck_slot):
-	if Global.player_gold < card.card_stats.buy_price:
-		merchant_inventory_reference.add_card_to_hand(card)
-		print("Not enough gold")
-		return
-	Global.player_gold -= card.card_stats.buy_price
 	merchant_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
 	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
@@ -189,11 +184,6 @@ func buy_card_for_deck(card, deck_slot):
 	update_player_gold()
 
 func buy_card_for_inventory(card, inventory_slot):
-	if Global.player_gold < card.card_stats.buy_price:
-		merchant_inventory_reference.add_card_to_hand(card)
-		print("Not enough gold")
-		return
-	Global.player_gold -= card.card_stats.buy_price
 	merchant_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
 	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
@@ -258,7 +248,6 @@ func card_reset():
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
-	get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 
 func no_card_reset():
 	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP

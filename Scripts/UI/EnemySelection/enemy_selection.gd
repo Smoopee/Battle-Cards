@@ -3,6 +3,7 @@ extends Node2D
 
 const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_ENEMY = 128
+const COLLISION_MASK_BIOME = 32
 
 @onready var player_inventory = $PlayerInventoryScreen
 var screen_size
@@ -43,6 +44,11 @@ func _input(event):
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var enemy_found = raycast_check_for_enemy()
+	var biome_found = raycast_check_for_biome()
+	
+	if biome_found:
+		$Biomes.clear_biomes()
+		$EnemyOrganizer.enemy_setup(biome_found.name)
 
 	if enemy_found:
 		enemy_loader(enemy_found)
@@ -77,6 +83,17 @@ func raycast_check_for_enemy():
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	parameters.collision_mask = COLLISION_MASK_ENEMY
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return result[0].collider.get_parent()
+	return null 
+
+func raycast_check_for_biome():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_BIOME
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()

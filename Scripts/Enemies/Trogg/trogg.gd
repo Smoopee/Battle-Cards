@@ -1,7 +1,9 @@
 extends Node2D
 
-signal took_physical_damage
-signal dealt_physical_damage
+signal physical_damage_dealt
+signal physical_damage_taken
+signal bleeding_damage_applied
+signal bleeding_damage_taken
 signal generate_reward
 signal health_changed
 
@@ -51,12 +53,21 @@ func set_stat_container():
 	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 	$EnemyUI/EnemySelectionHealth.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 
+#SIGNALS ===========================================================================================
+func connect_signals(battle_sim):
+	battle_sim.connect("end_of_turn", end_of_turn)
+
+func end_of_turn():
+	bleed_damage_keeper()
+	stun_keeper()
+
 #SKILLS=============================================================================================
 func set_skills():
 	for i in $Skills.enemy_skills:
 		var new_instance = load(i.skill_scene_path).instantiate()
 		new_instance.skill_stats = i
-		new_instance.skill_stats.attached_to = self
+		new_instance.skill_stats.owner = self
+		new_instance.skill_stats.target = get_tree().get_first_node_in_group("character")
 		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 		$Skills.add_child(new_instance)
 	
@@ -124,23 +135,52 @@ func organize_buffs():
 func take_physical_damage(damage):
 	damage -= character_stats.armor
 	damage -= character_stats.defense
-	emit_signal("took_physical_damage", damage)
+	if character_stats.is_stunned: 
+		damage *= 2
+	emit_signal("physical_damage_taken", damage)
 	change_health(-damage)
 
 func deal_physical_damage(damage):
 	damage += character_stats.attack
-	emit_signal("dealt_physical_damage", damage)
+	emit_signal("physical_damage_dealt", damage)
 	return damage
 
-func take_bleed_damage():
+func deal_bleed_damage():
 	pass
+
+func apply_bleeding_damage(damage):
+	emit_signal("bleeding_damage_applied", character_stats.bleeding_dmg + damage)
+	character_stats.bleeding_dmg += damage
+
+func bleed_damage_keeper():
+	if character_stats.bleeding_dmg > 0:
+		emit_signal("bleeding_damage_taken", character_stats.bleeding_dmg)
+		change_health(-character_stats.bleeding_dmg)
+		character_stats.bleeding_dmg -= 1
+
+func stun_keeper():
+	if character_stats.stun_counter >= 1:
+		character_stats.stun_counter -= 1
+		$StunIndicator/Label.text = str(character_stats.stun_counter)
+	
+	if character_stats.stun_counter <= 0:
+		stun_toggle(false)
 
 func change_health(amount):
 	character_stats.health += amount
 	$EnemyUI/EnemyHealthBar.value = character_stats.health
 	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 	emit_signal("health_changed")
-	
+
+func stun_toggle(toggle):
+	if toggle: 
+		$StunIndicator.visible = true
+		character_stats.is_stunned = true
+		$StunIndicator/Label.text = str(character_stats.stun_counter)
+	else: 
+		$StunIndicator.visible = false
+		character_stats.is_stunned = false
+
 #UI / STATS=========================================================================================
 func set_enemy_gold():
 	$EnemyUI/GoldAndXPBox/EnemyGold.text = str(character_stats.gold) + "g"
@@ -199,7 +239,6 @@ func active_deck_access():
 
 func set_difficulty():
 	var battle_number = Global.battle_tracker
-	
 	if battle_number <= 4:
 		return 1
 	elif battle_number <= 8:

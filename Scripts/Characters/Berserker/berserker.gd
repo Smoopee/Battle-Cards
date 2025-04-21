@@ -2,8 +2,11 @@ extends Node2D
 
 signal rage_attack_gained
 signal health_changed
-signal dealt_physical_damage
-signal took_physical_damage
+
+signal physical_damage_dealt
+signal physical_damage_taken
+signal bleeding_damage_applied
+signal bleeding_damage_taken
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = -100
@@ -15,12 +18,14 @@ const CONSUMABLE_Y_HORIZONTAL_POSITION = 950
 const RUNE_X_POSITION = -150
 const RUNE_Y_POSITION = -60
 
-@export var character_stats_resource: Character_Resource
 
-var character_stats: Character_Resource = null
+var character_stats
 var battle_sim
 var deck
 var consumable_orientation = true
+
+#COMBAT VARIABLES==================================================================================
+var temp_physical_damage = 0
 
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
@@ -29,7 +34,7 @@ var additional_rage_generation = 0
 
 func _ready():
 	battle_sim = get_tree().get_first_node_in_group("battle sim")
-	set_stats(character_stats_resource)
+	set_stats()
 	set_talents()
 	set_skills()
 	set_consumables()
@@ -38,12 +43,24 @@ func _ready():
 	
 	$RageBar.position = get_parent().position + Vector2(70, -38)
 	$PlayerHealthBar.max_value = character_stats.max_health
-	$PlayerHealthBar.value = character_stats.max_health
+	$PlayerHealthBar.value = character_stats.health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 
 #SETUP  ===========================================================================================
-func set_stats(stats = Character_Resource) -> void:
-	character_stats = load("res://Resources/Character/berserker.tres").duplicate()
+func set_stats() -> void:
+	character_stats = Global.player_stats
+	
+	#RESETS COMBAT STATS
+	character_stats.bleeding_dmg = 0
+	character_stats.burning_dmg = 0
+	character_stats.poisoning_dmg = 0
+	character_stats.attack = 0
+	character_stats.armor = 0
+	character_stats.defense = 0
+	character_stats.block = 0
+	character_stats.stun_counter = 0
+	character_stats.is_stunned = false
+	
 
 func set_stat_container():
 	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack)
@@ -59,21 +76,12 @@ func set_talents():
 
 #SIGNALS ===========================================================================================
 func connect_signals(battle_sim):
-	battle_sim.connect("physical_damage", physical_damage_taken)
-	battle_sim.connect("physical_damage", physical_damage_dealt)
 	battle_sim.connect("end_of_turn", end_of_turn)
 
-func physical_damage_taken(source, target, damage, card):
-	if source == self: return
-	change_rage(source, battle_sim.damage + additional_rage_generation)
-	block_damage()
-
-func physical_damage_dealt(source, target, damage, card):
-	if source != self: return
-	change_rage(source, battle_sim.damage + additional_rage_generation)
-
 func end_of_turn():
-	change_rage(self, rage_degeneration)
+	change_rage(rage_degeneration)
+	bleed_damage_keeper()
+	stun_keeper()
 
 #CONSUMABLES =======================================================================================
 func set_consumables():
@@ -149,7 +157,8 @@ func set_skills():
 	for i in player_skills:
 		var new_instance = load(i.skill_scene_path).instantiate()
 		new_instance.skill_stats = i
-		new_instance.attached_to = self
+		new_instance.skill_stats.owner = self
+		new_instance.skill_stats.target = get_tree().get_first_node_in_group("enemy")
 		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 		$Skills.add_child(new_instance)
 	
@@ -158,7 +167,8 @@ func set_skills():
 func add_skill(skill):
 	var new_instance = load(skill.skill_scene_path).instantiate()
 	new_instance.skill_stats = skill
-	new_instance.attached_to = self
+	new_instance.skill_stats.owner = self
+	print(new_instance.skill_stats.owner)
 	new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 	$Skills.add_child(new_instance)
 	organize_skills()
@@ -234,16 +244,39 @@ func _on_buff_container_child_order_changed():
 func take_physical_damage(damage):
 	damage -= character_stats.armor
 	damage -= character_stats.defense
-	emit_signal("took_physical_damage", damage)
+	if character_stats.is_stunned: 
+		damage *= 2
+	emit_signal("physical_damage_taken", damage)
 	change_health(-damage)
+	change_rage(damage)
 
 func deal_physical_damage(damage):
-	damage += character_stats.attack
-	emit_signal("dealt_physical_damage", damage)
+	damage += character_stats.attack + temp_physical_damage
+	emit_signal("physical_damage_dealt", damage)
+	change_rage(damage + additional_rage_generation)
+	temp_physical_damage = 0
 	return damage
 
-func take_bleed_damage():
+func deal_bleed_damage():
 	pass
+
+func apply_bleeding_damage(damage):
+	emit_signal("bleeding_damage_applied", character_stats.bleeding_dmg + damage)
+	character_stats.bleeding_dmg += damage
+
+func bleed_damage_keeper():
+	if character_stats.bleeding_dmg > 0:
+		emit_signal("bleeding_damage_taken", character_stats.bleeding_dmg)
+		change_health(-character_stats.bleeding_dmg)
+		character_stats.bleeding_dmg -= 1
+
+func stun_keeper():
+	if character_stats.stun_counter >= 1:
+		character_stats.stun_counter -= 1
+		$StunIndicator/Label.text = str(character_stats.stun_counter)
+	
+	if character_stats.stun_counter <= 0:
+		stun_toggle(false)
 
 func change_health(amount):
 	character_stats.health += amount
@@ -251,8 +284,17 @@ func change_health(amount):
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 	emit_signal("health_changed")
 
+func stun_toggle(toggle):
+	if toggle: 
+		$StunIndicator.visible = true
+		character_stats.is_stunned = true
+		$StunIndicator/Label.text = str(character_stats.stun_counter)
+	else: 
+		$StunIndicator.visible = false
+		character_stats.is_stunned = false
+
 #UI CHANGES ========================================================================================
-func change_rage(source, value):
+func change_rage(value):
 	var rage_bar = $RageBar
 	rage_bar.value += value
 	if  rage_bar.value  >= 100:

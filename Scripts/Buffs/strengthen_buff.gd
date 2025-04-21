@@ -13,7 +13,7 @@ func buff_initializer(source, target):
 	buff_effect1 = source.card_stats.effect1
 	attached_to = target
 	
-	buff_counter(buff_effect1)
+	count += buff_effect1
 	attached_to.change_attack(buff_effect1)
 
 func buff_counter(amount = null):

@@ -17,3 +17,5 @@ class_name Character_Resource
 @export var defense: int
 @export var block: int
 @export var speed: int
+@export var is_stunned: bool
+@export var stun_counter: int

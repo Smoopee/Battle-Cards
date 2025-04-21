@@ -6,20 +6,19 @@ var counter = 0
 var one_shot = true
 
 func _ready():
-	print(skill_stats.attached_to)
 	$PopupPanel/VBoxContainer/Name.text = skill_name
 	update_tooltip("Effect","WIP",  "Effect: ")
 	
 	if Global.current_scene == "battle_sim":
-		skill_stats.attached_to.connect("health_changed", skill_effect)
+		skill_stats.owner.connect("health_changed", skill_effect)
 
 func skill_effect():
 	if one_shot == false: return
-	var max_health = float(skill_stats.attached_to.character_stats.max_health)
-	var health = float(skill_stats.attached_to.character_stats.health)
+	var max_health = float(skill_stats.owner.character_stats.max_health)
+	var health = float(skill_stats.owner.character_stats.health)
 	
 	if health/max_health <= .2:
-		skill_stats.attached_to.change_attack(20)
+		skill_stats.owner.change_attack(20)
 		one_shot = false
 
 func upgrade_skill(num):
@@ -89,7 +88,7 @@ func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
 
 func skill_shop_ui():
-	if skill_stats.skill_owner != get_tree().get_first_node_in_group("character"):
+	if skill_stats.owner != get_tree().get_first_node_in_group("character"):
 		$SkillUI/ShopPanel/ShopLabel.text =  str(skill_stats.buy_price)
 
 func toggle_shop_ui(show):

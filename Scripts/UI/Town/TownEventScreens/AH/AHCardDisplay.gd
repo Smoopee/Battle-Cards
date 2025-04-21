@@ -28,7 +28,7 @@ func get_inventory(card_tag):
 func get_inventory_selection(card_tag):
 	for i in card_db_reference.CARDS:
 		var temp = load(card_db_reference.CARDS[i])
-		for j in temp.card_pool:
+		for j in temp.tags:
 			if j == card_tag:
 				inventory_selection.push_back(temp)
 

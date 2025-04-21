@@ -35,8 +35,6 @@ func buff_decrement(amount = null):
 func on_buff_removed():
 	attached_to.change_armor(-buff_effect1)
 
-
-
 #============ TOOL TIPS  ==========================================================================
 func tooltip_template():
 	update_tooltip("Effect", "+" + str(buff_effect1) + " Armor for " + str(count) + " round(s)",  "Effect: ")

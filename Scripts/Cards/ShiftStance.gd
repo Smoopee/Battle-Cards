@@ -27,11 +27,11 @@ func effect(player_deck, enemy_deck, player, enemy):
 	if card_stats.in_enemy_deck == true:
 		target = enemy
 		
-	var mode = card_stats.card_mode
+	var mode = card_stats.mode
 	match mode:
 		"Defensive Stance":
 			print("Entered Battle Stance")
-			card_stats.card_mode = "Battle Stance"
+			card_stats.mode = "Battle Stance"
 			card_stats.buff_scene_path = "res://Scenes/Buffs/battle_stance_buff.tscn"
 			player.change_attack(card_stats.effect1)
 			player.change_defense(-card_stats.effect2)
@@ -39,14 +39,14 @@ func effect(player_deck, enemy_deck, player, enemy):
 			
 		"Battle Stance":
 			print("Enetered Defensive Stance")
-			card_stats.card_mode = "Defensive Stance"
+			card_stats.mode = "Defensive Stance"
 			card_stats.buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
 			player.change_defense(card_stats.effect2)
 			player.change_attack(-card_stats.effect1)
 			player.remove_buff("Battle Stance")
 		_: 
 			print("Entered Defensive Stance")
-			card_stats.card_mode = "Defensive Stance"
+			card_stats.mode = "Defensive Stance"
 			card_stats.buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
 			player.change_defense(card_stats.effect2)
 			
@@ -212,6 +212,12 @@ func toggle_shop_ui(show):
 	if show: $CardUI/ShopPanel.visible = true
 	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
 	if !show:  $CardUI/ShopPanel.visible = false
+
+func card_reset():
+	card_stats.cd_remaining = 0
+	card_stats.on_cd = false
+	card_stats.mode = ""
+	update_card_ui()
 
 func change_cd_remaining(amount):
 	card_stats.cd_remaining += amount

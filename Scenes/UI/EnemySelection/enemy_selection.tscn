@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=16 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/Biomes.gd" id="3_enisl"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_5sm1h"]
 [ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_oagdc"]
@@ -21,6 +22,9 @@
 script = ExtResource("1_ijbvw")
 
 [node name="CardSelector" parent="." instance=ExtResource("1_gdsmo")]
+
+[node name="Biomes" type="Node2D" parent="."]
+script = ExtResource("3_enisl")
 
 [node name="EnemyOrganizer" type="Node2D" parent="."]
 script = ExtResource("3_gsqul")

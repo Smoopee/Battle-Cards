@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://c5b4co28l8rea"]
+
+[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_dllkm"]
+
+[resource]
+script = ExtResource("1_dllkm")
+skill_art_path = "res://Resources/Art/Skills/thump_skill.png"
+skill_scene_path = "res://Scenes/Skills/thump.tscn"
+skill_name = "Thump"
+buy_price = 4
+upgrade_level = 0
+tags = ["Trogg", ""]
+rarity = 0

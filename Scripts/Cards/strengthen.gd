@@ -197,6 +197,12 @@ func toggle_shop_ui(show):
 	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
 	if !show:  $CardUI/ShopPanel.visible = false
 
+func card_reset():
+	card_stats.cd_remaining = 0
+	card_stats.on_cd = false
+	card_stats.mode = ""
+	update_card_ui()
+
 func change_cd_remaining(amount):
 	card_stats.cd_remaining += amount
 	if card_stats.cd_remaining <= 0: 

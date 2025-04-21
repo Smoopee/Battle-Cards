@@ -165,7 +165,7 @@ func hunt():
 	Global.player_gold += 20
 
 func eat():
-	Global.change_player_health(30)
+	get_tree().get_first_node_in_group("character").change_health(30)
 
 func rest():
 	Global.rested_xp += 5

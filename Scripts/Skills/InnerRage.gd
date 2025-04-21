@@ -13,7 +13,6 @@ func _ready():
 		get_tree().get_first_node_in_group("battle sim").connect("start_of_battle", skill_effect)
 
 func skill_effect():
-	attached_to.additional_rage_generation = 5
 	print("In inner rage skill")
 
 
@@ -84,7 +83,7 @@ func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
 
 func skill_shop_ui():
-	if skill_stats.skill_owner != get_tree().get_first_node_in_group("character"):
+	if skill_stats.owner != get_tree().get_first_node_in_group("character"):
 		$SkillUI/ShopPanel/ShopLabel.text =  str(skill_stats.buy_price)
 
 func toggle_shop_ui(show):

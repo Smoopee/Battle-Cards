@@ -10,9 +10,9 @@ extends Control
 @onready var combat_log = $ColorRect/RichTextLabel
 @onready var enemy_bleeding_label = $Labels/EnemyBleedTaken
 @onready var player_bleeding_label = $Labels/PlayerBleedTaken
+
 var player
 var enemy
-
 var center_screen_x
 var center_screen_y
 
@@ -32,16 +32,15 @@ func _ready():
 	connect_signals(get_tree().get_first_node_in_group("battle sim"))
 
 func connect_signals(battle_sim):
-	player.connect("took_physical_damage", change_enemy_damage_number)
-	enemy.connect("took_physical_damage", change_player_damage_number)
+	player.connect("physical_damage_taken", change_enemy_damage_number)
+	enemy.connect("physical_damage_taken", change_player_damage_number)
+	player.connect("bleeding_damage_taken", change_player_bleed_taken)
+	enemy.connect("bleeding_damage_taken", change_enemy_bleed_taken)
+	player.connect("bleeding_damage_applied", change_player_bleed_taken)
+	enemy.connect("bleeding_damage_applied", change_enemy_bleed_taken)
 
 	battle_sim.connect("end_of_round", end_of_round)
 
-func bleed_damage_taken(target, damage):
-	if target == player: 
-		change_player_bleed_taken(damage)
-	else: 
-		change_enemy_bleed_taken(damage)
 
 func physical_damage_dealt(target, damage):
 	enemy = get_tree().get_nodes_in_group("enemy")[0]
@@ -89,7 +88,6 @@ func change_enemy_damage_number(value):
 	tween.tween_property(enemy_damage_number, "position", new_position + Vector2(150, 0), 0.4)
 	tween.tween_property(enemy_damage_number, "modulate:a", 0, .5)
 	enemy_damage_number.text = str(value) 
-	
 
 func change_enemy_heal_number(value):
 	if value <= 0: return

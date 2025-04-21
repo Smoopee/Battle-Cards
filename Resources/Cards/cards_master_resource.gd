@@ -37,11 +37,11 @@ class_name Cards_Resource
 @export var screen_position: Vector2
 @export var is_enchanted : bool
 @export var tags: Array
-#@export var card_type: Array
+@export var card_type: Array
 @export var is_discarded: bool
 @export var is_blank: bool
 @export var is_updated: bool
-@export var card_mode: String
+@export var mode: String
 @export var card_rarity: int
 var owner
 var target

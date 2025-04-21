@@ -24,10 +24,14 @@ func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var target = card_stats.card_owner
-	
+	for i in get_tree().get_nodes_in_group("buff"):
+		if i.buff_name == card_stats.name and i.attached_to == card_stats.owner: 
+			if i.buff_effect1 > card_stats.effect1:
+				return
+			else: i.attached_to.remove_buff(i)
+			
 	var new_buff = load(card_stats.buff_scene_path).instantiate()
-	target.add_buff(new_buff, self)
+	card_stats.owner.add_buff(new_buff, self)
 
 func upgrade_card(num):
 	match num:
@@ -188,6 +192,12 @@ func toggle_shop_ui(show):
 	if show: $CardUI/ShopPanel.visible = true
 	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
 	if !show:  $CardUI/ShopPanel.visible = false
+
+func card_reset():
+	card_stats.cd_remaining = 0
+	card_stats.on_cd = false
+	card_stats.mode = ""
+	update_card_ui()
 
 func change_cd_remaining(amount):
 	card_stats.cd_remaining += amount

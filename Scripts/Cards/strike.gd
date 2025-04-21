@@ -24,6 +24,9 @@ func effect(player_deck, enemy_deck, player, enemy):
 	damage = card_stats.owner.deal_physical_damage(damage)
 	card_stats.target.take_physical_damage(damage)
 	
+	if card_stats.bleed_dmg > 0:
+		card_stats.target.apply_bleeding_damage(card_stats.bleed_dmg)
+	
 func upgrade_card(num):
 	match num:
 		1:
@@ -187,6 +190,12 @@ func toggle_shop_ui(show):
 	if show: $CardUI/ShopPanel.visible = true
 	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
 	if !show:  $CardUI/ShopPanel.visible = false
+
+func card_reset():
+	card_stats.cd_remaining = 0
+	card_stats.on_cd = false
+	card_stats.mode = ""
+	update_card_ui()
 
 func change_cd_remaining(amount):
 	card_stats.cd_remaining += amount

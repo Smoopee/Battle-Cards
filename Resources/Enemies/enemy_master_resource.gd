@@ -17,4 +17,7 @@ class_name Enemy_Resource
 @export var defense: int
 @export var block: int
 @export var speed: int
+@export var is_stunned: bool
+@export var stun_counter: int
 @export var runes: Array
+@export var biomes: Array

@@ -37,6 +37,7 @@ func finish_drag():
 	if class_selected:
 		
 		Global.player_class = class_selected.set_class()
+		Global.player_stats = load("res://Resources/Character/berserker.tres")
 		Global.save_function()
 		card_being_dragged.position = class_selected.position + Vector2(0, 120)
 		card_being_dragged.get_node("Area2D").collision_layer = 8

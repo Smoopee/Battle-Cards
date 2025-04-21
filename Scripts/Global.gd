@@ -26,6 +26,7 @@ var playerData = PlayerData.new()
 @onready var player_runes_db
 @onready var player_inventory = []
 @onready var player_talent_array = []
+@onready var player_stats
 @onready var player_class = ""
 var rested_xp = 0
 
@@ -75,7 +76,6 @@ func save():
 	ResourceSaver.save(playerData, save_file_path + save_file_name)
 	print("save")
 
-
 func gain_xp(amount):
 	if rested_xp > 0:
 		if rested_xp >= amount:
@@ -111,7 +111,7 @@ func instantiate_player_deck():
 		player_deck.push_back(card)
 
 func set_player_skills():
-	player_skills_db = []
+	player_skills_db = ["Third Wheel", "Building Momentum"]
 
 func instantiate_player_skills():
 	for i in player_skills_db:
@@ -150,6 +150,7 @@ func save_function():
 	playerData.player_skills = player_skills
 	playerData.player_consumables = player_consumables
 	playerData.player_runes = player_runes
+	playerData.player_stats = player_stats
 
 	save()
 
@@ -161,3 +162,9 @@ func load_function():
 	player_gold = playerData.player_gold
 	player_xp = playerData.player_xp
 	player_level = playerData.player_level
+	battle_tracker = playerData.battle_tracker
+	player_skills = playerData.player_skills
+	player_consumables = playerData.player_consumables
+	player_runes = playerData.player_runes
+	player_stats = playerData.player_stats
+

@@ -11,16 +11,20 @@ func _ready():
 	
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("card_etb", skill_effect)
+	
 
 func skill_effect(card):
+	if card.card_stats.owner != skill_stats.owner: return
 	$SkillUI/InfoLabel.visible = true
-	if attached_to != card.card_stats.card_owner: return
 	if card.card_stats.card_type.find("Attack") >= 0:
-		if counter >= 3:
-			get_tree().get_first_node_in_group("battle sim").damage += 5
-			counter = 1
-		else: counter += 1
-	update_counter_text()
+		if counter >=2:
+			skill_stats.owner.temp_physical_damage += 5
+			counter = 0
+		else:
+			counter += 1
+			
+		update_counter_text()
+
 
 func upgrade_skill(num):
 	match num:
@@ -89,7 +93,7 @@ func _on_panel_mouse_exited():
 	toggle_tooltip_hide()
 
 func skill_shop_ui():
-	if skill_stats.skill_owner != get_tree().get_first_node_in_group("character"):
+	if skill_stats.owner != get_tree().get_first_node_in_group("character"):
 		$SkillUI/ShopPanel/ShopLabel.text =  str(skill_stats.buy_price)
 
 func toggle_shop_ui(show):

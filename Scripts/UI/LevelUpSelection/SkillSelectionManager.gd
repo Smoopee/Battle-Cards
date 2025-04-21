@@ -34,10 +34,8 @@ func finish_drag_skill():
 		var upgradeable_skill = check_for_upgrade_skill()
 		if upgradeable_skill:
 			upgrade_skill(upgradeable_skill)
-			get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 		else:
 			get_skill()
-			get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 	skill_reset()
 
 func start_drag_skill(skill):
