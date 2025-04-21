@@ -10,6 +10,8 @@ extends Control
 @onready var combat_log = $ColorRect/RichTextLabel
 @onready var enemy_bleeding_label = $Labels/EnemyBleedTaken
 @onready var player_bleeding_label = $Labels/PlayerBleedTaken
+@onready var enemy_burning_label = $Labels/EnemyBurnTaken
+@onready var player_burning_label = $Labels/PlayerBurnTaken
 
 var player
 var enemy
@@ -24,6 +26,11 @@ func _ready():
 	enemy_bleeding_label.text = ""
 	player_bleeding_label.position = $"../Player".position + Vector2(35, -80)
 	player_bleeding_label.text = ""
+	enemy_burning_label.position = $"../Enemy".enemy.position + Vector2(15, 60)
+	enemy_burning_label.text = ""
+	player_burning_label.position = $"../Player".position + Vector2(15, -80)
+	player_burning_label.text = ""
+	
 	
 	combat_log.set_scroll_follow(true)
 		
@@ -38,6 +45,12 @@ func connect_signals(battle_sim):
 	enemy.connect("bleeding_damage_taken", change_enemy_bleed_taken)
 	player.connect("bleeding_damage_applied", change_player_bleed_taken)
 	enemy.connect("bleeding_damage_applied", change_enemy_bleed_taken)
+	
+	player.connect("burning_damage_taken", change_player_burn_taken)
+	enemy.connect("burning_damage_taken", change_enemy_burn_taken)
+	player.connect("burning_damage_applied", change_player_burn_taken)
+	enemy.connect("burning_damage_applied", change_enemy_burn_taken)
+
 
 	battle_sim.connect("end_of_round", end_of_round)
 
@@ -139,6 +152,38 @@ func change_player_bleed_taken(value):
 	await tween.finished
 	player_drip.visible = false
 	player_drip.position = original_position
+
+func change_enemy_burn_taken(value):
+	var enemy_burnt = $Labels/EnemyBurnTaken/EnemyBurnt
+	enemy_burnt.visible = true
+	var original_position = enemy_burnt.position 
+	enemy_burnt.text = str(value)
+	
+	enemy_burning_label.text = str(value)
+	if value <= 1: enemy_burning_label.text = ""
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(enemy_burnt, "position", Vector2(enemy_burnt.position.x, enemy_burnt.position.y - 50), 0.5 * Global.COMBAT_SPEED)
+	await tween.finished
+	enemy_burnt.visible = false
+	enemy_burnt.position = original_position
+
+func change_player_burn_taken(value):
+	var player_burnt = $Labels/PlayerBurnTaken/PlayerBurnt
+	player_burnt.visible = true
+	var original_position = player_burnt.position 
+	player_burnt.text = str(value)
+	
+	player_burning_label.text = str(value)
+	if value <= 1: player_burning_label.text = ""
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_burnt, "position", Vector2(player_burnt.position.x, player_burnt.position.y + 50), 0.5 * Global.COMBAT_SPEED)
+	await tween.finished
+	player_burnt.visible = false
+	player_burnt.position = original_position
+
+
 
 func end_of_round(value):
 	$Labels/Rounds.text = "Round: " + str(value)

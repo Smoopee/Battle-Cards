@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cwtxlisht1yu1"]
+[gd_scene load_steps=10 format=3 uid="uid://cwtxlisht1yu1"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/strike.gd" id="1_qbtse"]
 [ext_resource type="Texture2D" uid="uid://cbar7wb4edetf" path="res://Resources/Cards/CardArt/strike_card.png" id="2_2kv1a"]
-[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/UI/ItemEnhancement/bleed_enhancement.png" id="2_5ehj6"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="3_hkw2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n37v5"]
@@ -57,7 +56,6 @@ position = Vector2(1, 0)
 
 [node name="ItemEnchantImage" type="Sprite2D" parent="."]
 position = Vector2(50, 64.4)
-texture = ExtResource("2_5ehj6")
 
 [node name="Area2D" type="Area2D" parent="."]
 

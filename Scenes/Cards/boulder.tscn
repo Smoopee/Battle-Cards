@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Cards/boulder.gd" id="1_a447w"]
 [ext_resource type="Texture2D" uid="uid://bxk8r0mjcgdf0" path="res://Resources/Cards/CardArt/boulder_card.png" id="2_4ovn2"]
-[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/UI/ItemEnhancement/bleed_enhancement.png" id="3_vw2yt"]
+[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/Art/Enchantments/ItemEnhancement/bleed_enhancement.png" id="3_vw2yt"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_se24l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q86nr"]

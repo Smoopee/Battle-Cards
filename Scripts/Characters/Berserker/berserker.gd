@@ -7,6 +7,8 @@ signal physical_damage_dealt
 signal physical_damage_taken
 signal bleeding_damage_applied
 signal bleeding_damage_taken
+signal burning_damage_applied
+signal burning_damage_taken
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = -100
@@ -81,6 +83,7 @@ func connect_signals(battle_sim):
 func end_of_turn():
 	change_rage(rage_degeneration)
 	bleed_damage_keeper()
+	burn_damage_keeper()
 	stun_keeper()
 
 #CONSUMABLES =======================================================================================
@@ -269,6 +272,20 @@ func bleed_damage_keeper():
 		emit_signal("bleeding_damage_taken", character_stats.bleeding_dmg)
 		change_health(-character_stats.bleeding_dmg)
 		character_stats.bleeding_dmg -= 1
+
+func deal_burn_damage():
+	pass
+
+func apply_burning_damage(damage):
+	emit_signal("burning_damage_applied", character_stats.burning_dmg + damage)
+	character_stats.burning_dmg += damage
+
+func burn_damage_keeper():
+	if character_stats.burning_dmg > 0:
+		emit_signal("burning_damage_taken", character_stats.burning_dmg)
+		change_health(-character_stats.burning_dmg)
+		character_stats.burning_dmg -= 1
+
 
 func stun_keeper():
 	if character_stats.stun_counter >= 1:

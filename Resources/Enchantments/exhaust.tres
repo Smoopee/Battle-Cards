@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_q1vmc")
-enchantment_art_path = "res://Resources/Art/Enchantments/burden_enchantment.png"
-enchantment_scene_path = "res://Scenes/Enchantments/burden.tscn"
-enchantment_name = "Burden"
+enchantment_art_path = "res://Resources/Art/Enchantments/exhaust.png"
+enchantment_scene_path = "res://Scenes/Enchantments/exhaust.tscn"
+enchantment_name = "Exhaust"
 buy_price = 5
 target = ""
 tags = []

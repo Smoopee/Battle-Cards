@@ -26,7 +26,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Lifesteal" type="Node2D"]
+[node name="Lifesteal" type="Node2D" groups=["enchantment"]]
 script = ExtResource("1_8sy4c")
 
 [node name="EnchantmentImage" type="Sprite2D" parent="."]

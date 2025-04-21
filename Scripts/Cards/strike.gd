@@ -27,6 +27,9 @@ func effect(player_deck, enemy_deck, player, enemy):
 	if card_stats.bleed_dmg > 0:
 		card_stats.target.apply_bleeding_damage(card_stats.bleed_dmg)
 	
+	if card_stats.burn_dmg > 0:
+		card_stats.target.apply_burning_damage(card_stats.burn_dmg)
+
 func upgrade_card(num):
 	match num:
 		1:
@@ -64,6 +67,23 @@ func item_enchant(enchant):
 			card_stats.bleed_dmg = 8
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
+		"Exhaust":
+			card_stats.item_enchant = "Exhaust"
+		"Dejavu":
+			card_stats.item_enchant = "Dejavu"
+		"Fiery":
+			card_stats.item_enchant = "Fiery"
+			card_stats.burn_dmg = 8
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
+		"Lifesteal":
+			card_stats.item_enchant = "Lifesteal"
+		"Rapid":
+			card_stats.item_enchant = "Rapid"
+		"Restoration":
+			card_stats.item_enchant = "Restoration"
+		"Toxic":
+			card_stats.item_enchant = "Toxic"
 	update_card_ui()
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
@@ -101,13 +121,41 @@ func update_card_ui():
 
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
+	match enchant:
+		"Bleed":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/bleed_enchant.png")
+			update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			update_damage_label("Bleed")
+		"Exhaust":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/exhaust_enchant.png")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
+		"Dejavu":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/dejavu_enchant.png")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
+		"Fiery":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/fiery_enchant.png")
+			update_tooltip("Burn", "Deal " + str(card_stats.burn_dmg) + " bleed damage",  "Burn: ")
+			update_damage_label("Burn")
+		"Lifesteal":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/lifesteal_enchant.png")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
+		"Rapid":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/rapid_enchant.png")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
+		"Restoration":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/restoration_enchant.png")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
+		"Toxic":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/toxic_enchant.png")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 	
-	if enchant == "Bleed":
-		$ItemEnchantImage.texture = load("res://Resources/UI/ItemEnhancement/bleed_enhancement.png")
-		update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-		update_damage_label("Bleed")
-	
-	else: $ItemEnchantImage.texture = null
+		_: $ItemEnchantImage.texture = null
 
 func change_card_dmg_text():
 	$CardUI/CardDamage.text = str(card_stats.dmg)
@@ -166,6 +214,12 @@ func update_damage_label(type):
 		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.bleed_dmg)
 		styleBox.set("bg_color", Color.FIREBRICK)
 		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
+	if type == "Burn":
+		$CardUI/DmgNumContainer/DamagPanel2.visible = true
+		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.burn_dmg)
+		styleBox.set("bg_color", Color.CORAL)
+		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
+
 
 func attack_animation(user):
 	var tween = get_tree().create_tween()

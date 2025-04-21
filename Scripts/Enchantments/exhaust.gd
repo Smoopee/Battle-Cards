@@ -1,7 +1,7 @@
 extends Node2D
 
 var enchantment_stats: Enchantments_Resource = null
-var enchantment_name = "Burden"
+var enchantment_name = "Exhaust"
 
 
 func _ready():

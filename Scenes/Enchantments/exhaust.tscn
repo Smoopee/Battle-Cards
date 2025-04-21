@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://l027y0wnf0gm"]
 
-[ext_resource type="Script" path="res://Scripts/Enchantments/burden.gd" id="1_joklr"]
-[ext_resource type="Texture2D" uid="uid://blp15uw8b351j" path="res://Resources/Art/Enchantments/burden_enchantment.png" id="2_sdrff"]
+[ext_resource type="Script" path="res://Scripts/Enchantments/exhaust.gd" id="1_joklr"]
+[ext_resource type="Texture2D" uid="uid://blp15uw8b351j" path="res://Resources/Art/Enchantments/exhaust.png" id="2_sdrff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cib7"]
 size = Vector2(78, 78)

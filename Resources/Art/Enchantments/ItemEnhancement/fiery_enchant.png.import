@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7cm1nqw0bu4u"
-path="res://.godot/imported/bleed_enhancement.png-136809b5154ab60088e8f631ca4732d6.ctex"
+uid="uid://cucmhdaddy73y"
+path="res://.godot/imported/fiery_enchant.png-d4f2d92780e3d4acf7054ef498e2ae2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/UI/ItemEnhancement/bleed_enhancement.png"
-dest_files=["res://.godot/imported/bleed_enhancement.png-136809b5154ab60088e8f631ca4732d6.ctex"]
+source_file="res://Resources/Art/Enchantments/ItemEnhancement/fiery_enchant.png"
+dest_files=["res://.godot/imported/fiery_enchant.png-d4f2d92780e3d4acf7054ef498e2ae2e.ctex"]
 
 [params]
 

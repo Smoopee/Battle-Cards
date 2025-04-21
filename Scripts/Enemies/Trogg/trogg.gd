@@ -1,11 +1,14 @@
 extends Node2D
 
+
+signal generate_reward
+signal health_changed
 signal physical_damage_dealt
 signal physical_damage_taken
 signal bleeding_damage_applied
 signal bleeding_damage_taken
-signal generate_reward
-signal health_changed
+signal burning_damage_applied
+signal burning_damage_taken
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = 170
@@ -56,11 +59,16 @@ func set_stat_container():
 #SIGNALS ===========================================================================================
 func connect_signals(battle_sim):
 	battle_sim.connect("end_of_turn", end_of_turn)
+	battle_sim.connect("end_of_round", end_of_round)
 
 func end_of_turn():
 	bleed_damage_keeper()
+	burn_damage_turn_keeper()
 	stun_keeper()
 
+func end_of_round(round):
+	burn_damage_round_keeper()
+	
 #SKILLS=============================================================================================
 func set_skills():
 	for i in $Skills.enemy_skills:
@@ -157,6 +165,24 @@ func bleed_damage_keeper():
 		emit_signal("bleeding_damage_taken", character_stats.bleeding_dmg)
 		change_health(-character_stats.bleeding_dmg)
 		character_stats.bleeding_dmg -= 1
+
+func deal_burn_damage():
+	pass
+
+func apply_burning_damage(damage):
+	emit_signal("burning_damage_applied", character_stats.burning_dmg + damage)
+	character_stats.burning_dmg += damage
+
+func burn_damage_turn_keeper():
+	if character_stats.burning_dmg > 0:
+		emit_signal("burning_damage_taken", character_stats.burning_dmg)
+		change_health(-character_stats.burning_dmg)
+
+func burn_damage_round_keeper():
+	if character_stats.burning_dmg > 0:
+		character_stats.burning_dmg /= 2
+		print(character_stats.burning_dmg)
+		emit_signal("burning_damage_taken", character_stats.burning_dmg)
 
 func stun_keeper():
 	if character_stats.stun_counter >= 1:

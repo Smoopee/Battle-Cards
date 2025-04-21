@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bryd511tswp4i"]
+[gd_scene load_steps=10 format=3 uid="uid://bryd511tswp4i"]
 
 [ext_resource type="Script" path="res://Scripts/Cards/rocks.gd" id="1_l5vns"]
 [ext_resource type="Texture2D" uid="uid://b0kfd3p75yjuy" path="res://Resources/Cards/CardArt/rock.png" id="2_5gvnv"]
-[ext_resource type="Texture2D" uid="uid://7cm1nqw0bu4u" path="res://Resources/UI/ItemEnhancement/bleed_enhancement.png" id="4_13mm8"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_mkxmw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmh4b"]
@@ -58,7 +57,6 @@ texture = ExtResource("2_5gvnv")
 
 [node name="ItemEnchantImage" type="Sprite2D" parent="."]
 position = Vector2(50, 64.4)
-texture = ExtResource("4_13mm8")
 
 [node name="Area2D" type="Area2D" parent="."]
 
