@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd6wtfwsollr3"]
+[gd_scene load_steps=5 format=3 uid="uid://b66jkw47ub6qh"]
 
-[ext_resource type="Script" path="res://Scripts/Modifiers/glue_modifier.gd" id="1_nanx2"]
-[ext_resource type="Texture2D" uid="uid://bd8xpim7kalor" path="res://Resources/Art/Consumables/glue_consumable.png" id="2_v0f1i"]
+[ext_resource type="Script" path="res://Scripts/Modifiers/exhaust_modifier.gd" id="1_asnso"]
+[ext_resource type="Texture2D" uid="uid://bt78qmraq7hjk" path="res://Resources/Art/Modifiers/exhaust_modifier.png" id="1_qoh42"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6y25"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdqul"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,18 +15,18 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_innwb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p33f4"]
 
-[node name="GlueModifier" type="Node2D" groups=["modifier"]]
-script = ExtResource("1_nanx2")
+[node name="ExhaustModifier" type="Node2D" groups=["modifier"]]
+script = ExtResource("1_asnso")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_v0f1i")
+texture = ExtResource("1_qoh42")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_q6y25")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdqul")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -48,4 +48,4 @@ offset_left = -12.0
 offset_top = -12.0
 offset_right = 12.0
 offset_bottom = 12.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_innwb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_p33f4")

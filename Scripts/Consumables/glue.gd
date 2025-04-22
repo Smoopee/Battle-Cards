@@ -15,8 +15,6 @@ func consumable_effect(card):
 	
 	
 	card.card_stats.on_cd = true
-	card.change_cd(2)
-	card.change_cd_remaining(2)
 	card.add_modifier(load("res://Scenes/Modifiers/glue_modifier.tscn").instantiate())
 	
 	return true

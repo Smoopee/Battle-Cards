@@ -6,5 +6,6 @@ const ENCHANTMENTS = {
 	"Exhaust" : "res://Resources/Enchantments/exhaust.tres",
 	"Rapid" : "res://Resources/Enchantments/rapid.tres",
 	"Fiery" : "res://Resources/Enchantments/fiery.tres",
-	"Restoration" : "res://Resources/Enchantments/restoration.tres"
+	"Restoration" : "res://Resources/Enchantments/restoration.tres",
+	"Prosperity" : "res://Resources/Enchantments/prosperity.tres"
 }

@@ -258,6 +258,7 @@ func change_cd(amount):
 
 func add_modifier(modifier):
 	$Modifiers.add_child(modifier)
+	modifier.modifier_initializer(self)
 	organzie_card_modifiers()
 
 func organzie_card_modifiers():

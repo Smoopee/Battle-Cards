@@ -12,6 +12,8 @@ extends Control
 @onready var player_bleeding_label = $Labels/PlayerBleedTaken
 @onready var enemy_burning_label = $Labels/EnemyBurnTaken
 @onready var player_burning_label = $Labels/PlayerBurnTaken
+@onready var enemy_poisoning_label = $Labels/EnemyPoisonTaken
+@onready var player_poisoning_label = $Labels/PlayerPoisonTaken
 
 var player
 var enemy
@@ -30,6 +32,10 @@ func _ready():
 	enemy_burning_label.text = ""
 	player_burning_label.position = $"../Player".position + Vector2(15, -80)
 	player_burning_label.text = ""
+	enemy_poisoning_label.position = $"../Enemy".enemy.position + Vector2(-5, 60)
+	enemy_poisoning_label.text = ""
+	player_poisoning_label.position = $"../Player".position + Vector2(-5, -80)
+	player_poisoning_label.text = ""
 	
 	
 	combat_log.set_scroll_follow(true)
@@ -41,6 +47,10 @@ func _ready():
 func connect_signals(battle_sim):
 	player.connect("physical_damage_taken", change_enemy_damage_number)
 	enemy.connect("physical_damage_taken", change_player_damage_number)
+	
+	player.connect("heal_received", change_player_heal_number)
+	enemy.connect("heal_received", change_enemy_heal_number)
+	
 	player.connect("bleeding_damage_taken", change_player_bleed_taken)
 	enemy.connect("bleeding_damage_taken", change_enemy_bleed_taken)
 	player.connect("bleeding_damage_applied", change_player_bleed_taken)
@@ -50,6 +60,11 @@ func connect_signals(battle_sim):
 	enemy.connect("burning_damage_taken", change_enemy_burn_taken)
 	player.connect("burning_damage_applied", change_player_burn_taken)
 	enemy.connect("burning_damage_applied", change_enemy_burn_taken)
+	
+	player.connect("poisoning_damage_taken", change_player_poison_taken)
+	enemy.connect("poisoning_damage_taken", change_enemy_poison_taken)
+	player.connect("poisoning_damage_applied", change_player_poison_taken)
+	enemy.connect("poisoning_damage_applied", change_enemy_poison_taken)
 
 
 	battle_sim.connect("end_of_round", end_of_round)
@@ -183,7 +198,35 @@ func change_player_burn_taken(value):
 	player_burnt.visible = false
 	player_burnt.position = original_position
 
+func change_enemy_poison_taken(value):
+	var enemy_dose = $Labels/EnemyPoisonTaken/EnemyDose
+	enemy_dose.visible = true
+	var original_position = enemy_dose.position 
+	enemy_dose.text = str(value)
+	
+	enemy_poisoning_label.text = str(value)
+	if value <= 1: enemy_poisoning_label.text = ""
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(enemy_dose, "position", Vector2(enemy_dose.position.x, enemy_dose.position.y - 50), 0.5 * Global.COMBAT_SPEED)
+	await tween.finished
+	enemy_dose.visible = false
+	enemy_dose.position = original_position
 
+func change_player_poison_taken(value):
+	var player_dose = $Labels/PlayerPoisonTaken/PlayerDose
+	player_dose.visible = true
+	var original_position = player_dose.position 
+	player_dose.text = str(value)
+	
+	player_poisoning_label.text = str(value)
+	if value <= 1: player_poisoning_label.text = ""
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(player_dose, "position", Vector2(player_dose.position.x, player_dose.position.y + 50), 0.5 * Global.COMBAT_SPEED)
+	await tween.finished
+	player_dose.visible = false
+	player_dose.position = original_position
 
 func end_of_round(value):
 	$Labels/Rounds.text = "Round: " + str(value)

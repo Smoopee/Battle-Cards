@@ -9,6 +9,9 @@ signal bleeding_damage_applied
 signal bleeding_damage_taken
 signal burning_damage_applied
 signal burning_damage_taken
+signal poisoning_damage_applied
+signal poisoning_damage_taken
+signal heal_received
 
 const BUFF_X_POSITION = 675
 const BUFF_Y_POSITION = 170
@@ -64,11 +67,12 @@ func connect_signals(battle_sim):
 func end_of_turn():
 	bleed_damage_keeper()
 	burn_damage_turn_keeper()
+	poison_damage_keeper()
 	stun_keeper()
 
 func end_of_round(round):
 	burn_damage_round_keeper()
-	
+
 #SKILLS=============================================================================================
 func set_skills():
 	for i in $Skills.enemy_skills:
@@ -184,6 +188,18 @@ func burn_damage_round_keeper():
 		print(character_stats.burning_dmg)
 		emit_signal("burning_damage_taken", character_stats.burning_dmg)
 
+func deal_poison_damage():
+	pass
+
+func apply_poisoning_damage(damage):
+	emit_signal("poisoning_damage_applied", character_stats.poisoning_dmg + damage)
+	character_stats.poisoning_dmg += damage
+
+func poison_damage_keeper():
+	if character_stats.poisoning_dmg > 0:
+		emit_signal("poisoning_damage_taken", character_stats.poisoning_dmg)
+		change_health(-character_stats.poisoning_dmg)
+
 func stun_keeper():
 	if character_stats.stun_counter >= 1:
 		character_stats.stun_counter -= 1
@@ -191,6 +207,13 @@ func stun_keeper():
 	
 	if character_stats.stun_counter <= 0:
 		stun_toggle(false)
+
+func heal_function(amount):
+	emit_signal("heal_received")
+	change_health(amount)
+
+func lifesteal(damage):
+	heal_function(damage)
 
 func change_health(amount):
 	character_stats.health += amount

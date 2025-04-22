@@ -29,7 +29,41 @@ func effect(player_deck, enemy_deck, player, enemy):
 	
 	if card_stats.burn_dmg > 0:
 		card_stats.target.apply_burning_damage(card_stats.burn_dmg)
+	
+	if card_stats.poison_dmg > 0:
+		card_stats.target.apply_poisoning_damage(card_stats.poison_dmg)
+	
+	if card_stats.heal > 0:
+		card_stats.owner.heal(card_stats.heal)
+	
+	if card_stats.prosperity > 0:
+		Global.player_gold += card_stats.prosperity
+		get_tree().get_first_node_in_group("bottom ui").change_player_gold()
+	
+	if card_stats.item_enchant == "Dejavu" and !card_stats.dejavu_used:
+		card_stats.dejavu_used = true
+		effect(player_deck, enemy_deck, player, enemy)
+	
+	if card_stats.item_enchant == "Lifesteal":
+		card_stats.owner.lifesteal(damage)
+	
+	if card_stats.item_enchant == "Exhaust":
+		var target = get_tree().get_first_node_in_group("battle sim").enemy_card
+		if card_stats.owner == enemy: target = get_tree().get_first_node_in_group("battle sim").player_card
+		target.add_modifier(load("res://Scenes/Modifiers/exhaust_modifier.tscn").instantiate())
+	
+	if card_stats.item_enchant == "Rapid":
+		var temp_array = []
+		for i in card_stats.owner.active_deck_access():
+			if i == null: continue
+			if i.cd_remaining > 1:
+				temp_array.push_back(i)
+		
+		temp_array.shuffle()
+		if temp_array.size() == 0: return
+		temp_array[0].cd_remaining -= 1
 
+		
 func upgrade_card(num):
 	match num:
 		1:
@@ -73,7 +107,7 @@ func item_enchant(enchant):
 			card_stats.item_enchant = "Dejavu"
 		"Fiery":
 			card_stats.item_enchant = "Fiery"
-			card_stats.burn_dmg = 8
+			card_stats.burn_dmg = 4
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 		"Lifesteal":
@@ -82,8 +116,17 @@ func item_enchant(enchant):
 			card_stats.item_enchant = "Rapid"
 		"Restoration":
 			card_stats.item_enchant = "Restoration"
+			card_stats.heal = 10
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
 		"Toxic":
 			card_stats.item_enchant = "Toxic"
+			card_stats.poison_dmg = 2
+			card_stats.sell_price *= 2
+			card_stats.buy_price *= 2
+		"Prosperity":
+			card_stats.item_enchant = "Prosperity"
+			card_stats.prosperity += 5
 	update_card_ui()
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
@@ -128,32 +171,36 @@ func change_item_enchant_image():
 			update_damage_label("Bleed")
 		"Exhaust":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/exhaust_enchant.png")
-			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-			#update_damage_label("Bleed")
+			update_tooltip("Exhaust", "Put Opposing card on CD for 1 Round",  "Exhaust: ")
+			update_damage_label("Exhaust")
 		"Dejavu":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/dejavu_enchant.png")
-			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-			#update_damage_label("Bleed")
+			update_tooltip("Dejavu", "Repeat Card Effects",  "Dejavu: ")
+			update_damage_label("Dejavu")
 		"Fiery":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/fiery_enchant.png")
 			update_tooltip("Burn", "Deal " + str(card_stats.burn_dmg) + " bleed damage",  "Burn: ")
 			update_damage_label("Burn")
 		"Lifesteal":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/lifesteal_enchant.png")
-			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-			#update_damage_label("Bleed")
+			update_tooltip("Lifesteal", "Heal for " + str(card_stats.dmg) + " damage",  "Lifesteal: ")
+			update_damage_label("Lifesteal")
 		"Rapid":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/rapid_enchant.png")
-			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-			#update_damage_label("Bleed")
+			update_tooltip("Rapid", "Reduce and random card's CD by 1",  "Rapid: ")
+			update_damage_label("Rapid")
 		"Restoration":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/restoration_enchant.png")
-			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-			#update_damage_label("Bleed")
+			update_tooltip("Restoration", "Heal for " + str(card_stats.heal),  "Restoration: ")
+			update_damage_label("Restoration")
 		"Toxic":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/toxic_enchant.png")
-			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
-			#update_damage_label("Bleed")
+			update_tooltip("Poison", "Deal " + str(card_stats.poison_dmg) + " poison damage",  "Poison: ")
+			update_damage_label("Poison")
+		"Prosperity":
+			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/prosperity_enchant.png")
+			update_tooltip("Prosperity", "Gain " + str(card_stats.prosperity) + " Gold",  "Prosperity: ")
+			update_damage_label("Prosperity")
 	
 		_: $ItemEnchantImage.texture = null
 
@@ -219,6 +266,29 @@ func update_damage_label(type):
 		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.burn_dmg)
 		styleBox.set("bg_color", Color.CORAL)
 		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
+	if type == "Poison":
+		$CardUI/DmgNumContainer/DamagPanel2.visible = true
+		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.poison_dmg)
+		styleBox.set("bg_color", Color.WEB_GREEN)
+		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
+	if type == "Dejavu":
+		$CardUI/DmgNumContainer/DamagPanel2.visible = true
+		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str("x2")
+		styleBox.set("bg_color", Color.WHITE_SMOKE)
+		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
+	if type == "Lifesteal":
+		styleBox.set("bg_color", Color.MAROON)
+		$CardUI/DmgNumContainer/DamagPanel.add_theme_stylebox_override("panel", styleBox)
+	if type == "Restoration":
+		$CardUI/DmgNumContainer/DamagPanel2.visible = true
+		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.heal)
+		styleBox.set("bg_color", Color.GREEN_YELLOW)
+		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
+	if type == "Prosperity":
+		$CardUI/DmgNumContainer/DamagPanel2.visible = true
+		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.prosperity)
+		styleBox.set("bg_color", Color.GOLDENROD)
+		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
 
 
 func attack_animation(user):
@@ -264,3 +334,22 @@ func change_cd(amount):
 		card_stats.cd = 0
 		card_stats.on_cd = false
 	update_card_ui()
+
+func add_modifier(modifier):
+	$Modifiers.add_child(modifier)
+	modifier.modifier_initializer(self)
+	organzie_card_modifiers()
+
+func organzie_card_modifiers():
+	var counter = 0
+	var x_offset = 0
+	var y_offset = 0
+	
+	for i in $Modifiers.get_children():
+		if counter >= 5: 
+			x_offset = -32
+			y_offset = 0
+			counter = 0
+		i.position = Vector2(x_offset + 62, y_offset + -80)
+		y_offset += 30
+		counter += 1

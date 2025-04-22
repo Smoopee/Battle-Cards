@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://5xo01p25gbq4"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_0s48j"]
+
+[resource]
+script = ExtResource("1_0s48j")
+enchantment_art_path = "res://Resources/Art/Enchantments/prosperity_enchantment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/prosperity.tscn"
+enchantment_name = "Prosperity"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0

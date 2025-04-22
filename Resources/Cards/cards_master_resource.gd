@@ -45,3 +45,5 @@ class_name Cards_Resource
 @export var card_rarity: int
 var owner
 var target
+var dejavu_used = false
+var prosperity: int

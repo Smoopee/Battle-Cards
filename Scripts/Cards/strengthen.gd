@@ -258,3 +258,21 @@ func change_cd(amount):
 		card_stats.cd = 0
 		card_stats.on_cd = false
 	update_card_ui()
+
+func add_modifier(modifier):
+	$Modifiers.add_child(modifier)
+	organzie_card_modifiers()
+
+func organzie_card_modifiers():
+	var counter = 0
+	var x_offset = 0
+	var y_offset = 0
+	
+	for i in $Modifiers.get_children():
+		if counter >= 5: 
+			x_offset = -32
+			y_offset = 0
+			counter = 0
+		i.position = Vector2(x_offset + 62, y_offset + -80)
+		y_offset += 30
+		counter += 1

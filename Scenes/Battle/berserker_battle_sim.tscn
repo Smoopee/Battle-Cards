@@ -212,6 +212,42 @@ theme_override_colors/font_color = Color(0.920566, 0.37126, 0.203271, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
 
+[node name="EnemyPoisonTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="EnemyDose" type="Label" parent="UI/Labels/EnemyPoisonTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerPoisonTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerDose" type="Label" parent="UI/Labels/PlayerPoisonTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
 [node name="BattleRewards" parent="." instance=ExtResource("9_a1ix2")]
 visible = false
 
