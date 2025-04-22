@@ -30,6 +30,8 @@ var deck
 var consumable_orientation = true
 
 #COMBAT VARIABLES==================================================================================
+var receiving_physical_dmg = 0
+var dealing_physical_dmg = 0
 var temp_physical_damage = 0
 
 #Berserker Mechanics==============================================================================
@@ -252,20 +254,23 @@ func _on_buff_container_child_order_changed():
 
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
-	damage -= character_stats.armor
-	damage -= character_stats.defense
+	receiving_physical_dmg = damage
+	receiving_physical_dmg -= character_stats.armor
+	receiving_physical_dmg -= character_stats.defense
 	if character_stats.is_stunned: 
-		damage *= 2
-	emit_signal("physical_damage_taken", damage)
-	change_health(-damage)
-	change_rage(damage)
+		receiving_physical_dmg *= 2
+	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
+	emit_signal("physical_damage_taken", receiving_physical_dmg)
+	change_health(-receiving_physical_dmg)
+	change_rage(receiving_physical_dmg)
 
 func deal_physical_damage(damage):
-	damage += character_stats.attack + temp_physical_damage
-	emit_signal("physical_damage_dealt", damage)
-	change_rage(damage + additional_rage_generation)
+	dealing_physical_dmg = damage
+	dealing_physical_dmg += character_stats.attack + temp_physical_damage
+	emit_signal("physical_damage_dealt", dealing_physical_dmg)
+	change_rage(dealing_physical_dmg + additional_rage_generation)
 	temp_physical_damage = 0
-	return damage
+	return dealing_physical_dmg
 
 func deal_bleed_damage():
 	pass
@@ -327,6 +332,7 @@ func lifesteal(damage):
 
 func change_health(amount):
 	character_stats.health += amount
+	if character_stats.health > character_stats.max_health: character_stats.health = character_stats.max_health
 	$PlayerHealthBar.value = character_stats.health
 	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
 	emit_signal("health_changed")

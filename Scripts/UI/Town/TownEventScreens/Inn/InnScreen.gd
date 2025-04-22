@@ -80,7 +80,7 @@ func _on_leave_button_down():
 
 func _on_rest_button_down():
 	Global.rested_xp += 30
-	Global.change_player_health(50)
+	get_tree().get_first_node_in_group("character").change_health(50)
 	Global.intermission_tracker = 0
 	get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 

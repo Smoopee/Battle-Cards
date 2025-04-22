@@ -9,96 +9,66 @@ var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
 
+
 func _ready():
 	get_tree().get_nodes_in_group("card manager")[0].connect_card_signals(self)
 	
 	if card_stats != null:
 		$PopupPanel/VBoxContainer/Name.text = str(card_stats.name)
-		update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage",  "Effect: ")
+		update_tooltip("Effect", "Reduce enemy's ATK by  " + str(card_stats.effect1),  "Effect: ")
+
+func set_stats(stats = Cards_Resource) -> void:
+	card_stats = load("res://Resources/Cards/daunting_shout.tres").duplicate()
 
 func on_start(board):
 	pass
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var damage = card_stats.dmg
-	damage = card_stats.owner.deal_physical_damage(damage)
-	card_stats.target.take_physical_damage(damage)
-	
-	if card_stats.bleed_dmg > 0:
-		card_stats.target.apply_bleeding_damage(card_stats.bleed_dmg)
-	
-	if card_stats.burn_dmg > 0:
-		card_stats.target.apply_burning_damage(card_stats.burn_dmg)
-	
-	if card_stats.poison_dmg > 0:
-		card_stats.target.apply_poisoning_damage(card_stats.poison_dmg)
-	
-	if card_stats.heal > 0:
-		card_stats.owner.heal(card_stats.heal)
-	
-	if card_stats.prosperity > 0:
-		Global.player_gold += card_stats.prosperity
-		get_tree().get_first_node_in_group("bottom ui").change_player_gold()
-	
-	if card_stats.item_enchant == "Dejavu" and !card_stats.dejavu_used:
-		card_stats.dejavu_used = true
-		effect(player_deck, enemy_deck, player, enemy)
-	
-	if card_stats.item_enchant == "Lifesteal":
-		card_stats.owner.lifesteal(damage)
-	
-	if card_stats.item_enchant == "Exhaust":
-		var target = get_tree().get_first_node_in_group("battle sim").enemy_card
-		if card_stats.owner == enemy: target = get_tree().get_first_node_in_group("battle sim").player_card
-		target.add_modifier(load("res://Scenes/Modifiers/exhaust_modifier.tscn").instantiate())
-	
-	if card_stats.item_enchant == "Rapid":
-		var temp_array = []
-		for i in card_stats.owner.active_deck_access():
-			if i == null: continue
-			if i.cd_remaining > 1:
-				temp_array.push_back(i)
-		
-		temp_array.shuffle()
-		if temp_array.size() == 0: return
-		temp_array[0].cd_remaining -= 1
+	var target = card_stats.owner
 
-		
+	for i in get_tree().get_nodes_in_group("buff"):
+		if i.buff_name == card_stats.name and i.attached_to == target: 
+			i.increase_buff(self)
+			return
+	
+	var new_buff = load(card_stats.buff_scene_path).instantiate()
+	target.add_buff(new_buff, self)
+
 func upgrade_card(num):
 	match num:
 		1:
 			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			card_stats.upgrade_level = 1
-			card_stats.dmg = 5
-			card_stats.sell_price = 2
-			card_stats.buy_price = 4
+			card_stats.sell_price = 3
+			card_stats.buy_price = 6
+			card_stats.effect1 = 2
 		2: 
 			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			card_stats.upgrade_level = 2
-			card_stats.dmg = 10
-			card_stats.sell_price = 4
-			card_stats.buy_price = 8
+			card_stats.sell_price = 6
+			card_stats.buy_price = 12
+			card_stats.effect1 = 4
 		3:
 			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
-			card_stats.dmg = 20
-			card_stats.sell_price = 8
-			card_stats.buy_price = 16
+			card_stats.sell_price = 12
+			card_stats.buy_price = 24
+			card_stats.effect1 = 8
 		4:
 			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
-			card_stats.dmg = 40
-			card_stats.sell_price = 16
-			card_stats.buy_price = 32
+			card_stats.sell_price = 48
+			card_stats.buy_price = 96
+			card_stats.effect1 = 16
 	
-	update_tooltip("Effect", "Deal " + str(card_stats.dmg) + " damage")
+	update_tooltip("Effect", "Reduce enemy's ATK by  " + str(card_stats.effect1))
 	update_card_ui()
 
 func item_enchant(enchant):
 	match enchant:
 		"Bleed":
 			card_stats.item_enchant = "Bleed"
-			card_stats.bleed_dmg = 8
+			card_stats.bleed_dmg = 6
 			card_stats.sell_price *= 2
 			card_stats.buy_price *= 2
 		"Exhaust":
@@ -107,26 +77,14 @@ func item_enchant(enchant):
 			card_stats.item_enchant = "Dejavu"
 		"Fiery":
 			card_stats.item_enchant = "Fiery"
-			card_stats.burn_dmg = 4
-			card_stats.sell_price *= 2
-			card_stats.buy_price *= 2
 		"Lifesteal":
 			card_stats.item_enchant = "Lifesteal"
 		"Rapid":
 			card_stats.item_enchant = "Rapid"
 		"Restoration":
 			card_stats.item_enchant = "Restoration"
-			card_stats.heal = 10
-			card_stats.sell_price *= 2
-			card_stats.buy_price *= 2
 		"Toxic":
 			card_stats.item_enchant = "Toxic"
-			card_stats.poison_dmg = 2
-			card_stats.sell_price *= 2
-			card_stats.buy_price *= 2
-		"Prosperity":
-			card_stats.item_enchant = "Prosperity"
-			card_stats.prosperity += 5
 	update_card_ui()
 
 #ALL CARDS FUNCTIONS-------------------------------------------------------------------------------
@@ -160,7 +118,6 @@ func update_card_ui():
 	change_item_enchant_image()
 	change_card_dmg_text()
 	toggle_cd()
-	card_shop_ui()
 
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
@@ -171,36 +128,32 @@ func change_item_enchant_image():
 			update_damage_label("Bleed")
 		"Exhaust":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/exhaust_enchant.png")
-			update_tooltip("Exhaust", "Put Opposing card on CD for 1 Round",  "Exhaust: ")
-			update_damage_label("Exhaust")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 		"Dejavu":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/dejavu_enchant.png")
-			update_tooltip("Dejavu", "Repeat Card Effects",  "Dejavu: ")
-			update_damage_label("Dejavu")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 		"Fiery":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/fiery_enchant.png")
-			update_tooltip("Burn", "Deal " + str(card_stats.burn_dmg) + " bleed damage",  "Burn: ")
-			update_damage_label("Burn")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 		"Lifesteal":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/lifesteal_enchant.png")
-			update_tooltip("Lifesteal", "Heal for " + str(card_stats.dmg) + " damage",  "Lifesteal: ")
-			update_damage_label("Lifesteal")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 		"Rapid":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/rapid_enchant.png")
-			update_tooltip("Rapid", "Reduce and random card's CD by 1",  "Rapid: ")
-			update_damage_label("Rapid")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 		"Restoration":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/restoration_enchant.png")
-			update_tooltip("Restoration", "Heal for " + str(card_stats.heal),  "Restoration: ")
-			update_damage_label("Restoration")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 		"Toxic":
 			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/toxic_enchant.png")
-			update_tooltip("Poison", "Deal " + str(card_stats.poison_dmg) + " poison damage",  "Poison: ")
-			update_damage_label("Poison")
-		"Prosperity":
-			$ItemEnchantImage.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/prosperity_enchant.png")
-			update_tooltip("Prosperity", "Gain " + str(card_stats.prosperity) + " Gold",  "Prosperity: ")
-			update_damage_label("Prosperity")
+			#update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
+			#update_damage_label("Bleed")
 	
 		_: $ItemEnchantImage.texture = null
 
@@ -261,34 +214,6 @@ func update_damage_label(type):
 		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.bleed_dmg)
 		styleBox.set("bg_color", Color.FIREBRICK)
 		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
-	if type == "Burn":
-		$CardUI/DmgNumContainer/DamagPanel2.visible = true
-		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.burn_dmg)
-		styleBox.set("bg_color", Color.CORAL)
-		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
-	if type == "Poison":
-		$CardUI/DmgNumContainer/DamagPanel2.visible = true
-		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.poison_dmg)
-		styleBox.set("bg_color", Color.WEB_GREEN)
-		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
-	if type == "Dejavu":
-		$CardUI/DmgNumContainer/DamagPanel2.visible = true
-		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str("x2")
-		styleBox.set("bg_color", Color.WHITE_SMOKE)
-		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
-	if type == "Lifesteal":
-		styleBox.set("bg_color", Color.MAROON)
-		$CardUI/DmgNumContainer/DamagPanel.add_theme_stylebox_override("panel", styleBox)
-	if type == "Restoration":
-		$CardUI/DmgNumContainer/DamagPanel2.visible = true
-		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.heal)
-		styleBox.set("bg_color", Color.GREEN_YELLOW)
-		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
-	if type == "Prosperity":
-		$CardUI/DmgNumContainer/DamagPanel2.visible = true
-		$CardUI/DmgNumContainer/DamagPanel2/DamageLabel.text = str(card_stats.prosperity)
-		styleBox.set("bg_color", Color.GOLDENROD)
-		$CardUI/DmgNumContainer/DamagPanel2.add_theme_stylebox_override("panel", styleBox)
 
 func attack_animation(user):
 	var tween = get_tree().create_tween()
@@ -336,7 +261,6 @@ func change_cd(amount):
 
 func add_modifier(modifier):
 	$Modifiers.add_child(modifier)
-	modifier.modifier_initializer(self)
 	organzie_card_modifiers()
 
 func organzie_card_modifiers():

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6ah3u8iq2rby"
-path="res://.godot/imported/strengthen_card.png-6001d85f4b2caf61e53bbeda5b837c05.ctex"
+uid="uid://cyss4pldkbvjr"
+path="res://.godot/imported/sharpening_stone_modifier.png-32feb6396a9ebab182f61bc5316d60b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/strengthen_card.png"
-dest_files=["res://.godot/imported/strengthen_card.png-6001d85f4b2caf61e53bbeda5b837c05.ctex"]
+source_file="res://Resources/Art/Modifiers/sharpening_stone_modifier.png"
+dest_files=["res://.godot/imported/sharpening_stone_modifier.png-32feb6396a9ebab182f61bc5316d60b3.ctex"]
 
 [params]
 

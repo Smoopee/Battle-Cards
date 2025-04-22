@@ -4,5 +4,6 @@ const CONSUMABLES = {
 	"Strength Potion" : "res://Resources/Consumables/strength_potion.tres",
 	"Battery" : "res://Resources/Consumables/battery.tres",
 	"Glue" : "res://Resources/Consumables/glue.tres",
-	"Cheese" : "res://Resources/Consumables/cheese.tres"
+	"Cheese" : "res://Resources/Consumables/cheese.tres",
+	"Sharpening Stone" : "res://Resources/Consumables/sharpening_stone.tres"
 }

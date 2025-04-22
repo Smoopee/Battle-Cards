@@ -18,6 +18,8 @@ var current_screen = ""
 @onready var ui = $"../UI"
 @onready var player_node = $"../Player"
 @onready var next_turn = $"../NextTurn"
+@onready var timer_between_animations = $"../AnimationTimer"
+@onready var play_order_timer = $"../PlayOrder"
 
 var rng = RandomNumberGenerator.new()
 
@@ -37,7 +39,8 @@ var physical_damage
 
 func _ready():
 	connect_signal_setup()
-	$"../Timer".wait_time *= Global.COMBAT_SPEED
+	timer_between_animations.wait_time *= Global.COMBAT_SPEED
+	play_order_timer.wait_time *= Global.COMBAT_SPEED
 	
 	player_deck_list = $"../player_deck".initial_build_deck()
 	player_inventory_list = $"../player_inventory".initial_build_inventory()
@@ -84,13 +87,13 @@ func combat(player_deck_list, enemy_deck_list):
 		
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
-		$"../Timer".start()
-		await $"../Timer".timeout
+		timer_between_animations.start()
+		await timer_between_animations.timeout
 		player_deck.discard(player_card)
 		enemy_node.discard(enemy_card)
 		
-		$"../Timer".start()
-		await $"../Timer".timeout
+		timer_between_animations.start()
+		await timer_between_animations.timeout
 		
 		is_dead = death_checker()
 		if is_dead: break
@@ -114,6 +117,9 @@ func play_card():
 			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(player_card)
 		
+		play_order_timer.start()
+		await play_order_timer.timeout
+		
 		if !enemy_card.card_stats.on_cd and stun_check(enemy_card.card_stats.owner):
 			emit_signal("card_etb", enemy_card)
 			enemy_card.attack_animation(enemy_card.card_stats.owner)
@@ -125,6 +131,9 @@ func play_card():
 			enemy_card.attack_animation(enemy_card.card_stats.owner)
 			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
+		
+		play_order_timer.start()
+		await play_order_timer.timeout
 		
 		if !player_card.card_stats.on_cd and stun_check(player_card.card_stats.owner):
 			emit_signal("card_etb", player_card)

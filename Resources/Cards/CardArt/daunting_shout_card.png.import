@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6ah3u8iq2rby"
-path="res://.godot/imported/strengthen_card.png-6001d85f4b2caf61e53bbeda5b837c05.ctex"
+uid="uid://dldcxl84mg0n4"
+path="res://.godot/imported/daunting_shout_card.png-5cff4ce5ed61e1262af6bc9c21306519.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/strengthen_card.png"
-dest_files=["res://.godot/imported/strengthen_card.png-6001d85f4b2caf61e53bbeda5b837c05.ctex"]
+source_file="res://Resources/Cards/CardArt/daunting_shout_card.png"
+dest_files=["res://.godot/imported/daunting_shout_card.png-5cff4ce5ed61e1262af6bc9c21306519.ctex"]
 
 [params]
 

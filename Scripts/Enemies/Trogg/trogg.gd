@@ -33,6 +33,11 @@ var enemy_resource_path = "res://Resources/Enemies/Trogg.tres"
 var reward_array = []
 var difficulty_level
 
+#COMBAT VARIABLES==================================================================================
+var receiving_physical_dmg = 0
+var dealing_physical_dmg = 0
+var temp_physical_damage = 0
+
 func _ready():
 	set_stats(enemy_stats_resource)
 	set_stat_container()
@@ -145,17 +150,21 @@ func organize_buffs():
 
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
-	damage -= character_stats.armor
-	damage -= character_stats.defense
+	receiving_physical_dmg = damage
+	receiving_physical_dmg -= character_stats.armor
+	receiving_physical_dmg -= character_stats.defense
 	if character_stats.is_stunned: 
-		damage *= 2
-	emit_signal("physical_damage_taken", damage)
-	change_health(-damage)
+		receiving_physical_dmg *= 2
+	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
+	emit_signal("physical_damage_taken", receiving_physical_dmg)
+
 
 func deal_physical_damage(damage):
-	damage += character_stats.attack
-	emit_signal("physical_damage_dealt", damage)
-	return damage
+	dealing_physical_dmg = damage
+	dealing_physical_dmg += character_stats.attack + temp_physical_damage
+	emit_signal("physical_damage_dealt", dealing_physical_dmg)
+	temp_physical_damage = 0
+	return dealing_physical_dmg
 
 func deal_bleed_damage():
 	pass
@@ -217,6 +226,7 @@ func lifesteal(damage):
 
 func change_health(amount):
 	character_stats.health += amount
+	if character_stats.health > character_stats.max_health: character_stats.health = character_stats.max_health
 	$EnemyUI/EnemyHealthBar.value = character_stats.health
 	$EnemyUI/EnemyHealthBar/EnemyHealthLabel.text = str($EnemyUI/EnemyHealthBar.value) + "/" + str($EnemyUI/EnemyHealthBar.max_value)
 	emit_signal("health_changed")

@@ -92,7 +92,7 @@ func gain_xp(amount):
 		emit_signal("level_up")
 
 func set_player_inventory():
-	player_inventory_db = ["Hardened Skin", "Strike"]
+	player_inventory_db = ["Hardened Skin", "Strike", "Daunting Shout"]
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:

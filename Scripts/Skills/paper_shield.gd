@@ -10,14 +10,13 @@ func _ready():
 	update_tooltip("Effect","Reduce the next 6+ damage to 0, once per battle",  "Effect: ")
 	
 	if Global.current_scene == "battle_sim":
-		get_tree().get_first_node_in_group("battle sim").connect("physical_damage", skill_effect)
+		skill_stats.owner.connect("physical_damage_taken", skill_effect)
 
-func skill_effect(source, target, damage, card):
+func skill_effect(damage):
 	print("In skills effect for paper shield")
 	if one_shot == false: return
-	if source == attached_to: return
 	if damage >= 6:
-		get_tree().get_first_node_in_group("battle sim").damage = 0
+		get_tree().get_first_node_in_group("character").receiving_physical_dmg = 0
 		one_shot = false
 		print("WE BLOCKED WITH A PAPER SHIELD")
 		$SkillImage.self_modulate.a = .5

@@ -11,7 +11,7 @@ func _ready():
 	
 	if Global.current_scene == "battle_sim":
 		get_tree().get_first_node_in_group("battle sim").connect("card_etb", skill_effect)
-	
+
 
 func skill_effect(card):
 	if card.card_stats.owner != skill_stats.owner: return
@@ -24,7 +24,6 @@ func skill_effect(card):
 			counter += 1
 			
 		update_counter_text()
-
 
 func upgrade_skill(num):
 	match num:
