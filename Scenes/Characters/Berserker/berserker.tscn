@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
 [ext_resource type="Texture2D" uid="uid://gb3vedweny2f" path="res://Resources/Art/UIElements/rage_bar_under.png" id="3_mcllw"]
 [ext_resource type="Texture2D" uid="uid://cm8or4yet6qac" path="res://Resources/Art/UIElements/rage_bar.png" id="3_svegv"]
-[ext_resource type="Texture2D" uid="uid://cnegogy620h2a" path="res://Resources/temp_beserker.png" id="5_12jeq"]
+[ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="4_xoway"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_i2nsu"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_tlmij"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="7_d0ter"]
@@ -57,7 +57,7 @@ texture_progress_offset = Vector2(2, 0)
 
 [node name="ClassImage" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("5_12jeq")
+texture = ExtResource("4_xoway")
 
 [node name="StatContainer" type="VBoxContainer" parent="."]
 offset_left = 105.0

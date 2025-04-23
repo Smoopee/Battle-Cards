@@ -1,6 +1,6 @@
 extends Node2D
 
-const PORTRAIT_Y_POSITION = 800
+const PORTRAIT_Y_POSITION = 820
 
 func _ready():
 	var center_screen_x = get_viewport().size.x / 2

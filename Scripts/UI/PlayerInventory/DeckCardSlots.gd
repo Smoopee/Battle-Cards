@@ -1,7 +1,7 @@
 extends Node2D
 
 const CARD_WIDTH = 160
-const DECK_Y_POSITION = 600
+const DECK_Y_POSITION = 610
 const NUMBER_OF_DECKSLOTS = 10
 
 

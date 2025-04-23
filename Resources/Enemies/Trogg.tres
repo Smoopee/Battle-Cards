@@ -23,4 +23,4 @@ speed = 10
 is_stunned = false
 stun_counter = 0
 runes = []
-biomes = ["Cave"]
+biomes = ["Cave", "Mountains"]

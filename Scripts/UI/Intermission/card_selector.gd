@@ -2,7 +2,7 @@ extends Node2D
 
 
 const CARD_WIDTH = 150
-const Y_POSITION = 620
+const Y_POSITION = 610
 
 var is_hoovering_on_card
 var disabled_collision = false

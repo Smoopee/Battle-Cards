@@ -157,6 +157,7 @@ func take_physical_damage(damage):
 		receiving_physical_dmg *= 2
 	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
 	emit_signal("physical_damage_taken", receiving_physical_dmg)
+	change_health(-receiving_physical_dmg)
 
 
 func deal_physical_damage(damage):

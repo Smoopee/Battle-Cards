@@ -1,18 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=17 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/Biomes.gd" id="3_enisl"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_5sm1h"]
-[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_oagdc"]
 [ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="5_pgxp2"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_ksv00"]
+[ext_resource type="Texture2D" uid="uid://0x84osthytof" path="res://Resources/Art/Backgrounds/enemy_selection_background.png" id="7_smwqy"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyDeckDisplay.gd" id="8_xkyks"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="9_abhd6"]
 [ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="9_r1ycm"]
 [ext_resource type="PackedScene" uid="uid://bua11o6oudri4" path="res://Scenes/UI/Player/rune_manager.tscn" id="10_objcs"]
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="11_l63ti"]
+[ext_resource type="Texture2D" uid="uid://cj5xnevnwa8tu" path="res://Resources/Art/UIElements/Biome_selection_bg_panel.png" id="14_5d43i"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_gq20e"]
 
@@ -38,7 +39,7 @@ show_behind_parent = true
 offset_right = 1920.0
 offset_bottom = 1079.0
 mouse_filter = 2
-texture = ExtResource("5_oagdc")
+texture = ExtResource("7_smwqy")
 
 [node name="EnemyDeckDisplay" type="Node2D" parent="."]
 script = ExtResource("8_xkyks")
@@ -59,3 +60,28 @@ group2 = SubResource("ButtonGroup_asw23")
 [node name="TooltipTimer" type="Timer" parent="."]
 
 [node name="BottomNavBar" parent="." instance=ExtResource("11_l63ti")]
+
+[node name="BiomeBG" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_left = 523.0
+offset_top = 296.0
+offset_right = 1398.0
+offset_bottom = 506.0
+texture = ExtResource("14_5d43i")
+
+[node name="DeckBG" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_left = 152.0
+offset_top = 507.0
+offset_right = 1767.0
+offset_bottom = 717.0
+texture = ExtResource("14_5d43i")
+
+[node name="InventoryBG" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_left = 550.0
+offset_top = 718.0
+offset_right = 1425.0
+offset_bottom = 928.0
+scale = Vector2(0.933087, 0.97901)
+texture = ExtResource("14_5d43i")
