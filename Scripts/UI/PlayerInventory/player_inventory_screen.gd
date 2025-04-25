@@ -28,6 +28,7 @@ var deck_card_slot_reference_index
 var inventory_card_slot_reference_index
 var previous_card_slot
 var inventory_screen = false
+var full_art_toggle = false
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
@@ -54,11 +55,16 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			$ClickTimer.start(.1)
 			var card = raycast_check_for_card()
-			if card:
+			if full_art_toggle: 
+				clear_full_art()
+			elif card:
 				start_drag(card)
 		else:
-			if card_being_dragged:
+			if $ClickTimer.get_time_left() > 0 and card_being_dragged:
+				click_card(card_being_dragged)
+			elif card_being_dragged:
 				finish_drag()
 
 func start_drag(card):
@@ -526,3 +532,14 @@ func toggle_sell_zone(toggle):
 	else:
 		$SellZone.visible = false
 		$SellZone.process_mode = Node.PROCESS_MODE_DISABLED
+
+func click_card(card_being_dragged):
+	full_art_toggle = true
+	card_being_dragged.load_full_art()
+	inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
+	card_reset()
+
+func clear_full_art():
+	for i in $FullArt.get_children():
+		i.queue_free()
+	full_art_toggle = false

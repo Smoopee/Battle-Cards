@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_fyxe4")
 card_art_path = "res://res://Resources/Cards/CardArt/rock_card.png"
+full_art_path = "res://Scenes/Cards/FullArt/rock_full_art.tscn"
 card_scene_path = "res://Scenes/Cards/rock.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = "res://Resources/Cards/CardArt/rock.png"

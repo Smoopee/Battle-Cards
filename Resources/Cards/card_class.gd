@@ -6,6 +6,7 @@ class_name card
 var tooltip : PopupPanel
 var tooltip_container : VBoxContainer
 var upgrade_border : Sprite2D
+var dmg_panel : Panel
 var dmg_label : Label
 var cd_panel : Panel
 var cd_label : Label
@@ -39,6 +40,7 @@ func _ready():
 	tooltip = get_node('%PopupPanel')
 	tooltip_container = get_node('%TooltipContainer')
 	upgrade_border = get_node('%UpgradeBorder')
+	dmg_panel = get_node('%DamagPanel')
 	dmg_label = get_node('%DamageLabel')
 	cd_panel = get_node('%CDPanel')
 	cd_label = get_node('%CDLabel')
@@ -54,6 +56,7 @@ func _ready():
 	audio = get_node('%AudioStreamPlayer2D')
 	enchant_image = get_node('%ItemEnchantImage')
 	collision_shape = get_node('%CollisionShape2D')
+	
 
 func effect(player_deck, enemy_deck, player, enemy):
 	effects.effect(player_deck, enemy_deck, player, enemy)
@@ -67,6 +70,9 @@ func item_enchant(enchant):
 func update_card_image():
 	upgrade_border.texture = load(card_stats.card_upgrade_art_path)
 	dmg_label.text = str(card_stats.dmg)
+	
+	if card_stats.dmg == 0: dmg_panel.visible = false
+	
 	if card_stats.cd > 0:
 		cd_panel.visible = true
 		cd_label.text = str(card_stats.cd)
@@ -283,3 +289,7 @@ func organzie_card_modifiers():
 		y_offset += 30
 		counter += 1
 
+func load_full_art():
+	var full_art = load(card_stats.full_art_path).instantiate()
+	get_tree().get_first_node_in_group("full art").add_child(full_art)
+	full_art.global_position = Vector2((get_viewport().size.x / 2) - 160, (get_viewport().size.y / 2) - 30)

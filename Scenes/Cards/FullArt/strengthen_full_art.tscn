@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://caki52jpff3h1"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/FullArt/strengthen_full_art.gd" id="1_2wqwk"]
+[ext_resource type="Texture2D" uid="uid://digpo4vk2ij3f" path="res://Resources/Art/Cards/FullArt/strengthen_full_art.png" id="2_ft2ne"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njofv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2syv"]
+bg_color = Color(0.0807833, 0.0807834, 0.0807833, 0.466667)
+
+[node name="StrengthenFullArt" type="Node2D"]
+z_index = 5
+script = ExtResource("1_2wqwk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ft2ne")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_njofv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+offset_right = 324.0
+offset_bottom = 56.0
+
+[node name="Name" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Strike"
+
+[node name="EffectContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Effect" type="Label" parent="Panel/VBoxContainer/EffectContainer"]
+layout_mode = 2
+text = "Effect: "
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/EffectContainer"]
+layout_mode = 2
+text = "Deal 5 Damge"
+
+[node name="CDContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CD" type="Label" parent="Panel/VBoxContainer/CDContainer"]
+layout_mode = 2
+text = "CD: 0"
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/CDContainer"]
+layout_mode = 2
+
+[node name="BGDimmer" type="Panel" parent="."]
+z_index = 4
+z_as_relative = false
+offset_left = -1749.0
+offset_top = -1522.0
+offset_right = 2052.0
+offset_bottom = 1153.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2syv")

@@ -54,4 +54,10 @@ offset_bottom = 928.0
 scale = Vector2(0.933087, 0.97901)
 texture = ExtResource("7_ehsmf")
 
+[node name="ClickTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="FullArt" type="Node2D" parent="." groups=["full art"]]
+
 [connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]
