@@ -39,6 +39,7 @@ func update_rewards():
 
 func card_reward(enemy_reward):
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
+	add_child(new_scene)
 	new_scene.card_stats = enemy_reward
 	new_scene.card_stats.in_enemy_deck = true
 	new_scene.card_stats.is_players = true
@@ -50,7 +51,6 @@ func card_reward(enemy_reward):
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
-	add_child(new_scene)
 	reward = new_scene
 
 func skill_reward(enemy_reward):

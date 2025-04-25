@@ -245,7 +245,7 @@ func organize_buffs():
 	var x_offset = 0
 	for i in $BuffContainer.get_children():
 		i.position = $BuffContainer.position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
-		i.scale = Vector2(2,2)
+		i.scale = Vector2(1,1)
 		x_offset += 50
 
 func _on_buff_container_child_order_changed():

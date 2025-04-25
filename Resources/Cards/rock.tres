@@ -5,8 +5,8 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_fyxe4")
-card_art_path = "res://Resources/Cards/CardArt/rock.png"
-card_scene_path = "res://Scenes/Cards/rocks.tscn"
+card_art_path = "res://res://Resources/Cards/CardArt/rock_card.png"
+card_scene_path = "res://Scenes/Cards/rock.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = "res://Resources/Cards/CardArt/rock.png"
 name = "Rock"
@@ -43,5 +43,5 @@ card_type = ["Attack", "Trogg"]
 is_discarded = false
 is_blank = false
 is_updated = false
-card_mode = ""
+mode = ""
 card_rarity = 1

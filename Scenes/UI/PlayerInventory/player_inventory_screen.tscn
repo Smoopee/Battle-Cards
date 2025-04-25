@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwqs5wchg56o"]
+[gd_scene load_steps=8 format=3 uid="uid://bwqs5wchg56o"]
 
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/player_inventory_screen.gd" id="1_ek0gf"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/DeckCardSlots.gd" id="3_4n06j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/ActiveDeck.gd" id="5_3rxlr"]
 [ext_resource type="PackedScene" uid="uid://8sds3v74n7g" path="res://Scenes/UI/UIElements/sell_zone.tscn" id="6_i6oqa"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/CurrentInventory.gd" id="6_uxh4d"]
+[ext_resource type="Texture2D" uid="uid://cj5xnevnwa8tu" path="res://Resources/Art/UIElements/Biome_selection_bg_panel.png" id="7_ehsmf"]
 
 [node name="PlayerInventoryScreen" type="Node2D" groups=["player inventory"]]
 visible = false
@@ -33,5 +34,24 @@ offset_top = 892.0
 offset_right = 278.0
 offset_bottom = 923.0
 text = "Upgrade Mode"
+
+[node name="DeckBG" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = 152.0
+offset_top = 507.0
+offset_right = 1767.0
+offset_bottom = 717.0
+texture = ExtResource("7_ehsmf")
+
+[node name="InventoryBG" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = 550.0
+offset_top = 718.0
+offset_right = 1425.0
+offset_bottom = 928.0
+scale = Vector2(0.933087, 0.97901)
+texture = ExtResource("7_ehsmf")
 
 [connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]

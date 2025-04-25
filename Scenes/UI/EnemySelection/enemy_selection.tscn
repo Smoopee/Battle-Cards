@@ -62,26 +62,10 @@ group2 = SubResource("ButtonGroup_asw23")
 [node name="BottomNavBar" parent="." instance=ExtResource("11_l63ti")]
 
 [node name="BiomeBG" type="TextureRect" parent="."]
+visible = false
 show_behind_parent = true
 offset_left = 523.0
 offset_top = 296.0
 offset_right = 1398.0
 offset_bottom = 506.0
-texture = ExtResource("14_5d43i")
-
-[node name="DeckBG" type="TextureRect" parent="."]
-show_behind_parent = true
-offset_left = 152.0
-offset_top = 507.0
-offset_right = 1767.0
-offset_bottom = 717.0
-texture = ExtResource("14_5d43i")
-
-[node name="InventoryBG" type="TextureRect" parent="."]
-show_behind_parent = true
-offset_left = 550.0
-offset_top = 718.0
-offset_right = 1425.0
-offset_bottom = 928.0
-scale = Vector2(0.933087, 0.97901)
 texture = ExtResource("14_5d43i")

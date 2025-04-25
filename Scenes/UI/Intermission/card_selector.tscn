@@ -1,7 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvroc13lcl75m"]
+[gd_scene load_steps=7 format=3 uid="uid://cvroc13lcl75m"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Intermission/card_selector.gd" id="1_20arn"]
+[ext_resource type="Shader" path="res://Shaders/card_selector.gdshader" id="2_3uvmj"]
 [ext_resource type="Texture2D" uid="uid://cy0oosx4a7hgi" path="res://Resources/Art/UIElements/card_selector.png" id="2_st0ex"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="3_88gqv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_46aay"]
+shader = ExtResource("2_3uvmj")
+shader_parameter/onoff = null
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52q5g"]
 size = Vector2(140, 175)
@@ -10,8 +20,15 @@ size = Vector2(140, 175)
 script = ExtResource("1_20arn")
 
 [node name="CardImage" type="Sprite2D" parent="."]
+self_modulate = Color(0.9, 0.9, 0.9, 1)
 texture_filter = 1
 texture = ExtResource("2_st0ex")
+
+[node name="GlowEffect" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_46aay")
+position = Vector2(-3.09944e-06, 3.72529e-06)
+scale = Vector2(1.07692, 1.06316)
+texture = ExtResource("3_88gqv")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16

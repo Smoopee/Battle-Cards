@@ -12,6 +12,9 @@ var card_being_dragged
 var card_selector_reference
 var is_toggle_inventory = false
 
+var glow_power = 3.0
+var speed = 2.0
+
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -20,6 +23,7 @@ func _ready():
 
 func _process(delta):
 	if card_being_dragged:
+		glow_pulse(delta)
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
@@ -61,10 +65,12 @@ func finish_drag():
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
+		stop_card_glow()
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
+	start_card_glow()
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
@@ -176,3 +182,19 @@ func toggle_inventory():
 		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
+
+func start_card_glow():
+	for i in $Biomes.get_children():
+		i.get_node("GlowEffect").visible = true
+
+func stop_card_glow():
+	for i in $Biomes.get_children():
+		i.get_node("GlowEffect").visible = false
+
+func glow_pulse(delta):
+	for i in $Biomes.get_children():
+		glow_power += delta * speed
+		if glow_power >= 2.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
+			speed *= -1.0
+		i.get_node("GlowEffect").modulate.a = glow_power/ 4
+		i.get_node("GlowEffect").get_material().set_shader_parameter("glow_power", glow_power)

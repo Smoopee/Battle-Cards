@@ -56,3 +56,9 @@ func toggle_cd():
 	pass
 	if card_stats.on_cd: $CardUI/CDDisplayPanel.visible = true
 	else: $CardUI/CDDisplayPanel.visible = false
+
+func card_reset():
+	card_stats.cd_remaining = 0
+	card_stats.on_cd = false
+	card_stats.mode = ""
+	update_card_ui()

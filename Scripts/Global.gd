@@ -92,7 +92,7 @@ func gain_xp(amount):
 		emit_signal("level_up")
 
 func set_player_inventory():
-	player_inventory_db = ["Hardened Skin", "Strike", "Daunting Shout"]
+	player_inventory_db = []
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:
@@ -101,8 +101,8 @@ func instantiate_player_inventory():
 		player_inventory.push_back(card)
 
 func set_player_deck():
-	player_deck_db = ["Strengthen", "Shield Block", "Shift Stance", "Strike", "Strike", 
-	"Strike", "Strike", "Strike", "Strike", "Strike"]
+	player_deck_db = ["Strike", "Strike", 
+	"Strike", "Strike", "Strike", "Strike", "Strengthen", "Rock"]
 
 func instantiate_player_deck():
 	for i in player_deck_db:

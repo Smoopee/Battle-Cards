@@ -10,7 +10,7 @@ func _ready():
 	tooltip_template()
 
 func buff_initializer(source, target):
-	buff_effect1 = source.card_stats.effect1
+	buff_effect1 = source.get_parent().card_stats.effect1
 	attached_to = target
 	
 	count += buff_effect1
@@ -24,7 +24,7 @@ func buff_counter(amount = null):
 	tooltip_template()
 
 func increase_buff(source):
-	buff_counter(source.card_stats.effect1)
+	buff_counter(source.get_parent().card_stats.effect1)
 
 func on_buff_removed():
 	attached_to.change_attack(-buff_effect1)
@@ -70,8 +70,6 @@ func update_tooltip(identifier, body = null, header = null,):
 	
 	else:
 		tooltip.get_child(1).text = str(body)
-
-
 
 
 #==================================================================================================
