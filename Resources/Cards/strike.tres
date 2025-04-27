@@ -9,6 +9,7 @@ full_art_path = "res://Scenes/Cards/FullArt/strike_full_art.tscn"
 card_scene_path = "res://Scenes/Cards/strike.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = ""
+effect_details = "Deal \" ) + str(card_stats.dmg) + \" to the enemy"
 name = "Strike"
 dmg = 5
 cd = 0

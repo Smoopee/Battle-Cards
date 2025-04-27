@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Cards/Effects/strike_effect.gd" id="4_v18lx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mjcn"]
-size = Vector2(143, 180)
+size = Vector2(146, 180)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i2d0v"]
 bg_color = Color(1, 1, 0.905882, 1)
@@ -63,7 +63,6 @@ position = Vector2(50, 64.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 unique_name_in_owner = true
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_5mjcn")
 
 [node name="CardUI" type="Control" parent="."]
@@ -232,6 +231,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Name" type="Label" parent="PopupPanel/TooltipContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -243,3 +243,6 @@ unique_name_in_owner = true
 [node name="Effects" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_v18lx")
+
+[connection signal="mouse_entered" from="CardUI" to="." method="_on_card_ui_mouse_entered"]
+[connection signal="mouse_exited" from="CardUI" to="." method="_on_card_ui_mouse_exited"]

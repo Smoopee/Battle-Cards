@@ -21,11 +21,14 @@ offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hg5ll")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
 offset_right = 324.0
 offset_bottom = 56.0
 
 [node name="Name" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
 text = "Strike"
 
 [node name="EffectContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
@@ -37,16 +40,27 @@ text = "Effect: "
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/EffectContainer"]
 layout_mode = 2
-text = "Deal 5 Damge"
+text = "
+"
 
 [node name="CDContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
 [node name="CD" type="Label" parent="Panel/VBoxContainer/CDContainer"]
 layout_mode = 2
-text = "CD: 0"
+text = "CD: "
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/CDContainer"]
+layout_mode = 2
+
+[node name="CDRemainingCont" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CDRemaining" type="Label" parent="Panel/VBoxContainer/CDRemainingCont"]
+layout_mode = 2
+text = "CD Remaining: "
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/CDRemainingCont"]
 layout_mode = 2
 
 [node name="BGDimmer" type="Panel" parent="."]

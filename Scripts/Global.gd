@@ -42,10 +42,8 @@ var skill_db_reference
 var card_db_reference
 var rune_db_reference
 var consumable_db_reference
-var card_node_reference = 3
+#var card_node_reference = 3
 
-
-var mouse_occupied = false
 
 
 func _ready():

@@ -142,28 +142,6 @@ func display_enemy_cards(enemy):
 		i.queue_free()
 	$EnemyDeckDisplay.create_enemy_cards(enemy)
 
-func connect_card_signals(card):
-	card.connect("hovered_on", on_hovered_over)
-	card.connect("hovered_off", on_hovered_off)
-
-func on_hovered_over(card):
-	if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
-	card.mouse_exit = false
-	card.scale = Vector2(1.1, 1.1)
-	$TooltipTimer.start()
-	await $TooltipTimer.timeout
-	if card == null: return
-	if card.mouse_exit or card_being_dragged: return
-	card.toggle_tooltip_show()
-	card.scale = Vector2(2, 2)
-	card.z_index = 2
-
-func on_hovered_off(card):
-	if card_being_dragged: return
-	card.mouse_exit = true
-	card.toggle_tooltip_hide()
-	card.scale = Vector2(1, 1)
-	card.z_index = 1
 
 func toggle_inventory():
 	#From player screen to Inventory

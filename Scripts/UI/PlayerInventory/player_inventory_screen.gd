@@ -54,20 +54,22 @@ func _process(delta):
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		
 		if event.pressed:
-			$ClickTimer.start(.1)
-			var card = raycast_check_for_card()
-			if full_art_toggle: 
+			card_being_dragged = raycast_check_for_card()
+			if full_art_toggle and $ClickTimer.time_left == 0: 
 				clear_full_art()
-			elif card:
-				start_drag(card)
-		else:
-			if $ClickTimer.get_time_left() > 0 and card_being_dragged:
+			elif event.is_double_click():
 				click_card(card_being_dragged)
+				$ClickTimer.start(.5)
 			elif card_being_dragged:
+				start_drag(card_being_dragged)
+		else:
+			if card_being_dragged:
 				finish_drag()
 
 func start_drag(card):
+	Popups.mouse_occupied = true
 	card_being_dragged = card
 	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_being_dragged.scale = Vector2(1.1, 1.1)
@@ -75,6 +77,7 @@ func start_drag(card):
 	card_previous_position = card.position
 
 func finish_drag():
+	Popups.mouse_occupied = false
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
 	var sell_zone_found = raycast_check_for_sell_zone()

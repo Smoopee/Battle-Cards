@@ -20,6 +20,7 @@ var alt_dmg_panel : Panel
 var modifiers : Node2D
 var effects : Node2D
 
+
 #AUDIO==============================================================================================
 var audio : AudioStreamPlayer2D
 
@@ -35,6 +36,7 @@ var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
 var mouse_exit = false
+var effect_details
 
 func _ready():
 	tooltip = get_node('%PopupPanel')
@@ -56,7 +58,7 @@ func _ready():
 	audio = get_node('%AudioStreamPlayer2D')
 	enchant_image = get_node('%ItemEnchantImage')
 	collision_shape = get_node('%CollisionShape2D')
-	
+
 
 func effect(player_deck, enemy_deck, player, enemy):
 	effects.effect(player_deck, enemy_deck, player, enemy)
@@ -141,13 +143,6 @@ func change_item_enchant_image():
 			update_damage_label("Prosperity")
 	
 		_: enchant_image.texture = null
-
-
-func _on_card_ui_mouse_entered():
-	emit_signal("hovered_on", self)
-
-func _on_card_ui_mouse_exited():
-	emit_signal("hovered_off", self)
 
 func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
@@ -292,4 +287,14 @@ func organzie_card_modifiers():
 func load_full_art():
 	var full_art = load(card_stats.full_art_path).instantiate()
 	get_tree().get_first_node_in_group("full art").add_child(full_art)
+	full_art.card_stats = card_stats
+	full_art.effect_details = tooltip_container.get_node("Effect").get_child(1).text
+	full_art.fill_info()
 	full_art.global_position = Vector2((get_viewport().size.x / 2) - 160, (get_viewport().size.y / 2) - 30)
+
+
+func _on_card_ui_mouse_entered():
+	Popups.card_popup(self)
+
+func _on_card_ui_mouse_exited():
+	Popups.hide_card_popup(self)
