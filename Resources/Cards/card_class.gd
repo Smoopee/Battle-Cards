@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name card
+class_name Card
 
 #UI=================================================================================================
 var tooltip : PopupPanel
@@ -285,7 +285,7 @@ func organzie_card_modifiers():
 		counter += 1
 
 func load_full_art():
-	var full_art = load(card_stats.full_art_path).instantiate()
+	var full_art = load(card_stats.full_art_scene_path).instantiate()
 	get_tree().get_first_node_in_group("full art").add_child(full_art)
 	full_art.card_stats = card_stats
 	full_art.effect_details = tooltip_container.get_node("Effect").get_child(1).text

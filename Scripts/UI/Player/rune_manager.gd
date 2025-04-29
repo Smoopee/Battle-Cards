@@ -45,7 +45,7 @@ func finish_drag():
 	
 	if raycast_check_for_enemy():
 		var enemy = raycast_check_for_enemy()
-		enemy.add_rune(rune_being_dragged.rune_name)
+		enemy.add_rune(rune_being_dragged.rune_stats.rune_name)
 		rune_being_dragged.queue_free()
 		rune_reset()
 		return

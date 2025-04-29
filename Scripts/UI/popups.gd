@@ -38,20 +38,12 @@ func mouse_leave_check(card):
 	var small_y = the_area.global_position.y - ((the_shape.size.y / 2) + mouse_cursor_height)
 	var big_y = the_area.global_position.y + (the_shape.size.y / 2)
 
-	
-	print("Mouse position is " + str(mouse_pos))
-	print("Small x " + str(small_x))
-	print("Big x " + str(big_x))
-	print("Small y " + str(small_y))
-	print("Big y " + str(big_y))
 
 	if (mouse_pos.x >= small_x and 
 	mouse_pos.x <= big_x and
 	mouse_pos.y >= small_y and 
 	mouse_pos.y <= big_y): 
-		print("Inside of card")
 		return true
-	print("Outside of Card")
 	return false
 
 func talent_popup(slot, talent_name, effect):

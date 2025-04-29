@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmqdatbi63mr7"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Player/PlayerRunes/player_runes.gd" id="1_skvaf"]
+
+[node name="PlayerRunes" type="Node2D" groups=["player runes"]]
+script = ExtResource("1_skvaf")

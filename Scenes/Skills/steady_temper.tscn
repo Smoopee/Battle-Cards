@@ -1,12 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2ahk84chewi1"]
+[gd_scene load_steps=8 format=3 uid="uid://dqoy2idtb7njp"]
 
-[ext_resource type="Script" path="res://Scripts/Skills/steady_temper.gd" id="1_e0bik"]
-[ext_resource type="Texture2D" uid="uid://djxlmbdf6uh1r" path="res://Resources/Art/Skills/steady_temper_skill.png" id="2_676l0"]
+[ext_resource type="Script" path="res://Resources/Skills/skill_class.gd" id="1_dftcu"]
+[ext_resource type="Texture2D" uid="uid://ctn37ycsum6fe" path="res://Resources/Art/Skills/building_momentum_skill.png" id="2_5pkxl"]
+[ext_resource type="Script" path="res://Scripts/Skills/Effects/steady_temper_effect.gd" id="3_26pb4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_645ob"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fl65t"]
 size = Vector2(48, 48)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lnv04"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvs1r"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bqwf"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2teu"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -18,55 +35,22 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_336us"]
-bg_color = Color(0.688023, 0.596125, 0.233008, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x20n"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-
 [node name="SteadyTemper" type="Node2D"]
-script = ExtResource("1_e0bik")
+script = ExtResource("1_dftcu")
 
 [node name="SkillImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_676l0")
+unique_name_in_owner = true
+texture = ExtResource("2_5pkxl")
 
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_645ob")
-
-[node name="PopupPanel" type="PopupPanel" parent="."]
-transparent_bg = true
-size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_lnv04")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 374.0
-offset_bottom = 46.0
-
-[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-text = "Rock"
-vertical_alignment = 1
+shape = SubResource("RectangleShape2D_fl65t")
 
 [node name="SkillUI" type="Control" parent="."]
 layout_mode = 3
@@ -78,15 +62,17 @@ offset_bottom = 24.0
 mouse_filter = 2
 
 [node name="ShopPanel" type="Panel" parent="SkillUI"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = -32.0
 offset_top = 6.0
 offset_right = -2.0
 offset_bottom = 36.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_336us")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bvs1r")
 
 [node name="ShopLabel" type="Label" parent="SkillUI/ShopPanel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,6 +85,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InfoLabel" type="Label" parent="SkillUI"]
+unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 0
@@ -123,4 +110,27 @@ offset_top = -2.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7x20n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6bqwf")
+
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_26pb4")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+transparent_bg = true
+size = Vector2i(378, 50)
+theme_override_styles/panel = SubResource("StyleBoxFlat_y2teu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 374.0
+offset_bottom = 46.0
+
+[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Rock"
+vertical_alignment = 1

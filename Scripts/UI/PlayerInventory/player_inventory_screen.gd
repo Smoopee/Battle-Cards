@@ -537,12 +537,14 @@ func toggle_sell_zone(toggle):
 		$SellZone.process_mode = Node.PROCESS_MODE_DISABLED
 
 func click_card(card_being_dragged):
+	Popups.mouse_occupied = true
 	full_art_toggle = true
 	card_being_dragged.load_full_art()
 	inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
 	card_reset()
 
 func clear_full_art():
+	Popups.mouse_occupied = false	
 	for i in $FullArt.get_children():
 		i.queue_free()
 	full_art_toggle = false

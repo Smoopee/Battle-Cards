@@ -111,7 +111,7 @@ func inventory_and_deck_save():
 func _on_skip_button_button_down():
 	Global.player_gold += 5
 	inventory_and_deck_save()
-	Global.player_consumables = $Player/Berserker.get_consumable_array()
+	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1

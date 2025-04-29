@@ -70,7 +70,7 @@ func buy_consumable():
 		print("not enough gold")
 		return
 	Global.player_gold -= consumable_being_dragged.consumable_stats.buy_price
-	$"../Player/Berserker".add_consumable(consumable_being_dragged.consumable_stats)
+	get_tree().get_first_node_in_group("player consumables").add_consumable(consumable_being_dragged.consumable_stats)
 	$"../MerchantConsumables".remove_consumable_from_inventory(consumable_being_dragged)
 	consumable_being_dragged.queue_free()
 	update_player_gold()

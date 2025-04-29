@@ -3,7 +3,8 @@ extends Resource
 class_name Cards_Resource
 
 @export var card_art_path: String
-@export var full_art_path: String
+@export var full_art_scene_path: String
+@export var full_art_texture_path: String
 @export var card_scene_path: String
 @export var card_upgrade_art_path: String
 @export var buff_scene_path: String

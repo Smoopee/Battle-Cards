@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://dac2v2br3grnx"]
+[gd_scene load_steps=16 format=3 uid="uid://dac2v2br3grnx"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
+[ext_resource type="PackedScene" uid="uid://c6q0n1yria3h1" path="res://Scenes/UI/Player/PlayerConsumables/player_consumables.tscn" id="2_svm5r"]
 [ext_resource type="Texture2D" uid="uid://gb3vedweny2f" path="res://Resources/Art/UIElements/rage_bar_under.png" id="3_mcllw"]
+[ext_resource type="PackedScene" uid="uid://btucvus7fb5ei" path="res://Scenes/UI/Player/PlayerSkills/player_skills.tscn" id="3_ruasw"]
 [ext_resource type="Texture2D" uid="uid://cm8or4yet6qac" path="res://Resources/Art/UIElements/rage_bar.png" id="3_svegv"]
+[ext_resource type="PackedScene" uid="uid://cmqdatbi63mr7" path="res://Scenes/UI/Player/PlayerRunes/player_runes.tscn" id="4_p0pnd"]
 [ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="4_xoway"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_i2nsu"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_tlmij"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="7_d0ter"]
+[ext_resource type="Texture2D" uid="uid://bu5udw5yj1t1i" path="res://Resources/Art/UIElements/inventory_grid1.png" id="9_qjpam"]
 [ext_resource type="Texture2D" uid="uid://c5v1kq45qxngx" path="res://Resources/Art/UIElements/block_symbol.png" id="9_vfrul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qj8m8"]
@@ -30,6 +34,12 @@ bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 [node name="Berserker" type="Node2D" groups=["character"]]
 script = ExtResource("1_2i22b")
 
+[node name="PlayerConsumables" parent="." instance=ExtResource("2_svm5r")]
+
+[node name="PlayerSkills" parent="." instance=ExtResource("3_ruasw")]
+
+[node name="PlayerRunes" parent="." instance=ExtResource("4_p0pnd")]
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 8
@@ -48,12 +58,6 @@ texture_progress = ExtResource("3_svegv")
 texture_progress_offset = Vector2(2, 0)
 
 [node name="Talents" type="Node2D" parent="."]
-
-[node name="Skills" type="Node2D" parent="."]
-
-[node name="Consumables" type="Node2D" parent="."]
-
-[node name="Runes" type="Node2D" parent="."]
 
 [node name="ClassImage" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -231,5 +235,8 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "1
 "
 
-[connection signal="child_order_changed" from="Consumables" to="." method="_on_consumables_child_order_changed"]
+[node name="InventoryGrid" type="Sprite2D" parent="."]
+position = Vector2(-121, 0)
+texture = ExtResource("9_qjpam")
+
 [connection signal="child_order_changed" from="BuffContainer" to="." method="_on_buff_container_child_order_changed"]

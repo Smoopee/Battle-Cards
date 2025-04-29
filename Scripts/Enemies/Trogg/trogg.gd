@@ -108,10 +108,10 @@ func set_runes():
 		if rune_db_reference.RUNES[i] != null and !already_owned:
 			var rune_resource = load(rune_db_reference.RUNES[i]).duplicate()
 			var rune_scene = load(rune_resource.rune_scene_path).instantiate()
-			$Runes.add_child(rune_scene)
 			rune_scene.rune_stats = rune_resource
+			$Runes.add_child(rune_scene)
 			rune_scene.rune_stats.attached = true
-			rune_scene.connect_rune()
+			#rune_scene.connect_rune()
 			
 		already_owned = false
 	orgainze_runes()
@@ -158,7 +158,6 @@ func take_physical_damage(damage):
 	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
 	emit_signal("physical_damage_taken", receiving_physical_dmg)
 	change_health(-receiving_physical_dmg)
-
 
 func deal_physical_damage(damage):
 	dealing_physical_dmg = damage
@@ -262,8 +261,9 @@ func change_armor(amount):
 
 func change_max_health(amount):
 	character_stats.max_health *= amount
+	var health_difference = character_stats.max_health - character_stats.health
 	character_stats.health = character_stats.max_health
-	change_health(0)
+	change_health(health_difference)
 	set_stat_container()
 
 func adjust_stats():

@@ -3,6 +3,7 @@ extends Resource
 class_name Skills_Resource
 
 @export var skill_art_path: String
+@export var skill_upgrade_art_path: String
 @export var skill_scene_path: String
 @export var skill_name: String
 @export var buy_price: int

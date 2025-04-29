@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_3jgpo")
 card_art_path = "res://Resources/Cards/CardArt/strike_card.png"
-full_art_path = "res://Scenes/Cards/FullArt/strike_full_art.tscn"
+full_art_scene_path = "res://Scenes/Cards/FullArt/strike_full_art.tscn"
+full_art_texture_path = "res://Resources/Art/Cards/FullArt/strike_full_art.png"
 card_scene_path = "res://Scenes/Cards/strike.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = ""
-effect_details = "Deal \" ) + str(card_stats.dmg) + \" to the enemy"
 name = "Strike"
 dmg = 5
 cd = 0
@@ -40,7 +40,7 @@ item_enchant = ""
 screen_position = Vector2(0, 0)
 is_enchanted = false
 tags = []
-card_type = []
+card_type = ["Attack"]
 is_discarded = false
 is_blank = false
 is_updated = false

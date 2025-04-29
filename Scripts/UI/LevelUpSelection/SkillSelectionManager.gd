@@ -67,7 +67,7 @@ func raycast_check_for_skill_drop_off():
 	return null 
 
 func update_player_gold():
-	$"../BottomNavBar".change_player_gold() 
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold() 
 
 func skill_reset():
 	skill_being_dragged.scale = Vector2(1, 1)
@@ -76,7 +76,7 @@ func skill_reset():
 
 func check_for_upgrade_skill():
 	if skill_being_dragged.skill_stats.upgrade_level >= 4: return
-	for i in $"../Player/Berserker/Skills".get_children():
+	for i in get_tree().get_first_node_in_group("player skills").get_children():
 		if i.skill_stats.skill_name != skill_being_dragged.skill_stats.skill_name:
 			continue
 		if i.skill_stats.upgrade_level == skill_being_dragged.skill_stats.upgrade_level:
@@ -90,7 +90,7 @@ func upgrade_skill(skill_being_upgraded):
 
 func get_skill():
 	Global.player_skills.push_back(skill_being_dragged.skill_stats)
-	$"../Player/Berserker".add_skill(skill_being_dragged.skill_stats)
+	get_tree().get_first_node_in_group("player skills").add_skill(skill_being_dragged.skill_stats)
 	$"../SkillSelectionCreator".remove_skill_from_inventory(skill_being_dragged)
 	skill_being_dragged.queue_free()
 	update_player_gold()

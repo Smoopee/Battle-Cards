@@ -63,14 +63,14 @@ func raycast_check_for_player():
 	return null 
 
 func update_player_gold():
-	$"../BottomNavBar".change_player_gold() 
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold() 
 
 func buy_rune():
 	if Global.player_gold < rune_being_dragged.rune_stats.buy_price:
 		print("not enough gold")
 		return
 	Global.player_gold -= rune_being_dragged.rune_stats.buy_price
-	$"../Player/Berserker".add_rune(rune_being_dragged.rune_stats)
+	get_tree().get_first_node_in_group("player runes").add_rune(rune_being_dragged.rune_stats)
 	$"../MerchantRunes".remove_rune_from_inventory(rune_being_dragged)
 	rune_being_dragged.queue_free()
 	update_player_gold()

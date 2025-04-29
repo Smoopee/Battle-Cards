@@ -1,12 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgxsi44o2nqag"]
+[gd_scene load_steps=8 format=3 uid="uid://8tkeleyl5gga"]
 
-[ext_resource type="Script" path="res://Scripts/Skills/enrage.gd" id="1_kx48f"]
-[ext_resource type="Texture2D" uid="uid://0pivbhg65jxx" path="res://Resources/Art/Skills/enrage_skill.png" id="2_v8h1j"]
+[ext_resource type="Script" path="res://Resources/Skills/skill_class.gd" id="1_svbwp"]
+[ext_resource type="Texture2D" uid="uid://ctn37ycsum6fe" path="res://Resources/Art/Skills/building_momentum_skill.png" id="2_oiwjq"]
+[ext_resource type="Script" path="res://Scripts/Skills/Effects/enrage_effect.gd" id="3_dewqk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x41d6"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5e0e0"]
 size = Vector2(48, 48)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anhq4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_deb6u"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgonb"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7kkf"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -18,55 +35,22 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie3uv"]
-bg_color = Color(0.688023, 0.596125, 0.233008, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oafwt"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-
 [node name="Enrage" type="Node2D"]
-script = ExtResource("1_kx48f")
+script = ExtResource("1_svbwp")
 
 [node name="SkillImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_v8h1j")
+unique_name_in_owner = true
+texture = ExtResource("2_oiwjq")
 
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_x41d6")
-
-[node name="PopupPanel" type="PopupPanel" parent="."]
-transparent_bg = true
-size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_anhq4")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 374.0
-offset_bottom = 46.0
-
-[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-text = "Rock"
-vertical_alignment = 1
+shape = SubResource("RectangleShape2D_5e0e0")
 
 [node name="SkillUI" type="Control" parent="."]
 layout_mode = 3
@@ -78,15 +62,17 @@ offset_bottom = 24.0
 mouse_filter = 2
 
 [node name="ShopPanel" type="Panel" parent="SkillUI"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = -32.0
 offset_top = 6.0
 offset_right = -2.0
 offset_bottom = 36.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ie3uv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_deb6u")
 
 [node name="ShopLabel" type="Label" parent="SkillUI/ShopPanel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,6 +85,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InfoLabel" type="Label" parent="SkillUI"]
+unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 0
@@ -123,4 +110,27 @@ offset_top = -2.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oafwt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mgonb")
+
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_dewqk")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+transparent_bg = true
+size = Vector2i(378, 50)
+theme_override_styles/panel = SubResource("StyleBoxFlat_c7kkf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 374.0
+offset_bottom = 46.0
+
+[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Rock"
+vertical_alignment = 1

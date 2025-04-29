@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_ru0gb")
 skill_art_path = "res://Resources/Art/Skills/building_momentum_skill.png"
+skill_upgrade_art_path = ""
 skill_scene_path = "res://Scenes/Skills/building_momentum.tscn"
 skill_name = "Building Momentum"
 buy_price = 0

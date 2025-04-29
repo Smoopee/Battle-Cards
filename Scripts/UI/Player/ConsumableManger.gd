@@ -144,7 +144,7 @@ func consumable_reset():
 func animate_consumable_back_to_position(consumable, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(consumable, "global_position", new_position, 0.1)
-	tween.tween_property(consumable, "z_index", 0, 0)
+	tween.tween_property(consumable, "z_index", 1, 0)
 	if place_holder_used:
 		await tween.finished
 		print("in place holder used")

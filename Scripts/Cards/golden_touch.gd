@@ -39,7 +39,7 @@ func effect(player_deck, enemy_deck, player, enemy):
 	coin.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
 	coin.upgrade_card(coin.card_stats.upgrade_level)
 	coin.card_stats.in_enemy_deck = false
-	coin.card_stats.card_owner = get_tree().get_first_node_in_group("character")
+	coin.card_stats.owner = get_tree().get_first_node_in_group("character")
 	coin.card_stats.is_players = true
 	coin.card_stats.on_cd = false
 	coin.card_stats.cd_remaining = 0
