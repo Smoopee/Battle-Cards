@@ -32,9 +32,9 @@ func initial_build_deck():
 			deck.push_back(null)
 			continue
 		var new_card = load(deck_db[i].card_scene_path).instantiate()
-		add_child(new_card)
 		deck.push_back(new_card)
 		new_card.card_stats = deck_db[i]
+		add_child(new_card)
 		if first_test: new_card.upgrade_card(new_card.card_stats.upgrade_level)
 		new_card.item_enchant(new_card.card_stats.item_enchant)
 		new_card.card_stats.owner = get_tree().get_first_node_in_group("character")

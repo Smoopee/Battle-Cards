@@ -172,7 +172,7 @@ func rest():
 
 func change_scenes():
 	inventory_and_deck_save()
-	Global.player_consumables = $Player/Berserker.get_consumable_array()
+	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
 	Global.save_function()
 	Global.intermission_tracker = 0
 	Global.current_scene = "enemy_selection"

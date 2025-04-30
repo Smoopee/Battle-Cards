@@ -1,6 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dac2v2br3grnx"]
+[gd_scene load_steps=18 format=3 uid="uid://dac2v2br3grnx"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
+[ext_resource type="PackedScene" uid="uid://c12ekuq1diigx" path="res://Scenes/UI/Player/PlayerBuffs/player_buffs.tscn" id="2_akq4v"]
+[ext_resource type="PackedScene" uid="uid://c6bd4r2gdjyww" path="res://Scenes/UI/Player/PlayerDebuffs/player_debuffs.tscn" id="2_lkafq"]
 [ext_resource type="PackedScene" uid="uid://c6q0n1yria3h1" path="res://Scenes/UI/Player/PlayerConsumables/player_consumables.tscn" id="2_svm5r"]
 [ext_resource type="Texture2D" uid="uid://gb3vedweny2f" path="res://Resources/Art/UIElements/rage_bar_under.png" id="3_mcllw"]
 [ext_resource type="PackedScene" uid="uid://btucvus7fb5ei" path="res://Scenes/UI/Player/PlayerSkills/player_skills.tscn" id="3_ruasw"]
@@ -34,6 +36,10 @@ bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 [node name="Berserker" type="Node2D" groups=["character"]]
 script = ExtResource("1_2i22b")
 
+[node name="PlayerDebuffs" parent="." instance=ExtResource("2_lkafq")]
+
+[node name="PlayerBuffs" parent="." instance=ExtResource("2_akq4v")]
+
 [node name="PlayerConsumables" parent="." instance=ExtResource("2_svm5r")]
 
 [node name="PlayerSkills" parent="." instance=ExtResource("3_ruasw")]
@@ -46,16 +52,6 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_qj8m8")
-
-[node name="RageBar" type="TextureProgressBar" parent="."]
-offset_left = 73.0
-offset_top = -38.0
-offset_right = 91.0
-offset_bottom = 91.0
-fill_mode = 3
-texture_under = ExtResource("3_mcllw")
-texture_progress = ExtResource("3_svegv")
-texture_progress_offset = Vector2(2, 0)
 
 [node name="Talents" type="Node2D" parent="."]
 
@@ -162,6 +158,16 @@ text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="RageBar" type="TextureProgressBar" parent="."]
+offset_left = 73.0
+offset_top = -38.0
+offset_right = 91.0
+offset_bottom = 91.0
+fill_mode = 3
+texture_under = ExtResource("3_mcllw")
+texture_progress = ExtResource("3_svegv")
+texture_progress_offset = Vector2(2, 0)
+
 [node name="PlayerHealthBar" type="TextureProgressBar" parent="."]
 offset_left = -649.0
 offset_top = 93.0
@@ -184,27 +190,6 @@ text = "3000/3000
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="BuffContainer" type="HBoxContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -648.0
-offset_top = 117.0
-offset_right = 1.0
-offset_bottom = 157.0
-grow_horizontal = 2
-
-[node name="DebuffContainer" type="HBoxContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 118.0
-offset_right = 650.0
-offset_bottom = 158.0
-grow_horizontal = 2
-size_flags_stretch_ratio = 0.0
-alignment = 2
 
 [node name="BlockSymbol" type="Sprite2D" parent="."]
 visible = false
@@ -238,5 +223,3 @@ text = "1
 [node name="InventoryGrid" type="Sprite2D" parent="."]
 position = Vector2(-121, 0)
 texture = ExtResource("9_qjpam")
-
-[connection signal="child_order_changed" from="BuffContainer" to="." method="_on_buff_container_child_order_changed"]

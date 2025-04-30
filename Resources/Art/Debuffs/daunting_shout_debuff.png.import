@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbgms2beu6cst"
-path="res://.godot/imported/hardnened_skin_buff.png-85c756f1aa01147385e20eb6d5986e1f.ctex"
+uid="uid://buyxrjs2c70qr"
+path="res://.godot/imported/daunting_shout_debuff.png-90c4ffc54f002da6ac1a45b07a50a1db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Buffs/hardnened_skin_buff.png"
-dest_files=["res://.godot/imported/hardnened_skin_buff.png-85c756f1aa01147385e20eb6d5986e1f.ctex"]
+source_file="res://Resources/Art/Debuffs/daunting_shout_debuff.png"
+dest_files=["res://.godot/imported/daunting_shout_debuff.png-90c4ffc54f002da6ac1a45b07a50a1db.ctex"]
 
 [params]
 

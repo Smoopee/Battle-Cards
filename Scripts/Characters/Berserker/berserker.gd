@@ -13,8 +13,6 @@ signal poisoning_damage_applied
 signal poisoning_damage_taken
 signal heal_received
 
-const BUFF_X_POSITION = 675
-const BUFF_Y_POSITION = -100
 
 
 var character_stats
@@ -84,29 +82,18 @@ func end_of_turn():
 func end_of_round():
 	burn_damage_round_keeper()
 
-
-#BUFFS ============================================================================================
-func add_buff(buff, source):
-	$BuffContainer.add_child(buff)
-	buff.buff_initializer(source)
-	organize_buffs()
+#BUFFS/DEBUFFS =====================================================================================
+func add_buff(buff_resource, source):
+	get_tree().get_first_node_in_group("player buffs").add_buff(buff_resource, source)
 
 func remove_buff(buff):
-	for i in $BuffContainer.get_children():
-		if i.buff_name == buff:
-			i.queue_free()
-	organize_buffs()
+	get_tree().get_first_node_in_group("player buffs").remove_buff(buff)
 
-func organize_buffs():
-	var x_offset = 0
-	for i in $BuffContainer.get_children():
-		i.position = $BuffContainer.position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
-		i.scale = Vector2(1,1)
-		x_offset += 50
+func add_debuff(debuff_resource, source):
+	get_tree().get_first_node_in_group("player debuffs").add_debuff(debuff_resource, source)
 
-func _on_buff_container_child_order_changed():
-	if get_node_or_null("BuffContainer") == null: return
-	organize_buffs()
+func remove_debuff(debuff):
+	get_tree().get_first_node_in_group("player debuffs").remove_debuff(debuff)
 
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
@@ -207,7 +194,6 @@ func change_rage(value):
 	var rage_bar = $RageBar
 	rage_bar.value += value
 	if  rage_bar.value  >= 100:
-		change_attack(rage_attack_increase)
 		rage_bar.value = 0
 		rage_bar.max_value += 10
 		rage_attack_buff()
@@ -240,13 +226,8 @@ func block_damage():
 	change_block()
 
 func rage_attack_buff():
-	for i in get_tree().get_nodes_in_group("buff"):
-		if i.buff_name == "Rage Attack Increase" and i.attached_to == self: 
-			i.increase_buff(self)
-			return
-			
-	var new_buff = load("res://Scenes/Buffs/rage_attack_increase_buff.tscn").instantiate()
-	add_buff(new_buff, self)
+	var buff_resource = load('res://Resources/Buffs/rage_attack_increase.tres')
+	add_buff(buff_resource, self)
 
 #OTHER =============================================================================================
 func inventory_screen_toggle(toggle):

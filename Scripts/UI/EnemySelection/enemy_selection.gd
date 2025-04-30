@@ -142,7 +142,6 @@ func display_enemy_cards(enemy):
 		i.queue_free()
 	$EnemyDeckDisplay.create_enemy_cards(enemy)
 
-
 func toggle_inventory():
 	#From player screen to Inventory
 	if is_toggle_inventory == true:

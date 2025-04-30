@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Buff_Resource" load_steps=2 format=3 uid="uid://bakcq2pq7uu5c"]
+
+[ext_resource type="Script" path="res://Resources/Buffs/buff_master_resource.gd" id="1_0xwmh"]
+
+[resource]
+script = ExtResource("1_0xwmh")
+buff_art_path = "res://Resources/Art/Consumables/strength_potion_consumable.png"
+buff_scene_path = "res://Scenes/Buffs/strength_potion_buff.tscn"
+buff_name = "Strength Potion"
+tags = []

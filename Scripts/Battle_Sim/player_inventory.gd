@@ -16,9 +16,9 @@ func initial_build_inventory():
 			inventory.push_back(null)
 		else:
 			var new_card = load(inventory_db[i].card_scene_path).instantiate()
-			add_child(new_card)
 			inventory.push_back(new_card)
 			new_card.card_stats = inventory_db[i]
+			add_child(new_card)
 			new_card.upgrade_card(new_card.card_stats.upgrade_level)
 			new_card.item_enchant(new_card.card_stats.item_enchant)
 			new_card.card_stats.owner = get_tree().get_first_node_in_group("character")

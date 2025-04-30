@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c12ekuq1diigx"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Player/PlayerBuffs/player_buffs.gd" id="1_wenio"]
+
+[node name="PlayerBuffs" type="Node2D" groups=["player buffs"]]
+script = ExtResource("1_wenio")

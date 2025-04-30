@@ -26,8 +26,8 @@ var deck = []
 
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
-	add_child(enemy)
 	enemy.character_stats = Global.current_enemy
+	add_child(enemy)
 	enemy.setup()
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
@@ -38,6 +38,7 @@ func _ready():
 
 func initial_build_deck():
 	enemy_deck = enemy.deck
+	
 
 	deck = []
 	var card_position = 0
@@ -53,9 +54,9 @@ func initial_build_deck():
 			add_child(load_blank)
 		else:
 			var new_card = load(enemy_deck[i].card_scene_path).instantiate()
-			add_child(new_card)
 			deck.push_back(new_card)
 			new_card.card_stats = enemy_deck[i]
+			add_child(new_card)
 			new_card.upgrade_card(new_card.card_stats.upgrade_level)
 			new_card.item_enchant(new_card.card_stats.item_enchant)
 			new_card.card_stats.is_players = false

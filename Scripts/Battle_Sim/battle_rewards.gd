@@ -39,8 +39,8 @@ func update_rewards():
 
 func card_reward(enemy_reward):
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
-	add_child(new_scene)
 	new_scene.card_stats = enemy_reward
+	add_child(new_scene)
 	new_scene.card_stats.in_enemy_deck = true
 	new_scene.card_stats.is_players = true
 	new_scene.card_stats.cd_remaining = 0

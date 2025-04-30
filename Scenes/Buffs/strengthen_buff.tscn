@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdcr2euiyfjev"]
+[gd_scene load_steps=6 format=3 uid="uid://vkekekplsm5c"]
 
-[ext_resource type="Texture2D" uid="uid://43dxdgf1gs4f" path="res://Resources/Art/Buffs/strengthen_buff.png" id="1_anf4i"]
-[ext_resource type="Script" path="res://Scripts/Buffs/strengthen_buff.gd" id="1_lb4gy"]
+[ext_resource type="Script" path="res://Resources/Buffs/buff_class.gd" id="1_xecho"]
+[ext_resource type="Texture2D" uid="uid://ini0j8y2vxsm" path="res://Resources/Art/Consumables/cheese_consumable.png" id="2_s512o"]
+[ext_resource type="Script" path="res://Scripts/Buffs/Effects/strengthen_buff.gd" id="3_rscuk"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvwy6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kuh1"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fc3p"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,32 +24,45 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5txi1"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+[node name="StrengthenBuff" type="Node2D"]
+script = ExtResource("1_xecho")
 
-[node name="StrengthenBuff" type="Node2D" groups=["buff"]]
-script = ExtResource("1_lb4gy")
+[node name="BuffImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_s512o")
 
-[node name="Panel" type="Panel" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(30, 30)
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+[node name="BuffCounters" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -5.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_anf4i")
+[node name="BuffCounterPanel" type="Panel" parent="BuffCounters"]
+unique_name_in_owner = true
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8kuh1")
+
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_rscuk")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_bvwy6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1fc3p")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -55,28 +77,3 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Rock"
 vertical_alignment = 1
-
-[node name="BuffCounters" type="Label" parent="."]
-offset_left = -5.0
-offset_top = 8.0
-offset_right = 5.0
-offset_bottom = 18.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffCounterPanel" type="Panel" parent="BuffCounters"]
-show_behind_parent = true
-custom_minimum_size = Vector2(0, 11)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5txi1")
-
-[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

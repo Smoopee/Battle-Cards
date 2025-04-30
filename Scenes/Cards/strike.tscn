@@ -49,6 +49,7 @@ border_color = Color(0, 0, 0, 1)
 script = ExtResource("1_fx6hw")
 
 [node name="CardImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture_filter = 1
 texture = ExtResource("2_2kv1a")
 

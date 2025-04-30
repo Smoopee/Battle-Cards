@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxufod5vx43uf"]
+[gd_scene load_steps=6 format=3 uid="uid://d2fjp0uyo7i84"]
 
-[ext_resource type="Script" path="res://Scripts/Buffs/StrengthPotionBuff.gd" id="1_85uy1"]
-[ext_resource type="Texture2D" uid="uid://c72jrxtk5fdw1" path="res://Resources/Art/Consumables/strength_potion_consumable.png" id="2_y14am"]
+[ext_resource type="Script" path="res://Resources/Buffs/buff_class.gd" id="1_g08p2"]
+[ext_resource type="Texture2D" uid="uid://ini0j8y2vxsm" path="res://Resources/Art/Consumables/cheese_consumable.png" id="2_clkv0"]
+[ext_resource type="Script" path="res://Scripts/Buffs/Effects/strength_potion_effect.gd" id="3_uvioy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8nhc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdanp"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8h2xy"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,32 +24,45 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ae61i"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-
 [node name="StrengthPotionBuff" type="Node2D"]
-script = ExtResource("1_85uy1")
+script = ExtResource("1_g08p2")
 
-[node name="Panel" type="Panel" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(30, 30)
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+[node name="BuffImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_clkv0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_y14am")
+[node name="BuffCounters" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -5.0
+offset_top = 8.0
+offset_right = 5.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuffCounterPanel" type="Panel" parent="BuffCounters"]
+unique_name_in_owner = true
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qdanp")
+
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_uvioy")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_v8nhc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8h2xy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -55,25 +77,3 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Rock"
 vertical_alignment = 1
-
-[node name="BuffCounters" type="Label" parent="."]
-offset_left = -5.0
-offset_top = 8.0
-offset_right = 5.0
-offset_bottom = 18.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BuffCounterPanel" type="Panel" parent="BuffCounters"]
-show_behind_parent = true
-custom_minimum_size = Vector2(0, 11)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ae61i")

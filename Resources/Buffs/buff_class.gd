@@ -3,6 +3,7 @@ extends Node2D
 class_name Buff
 
 signal buff_removed
+signal counter_changed
 
 var buff_stats: Buff_Resource = null
 
@@ -17,6 +18,9 @@ func _ready():
 func buff_initializer(source):
 	effect.initialize(source)
 
+func additional_buff(source):
+	effect.additional_buff(source)
+
 func set_node_names():
 	buff_counter = get_node('%BuffCounters')
 	buff_counter_panel = get_node('%BuffCounterPanel')
@@ -25,21 +29,23 @@ func set_node_names():
 	
 	buff_image.texture = load(buff_stats.buff_art_path)
 	z_index = 1
+	add_to_group("buff")
 
 func set_counter(amount):
 	buff_stats.count = amount
 	buff_counter.text = str(buff_stats.count)
+	emit_signal("counter_changed", buff_stats.count)
 	if buff_stats.count <= 0: remove_buff()
 
 func change_counter(amount):
 	buff_stats.count += amount
 	buff_counter.text = str(buff_stats.count)
+	emit_signal("counter_changed", buff_stats.count)
 	if buff_stats.count <= 0: remove_buff()
 
 func remove_buff():
 	emit_signal("buff_removed")
 	queue_free()
-
 
 
 #WIP TOOLTIP========================================================================================

@@ -1,34 +1,44 @@
-[gd_scene load_steps=14 format=3 uid="uid://dswvx8admntjv"]
+[gd_scene load_steps=15 format=3 uid="uid://ctrfn8qrvl7wd"]
 
+[ext_resource type="Script" path="res://Resources/Enemies/enemy_class.gd" id="1_d0r0g"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
-[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_owa5p"]
-[ext_resource type="Resource" uid="uid://jefsr26pv8bu" path="res://Resources/Enemies/Trogg.tres" id="2_ngcah"]
+[ext_resource type="PackedScene" uid="uid://bytg7c32ifr14" path="res://Scenes/UI/Enemy/enemy_buffs.tscn" id="3_fnw5x"]
 [ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="3_k3je5"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Runes.gd" id="4_6ljk6"]
+[ext_resource type="PackedScene" uid="uid://dkkuwrl21x050" path="res://Scenes/UI/Enemy/enemy_debuffs.tscn" id="4_lxjk2"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Skills.gd" id="5_te5x3"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_dl2cu"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_mb6ag"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="6_px841"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq8io"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cidrl"]
 size = Vector2(142.5, 174)
 
-[sub_resource type="Gradient" id="Gradient_w67cc"]
+[sub_resource type="Gradient" id="Gradient_r0sdc"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_asotu"]
-gradient = SubResource("Gradient_w67cc")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jcnho"]
+gradient = SubResource("Gradient_r0sdc")
 width = 1300
 height = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs1wv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6i1g"]
 bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 
-[node name="Trogg" type="Node2D" groups=["enemy"]]
-script = ExtResource("1_owa5p")
-enemy_stats_resource = ExtResource("2_ngcah")
+[node name="Trogg" type="Node2D"]
+script = ExtResource("1_d0r0g")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="EnemyImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("3_k3je5")
+
+[node name="EnemyBorder" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="EnemyBuffs" parent="." instance=ExtResource("3_fnw5x")]
+unique_name_in_owner = true
+
+[node name="EnemyDebuffs" parent="." instance=ExtResource("4_lxjk2")]
+unique_name_in_owner = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 128
@@ -36,18 +46,22 @@ collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-0.25, -1)
-shape = SubResource("RectangleShape2D_iq8io")
+shape = SubResource("RectangleShape2D_cidrl")
 
 [node name="Runes" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("4_6ljk6")
 
 [node name="Deck" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_l5y18")
 
 [node name="Skills" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("5_te5x3")
 
 [node name="EnemyUI" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = -67.0
@@ -56,6 +70,7 @@ offset_right = 70.0
 offset_bottom = 89.0
 
 [node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -73,6 +88,7 @@ texture_over = ExtResource("6_px841")
 texture_progress = ExtResource("6_dl2cu")
 
 [node name="EnemyHealthLabel" type="Label" parent="EnemyUI/EnemyHealthBar"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 578.0
 offset_top = 4.0
@@ -85,6 +101,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GoldAndXPBox" type="VBoxContainer" parent="EnemyUI"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 149.0
 offset_top = 6.0
@@ -92,16 +109,19 @@ offset_right = 236.0
 offset_bottom = 46.0
 
 [node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2g"
 
 [node name="EnemyXP" type="Label" parent="EnemyUI/GoldAndXPBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2xp"
 
 [node name="EnemySelectionHealth" type="Label" parent="EnemyUI"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = 10.0
@@ -115,6 +135,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EnemyHealthBar2" type="TextureProgressBar" parent="EnemyUI/EnemySelectionHealth"]
+unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 5
@@ -127,10 +148,11 @@ offset_bottom = 27.0
 grow_horizontal = 2
 scale = Vector2(0.112245, 0.46176)
 value = 100.0
-texture_under = SubResource("GradientTexture2D_asotu")
+texture_under = SubResource("GradientTexture2D_jcnho")
 texture_progress = ExtResource("6_dl2cu")
 
 [node name="StatContainer" type="VBoxContainer" parent="EnemyUI"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 156.0
 offset_top = 66.0
@@ -138,6 +160,7 @@ offset_right = 252.0
 offset_bottom = 164.0
 
 [node name="AttackLabel" type="Label" parent="EnemyUI/StatContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -145,7 +168,8 @@ text = "Atk: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="EnemyUI/StatContainer/AttackLabel"]
+[node name="AttackPanel" type="Panel" parent="EnemyUI/StatContainer/AttackLabel"]
+unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -155,6 +179,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DefenseLabel" type="Label" parent="EnemyUI/StatContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -162,7 +187,8 @@ text = "Atk: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="EnemyUI/StatContainer/DefenseLabel"]
+[node name="DefensePanel" type="Panel" parent="EnemyUI/StatContainer/DefenseLabel"]
+unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -172,6 +198,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ArmorLabel" type="Label" parent="EnemyUI/StatContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -179,7 +206,8 @@ text = "Def: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel"]
+[node name="ArmorPanel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel"]
+unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -188,36 +216,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BuffContainer" type="HBoxContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -649.0
-offset_top = -163.0
-offset_right = -1.0
-offset_bottom = -123.0
-grow_horizontal = 2
-
-[node name="DebuffContainer" type="HBoxContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = -163.0
-offset_right = 650.0
-offset_bottom = -123.0
-grow_horizontal = 2
-size_flags_stretch_ratio = 0.0
-alignment = 2
-
 [node name="StunIndicator" type="Panel" parent="."]
+unique_name_in_owner = true
 visible = false
 offset_left = -73.0
 offset_top = -90.0
 offset_right = 72.0
 offset_bottom = 90.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gs1wv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n6i1g")
 
-[node name="Label" type="Label" parent="StunIndicator"]
+[node name="StunLabel" type="Label" parent="StunIndicator"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 65.0
 offset_top = 83.0

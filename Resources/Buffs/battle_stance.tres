@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Buff_Resource" load_steps=2 format=3 uid="uid://b32bfbrch6w7v"]
+
+[ext_resource type="Script" path="res://Resources/Buffs/buff_master_resource.gd" id="1_ym32a"]
+
+[resource]
+script = ExtResource("1_ym32a")
+buff_art_path = "res://Resources/Art/Buffs/battle_stance_buff.png"
+buff_scene_path = "res://Scenes/Buffs/battle_stance_buff.tscn"
+buff_name = "Battle Stance"
+tags = []

@@ -19,6 +19,7 @@ var alt_dmg_label : Label
 var alt_dmg_panel : Panel
 var modifiers : Node2D
 var effects : Node2D
+var card_image : Sprite2D
 
 
 #AUDIO==============================================================================================
@@ -39,6 +40,9 @@ var mouse_exit = false
 var effect_details
 
 func _ready():
+	set_node_names()
+
+func set_node_names():
 	tooltip = get_node('%PopupPanel')
 	tooltip_container = get_node('%TooltipContainer')
 	upgrade_border = get_node('%UpgradeBorder')
@@ -58,6 +62,11 @@ func _ready():
 	audio = get_node('%AudioStreamPlayer2D')
 	enchant_image = get_node('%ItemEnchantImage')
 	collision_shape = get_node('%CollisionShape2D')
+	card_image = get_node('%CardImage')
+	
+	z_index = 1
+	card_image.texture = load(card_stats.card_art_path)
+	add_to_group("card")
 
 
 func effect(player_deck, enemy_deck, player, enemy):
@@ -291,7 +300,6 @@ func load_full_art():
 	full_art.effect_details = tooltip_container.get_node("Effect").get_child(1).text
 	full_art.fill_info()
 	full_art.global_position = Vector2((get_viewport().size.x / 2) - 160, (get_viewport().size.y / 2) - 30)
-
 
 func _on_card_ui_mouse_entered():
 	Popups.card_popup(self)

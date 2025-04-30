@@ -100,7 +100,7 @@ func instantiate_player_inventory():
 
 func set_player_deck():
 	player_deck_db = ["Strike", "Strike", 
-	"Strike", "Strike", "Strike", "Strike", "Strengthen", "Rock"]
+	"Strike", "Strike", "Strike", "Hardened Skin", "Strengthen", "Rock", "Strengthen", "Shift Stance"]
 
 func instantiate_player_deck():
 	for i in player_deck_db:

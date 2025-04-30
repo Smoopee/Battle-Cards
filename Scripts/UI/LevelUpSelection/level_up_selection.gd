@@ -81,6 +81,6 @@ func toggle_inventory():
 func _on_continue_button_down():
 	inventory_and_deck_save()
 	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
-	Global.player_runes = get_tree().get_first_node_in_group("character").get_rune_array()
+	Global.player_runes = get_tree().get_first_node_in_group("player runes").get_rune_array()
 	Global.save_function()
 	get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")

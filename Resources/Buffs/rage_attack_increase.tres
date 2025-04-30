@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Buff_Resource" load_steps=2 format=3 uid="uid://bqo1ho3ur5ct7"]
+
+[ext_resource type="Script" path="res://Resources/Buffs/buff_master_resource.gd" id="1_1qhdc"]
+
+[resource]
+script = ExtResource("1_1qhdc")
+buff_art_path = "res://Resources/Art/Buffs/rage_attack_buff.png"
+buff_scene_path = "res://Scenes/Buffs/rage_attack_increase_buff.tscn"
+buff_name = "Rage Attack Increase"
+tags = []

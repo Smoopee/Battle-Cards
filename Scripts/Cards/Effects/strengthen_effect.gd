@@ -6,13 +6,8 @@ func effect(player_deck, enemy_deck, player, enemy):
 	var stats = parent.card_stats
 	var target = stats.owner
 
-	for i in get_tree().get_nodes_in_group("buff"):
-		if i.buff_name == stats.name and i.attached_to == target: 
-			i.increase_buff(self)
-			return
-	
-	var new_buff = load(stats.buff_scene_path).instantiate()
-	target.add_buff(new_buff, self)
+	var buff_resource = load('res://Resources/Buffs/strengthen.tres')
+	target.add_buff(buff_resource, parent)
 
 func upgrade_card(num):
 	var stats = parent.card_stats

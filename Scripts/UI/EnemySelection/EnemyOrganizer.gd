@@ -42,6 +42,7 @@ func create_encounter():
 	print(enemy_selection)
 	for i in range(enemy_resource_array.size()):
 		var new_enemy = load(enemy_resource_array[i].enemy_scene_path).instantiate().duplicate()
+		new_enemy.character_stats = enemy_resource_array[i]
 		add_child(new_enemy)
 		
 		new_enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = true

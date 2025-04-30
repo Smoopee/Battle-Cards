@@ -5,6 +5,8 @@
 [resource]
 script = ExtResource("1_5j3wf")
 card_art_path = "res://Resources/Cards/CardArt/shift_stance_card.png"
+full_art_scene_path = ""
+full_art_texture_path = ""
 card_scene_path = "res://Scenes/Cards/shift_stance.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = "res://Scenes/Buffs/defensive_stance_buff.tscn"
@@ -37,12 +39,10 @@ is_players = false
 item_enchant = ""
 screen_position = Vector2(0, 0)
 is_enchanted = false
-is_enchantment = false
-enchanting_with = ""
 tags = ["Buff", "Berserker"]
 card_type = ["Stance"]
 is_discarded = false
 is_blank = false
 is_updated = false
-card_mode = ""
+mode = ""
 card_rarity = 0

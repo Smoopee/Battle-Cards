@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Debuff_Resource" load_steps=2 format=3 uid="uid://dpwou22acj8wm"]
+
+[ext_resource type="Script" path="res://Resources/Debuffs/debuff_master_resource.gd" id="1_gfi5x"]
+
+[resource]
+script = ExtResource("1_gfi5x")
+debuff_art_path = "res://Resources/Art/Debuffs/daunting_shout_debuff.png"
+debuff_scene_path = "res://Scenes/Debuffs/daunting_shout_debuff.tscn"
+debuff_name = "Daunting Shout"
+tags = []

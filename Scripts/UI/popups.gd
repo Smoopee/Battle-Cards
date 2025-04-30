@@ -30,6 +30,7 @@ func hide_card_popup(card):
 	%CardPopup.hide()
 
 func mouse_leave_check(card):
+	if card == null: return
 	var mouse_pos = get_viewport().get_mouse_position()
 	var the_area = card.get_node("Area2D")
 	var the_shape = the_area.get_child(0).shape

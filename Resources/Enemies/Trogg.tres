@@ -6,6 +6,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_4d8f0")
 enemy_art_path = "res://Resources/Art/Enemies/trogg_enemy.png"
+enemy_border_art_path = "res://Resources/Art/UIElements/Borders/enemy_border.png"
 enemy_scene_path = "res://Scenes/Enemies/trogg.tscn"
 name = "Trogg"
 health = 100

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0kfd3p75yjuy"
-path="res://.godot/imported/rock.png-1fd780c9ba1536d1de75554f4244f102.ctex"
+uid="uid://bbgms2beu6cst"
+path="res://.godot/imported/hardened_skin_buff.png-692f845c74a5da2b619ee2442e3deec1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/rock.png"
-dest_files=["res://.godot/imported/rock.png-1fd780c9ba1536d1de75554f4244f102.ctex"]
+source_file="res://Resources/Art/Buffs/hardened_skin_buff.png"
+dest_files=["res://.godot/imported/hardened_skin_buff.png-692f845c74a5da2b619ee2442e3deec1.ctex"]
 
 [params]
 
