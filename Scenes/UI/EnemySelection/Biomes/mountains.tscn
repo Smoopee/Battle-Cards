@@ -1,11 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://57k2v53xlwtn"]
+[gd_scene load_steps=7 format=3 uid="uid://57k2v53xlwtn"]
 
 [ext_resource type="Texture2D" uid="uid://cqim1po1eiipt" path="res://Resources/Art/Biomes/mountains_biome.png" id="1_kl5ud"]
 [ext_resource type="Shader" path="res://Shaders/card_selector.gdshader" id="2_k4rqq"]
+[ext_resource type="Texture2D" uid="uid://b08bd21i3rpiw" path="res://Resources/Art/UIElements/Borders/biome_border.png" id="2_r1a3v"]
 [ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="3_twtl3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfu1s"]
-size = Vector2(140, 175)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_034dt"]
 shader = ExtResource("2_k4rqq")
@@ -15,10 +13,23 @@ shader_parameter/glow_power = 2.0
 shader_parameter/glow_shift = 0.3
 shader_parameter/glow_radius = 10.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfu1s"]
+size = Vector2(140, 175)
+
 [node name="Mountains" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BiomeImage" type="Sprite2D" parent="."]
 texture = ExtResource("1_kl5ud")
+
+[node name="BorderImage" type="Sprite2D" parent="."]
+texture = ExtResource("2_r1a3v")
+
+[node name="GlowEffect" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_034dt")
+position = Vector2(-3.09944e-06, 3.72529e-06)
+scale = Vector2(1.07692, 1.06316)
+texture = ExtResource("3_twtl3")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 32
@@ -27,10 +38,3 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_kfu1s")
-
-[node name="GlowEffect" type="Sprite2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_034dt")
-position = Vector2(-3.09944e-06, 3.72529e-06)
-scale = Vector2(1.07692, 1.06316)
-texture = ExtResource("3_twtl3")

@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var modifier_name = "Glue"
+var modifier_name = "Exhaust"
 var attached_to
 var count = 0
 

@@ -1,16 +1,16 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://ck735y50rlmfv"]
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://dw6jbalucdaul"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_fyxe4"]
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_b3lfx"]
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_fyxe4")
+script = ExtResource("1_b3lfx")
 card_art_path = "res://Resources/Cards/CardArt/rock_card.png"
 full_art_scene_path = ""
 full_art_texture_path = ""
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/rock.tscn"
 card_upgrade_art_path = ""
-buff_scene_path = "res://Resources/Cards/CardArt/rock.png"
+buff_scene_path = ""
 name = "Rock"
 dmg = 2
 cd = 0
@@ -34,16 +34,16 @@ bleed_dmg = 0
 heal = 0
 critical_strike_chance = 0.0
 in_enemy_deck = false
-sell_price = 1
-buy_price = 2
+sell_price = 0
+buy_price = 0
 is_players = false
 item_enchant = ""
 screen_position = Vector2(0, 0)
 is_enchanted = false
-tags = ["Trogg", "Attack"]
-card_type = ["Attack", "Trogg"]
+tags = ["Trogg", "Enemy"]
+card_type = ["Attack"]
 is_discarded = false
 is_blank = false
 is_updated = false
 mode = ""
-card_rarity = 1
+card_rarity = 0

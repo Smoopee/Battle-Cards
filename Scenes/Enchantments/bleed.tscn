@@ -3,6 +3,14 @@
 [ext_resource type="Script" path="res://Scripts/Enchantments/bleed.gd" id="1_uwg2s"]
 [ext_resource type="Texture2D" uid="uid://b3rbnqa21xeb1" path="res://Resources/Art/Enchantments/bleed_enchanment.png" id="2_wc57y"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ama6g"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8mm1"]
 size = Vector2(78, 78)
 
@@ -18,19 +26,45 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ama6g"]
-bg_color = Color(0.688023, 0.596125, 0.233008, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-
 [node name="Bleed" type="Node2D" groups=["enchantment"]]
 script = ExtResource("1_uwg2s")
 
 [node name="EnchantmentImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("2_wc57y")
+
+[node name="EnchantmentUI" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+mouse_filter = 2
+
+[node name="ShopPanel" type="Panel" parent="EnchantmentUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -37.0
+offset_top = 30.0
+offset_right = -7.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ama6g")
+
+[node name="ShopLabel" type="Label" parent="EnchantmentUI/ShopPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -56,34 +90,4 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Rock"
-vertical_alignment = 1
-
-[node name="EnchantmentUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-mouse_filter = 2
-
-[node name="ShopPanel" type="Panel" parent="EnchantmentUI"]
-visible = false
-layout_mode = 0
-offset_left = -37.0
-offset_top = 30.0
-offset_right = -7.0
-offset_bottom = 60.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ama6g")
-
-[node name="ShopLabel" type="Label" parent="EnchantmentUI/ShopPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
 vertical_alignment = 1

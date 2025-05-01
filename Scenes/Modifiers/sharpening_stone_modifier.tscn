@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1x8o8224vc7q"]
+[gd_scene load_steps=6 format=3 uid="uid://p7l32xc2a0rb"]
 
-[ext_resource type="Script" path="res://Scripts/Modifiers/sharpening_stone_modifier.gd" id="1_8x3dm"]
 [ext_resource type="Texture2D" uid="uid://cyss4pldkbvjr" path="res://Resources/Art/Modifiers/sharpening_stone_modifier.png" id="1_60ugy"]
+[ext_resource type="Script" path="res://Resources/Modifiers/modifier_class.gd" id="1_jp1ll"]
+[ext_resource type="Script" path="res://Scripts/Modifiers/Effects/sharpening_stone_modifier_effect.gd" id="3_j5qvi"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1u2um"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cubof"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cxgv"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -15,18 +18,29 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3ybi"]
+[node name="SharpeningStoneModifier" type="Node2D"]
+script = ExtResource("1_jp1ll")
 
-[node name="SharpeningStoneModifier" type="Node2D" groups=["modifier"]]
-script = ExtResource("1_8x3dm")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ModifierImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("1_60ugy")
+
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_j5qvi")
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cubof")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_1u2um")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2cxgv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -41,11 +55,3 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Rock"
 vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_d3ybi")

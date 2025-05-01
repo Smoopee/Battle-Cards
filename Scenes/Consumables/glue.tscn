@@ -29,6 +29,10 @@ script = ExtResource("1_lctut")
 [node name="ConsumableImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_x6hsw")
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2048
 collision_mask = 2048
@@ -94,7 +98,3 @@ offset_top = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_i3t18")
-
-[node name="Effect" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("3_x6hsw")

@@ -7,6 +7,7 @@ script = ExtResource("1_2uwtp")
 card_art_path = "res://Resources/Cards/CardArt/hardened_skin_card.png"
 full_art_scene_path = ""
 full_art_texture_path = ""
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/hardened_skin.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = "res://Scenes/Buffs/hardened_skin_buff.tscn"

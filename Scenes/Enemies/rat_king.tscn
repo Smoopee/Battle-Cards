@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bytg7c32ifr14" path="res://Scenes/UI/Enemy/enemy_buffs.tscn" id="3_5kd83"]
 [ext_resource type="PackedScene" uid="uid://dkkuwrl21x050" path="res://Scenes/UI/Enemy/enemy_debuffs.tscn" id="4_8u6ty"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Runes.gd" id="5_2gf2n"]
-[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="6_m7pfs"]
-[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Skills.gd" id="7_d5w6c"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/Deck.gd" id="6_blidu"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/Skills.gd" id="7_bs1ot"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="8_h41ab"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="9_atkuw"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="10_frceh"]
@@ -14,10 +14,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxqdu"]
 size = Vector2(142.5, 174)
 
-[sub_resource type="Gradient" id="Gradient_w67cc"]
+[sub_resource type="Gradient" id="Gradient_4pfos"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1tl6u"]
-gradient = SubResource("Gradient_w67cc")
+gradient = SubResource("Gradient_4pfos")
 width = 1300
 height = 24
 
@@ -54,11 +54,11 @@ script = ExtResource("5_2gf2n")
 
 [node name="Deck" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("6_m7pfs")
+script = ExtResource("6_blidu")
 
 [node name="Skills" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("7_d5w6c")
+script = ExtResource("7_bs1ot")
 
 [node name="EnemyUI" type="Control" parent="."]
 unique_name_in_owner = true

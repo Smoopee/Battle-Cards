@@ -6,6 +6,7 @@ const CARDS = {
 	"Hardened Skin" : "res://Resources/Cards/hardened_skin.tres", 
 	"Boulder" : "res://Resources/Cards/boulder.tres",
 	"Daunting Shout" : "res://Resources/Cards/daunting_shout.tres",
+	"Swarm" : "res://Resources/Cards/swarm.tres",
 	#"Dagger" : "res://Resources/Cards/dagger.tres",
 	"Strengthen" : "res://Resources/Cards/strengthen.tres",
 	#"Health Potion" : "res://Resources/Cards/health_potion.tres",

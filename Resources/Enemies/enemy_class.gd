@@ -312,7 +312,7 @@ func adjust_stats():
 #Other==============================================================================================
 func get_reward():
 	var rng = RandomNumberGenerator.new()
-	reward_array = enemy_deck.enemy_enemy_deck + skills.enemy_skills 
+	reward_array = enemy_deck.enemy_deck + skills.enemy_skills 
 	emit_signal("generate_reward")
 	
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)

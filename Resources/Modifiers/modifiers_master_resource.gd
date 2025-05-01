@@ -2,13 +2,13 @@ extends Resource
 
 class_name Modifiers_Resource
 
-@export var consumable_art_path: String
-@export var consumable_scene_path: String
-@export var consumable_name: String
-@export var buy_price: int
-@export var target: String
-@export var stack_amount: int
-@export var max_stacks: int
-var inventory_position
-var screen_position
-var consumable_owner
+@export var modifier_art_path: String
+@export var modifier_scene_path: String
+@export var modifier_name: String
+@export var effect1: int
+@export var effect2: int
+@export var effect3: int
+@export var effect4: int
+@export var effect5: int
+var attached_to: String
+

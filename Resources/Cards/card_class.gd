@@ -5,7 +5,6 @@ class_name Card
 #UI=================================================================================================
 var tooltip : PopupPanel
 var tooltip_container : VBoxContainer
-var upgrade_border : Sprite2D
 var dmg_panel : Panel
 var dmg_label : Label
 var cd_panel : Panel
@@ -20,6 +19,8 @@ var alt_dmg_panel : Panel
 var modifiers : Node2D
 var effects : Node2D
 var card_image : Sprite2D
+var upgrade_border : Sprite2D
+var card_border : Sprite2D
 
 
 #AUDIO==============================================================================================
@@ -63,9 +64,11 @@ func set_node_names():
 	enchant_image = get_node('%ItemEnchantImage')
 	collision_shape = get_node('%CollisionShape2D')
 	card_image = get_node('%CardImage')
+	card_border = get_node('%CardBorder')
 	
 	z_index = 1
 	card_image.texture = load(card_stats.card_art_path)
+	card_border.texture = load(card_stats.card_border_path)
 	add_to_group("card")
 
 
@@ -272,12 +275,19 @@ func change_cd(amount):
 	if card_stats.cd <= 0:
 		card_stats.cd = 0
 		card_stats.on_cd = false
+	else: card_stats.on_cd = true
 	update_card_ui()
 
 func add_modifier(modifier):
+	for i in get_tree().get_nodes_in_group("modifier"):
+		if (i.name == modifier.name and i.attached_to == self): 
+			i.additional_modifier(self)
+			return
+	
 	modifiers.add_child(modifier)
 	modifier.modifier_initializer(self)
 	organzie_card_modifiers()
+
 
 func organzie_card_modifiers():
 	var counter = 0

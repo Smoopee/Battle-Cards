@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://uuqq17ox31fm"]
 
-[ext_resource type="Script" path="res://Scenes/Enchantments/restoration.gd" id="1_m8l1n"]
+[ext_resource type="Script" path="res://Scripts/Enchantments/restoration.gd" id="1_m8l1n"]
 [ext_resource type="Texture2D" uid="uid://cjd4r68eyxe3a" path="res://Resources/Art/Enchantments/restoration_enchantment.png" id="2_iq07i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pr5av"]

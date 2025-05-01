@@ -53,9 +53,11 @@ unique_name_in_owner = true
 texture_filter = 1
 texture = ExtResource("2_iuipf")
 
+[node name="CardBorder" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(1, 0)
 
 [node name="ItemEnchantImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true

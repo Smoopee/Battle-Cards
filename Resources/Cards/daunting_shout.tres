@@ -7,6 +7,7 @@ script = ExtResource("1_c6ppb")
 card_art_path = "res://Resources/Cards/CardArt/daunting_shout_card.png"
 full_art_scene_path = ""
 full_art_texture_path = ""
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/daunting_shout.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = ""

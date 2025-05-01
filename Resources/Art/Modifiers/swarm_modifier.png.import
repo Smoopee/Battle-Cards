@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnegogy620h2a"
-path="res://.godot/imported/temp_beserker.png-25a93d49c611d0714ada9b5f0de45070.ctex"
+uid="uid://dmdojwagd23wl"
+path="res://.godot/imported/swarm_modifier.png-2550ee1c998aecec58742f1a440d7e73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/temp_beserker.png"
-dest_files=["res://.godot/imported/temp_beserker.png-25a93d49c611d0714ada9b5f0de45070.ctex"]
+source_file="res://Resources/Art/Modifiers/swarm_modifier.png"
+dest_files=["res://.godot/imported/swarm_modifier.png-2550ee1c998aecec58742f1a440d7e73.ctex"]
 
 [params]
 

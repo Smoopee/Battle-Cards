@@ -1,7 +1,7 @@
 extends Node2D
 
 
-func consumable_effect(card):
+func effect(card):
 	#if Global.current_scene != "battle_sim" : return false
 	if card.card_stats.in_enemy_deck == true: return false
 	

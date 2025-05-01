@@ -20,7 +20,7 @@ border_color = Color(0, 0, 0, 1)
 [node name="ExhaustModifier" type="Node2D" groups=["modifier"]]
 script = ExtResource("1_asnso")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ModifierImage" type="Sprite2D" parent="."]
 texture = ExtResource("1_qoh42")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]

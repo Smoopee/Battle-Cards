@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh8liodrcdwqi"]
+[gd_scene load_steps=7 format=3 uid="uid://bh8liodrcdwqi"]
 
 [ext_resource type="Shader" path="res://Shaders/card_selector.gdshader" id="1_gk5g8"]
 [ext_resource type="Texture2D" uid="uid://htdhrn5qfhbv" path="res://Resources/Art/Biomes/desert_biome.png" id="1_xnctl"]
+[ext_resource type="Texture2D" uid="uid://b08bd21i3rpiw" path="res://Resources/Art/UIElements/Borders/biome_border.png" id="2_uslt8"]
 [ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="3_qpo2m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ku3mx"]
@@ -17,9 +18,12 @@ size = Vector2(140, 175)
 
 [node name="Desert" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BiomeImage" type="Sprite2D" parent="."]
 self_modulate = Color(0.9, 0.9, 0.9, 1)
 texture = ExtResource("1_xnctl")
+
+[node name="BorderImage" type="Sprite2D" parent="."]
+texture = ExtResource("2_uslt8")
 
 [node name="GlowEffect" type="Sprite2D" parent="."]
 visible = false

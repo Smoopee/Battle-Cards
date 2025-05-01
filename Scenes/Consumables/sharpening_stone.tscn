@@ -25,6 +25,10 @@ border_color = Color(0, 0, 0, 1)
 [node name="SharpeningStone" type="Node2D"]
 script = ExtResource("1_54l08")
 
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_735p1")
+
 [node name="ConsumableImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 
@@ -93,7 +97,3 @@ offset_top = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fjw5l")
-
-[node name="Effect" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("1_735p1")

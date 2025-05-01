@@ -5,6 +5,9 @@
 [resource]
 script = ExtResource("1_xqlbv")
 card_art_path = "res://Resources/Cards/CardArt/shield_block_card.png"
+full_art_scene_path = ""
+full_art_texture_path = ""
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/shield_block.tscn"
 card_upgrade_art_path = ""
 buff_scene_path = ""
@@ -37,12 +40,10 @@ is_players = false
 item_enchant = ""
 screen_position = Vector2(0, 0)
 is_enchanted = false
-is_enchantment = false
-enchanting_with = ""
 tags = ["Buff", "Berserker"]
 card_type = ["Buff", "Berserker"]
 is_discarded = false
 is_blank = false
 is_updated = false
-card_mode = ""
+mode = ""
 card_rarity = 0
