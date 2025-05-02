@@ -1,4 +1,4 @@
-const ENCHANTMENTS = {
+const ITEMS = {
 	"Bleed" : "res://Resources/Enchantments/bleed.tres",
 	"Toxic" : "res://Resources/Enchantments/toxic.tres",
 	"Dejavu" : "res://Resources/Enchantments/dejavu.tres",

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" load_steps=2 format=3 uid="uid://bjr8h56mf1l8"]
+
+[ext_resource type="Script" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_qlboe"]
+
+[resource]
+script = ExtResource("1_qlboe")
+merchant_art_path = ""
+merchant_border_path = ""
+merchant_scene_path = ""
+merchant_name = ""
+merchant_type = ""
+selection_tags = []
+stock_quantity = 0
+buy_modifier = 0
+sell_modifier = 0
+can_refreseh = true

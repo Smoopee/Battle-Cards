@@ -1,4 +1,4 @@
-const CARDS = {
+const ITEMS = {
 	"Rock" : "res://Resources/Cards/rock.tres",
 	"Strike" : "res://Resources/Cards/strike.tres",
 	"Shield Block" : "res://Resources/Cards/shield_block.tres",

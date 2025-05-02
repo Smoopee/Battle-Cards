@@ -122,7 +122,7 @@ func set_runes():
 	for i in character_stats.runes:
 		
 		for j in runes.get_children():
-			if j.rune_name == i: already_owned = true
+			if j.rune_stats.rune_name == i: already_owned = true
 		
 		if rune_db_reference.RUNES[i] != null and !already_owned:
 			var rune_resource = load(rune_db_reference.RUNES[i]).duplicate()

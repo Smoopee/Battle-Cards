@@ -1,12 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://l027y0wnf0gm"]
+[gd_scene load_steps=6 format=3 uid="uid://cjf0foheumh1p"]
 
-[ext_resource type="Script" path="res://Scripts/Enchantments/exhaust.gd" id="1_joklr"]
-[ext_resource type="Texture2D" uid="uid://blp15uw8b351j" path="res://Resources/Art/Enchantments/exhaust.png" id="2_sdrff"]
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantment_class.gd" id="1_owdys"]
+[ext_resource type="Texture2D" uid="uid://cibety7q0qo1m" path="res://Resources/Art/Enchantments/dejavu_enchantment.png" id="2_buyj2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cib7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0sj3"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mlur"]
 size = Vector2(78, 78)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fb8kn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sh4l"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -18,31 +26,57 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq1iv"]
-bg_color = Color(0.688023, 0.596125, 0.233008, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-
-[node name="Burden" type="Node2D"]
-script = ExtResource("1_joklr")
+[node name="Exhaust" type="Node2D"]
+script = ExtResource("1_owdys")
 
 [node name="EnchantmentImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_sdrff")
+unique_name_in_owner = true
+texture = ExtResource("2_buyj2")
+
+[node name="EnchantmentUI" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+mouse_filter = 2
+
+[node name="ShopPanel" type="Panel" parent="EnchantmentUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -37.0
+offset_top = 30.0
+offset_right = -7.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_t0sj3")
+
+[node name="ShopLabel" type="Label" parent="EnchantmentUI/ShopPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_5cib7")
+shape = SubResource("RectangleShape2D_0mlur")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true
 size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_fb8kn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2sh4l")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 offset_left = 4.0
@@ -56,34 +90,4 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Rock"
-vertical_alignment = 1
-
-[node name="EnchantmentUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
-mouse_filter = 2
-
-[node name="ShopPanel" type="Panel" parent="EnchantmentUI"]
-visible = false
-layout_mode = 0
-offset_left = -37.0
-offset_top = 30.0
-offset_right = -7.0
-offset_bottom = 60.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_tq1iv")
-
-[node name="ShopLabel" type="Label" parent="EnchantmentUI/ShopPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
 vertical_alignment = 1

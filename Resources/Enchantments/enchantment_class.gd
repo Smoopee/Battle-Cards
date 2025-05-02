@@ -28,6 +28,8 @@ func set_node_names():
 	ui = get_node('%EnchantmentUI')
 	shop_panel = get_node('%ShopPanel')
 	shop_label = get_node('%ShopLabel')
+	
+	enchantment_image.texture = load(enchantment_stats.enchantment_art_path)
 	add_to_group("enchantment")
 	
 

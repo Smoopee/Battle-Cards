@@ -537,6 +537,7 @@ func toggle_sell_zone(toggle):
 		$SellZone.process_mode = Node.PROCESS_MODE_DISABLED
 
 func click_card(card_being_dragged):
+	if card_being_dragged == null: return
 	Popups.mouse_occupied = true
 	full_art_toggle = true
 	card_being_dragged.load_full_art()

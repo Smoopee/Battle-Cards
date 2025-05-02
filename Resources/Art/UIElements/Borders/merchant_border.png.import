@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1u5jtciisxlo"
-path="res://.godot/imported/bleed_debuff.png-96e75e60eb5080896385c1b1ef036eef.ctex"
+uid="uid://dnnw0rhr4u6xy"
+path="res://.godot/imported/merchant_border.png-d7830f6f88dac2b75fef11cdcf67cc38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Debuffs/bleed_debuff.png"
-dest_files=["res://.godot/imported/bleed_debuff.png-96e75e60eb5080896385c1b1ef036eef.ctex"]
+source_file="res://Resources/Art/UIElements/Borders/merchant_border.png"
+dest_files=["res://.godot/imported/merchant_border.png-d7830f6f88dac2b75fef11cdcf67cc38.ctex"]
 
 [params]
 

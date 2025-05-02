@@ -9,7 +9,7 @@ size = Vector2(140, 175)
 [node name="Jack" type="Node2D" groups=["merchant"]]
 script = ExtResource("1_xcoen")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="MerchantImage" type="Sprite2D" parent="."]
 texture = ExtResource("2_vb427")
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -160,6 +160,7 @@ func change_player_bleed_taken(value):
 	player_drip.text = str(value)
 	
 	player_bleeding_label.text = str(value - 1)
+	player_bleeding_label.scale = Vector2(1000, 1000)
 	if value <= 1: player_bleeding_label.text = ""
 	
 	var tween = get_tree().create_tween()

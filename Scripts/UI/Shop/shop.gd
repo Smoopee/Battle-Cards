@@ -6,34 +6,34 @@ var is_inventory_toggle = true
 
 func _ready():
 	var merchant = get_tree().get_first_node_in_group("merchant")
-	if merchant.merchant_type == "Card":
+	if merchant.merchant_stats.merchant_type == "Card":
 		merchant_type = "Card"
 		$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
 		toggle_inventory()
 		$MerchantCards.create_merchant_inventory()
 		current_merhant_organizer = $MerchantCards
-	elif merchant.merchant_type == "Skill":
+	elif merchant.merchant_stats.merchant_type == "Skill":
 		merchant_type = "Skill"
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
 		is_inventory_toggle = false
 		toggle_inventory()
 		$MerchantSkills.create_merchant_inventory()
 		current_merhant_organizer = $MerchantSkills
-	elif merchant.merchant_type == "Consumables":
-		merchant_type = "Consumables"
+	elif merchant.merchant_stats.merchant_type == "Consumable":
+		merchant_type = "Consumable"
 		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
 		is_inventory_toggle = false
 		toggle_inventory()
 		$MerchantConsumables.create_merchant_inventory()
 		current_merhant_organizer = $MerchantConsumables
-	elif merchant.merchant_type == "Enchantments":
-		merchant_type = "Enchantments"
+	elif merchant.merchant_stats.merchant_type == "Enchantment":
+		merchant_type = "Enchantment"
 		$EnchantmentManager.process_mode = Node.PROCESS_MODE_INHERIT
 		toggle_inventory()
 		$MerchantEnchantments.create_merchant_inventory()
 		current_merhant_organizer = $MerchantEnchantments
-	elif merchant.merchant_type == "Runes":
-		merchant_type = "Runes"
+	elif merchant.merchant_stats.merchant_type == "Rune":
+		merchant_type = "Rune"
 		$RunesManager.process_mode = Node.PROCESS_MODE_INHERIT
 		is_inventory_toggle = false
 		toggle_inventory()

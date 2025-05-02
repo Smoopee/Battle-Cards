@@ -94,7 +94,7 @@ func set_player_inventory():
 
 func instantiate_player_inventory():
 	for i in player_inventory_db:
-		var card = load(card_db_reference.CARDS[i]).duplicate()
+		var card = load(card_db_reference.ITEMS[i]).duplicate()
 		card.is_players = true
 		player_inventory.push_back(card)
 
@@ -104,7 +104,7 @@ func set_player_deck():
 
 func instantiate_player_deck():
 	for i in player_deck_db:
-		var card = load(card_db_reference.CARDS[i]).duplicate()
+		var card = load(card_db_reference.ITEMS[i]).duplicate()
 		card.is_players = true
 		player_deck.push_back(card)
 
@@ -113,7 +113,7 @@ func set_player_skills():
 
 func instantiate_player_skills():
 	for i in player_skills_db:
-		var skill = load(skill_db_reference.SKILLS[i]).duplicate()
+		var skill = load(skill_db_reference.ITEMS[i]).duplicate()
 		player_skills.push_back(skill)
 
 func set_player_consumables():
@@ -121,7 +121,7 @@ func set_player_consumables():
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:
-		var consumable = load(consumable_db_reference.CONSUMABLES[i]).duplicate()
+		var consumable = load(consumable_db_reference.ITEMS[i]).duplicate()
 		player_consumables.push_back(consumable)
 
 func set_player_runes():
@@ -129,7 +129,7 @@ func set_player_runes():
 
 func instantiate_player_runes():
 	for i in player_runes_db:
-		var rune = load(rune_db_reference.RUNES[i]).duplicate()
+		var rune = load(rune_db_reference.ITEMS[i]).duplicate()
 		player_runes.push_back(rune)
 
 func load_data():

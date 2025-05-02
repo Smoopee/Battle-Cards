@@ -1,4 +1,4 @@
-const CONSUMABLES = {
+const ITEMS = {
 	"Health Potion" : "res://Resources/Consumables/health_potion.tres",
 	"Grenade" : "res://Resources/Consumables/grenade.tres",
 	"Strength Potion" : "res://Resources/Consumables/strength_potion.tres",

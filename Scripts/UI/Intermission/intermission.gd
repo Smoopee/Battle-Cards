@@ -42,10 +42,10 @@ func finish_drag():
 	var merchant_found = raycast_check_for_merchant()
 	
 	if merchant_found:
-		Global.current_merchant = merchant_found.merchant_scene_path
-		if merchant_found.merchant_type == "Town":
+		Global.current_merchant = merchant_found.merchant_stats
+		if merchant_found.merchant_stats.merchant_type == "Town":
 			go_to_town()
-		elif merchant_found.merchant_type == "Camp":
+		elif merchant_found.merchant_stats.merchant_type == "Camp":
 			go_camping()
 		else:
 			go_to_shop()
