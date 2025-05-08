@@ -17,32 +17,32 @@ func _ready():
 func get_skill_selection():
 	match difficulty:
 		1:
-			for i in skill_db_reference.SKILLS:
-				var temp = load(skill_db_reference.SKILLS[i])
+			for i in skill_db_reference.ITEMS:
+				var temp = load(skill_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		2:
-			for i in skill_db_reference.SKILLS:
-				var temp = load(skill_db_reference.SKILLS[i])
+			for i in skill_db_reference.ITEMS:
+				var temp = load(skill_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		3:
-			for i in skill_db_reference.SKILLS:
-				var temp = load(skill_db_reference.SKILLS[i])
+			for i in skill_db_reference.ITEMS:
+				var temp = load(skill_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		4:
-			for i in skill_db_reference.SKILLS:
-				var temp = load(skill_db_reference.SKILLS[i])
+			for i in skill_db_reference.ITEMS:
+				var temp = load(skill_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)
 		_:
-			for i in skill_db_reference.SKILLS:
-				var temp = load(skill_db_reference.SKILLS[i])
+			for i in skill_db_reference.ITEMS:
+				var temp = load(skill_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.rarity <= 1:
 						skill_selection.push_back(temp)

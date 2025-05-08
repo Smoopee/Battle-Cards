@@ -18,32 +18,32 @@ func _ready():
 func get_card_selection():
 	match difficulty:
 		1:
-			for i in card_db_reference.CARDS:
-				var temp = load(card_db_reference.CARDS[i])
+			for i in card_db_reference.ITEMS:
+				var temp = load(card_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.card_rarity <= 1:
 						card_selection.push_back(temp)
 		2:
-			for i in card_db_reference.CARDS:
-				var temp = load(card_db_reference.CARDS[i])
+			for i in card_db_reference.ITEMS:
+				var temp = load(card_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.card_rarity <= 2:
 						card_selection.push_back(temp)
 		3:
-			for i in card_db_reference.CARDS:
-				var temp = load(card_db_reference.CARDS[i])
+			for i in card_db_reference.ITEMS:
+				var temp = load(card_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.card_rarity <= 2:
 						card_selection.push_back(temp)
 		4:
-			for i in card_db_reference.CARDS:
-				var temp = load(card_db_reference.CARDS[i])
+			for i in card_db_reference.ITEMS:
+				var temp = load(card_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.card_rarity <= 3:
 						card_selection.push_back(temp)
 		_:
-			for i in card_db_reference.CARDS:
-				var temp = load(card_db_reference.CARDS[i])
+			for i in card_db_reference.ITEMS:
+				var temp = load(card_db_reference.ITEMS[i])
 				for j in temp.tags:
 					if j == "Trogg" and temp.card_rarity <= 4:
 						card_selection.push_back(temp)

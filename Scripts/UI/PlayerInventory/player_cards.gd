@@ -33,8 +33,8 @@ var full_art_toggle = false
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	screen_size = get_viewport_rect().size
-	deck_reference = $ActiveDeck
-	inventory_reference = $CurrentInventory
+	deck_reference = $Deck
+	inventory_reference = $Inventory
 	
 	for i in $DeckCardSlots.get_children():
 		deck_card_slot_array.push_front(i)
@@ -42,8 +42,8 @@ func _ready():
 	for i in $InventorySlots.get_children():
 		inventory_card_slot_array.push_front(i)
 	
-	deck_card_slot_reference = $ActiveDeck.card_slot_reference
-	inventory_card_slot_reference = $CurrentInventory.card_slot_reference
+	deck_card_slot_reference = deck_reference.card_slot_reference
+	inventory_card_slot_reference = inventory_reference.card_slot_reference
 
 func _process(delta):
 	if card_being_dragged:
@@ -72,7 +72,7 @@ func start_drag(card):
 	Popups.mouse_occupied = true
 	card_being_dragged = card
 	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card_being_dragged.scale = Vector2(1.1, 1.1)
+	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
 
@@ -131,10 +131,7 @@ func finish_drag():
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card()):
 			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
 			print("Upgrade card")
-			hover_on_upgrade_test = false
-			get_tree().get_nodes_in_group("card manager")[0].on_hovered_over(temp)
 			card_reset()
-			hover_on_upgrade_test = true
 			return
 	
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
@@ -549,3 +546,12 @@ func clear_full_art():
 	for i in $FullArt.get_children():
 		i.queue_free()
 	full_art_toggle = false
+
+func toggle_combat_ui(toggle):
+	if toggle:
+		$DeckCardSlots.visible = false
+		$InventorySlots.visible = false
+	else:
+		$DeckCardSlots.visible = true
+		$InventorySlots.visible = true
+

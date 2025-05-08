@@ -1,0 +1,137 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7wq6116ptvdq"]
+
+[ext_resource type="Texture2D" uid="uid://dpfk81lqs64xg" path="res://Resources/Art/UIElements/tootipbackground1.png" id="1_mokgr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8c5m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a5caf"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_mokgr")
+texture_margin_left = 5.66746
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 147.038, 179.907)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+size = Vector2i(402, 356)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_r8c5m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+offset_right = 402.0
+offset_bottom = 356.0
+
+[node name="Panel1" type="Panel" parent="PopupPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_a5caf")
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/Panel1"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 402.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "SFSFDFSdf
+
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupPanel/VBoxContainer/Panel1"]
+layout_mode = 2
+offset_top = 43.0
+offset_right = 402.0
+offset_bottom = 78.0
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/Panel1/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Effect:
+"
+
+[node name="Label2" type="Label" parent="PopupPanel/VBoxContainer/Panel1/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "This deals a mde
+amount of damage
+"
+
+[node name="Panel" type="Panel" parent="PopupPanel/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="PopupPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_a5caf")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PopupPanel/VBoxContainer/Panel2"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 402.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/Panel2/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Effect:
+"
+
+[node name="Label2" type="Label" parent="PopupPanel/VBoxContainer/Panel2/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "This deals a mde
+amount of damage
+"
+
+[node name="Panel4" type="Panel" parent="PopupPanel/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="PopupPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_a5caf")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PopupPanel/VBoxContainer/Panel3"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 402.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="PopupPanel/VBoxContainer/Panel3/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Effect:
+"
+
+[node name="Label2" type="Label" parent="PopupPanel/VBoxContainer/Panel3/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "This deals a mde
+amount of damage
+"

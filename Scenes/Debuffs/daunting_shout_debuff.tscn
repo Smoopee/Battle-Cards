@@ -27,6 +27,10 @@ border_color = Color(0, 0, 0, 1)
 [node name="DauntingShoutDebuff" type="Node2D"]
 script = ExtResource("1_nvdih")
 
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_6l1v3")
+
 [node name="DebuffImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture = ExtResource("2_v2pv7")
@@ -54,10 +58,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6baro")
-
-[node name="Effect" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("3_6l1v3")
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 transparent_bg = true

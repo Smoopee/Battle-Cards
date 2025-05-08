@@ -7,13 +7,13 @@ var mouse_cursor_height = 20
 
 func card_popup(card):
 	if mouse_occupied: return
-	timer.start(1)
+	#timer.start(1)
 	var tooltip = %CardPopup
-	card.scale = Vector2(1.25, 1.25)
+	card.scale = Vector2(1.1, 1.1)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
 	
-	await timer.timeout
+	#await timer.timeout
 	if mouse_occupied or !mouse_leave_check(card): return
 	#Toggles when mouse is on right side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false

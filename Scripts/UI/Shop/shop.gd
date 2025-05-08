@@ -39,6 +39,8 @@ func _ready():
 		toggle_inventory()
 		$MerchantRunes.create_merchant_inventory()
 		current_merhant_organizer = $MerchantRunes
+	
+	toggle_refresh(merchant)
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
@@ -114,3 +116,7 @@ func toggle_inventory():
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		$Player/Berserker.process_mode = Node.PROCESS_MODE_INHERIT
 
+func toggle_refresh(merchant):
+	if merchant.merchant_stats.can_refresh == false:
+		$ShopUI/RerollButton.visible = false
+	else: $ShopUI/RerollButton.visible = true

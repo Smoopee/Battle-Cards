@@ -3,6 +3,7 @@ extends Node2D
 var talent_name = "Savagery"
 var tooltip = "Rage from damage increased by 5"
 var talent_scene_path = "res://Scenes/Characters/Berserker/Talents/savagery.tscn"
+
 var pressed_texture  = "res://Resources/Art/Talents/savagery_pressed.png"
 var not_pressed_texture = "res://Resources/Art/Talents/savagery_not_pressed.png"
 var hover_texture = "res://Resources/Art/Talents/savagery_hover.png"

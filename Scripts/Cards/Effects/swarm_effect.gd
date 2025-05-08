@@ -8,7 +8,10 @@ func effect(player_deck, enemy_deck, player, enemy):
 	damage = stats.owner.deal_physical_damage(damage)
 	stats.target.take_physical_damage(damage)
 	
-	for i in enemy_deck:
+	var target_deck = enemy_deck
+	if stats.owner == player: target_deck = player_deck
+	
+	for i in target_deck:
 		if i.card_stats.name == "Swarm":
 			i.add_modifier(load("res://Scenes/Modifiers/swarm_modifier.tscn").instantiate())
 	
@@ -82,7 +85,8 @@ func upgrade_card(num):
 			stats.sell_price = 16
 			stats.buy_price = 32
 	
-	parent.update_tooltip("Effect", "Deal " + str(stats.dmg) + " damage")
+	parent.update_tooltip("Effect", "Deal " + str(stats.dmg) + " damage. 
+	 \nIncrease the damage of Swarm cards by 1" + "\n ", "Effect: ")
 	parent.update_card_ui()
 
 func item_enchant(enchant):

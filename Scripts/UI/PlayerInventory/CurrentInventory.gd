@@ -47,8 +47,8 @@ func create_inventory():
 		card_position += 1
 
 
-func fetch_inventory():
-	inventory_db = Global.player_inventory
+func fetch_inventory(inventory = Global.player_inventory):
+	inventory_db = inventory
 
 func calculate_card_position(index):
 	var total_width = (inventory.size() - 1) * CARD_WIDTH

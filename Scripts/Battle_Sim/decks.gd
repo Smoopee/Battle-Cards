@@ -17,12 +17,11 @@ func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
 
-func initial_build_deck():
+func set_deck():
 	discard_offset = 0
 	deck_offset = 0
-	clear_cards()
 	deck = []
-	deck_db = Global.player_deck
+	deck_db = get_tree().get_first_node_in_group("player cards").deck_card_slot_reference
 	
 	var counter = 0
 	
@@ -31,25 +30,27 @@ func initial_build_deck():
 			counter += 1
 			deck.push_back(null)
 			continue
-		var new_card = load(deck_db[i].card_scene_path).instantiate()
-		deck.push_back(new_card)
-		new_card.card_stats = deck_db[i]
-		add_child(new_card)
-		if first_test: new_card.upgrade_card(new_card.card_stats.upgrade_level)
-		new_card.item_enchant(new_card.card_stats.item_enchant)
-		new_card.card_stats.owner = get_tree().get_first_node_in_group("character")
-		new_card.card_stats.target = get_tree().get_first_node_in_group("enemy")
-		new_card.card_stats.is_players = true
-		new_card.card_stats.deck_position = counter
+		deck.push_back(deck_db[i])
+		if first_test: deck_db[i].upgrade_card(deck_db[i].card_stats.upgrade_level)
+		deck_db[i].item_enchant(deck_db[i].card_stats.item_enchant)
+		deck_db[i].card_stats.owner = get_tree().get_first_node_in_group("character")
+		deck_db[i].card_stats.target = get_tree().get_first_node_in_group("enemy")
+		deck_db[i].card_stats.is_players = true
+		deck_db[i].card_stats.deck_position = counter
 		counter += 1
 	
 	first_test = false
+	
+	for i in get_tree().get_first_node_in_group("player cards").inventory_card_slot_reference:
+		if i == null:
+			continue
+		i.upgrade_card(i.card_stats.upgrade_level)
+		i.item_enchant(i.card_stats.item_enchant)
+		i.card_stats.owner = get_tree().get_first_node_in_group("character")
+		i.card_stats.target = get_tree().get_first_node_in_group("enemy")
+		i.card_stats.is_players = true
 	return deck
 
-func clear_cards():
-	for i in get_children():
-		if i.is_in_group("card"):
-			i.queue_free()
 
 func build_deck_position():
 	discard_offset = 0
@@ -68,7 +69,7 @@ func build_deck():
 	var counter = 0
 	deck = []
 	var card_position = 0
-	for i in $"../NextTurn/DeckBuilder/CardManager".deck_card_slot_reference:
+	for i in get_tree().get_first_node_in_group("player cards").deck_card_slot_reference:
 		if i == null:
 			var load_blank = load("res://Scenes/Cards/blank_card.tscn").instantiate()
 			load_blank.card_stats = blank
@@ -76,13 +77,14 @@ func build_deck():
 			load_blank.card_stats.owner = get_tree().get_first_node_in_group("character")
 			load_blank.card_stats.is_players = true
 			deck.push_back(load_blank)
-			add_child(load_blank)
+			get_tree().get_first_node_in_group("player cards").add_child(load_blank)
 		else:
 			deck.push_back(i)
-			i.reparent(self)
 			i.card_stats.deck_position = counter
 			
 		counter += 1
+	build_deck_position()
+
 	return deck
 
 func play_card(card):

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_5sm1h"]
 [ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="5_pgxp2"]
-[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_ksv00"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="6_ksv00"]
 [ext_resource type="Texture2D" uid="uid://0x84osthytof" path="res://Resources/Art/Backgrounds/enemy_selection_background.png" id="7_smwqy"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyDeckDisplay.gd" id="8_xkyks"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="9_abhd6"]

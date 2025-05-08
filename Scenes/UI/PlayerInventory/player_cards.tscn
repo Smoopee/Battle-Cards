@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bwqs5wchg56o"]
 
-[ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/player_inventory_screen.gd" id="1_ek0gf"]
+[ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/player_cards.gd" id="1_ek0gf"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/DeckCardSlots.gd" id="3_4n06j"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/InventorySlots.gd" id="4_u7odf"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/ActiveDeck.gd" id="5_3rxlr"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/CurrentInventory.gd" id="6_uxh4d"]
 [ext_resource type="Texture2D" uid="uid://cj5xnevnwa8tu" path="res://Resources/Art/UIElements/Biome_selection_bg_panel.png" id="7_ehsmf"]
 
-[node name="PlayerInventoryScreen" type="Node2D" groups=["player inventory"]]
+[node name="PlayerCards" type="Node2D" groups=["player cards"]]
 visible = false
 z_index = 1
 script = ExtResource("1_ek0gf")
@@ -19,10 +19,10 @@ script = ExtResource("3_4n06j")
 [node name="InventorySlots" type="Node2D" parent="."]
 script = ExtResource("4_u7odf")
 
-[node name="ActiveDeck" type="Node2D" parent="."]
+[node name="Deck" type="Node2D" parent="." groups=["player deck"]]
 script = ExtResource("5_3rxlr")
 
-[node name="CurrentInventory" type="Node2D" parent="."]
+[node name="Inventory" type="Node2D" parent="." groups=["player inventory"]]
 script = ExtResource("6_uxh4d")
 
 [node name="SellZone" parent="." instance=ExtResource("6_i6oqa")]

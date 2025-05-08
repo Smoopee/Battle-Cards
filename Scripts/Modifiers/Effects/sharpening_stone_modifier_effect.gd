@@ -10,9 +10,11 @@ func _ready():
 func initialize(target):
 	target.card_stats.dmg += 5
 	target.update_card_ui()
+	target.update_tooltip("SharpeningStoneModifier", "Card's Damage increased by " + str(5) + "\n ", "Sharpening Stone: ")
 	
 func additional_modifier(target):
 	print("In additional modifier sharpening stone modifier")
+	target.update_tooltip("SharpeningStoneModifier", "Card's Damage increased by " + str(5) + "\n ", "Sharpening Stone: ")
 
 func modifier_decrement(round):
 	parent.change_counter(-1)

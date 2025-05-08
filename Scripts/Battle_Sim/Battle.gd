@@ -14,7 +14,6 @@ var current_screen = ""
 
 @onready var player_deck = $"../player_deck"
 @onready var enemy_node = $"../Enemy"
-@onready var player_inventory = $"../player_inventory"
 @onready var ui = $"../UI"
 @onready var player_node = $"../Player"
 @onready var next_turn = $"../NextTurn"
@@ -42,8 +41,7 @@ func _ready():
 	timer_between_animations.wait_time *= Global.COMBAT_SPEED
 	play_order_timer.wait_time *= Global.COMBAT_SPEED
 	
-	player_deck_list = $"../player_deck".initial_build_deck()
-	player_inventory_list = $"../player_inventory".initial_build_inventory()
+	player_deck_list = $"../player_deck".set_deck()
 	enemy_deck_list = enemy_node.initial_build_deck()
 	
 	emit_signal("start_of_battle")
@@ -170,7 +168,10 @@ func crit_check(i):
 
 func cooldown_keeper(card):
 	card.card_stats.cd_remaining = card.card_stats.cd + 1
-	card.card_stats.on_cd = true
+	if card.card_stats.cd_remaining <= 1: 
+		card.card_stats.cd_remaining == 0
+	else:
+		card.card_stats.on_cd = true
 
 func stun_check(character):
 	if character.character_stats.is_stunned == true: 
@@ -198,35 +199,13 @@ func end_fight_cleanup():
 	$"../UI/Labels".visible = false
 
 func _on_start_button_button_down():
-	on_start()
+	during_combat_ui_toggle()
+	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
-func on_start():
-	$"../StartButton".visible = false
-	next_turn.visible = false
-	$"../player_inventory".visible = false
-	$"../ContinueButton".visible = false
-	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
-	$"../ConsumableManger".visible = true
-	$"../ConsumableManger".process_mode = Node.PROCESS_MODE_INHERIT
-	
-	player_deck_list = player_deck.build_deck()
-	enemy_deck_list = enemy_node.deck
-	player_inventory_list = player_inventory.build_inventory()
-	emit_signal("start_of_round")
 
 func _on_continue_button_button_down():
-	next_turn.visible = false
-	$"../player_inventory".visible = false
-	$"../ContinueButton".visible = false
-	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
-	$"../ConsumableManger".visible = true
-	$"../ConsumableManger".process_mode = Node.PROCESS_MODE_INHERIT
-	
-	player_deck_list = player_deck.build_deck()
-	enemy_deck_list = enemy_node.deck
-	player_inventory_list = player_inventory.build_inventory()
-	
+	during_combat_ui_toggle()
 	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
@@ -259,4 +238,20 @@ func _on_talent_button_button_down():
 	$CanvasLayer/ColorRect/HBoxContainer/BackButton.visible = true
 	current_screen = "talents"
 
-
+func during_combat_ui_toggle():
+	$"../StartButton".visible = false
+	$"../ContinueButton".visible = false
+	$"../ConsumableManger".visible = true
+	$"../ConsumableManger".process_mode = Node.PROCESS_MODE_INHERIT
+	
+	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
+	get_tree().get_first_node_in_group("player cards").toggle_combat_ui(true)
+	
+	player_deck_list = player_deck.build_deck()
+	enemy_deck_list = enemy_node.deck
+	player_inventory_list = get_tree().get_first_node_in_group("player cards").inventory_card_slot_reference
+	
+	for i in player_inventory_list:
+		if i == null: continue
+		i.visible = false
+	

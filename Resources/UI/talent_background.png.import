@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mt71ium2l5rs"
-path="res://.godot/imported/vicious_swings_talent_button.png-7c70f1b1164789577fb4c810a9fcf9e1.ctex"
+uid="uid://btrggjdfrdevm"
+path="res://.godot/imported/talent_background.png-ff24396862353d65ff05def17c5cf53f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Talents/vicious_swings_talent_button.png"
-dest_files=["res://.godot/imported/vicious_swings_talent_button.png-7c70f1b1164789577fb4c810a9fcf9e1.ctex"]
+source_file="res://Resources/UI/talent_background.png"
+dest_files=["res://.godot/imported/talent_background.png-ff24396862353d65ff05def17c5cf53f.ctex"]
 
 [params]
 

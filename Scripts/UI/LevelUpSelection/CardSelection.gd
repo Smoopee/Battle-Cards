@@ -20,8 +20,8 @@ func get_inventory():
 	create_inventory()
 
 func get_inventory_selection():
-	for i in card_db_reference.CARDS:
-		var temp = load(card_db_reference.CARDS[i])
+	for i in card_db_reference.ITEMS:
+		var temp = load(card_db_reference.ITEMS[i])
 		for j in temp.tags:
 			if j == "Berserker":
 				inventory_selection.push_back(temp)

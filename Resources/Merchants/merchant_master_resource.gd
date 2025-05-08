@@ -11,4 +11,4 @@ class_name Merchant_Resource
 @export var stock_quantity: int
 @export var buy_modifier:  int = 0
 @export var sell_modifier: int = 0
-@export var can_refreseh: bool = true
+@export var can_refresh: bool = true

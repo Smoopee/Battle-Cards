@@ -61,7 +61,7 @@ func upgrade_card(num):
 			stats.effect1 = 40
 			stats.effect2 = 16
 	
-	parent.update_tooltip("Effect", "Buff Atk by " + str(stats.effect1))
+	parent.update_tooltip("Effect", "Increase Def by " + str(stats.effect2), "Effect: ")
 	parent.update_card_ui()
 
 func item_enchant(enchant):

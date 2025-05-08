@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_qlboe")
-merchant_art_path = ""
-merchant_border_path = ""
-merchant_scene_path = ""
-merchant_name = ""
-merchant_type = ""
+merchant_art_path = "res://Resources/Art/Merchants/jack_merchant.png"
+merchant_border_path = "res://Resources/Art/UIElements/Borders/merchant_border.png"
+merchant_scene_path = "res://Scenes/Merchants/jack.tscn"
+merchant_name = "Jack"
+merchant_type = "Skill"
 selection_tags = []
-stock_quantity = 0
+stock_quantity = 3
 buy_modifier = 0
 sell_modifier = 0
 can_refreseh = true

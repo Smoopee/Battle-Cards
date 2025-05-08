@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ct6hpsifi46"
-path="res://.godot/imported/vicious_swings_talent_button_hover.png-92e7cfaf3a7e8897d14ebf3b5689f5e6.ctex"
+uid="uid://b37t3yt4i46yh"
+path="res://.godot/imported/vicious_swings_hover.png-b4cb18468fa66e0d47eaec7b14113124.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Talents/vicious_swings_talent_button_hover.png"
-dest_files=["res://.godot/imported/vicious_swings_talent_button_hover.png-92e7cfaf3a7e8897d14ebf3b5689f5e6.ctex"]
+source_file="res://Resources/Art/Talents/vicious_swings_hover.png"
+dest_files=["res://.godot/imported/vicious_swings_hover.png-b4cb18468fa66e0d47eaec7b14113124.ctex"]
 
 [params]
 

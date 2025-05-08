@@ -43,8 +43,9 @@ func create_inventory():
 		fill_card_slots(card_scene, card_position)
 		card_position += 1
 
-func fetch_inventory():
-	deck_db = Global.player_deck
+
+func fetch_inventory(deck = Global.player_deck):
+	deck_db = deck
 
 func remove_card(card):
 	if card in Global.player_deck:
@@ -61,4 +62,5 @@ func fill_card_slots(new_card, index):
 		card_slot_array[index].card_in_slot = false
 		return
 	new_card.position = card_slot_array[index].position
+	new_card.card_stats.screen_position = new_card.position
 	card_slot_array[index].card_in_slot = true

@@ -3,7 +3,7 @@ extends Node2D
 const CARD_WIDTH = 350
 const MERCHANT_Y_POSITION = 400
 
-var number_of_merchants = 1
+var number_of_merchants = 3
 
 var rng = RandomNumberGenerator.new()
 var merchant_db_reference

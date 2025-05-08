@@ -21,13 +21,13 @@ border_color = Color(0, 0, 0, 1)
 [node name="SharpeningStoneModifier" type="Node2D"]
 script = ExtResource("1_jp1ll")
 
-[node name="ModifierImage" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-texture = ExtResource("1_60ugy")
-
 [node name="Effect" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_j5qvi")
+
+[node name="ModifierImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_60ugy")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0)

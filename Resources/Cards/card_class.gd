@@ -21,6 +21,7 @@ var effects : Node2D
 var card_image : Sprite2D
 var upgrade_border : Sprite2D
 var card_border : Sprite2D
+var tooltip_name : Label
 
 
 #AUDIO==============================================================================================
@@ -65,11 +66,14 @@ func set_node_names():
 	collision_shape = get_node('%CollisionShape2D')
 	card_image = get_node('%CardImage')
 	card_border = get_node('%CardBorder')
+	tooltip_name = get_node('%Name')
 	
 	z_index = 1
 	card_image.texture = load(card_stats.card_art_path)
 	card_border.texture = load(card_stats.card_border_path)
+	tooltip_name.text = str(card_stats.name) + "\n "
 	add_to_group("card")
+	
 
 
 func effect(player_deck, enemy_deck, player, enemy):
@@ -127,7 +131,7 @@ func change_item_enchant_image():
 			update_damage_label("Exhaust")
 		"Dejavu":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/dejavu_enchant.png")
-			update_tooltip("Dejavu", "Repeat Card Effects",  "Dejavu: ")
+			update_tooltip("Dejavu", "Repeat Card Effects" + "\n ",  "Dejavu: ")
 			update_damage_label("Dejavu")
 		"Fiery":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/fiery_enchant.png")
@@ -166,10 +170,10 @@ func toggle_tooltip_show():
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(position + Vector2(150, -180), Vector2i(0, 0))) 
+		tooltip.popup(Rect2i(position + Vector2(100, -100), Vector2i(0, 0))) 
 	else:
 		tooltip.popup(Rect2i(position, Vector2i(0, 0))) 
-		tooltip.position = position + Vector2(-150 - tooltip.size.x , -180)
+		tooltip.position = position + Vector2(-100 - tooltip.size.x , -100)
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
@@ -187,12 +191,15 @@ func update_tooltip(identifier, body = null, header = null,):
 		tooltip_container.add_child(hbox)
 		var name_label = Label.new()
 		hbox.add_child(name_label)
+		name_label.size_flags_vertical = Control.SIZE_FILL
 		name_label.add_theme_color_override("font_color", Color.BLACK)
 		name_label.text = str(header)
 		var body_label = Label.new()
 		hbox.add_child(body_label)
 		body_label.add_theme_color_override("font_color", Color.BLACK)
 		body_label.text = str(body)
+	
+		var seperator = Panel.new()
 	
 	else:
 		tooltip.get_child(1).text = str(body)
@@ -288,7 +295,6 @@ func add_modifier(modifier):
 	modifier.modifier_initializer(self)
 	organzie_card_modifiers()
 
-
 func organzie_card_modifiers():
 	var counter = 0
 	var x_offset = 0
@@ -312,7 +318,12 @@ func load_full_art():
 	full_art.global_position = Vector2((get_viewport().size.x / 2) - 160, (get_viewport().size.y / 2) - 30)
 
 func _on_card_ui_mouse_entered():
-	Popups.card_popup(self)
+	if get_tree().get_first_node_in_group("player cards").card_being_dragged != null: return
+	scale = Vector2(1.1, 1.1)
+	toggle_tooltip_show()
+	#Popups.card_popup(self)
 
 func _on_card_ui_mouse_exited():
-	Popups.hide_card_popup(self)
+	scale = Vector2(1, 1)
+	toggle_tooltip_hide()
+	#Popups.hide_card_popup(self)

@@ -52,7 +52,6 @@ texture_filter = 1
 texture = ExtResource("2_22lyt")
 
 [node name="CardBorder" type="Sprite2D" parent="."]
-unique_name_in_owner = true
 
 [node name="UpgradeBorder" type="Sprite2D" parent="."]
 

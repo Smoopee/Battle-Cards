@@ -18,9 +18,7 @@ func level_up():
 
 func update_rewards():
 	var enemy_reward = $"../Enemy".enemy_reward()
-	$"../NextTurn/DeckBuilder/PlayerDeck".reward_screen = true
-	$"../NextTurn/DeckBuilder/PlayerInventory".reward_screen = true
-	$"../NextTurn/DeckBuilder/UpgradeButton".visible = true
+
 	
 	if enemy_reward.get_script() == load("res://Resources/Cards/cards_master_resource.gd"):
 		card_reward(enemy_reward)
@@ -66,7 +64,7 @@ func skill_reward(enemy_reward):
 	reward = new_scene
 
 func _on_button_button_down():
-	var card_manager = $"../NextTurn/DeckBuilder/CardManager"
+	var card_manager = $"../PlayerCards"
 	
 	var temp_inventory = []
 	for i in card_manager.inventory_card_slot_reference:
