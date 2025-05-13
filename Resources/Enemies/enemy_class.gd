@@ -104,8 +104,9 @@ func set_skills():
 		new_instance.skill_stats = i
 		new_instance.skill_stats.owner = self
 		new_instance.skill_stats.target = get_tree().get_first_node_in_group("character")
-		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 		skills.add_child(new_instance)
+		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
+		
 	
 	organize_skills()
 

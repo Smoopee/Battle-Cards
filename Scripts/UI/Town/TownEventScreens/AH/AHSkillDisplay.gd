@@ -25,9 +25,9 @@ func get_inventory(skill_tag):
 	create_skill_selection()
 
 func get_inventory_selection(skill_tag):
-	for i in skill_db_reference.SKILLS:
-		var temp = load(skill_db_reference.SKILLS[i])
-		for j in temp.skill_pool:
+	for i in skill_db_reference.ITEMS:
+		var temp = load(skill_db_reference.ITEMS[i])
+		for j in temp.tags:
 			if j == skill_tag:
 				inventory_selection.push_back(temp)
 

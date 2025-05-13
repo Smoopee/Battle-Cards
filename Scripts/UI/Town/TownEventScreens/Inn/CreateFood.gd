@@ -13,7 +13,7 @@ var center_screen_x
 func _ready():
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
 	center_screen_x = get_viewport().size.x / 2
-	get_tree().get_first_node_in_group("player inventory").get_node("SellZone").visible = false
+	get_tree().get_first_node_in_group("player cards").get_node("SellZone").visible = false
 	get_inventory()
 	
 #CREATE DATA FOR MERCHANDISE =======================================================================
@@ -23,8 +23,8 @@ func get_inventory():
 	create_consumable_selection()
 	
 func get_inventory_selection():
-	for i in consumable_db_reference.CONSUMABLES:
-		var temp = load(consumable_db_reference.CONSUMABLES[i])
+	for i in consumable_db_reference.ITEMS:
+		var temp = load(consumable_db_reference.ITEMS[i])
 		for j in temp.tags:
 			if j == "Food":
 				inventory_selection.push_back(temp)

@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .4
+const COMBAT_SPEED = .01
 
 
 signal level_up
@@ -117,7 +117,7 @@ func instantiate_player_skills():
 		player_skills.push_back(skill)
 
 func set_player_consumables():
-	player_consumables_db = ["Health Potion", "Glue", "Strength Potion"]
+	player_consumables_db = ["Cheese"]
 
 func instantiate_player_consumables():
 	for i in player_consumables_db:

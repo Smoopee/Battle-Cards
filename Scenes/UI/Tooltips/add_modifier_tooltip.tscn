@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bppanognrfppn"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Tooltips/add_modifier_tooltip.gd" id="1_hk2n3"]
+
+[node name="AddModifierTooltip" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_hk2n3")
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "
+"
+
+[node name="Body" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "
+"

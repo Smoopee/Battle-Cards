@@ -33,21 +33,12 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wxxx2"]
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-bg_color = Color(1, 1, 1, 0.901961)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxgs8"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Swarm" type="Node2D"]
 script = ExtResource("1_dq46t")
@@ -228,26 +219,21 @@ stream = ExtResource("3_ctehc")
 unique_name_in_owner = true
 transparent_bg = true
 size = Vector2i(21, 44)
-theme_override_styles/panel = SubResource("StyleBoxFlat_wxxx2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_lxgs8")
 
 [node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
 unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = -5.0
-offset_bottom = -5.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Name" type="Label" parent="PopupPanel/TooltipContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
 
 [node name="Modifiers" type="Node2D" parent="."]
 unique_name_in_owner = true

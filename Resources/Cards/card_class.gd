@@ -66,14 +66,13 @@ func set_node_names():
 	collision_shape = get_node('%CollisionShape2D')
 	card_image = get_node('%CardImage')
 	card_border = get_node('%CardBorder')
-	tooltip_name = get_node('%Name')
+	#tooltip_name = get_node('%Name')
 	
 	z_index = 1
 	card_image.texture = load(card_stats.card_art_path)
 	card_border.texture = load(card_stats.card_border_path)
-	tooltip_name.text = str(card_stats.name) + "\n "
+	#tooltip_name.text = str(card_stats.name) + "\n "
 	add_to_group("card")
-	
 
 
 func effect(player_deck, enemy_deck, player, enemy):
@@ -118,44 +117,39 @@ func update_card_ui():
 	change_item_enchant_image()
 	toggle_cd()
 
+func upgrade_card_ui():
+	update_card_image()
+	toggle_cd()
+
 func change_item_enchant_image():
 	var enchant = card_stats.item_enchant
 	match enchant:
 		"Bleed":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/bleed_enchant.png")
-			update_tooltip("Bleed", "Deal " + str(card_stats.bleed_dmg) + " bleed damage",  "Bleed: ")
 			update_damage_label("Bleed")
 		"Exhaust":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/exhaust_enchant.png")
-			update_tooltip("Exhaust", "Put Opposing card on CD for 1 Round",  "Exhaust: ")
 			update_damage_label("Exhaust")
 		"Dejavu":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/dejavu_enchant.png")
-			update_tooltip("Dejavu", "Repeat Card Effects" + "\n ",  "Dejavu: ")
 			update_damage_label("Dejavu")
 		"Fiery":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/fiery_enchant.png")
-			update_tooltip("Burn", "Deal " + str(card_stats.burn_dmg) + " bleed damage",  "Burn: ")
 			update_damage_label("Burn")
 		"Lifesteal":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/lifesteal_enchant.png")
-			update_tooltip("Lifesteal", "Heal for " + str(card_stats.dmg) + " damage",  "Lifesteal: ")
 			update_damage_label("Lifesteal")
 		"Rapid":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/rapid_enchant.png")
-			update_tooltip("Rapid", "Reduce and random card's CD by 1",  "Rapid: ")
 			update_damage_label("Rapid")
 		"Restoration":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/restoration_enchant.png")
-			update_tooltip("Restoration", "Heal for " + str(card_stats.heal),  "Restoration: ")
 			update_damage_label("Restoration")
 		"Toxic":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/toxic_enchant.png")
-			update_tooltip("Poison", "Deal " + str(card_stats.poison_dmg) + " poison damage",  "Poison: ")
 			update_damage_label("Poison")
 		"Prosperity":
 			enchant_image.texture = load("res://Resources/Art/Enchantments/ItemEnhancement/prosperity_enchant.png")
-			update_tooltip("Prosperity", "Gain " + str(card_stats.prosperity) + " Gold",  "Prosperity: ")
 			update_damage_label("Prosperity")
 	
 		_: enchant_image.texture = null
@@ -165,44 +159,33 @@ func toggle_tooltip_show():
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
+	var size = Vector2i(0,0)
 	
 	#Toggles when mouse is on right side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(position + Vector2(100, -100), Vector2i(0, 0))) 
+		tooltip.popup(Rect2i(position + Vector2(100, -100), size)) 
 	else:
-		tooltip.popup(Rect2i(position, Vector2i(0, 0))) 
+		tooltip.popup(Rect2i(position, size)) 
 		tooltip.position = position + Vector2(-100 - tooltip.size.x , -100)
+
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.hide()
 
-func update_tooltip(identifier, body = null, header = null,):
-	var tooltip
+func update_tooltip(category, identifier, body = null, header = null):
+	var temp
 	for i in tooltip_container.get_children():
-		if i.name == identifier: 
-			tooltip = i
-
-	if tooltip == null:
-		var hbox = HBoxContainer.new()
-		hbox.name = identifier
-		tooltip_container.add_child(hbox)
-		var name_label = Label.new()
-		hbox.add_child(name_label)
-		name_label.size_flags_vertical = Control.SIZE_FILL
-		name_label.add_theme_color_override("font_color", Color.BLACK)
-		name_label.text = str(header)
-		var body_label = Label.new()
-		hbox.add_child(body_label)
-		body_label.add_theme_color_override("font_color", Color.BLACK)
-		body_label.text = str(body)
-	
-		var seperator = Panel.new()
-	
+		if i.name == category: 
+			temp = i
+	if temp == null:
+		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		tooltip_container.add_child(new_tooltip)
+		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
-		tooltip.get_child(1).text = str(body)
+		temp.update_tooltip(category, identifier, body, header)
 
 func update_damage_label(type):
 	var styleBox: StyleBoxFlat = alt_dmg_panel.get_theme_stylebox("panel").duplicate()
@@ -321,9 +304,8 @@ func _on_card_ui_mouse_entered():
 	if get_tree().get_first_node_in_group("player cards").card_being_dragged != null: return
 	scale = Vector2(1.1, 1.1)
 	toggle_tooltip_show()
-	#Popups.card_popup(self)
 
 func _on_card_ui_mouse_exited():
 	scale = Vector2(1, 1)
 	toggle_tooltip_hide()
-	#Popups.hide_card_popup(self)
+

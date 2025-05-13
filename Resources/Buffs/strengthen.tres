@@ -6,5 +6,5 @@
 script = ExtResource("1_3ktsl")
 buff_art_path = "res://Resources/Art/Buffs/strengthen_buff.png"
 buff_scene_path = "res://Scenes/Buffs/strengthen_buff.tscn"
-buff_name = "Strengthen"
+name = "Strengthen"
 tags = []

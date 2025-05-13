@@ -16,7 +16,7 @@ func setup(tag):
 	center_screen_x = get_viewport().size.x / 2
 	get_inventory(tag)
 	get_tree().get_first_node_in_group("card selector").visible = false
-	get_tree().get_first_node_in_group("player inventory").get_node("SellZone").visible = false
+	get_tree().get_first_node_in_group("player cards").get_node("SellZone").visible = false
 
 func get_inventory(tag):
 	get_inventory_selection(tag)
@@ -24,8 +24,8 @@ func get_inventory(tag):
 	create_consumable_selection()
 
 func get_inventory_selection(tag):
-	for i in consumable_db_reference.CONSUMABLES:
-		var temp = load(consumable_db_reference.CONSUMABLES[i])
+	for i in consumable_db_reference.ITEMS:
+		var temp = load(consumable_db_reference.ITEMS[i])
 		for j in temp.tags:
 			if j == tag:
 				inventory_selection.push_back(temp)

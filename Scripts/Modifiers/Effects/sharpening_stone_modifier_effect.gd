@@ -4,21 +4,21 @@ extends Node2D
 
 
 func _ready():
-	get_tree().get_nodes_in_group("battle sim")[0].connect("end_of_round", modifier_decrement)
-	parent.connect("modifier_removed", remove_modifier)
+	pass
 
 func initialize(target):
 	target.card_stats.dmg += 5
 	target.update_card_ui()
-	target.update_tooltip("SharpeningStoneModifier", "Card's Damage increased by " + str(5) + "\n ", "Sharpening Stone: ")
+	target.update_tooltip("Modifier", "SharpeningStoneModifier", "Card's Damage increased by " + str(5) + "\n ", "Sharpening Stone: ")
 	
 func additional_modifier(target):
 	print("In additional modifier sharpening stone modifier")
-	target.update_tooltip("SharpeningStoneModifier", "Card's Damage increased by " + str(5) + "\n ", "Sharpening Stone: ")
+	
 
 func modifier_decrement(round):
 	parent.change_counter(-1)
 
 func remove_modifier(attached_to):
+	print("In remove sharpening stone modifier")
 	attached_to.card_stats.dmg -= 5
 	queue_free()

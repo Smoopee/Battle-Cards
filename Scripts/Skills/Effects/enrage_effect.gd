@@ -16,7 +16,7 @@ func skill_effect():
 	var health = float(stats.owner.character_stats.health)
 	
 	if health/max_health <= .2:
-		stats.owner.change_attack(20)
+		stats.owner.change_attack(stats.effect1)
 		one_shot = false
 
 func upgrade_skill(num):
@@ -40,5 +40,9 @@ func upgrade_skill(num):
 			stats.skill_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade4.png"
 			stats.upgrade_level = 4
 			stats.buy_price = 16
-		
+	
+	parent.update_tooltip(str(stats.name), 
+	"Effect", 
+	"At 20% Health, Increase Atk by " + str(stats.effect1), 
+	"Effect: ")
 	parent.update_skill_image()

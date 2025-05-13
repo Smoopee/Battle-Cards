@@ -10,6 +10,8 @@ var info_label: Label
 var effect: Node2D
 var skill_image: Sprite2D
 var upgrade_border: Sprite2D
+var tooltip_container : VBoxContainer
+var tooltip : PopupPanel
 
 
 func _ready():
@@ -38,43 +40,50 @@ func set_node_names():
 	effect = get_node('%Effect')
 	skill_image = get_node('%SkillImage')
 	upgrade_border = get_node('%UpgradeBorder')
+	tooltip_container = get_node('%TooltipContainer')
+	tooltip = get_node('%PopupPanel')
 	
 	skill_image.texture = load(skill_stats.skill_art_path)
 	z_index = 1
 
 #WIP TOOLTIPS======================================================================================
-#func toggle_tooltip_show():
-	#if $PopupPanel/VBoxContainer.get_children() == []: return
-#
-	#$PopupPanel.popup(Rect2i(global_position + Vector2(20, -70), Vector2(0, 0)))
-#
-#func toggle_tooltip_hide():
-	#$PopupPanel.hide()
-#
-#func update_tooltip(identifier, body = null, header = null,):
-	#var tooltip
-	#for i in $PopupPanel/VBoxContainer.get_children():
-		#if i.name == identifier: 
-			#tooltip = i
-#
-	#if tooltip == null:
-		#var hbox = HBoxContainer.new()
-		#hbox.name = identifier
-		#$PopupPanel/VBoxContainer.add_child(hbox)
-		#var name_label = Label.new()
-		#hbox.add_child(name_label)
-		#name_label.add_theme_color_override("font_color", Color.BLACK)
-		#name_label.text = str(header)
-		#var body_label = Label.new()
-		#hbox.add_child(body_label)
-		#body_label.add_theme_color_override("font_color", Color.BLACK)
-		#body_label.text = str(body)
-	#
-	#else:
-		#tooltip.get_child(1).text = str(body)
-#
-#func _on_panel_mouse_entered():
-	#toggle_tooltip_show()
-#
-#func _on_panel_mouse_exited():
-	#toggle_tooltip_hide()
+func toggle_tooltip_show():
+	if tooltip_container.get_children() == []: return
+	toggle_shop_ui(true)
+	var mouse_pos = get_viewport().get_mouse_position()
+	var correction = true
+	var size = Vector2i(0,0)
+	
+	#Toggles when mouse is on right side of screen
+	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
+	
+	if correction == false:
+		tooltip.popup(Rect2i(global_position + Vector2(25, -35), size)) 
+	else:
+		var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
+		tooltip.popup(Rect2i(new_position, size)) 
+		
+
+func toggle_tooltip_hide():
+	toggle_shop_ui(false)
+	tooltip.hide()
+
+func update_tooltip(category, identifier, body = null, header = null):
+	var temp
+	for i in tooltip_container.get_children():
+		if i.name == category: 
+			temp = i
+	if temp == null:
+		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		tooltip_container.add_child(new_tooltip)
+		new_tooltip.create_tooltip(category, identifier, body, header)
+	else:
+		temp.update_tooltip(category, identifier, body, header)
+
+func _on_skill_ui_mouse_entered():
+	scale = Vector2(1.1, 1.1)
+	toggle_tooltip_show()
+
+func _on_skill_ui_mouse_exited():
+	scale = Vector2(1, 1)
+	toggle_tooltip_hide()

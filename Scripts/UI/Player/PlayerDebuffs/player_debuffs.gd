@@ -11,7 +11,7 @@ func add_debuff(debuff_resource, source):
 	new_debuff.debuff_stats.owner = get_tree().get_first_node_in_group("character")
 	
 	for i in get_tree().get_nodes_in_group("debuff"):
-		if (i.debuff_stats.debuff_name == new_debuff.debuff_stats.debuff_name 
+		if (i.debuff_stats.name == new_debuff.debuff_stats.name 
 		and i.debuff_stats.owner == get_tree().get_first_node_in_group("character")): 
 			i.additional_debuff(source)
 			return
@@ -22,7 +22,7 @@ func add_debuff(debuff_resource, source):
 
 func remove_debuff(debuff):
 	for i in get_children():
-		if i.debuff_stats.debuff_name == debuff:
+		if i.debuff_stats.name == debuff:
 			i.queue_free()
 	organize_debuffs()
 

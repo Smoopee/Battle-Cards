@@ -23,4 +23,4 @@ speed = 0
 is_stunned = false
 stun_counter = 0
 runes = []
-biomes = ["Forest", "Mountains", "Desert"]
+biomes = ["Forest", "Desert"]

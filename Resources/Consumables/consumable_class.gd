@@ -8,9 +8,12 @@ var shop_panel: Panel
 var info_label: Label
 var effect: Node2D
 var image: Sprite2D
+var tooltip : PopupPanel
+var tooltip_container : VBoxContainer
 
 func _ready():
 	set_node_names()
+	effect.tooltip_effect()
 
 func consumable_effect(target):
 	effect.effect(target)
@@ -39,6 +42,52 @@ func set_node_names():
 	info_label = get_node('%InfoLabel')
 	effect = get_node('%Effect')
 	image = get_node('%ConsumableImage')
+	tooltip = get_node('%PopupPanel')
+	tooltip_container = get_node('%TooltipContainer')
 	
 	image.texture = load(consumable_stats.consumable_art_path)
 	z_index = 1
+
+#WIP TOOLTIPS======================================================================================
+func toggle_tooltip_show():
+	if tooltip_container.get_children() == []: return
+	toggle_shop_ui(true)
+	var mouse_pos = get_viewport().get_mouse_position()
+	var correction = true
+	var size = Vector2i(0,0)
+	
+	#Toggles when mouse is on right side of screen
+	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
+	
+	if correction == false:
+		tooltip.popup(Rect2i(global_position + Vector2(25, -35), size)) 
+	else:
+		var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
+		tooltip.popup(Rect2i(new_position, size)) 
+		
+
+func toggle_tooltip_hide():
+	toggle_shop_ui(false)
+	tooltip.hide()
+
+func update_tooltip(category, identifier, body = null, header = null):
+	var temp
+	for i in tooltip_container.get_children():
+		if i.name == category: 
+			temp = i
+	if temp == null:
+		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		tooltip_container.add_child(new_tooltip)
+		new_tooltip.create_tooltip(category, identifier, body, header)
+	else:
+		temp.update_tooltip(category, identifier, body, header)
+
+
+func _on_consumable_ui_mouse_entered():
+	scale = Vector2(1.1, 1.1)
+	toggle_tooltip_show()
+
+
+func _on_consumable_ui_mouse_exited():
+	scale = Vector2(1, 1)
+	toggle_tooltip_hide()

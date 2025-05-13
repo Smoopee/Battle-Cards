@@ -16,3 +16,6 @@ func additional_buff(source):
 	
 	parent.change_counter(buff_effect)
 	stats.owner.change_attack(buff_effect)
+
+func tooltip_effect():
+	return

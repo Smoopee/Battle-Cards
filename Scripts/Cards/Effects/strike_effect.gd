@@ -47,7 +47,6 @@ func effect(player_deck, enemy_deck, player, enemy):
 		if temp_array.size() == 0: return
 		temp_array[0].cd_remaining -= 1
 
-		
 func upgrade_card(num):
 	var stats = parent.card_stats
 	match num:
@@ -76,8 +75,8 @@ func upgrade_card(num):
 			stats.sell_price = 16
 			stats.buy_price = 32
 	
-	parent.update_tooltip("Effect", "Deal " + str(stats.dmg) + " damage", "Effect: ")
-	parent.update_card_ui()
+	parent.update_tooltip(str(stats.name), "Effect", "Deal " + str(stats.dmg) + " damage", "Effect: ")
+	parent.upgrade_card_ui()
 
 func item_enchant(enchant):
 	var stats = parent.card_stats
@@ -87,30 +86,39 @@ func item_enchant(enchant):
 			stats.bleed_dmg = 8
 			stats.sell_price *= 2
 			stats.buy_price *= 2
+			parent.update_tooltip("Enchantment", "Bleed", "Deal " + str(stats.bleed_dmg) + " bleed damage",  "Bleed: ")
 		"Exhaust":
 			stats.item_enchant = "Exhaust"
+			parent.update_tooltip("Enchantment", "Exhaust", "Put Opposing card on CD for 1 Round",  "Exhaust: ")
 		"Dejavu":
 			stats.item_enchant = "Dejavu"
+			parent.update_tooltip("Enchantment", "Dejavu", "Repeat Card Effects",  "Dejavu: ")
 		"Fiery":
 			stats.item_enchant = "Fiery"
 			stats.burn_dmg = 4
 			stats.sell_price *= 2
 			stats.buy_price *= 2
+			parent.update_tooltip("Enchantment", "Fiery", "Deal " + str(stats.burn_dmg) + " fire damage"  + "\n ",  "Fiery: ")
 		"Lifesteal":
 			stats.item_enchant = "Lifesteal"
+			parent.update_tooltip("Enchantment", "Lifesteal", "Heal for " + str(stats.dmg) + " damage",  "Lifesteal: ")
 		"Rapid":
 			stats.item_enchant = "Rapid"
+			parent.update_tooltip("Enchantment", "Rapid", "Reduce and random card's CD by 1",  "Rapid: ")
 		"Restoration":
 			stats.item_enchant = "Restoration"
 			stats.heal = 10
 			stats.sell_price *= 2
 			stats.buy_price *= 2
+			parent.update_tooltip("Enchantment", "Restoration", "Heal for " + str(stats.heal),  "Restoration: ")
 		"Toxic":
 			stats.item_enchant = "Toxic"
 			stats.poison_dmg = 2
 			stats.sell_price *= 2
 			stats.buy_price *= 2
+			parent.update_tooltip("Enchantment", "Poison", "Deal " + str(stats.poison_dmg) + " poison damage",  "Poison: ")
 		"Prosperity":
 			stats.item_enchant = "Prosperity"
 			stats.prosperity += 5
+			parent.update_tooltip("Enchantment", "Prosperity", "Gain " + str(stats.prosperity) + " Gold",  "Prosperity: ")
 	parent.update_card_ui()

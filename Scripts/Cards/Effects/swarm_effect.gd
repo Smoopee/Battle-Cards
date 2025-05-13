@@ -56,7 +56,6 @@ func effect(player_deck, enemy_deck, player, enemy):
 		if temp_array.size() == 0: return
 		temp_array[0].cd_remaining -= 1
 
-		
 func upgrade_card(num):
 	var stats = parent.card_stats
 	match num:
@@ -85,9 +84,9 @@ func upgrade_card(num):
 			stats.sell_price = 16
 			stats.buy_price = 32
 	
-	parent.update_tooltip("Effect", "Deal " + str(stats.dmg) + " damage. 
-	 \nIncrease the damage of Swarm cards by 1" + "\n ", "Effect: ")
-	parent.update_card_ui()
+	parent.update_tooltip(str(stats.name), "Effect", "Deal " + str(stats.dmg) + " damage. 
+	 \nIncrease the damage of Swarm cards by 1", "Effect: ")
+	parent.upgrade_card_ui()
 
 func item_enchant(enchant):
 	var stats = parent.card_stats

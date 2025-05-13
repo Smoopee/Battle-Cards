@@ -6,7 +6,7 @@
 script = ExtResource("1_ekmm6")
 consumable_art_path = "res://Resources/Art/Consumables/cheese_consumable.png"
 consumable_scene_path = "res://Scenes/Consumables/cheese.tscn"
-consumable_name = "Cheese"
+name = "Cheese"
 buy_price = 0
 target = "character"
 stack_amount = 1

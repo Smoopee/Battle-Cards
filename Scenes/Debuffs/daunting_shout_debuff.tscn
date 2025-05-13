@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dylpusffjn3kr"]
 
 [ext_resource type="Script" path="res://Resources/Debuffs/debuff_class.gd" id="1_nvdih"]
-[ext_resource type="Texture2D" uid="uid://ini0j8y2vxsm" path="res://Resources/Art/Consumables/cheese_consumable.png" id="2_v2pv7"]
 [ext_resource type="Script" path="res://Scripts/Debuffs/Effects/daunting_shout_effect.gd" id="3_6l1v3"]
+[ext_resource type="Texture2D" uid="uid://buyxrjs2c70qr" path="res://Resources/Art/Debuffs/daunting_shout_debuff.png" id="3_rkjqt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6baro"]
 bg_color = Color(1, 1, 1, 1)
@@ -12,17 +12,12 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck3tq"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pcg3"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="DauntingShoutDebuff" type="Node2D"]
 script = ExtResource("1_nvdih")
@@ -33,21 +28,17 @@ script = ExtResource("3_6l1v3")
 
 [node name="DebuffImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("2_v2pv7")
+texture = ExtResource("3_rkjqt")
 
-[node name="DebuffCounters" type="Label" parent="."]
-unique_name_in_owner = true
-offset_left = -5.0
-offset_top = 8.0
-offset_right = 5.0
-offset_bottom = 18.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="DebuffUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
 
-[node name="DebuffCounterPanel" type="Panel" parent="DebuffCounters"]
+[node name="DebuffCounterPanel" type="Panel" parent="DebuffUI"]
 unique_name_in_owner = true
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 11)
@@ -55,25 +46,44 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 40.0
+offset_right = -15.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6baro")
 
-[node name="PopupPanel" type="PopupPanel" parent="."]
-transparent_bg = true
-size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_ck3tq")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 374.0
-offset_bottom = 46.0
-
-[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
+[node name="DebuffCounters" type="Label" parent="DebuffUI/DebuffCounterPanel"]
+unique_name_in_owner = true
+offset_top = 1.0
+offset_right = 18.0
+offset_bottom = 13.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-text = "Rock"
+theme_override_font_sizes/font_size = 8
+text = "10"
+horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pcg3")
+
+[node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="DebuffUI" to="." method="_on_debuff_ui_mouse_entered"]
+[connection signal="mouse_exited" from="DebuffUI" to="." method="_on_debuff_ui_mouse_exited"]

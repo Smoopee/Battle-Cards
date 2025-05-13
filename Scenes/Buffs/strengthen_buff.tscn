@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ini0j8y2vxsm" path="res://Resources/Art/Consumables/cheese_consumable.png" id="2_s512o"]
 [ext_resource type="Script" path="res://Scripts/Buffs/Effects/strengthen_buff.gd" id="3_rscuk"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kuh1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6l2t"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 1
 border_width_top = 1
@@ -12,38 +12,34 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fc3p"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0qqs"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="StrengthenBuff" type="Node2D"]
 script = ExtResource("1_xecho")
+
+[node name="Effect" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_rscuk")
 
 [node name="BuffImage" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture = ExtResource("2_s512o")
 
-[node name="BuffCounters" type="Label" parent="."]
+[node name="BuffUI" type="Control" parent="."]
 unique_name_in_owner = true
-offset_left = -5.0
-offset_top = 8.0
-offset_right = 5.0
-offset_bottom = 18.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
 
-[node name="BuffCounterPanel" type="Panel" parent="BuffCounters"]
+[node name="BuffCounterPanel" type="Panel" parent="BuffUI"]
 unique_name_in_owner = true
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 11)
@@ -51,29 +47,45 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 40.0
+offset_right = -15.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8kuh1")
+theme_override_styles/panel = SubResource("StyleBoxFlat_j6l2t")
 
-[node name="Effect" type="Node2D" parent="."]
+[node name="BuffCounters" type="Label" parent="BuffUI/BuffCounterPanel"]
 unique_name_in_owner = true
-script = ExtResource("3_rscuk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
+unique_name_in_owner = true
 transparent_bg = true
-size = Vector2i(378, 50)
-theme_override_styles/panel = SubResource("StyleBoxFlat_1fc3p")
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_w0qqs")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 374.0
-offset_bottom = 46.0
-
-[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
-text = "Rock"
-vertical_alignment = 1
+[node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2

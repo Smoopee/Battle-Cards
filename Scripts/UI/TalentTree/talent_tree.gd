@@ -10,6 +10,8 @@ extends Control
 @export var group8 = ButtonGroup.new()
 
 @onready var level = Global.player_level
+@onready var tooltip = %PopupPanel
+@onready var tooltip_container = %TooltipContainer
 var talent_tree_reference = load("res://Scripts/Characters/Berserker/Talents/berserker_talents.gd")
 
 var tier1_access = false
@@ -361,10 +363,15 @@ func disable_out_of_reach_talents():
 		$VBoxContainer2/Tier2Block.visible = false
 
 func _on_texture_button_mouse_entered():
-	pass
+	update_tooltip(str(group1.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group1.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
 
 func _on_texture_button_mouse_exited():
-	pass
+	toggle_tooltip_hide()
 
 func _on_reset_button_button_down():
 	reset_talents()
@@ -376,3 +383,34 @@ func reset_talents():
 		Global.player_talent_array = []
 	
 	disable_out_of_reach_talents()
+
+#WIP TOOLTIP========================================================================================
+func toggle_tooltip_show():
+	if tooltip_container.get_children() == []: return
+	var mouse_pos = get_viewport().get_mouse_position()
+	var correction = true
+	var size = Vector2i(0,0)
+	
+	#Toggles when mouse is on right side of screen
+	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
+	
+	if correction == false:
+		tooltip.popup(Rect2i(global_position + Vector2(350, 535), size)) 
+	else:
+		var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
+		tooltip.popup(Rect2i(new_position, size)) 
+		
+func toggle_tooltip_hide():
+	tooltip.hide()
+
+func update_tooltip(category, identifier, body = null, header = null):
+	var temp
+	for i in tooltip_container.get_children():
+		if i.name == category: 
+			temp = i
+	if temp == null:
+		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		tooltip_container.add_child(new_tooltip)
+		new_tooltip.create_tooltip(category, identifier, body, header)
+	else:
+		temp.update_tooltip(category, identifier, body, header)

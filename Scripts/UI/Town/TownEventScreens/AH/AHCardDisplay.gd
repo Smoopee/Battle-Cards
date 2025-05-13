@@ -17,7 +17,7 @@ func setup(card_tag):
 	get_inventory(card_tag)
 	get_tree().get_first_node_in_group("card selector").visible = false
 	get_tree().get_first_node_in_group("card manager").toggle_inventory()
-	get_tree().get_first_node_in_group("player inventory").get_node("SellZone").visible = true
+	get_tree().get_first_node_in_group("player cards").get_node("SellZone").visible = true
 
 
 func get_inventory(card_tag):
@@ -26,8 +26,8 @@ func get_inventory(card_tag):
 	create_card_selection()
 
 func get_inventory_selection(card_tag):
-	for i in card_db_reference.CARDS:
-		var temp = load(card_db_reference.CARDS[i])
+	for i in card_db_reference.ITEMS:
+		var temp = load(card_db_reference.ITEMS[i])
 		for j in temp.tags:
 			if j == card_tag:
 				inventory_selection.push_back(temp)

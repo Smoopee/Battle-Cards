@@ -6,5 +6,5 @@
 script = ExtResource("1_gfi5x")
 debuff_art_path = "res://Resources/Art/Debuffs/daunting_shout_debuff.png"
 debuff_scene_path = "res://Scenes/Debuffs/daunting_shout_debuff.tscn"
-debuff_name = "Daunting Shout"
+name = "Daunting Shout"
 tags = []

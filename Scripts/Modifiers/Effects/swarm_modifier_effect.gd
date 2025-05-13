@@ -11,13 +11,13 @@ func initialize(target):
 	total_dmg_increase += 1
 	target.card_stats.dmg += 1
 	target.update_card_ui()
-	target.update_tooltip("SwarmModifier", "Card's Damage increased by " + str(total_dmg_increase) + "\n ", "Swarm: ")
+	target.update_tooltip("Modifier", "SwarmModifier", "Card's Damage increased by " + str(total_dmg_increase) + "\n ", "Swarm: ")
 	
 func additional_modifier(target):
 	total_dmg_increase += 1
 	target.card_stats.dmg += 1
 	target.update_card_ui()
-	target.update_tooltip("SwarmModifier", "Card's Damage increased by " + str(total_dmg_increase) + "\n ", "Swarm: ")
+	target.update_tooltip("Modifier", "SwarmModifier", "Card's Damage increased by " + str(total_dmg_increase) + "\n ", "Swarm: ")
 
 func modifier_decrement(round):
 	parent.change_counter(-1)

@@ -56,6 +56,7 @@ func create_skill_array():
 
 func random_skill_selection():
 	var skill_selection_index = rng.randi_range(0, skill_selection.size()-1)
+	if skill_selection_index == -1: return
 	return skill_selection[skill_selection_index]
 
 func skill_upgrade_function():

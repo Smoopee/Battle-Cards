@@ -16,7 +16,7 @@ func setup():
 	center_screen_x = get_viewport().size.x / 2
 	get_inventory()
 	get_tree().get_first_node_in_group("card selector").visible = false
-	get_tree().get_first_node_in_group("player inventory").get_node("SellZone").visible = false
+	get_tree().get_first_node_in_group("player cards").get_node("SellZone").visible = false
 
 
 func get_inventory():
@@ -25,9 +25,9 @@ func get_inventory():
 	create_skill_selection()
 
 func get_inventory_selection():
-	for i in skill_db_reference.SKILLS:
-		var temp = load(skill_db_reference.SKILLS[i])
-		for j in temp.skill_pool:
+	for i in skill_db_reference.ITEMS:
+		var temp = load(skill_db_reference.ITEMS[i])
+		for j in temp.tags:
 			if j == "Berserker":
 				inventory_selection.push_back(temp)
 
@@ -74,7 +74,7 @@ func create_skill_selection():
 		i.toggle_shop_ui(true)
 		i.skill_shop_ui()
 		i.skill_stats.inventory_position = skill_position
-		i.skill_stats.skill_owner = false
+		i.skill_stats.owner = false
 		skill_position += 1
 
 func add_skill_to_hand(skill):

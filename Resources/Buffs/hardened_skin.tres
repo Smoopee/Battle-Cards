@@ -6,5 +6,5 @@
 script = ExtResource("1_fha4t")
 buff_art_path = "res://Resources/Art/Buffs/hardened_skin_buff.png"
 buff_scene_path = "res://Scenes/Buffs/hardened_skin_buff.tscn"
-buff_name = "Hardened Skin"
+name = "Harden Skin"
 tags = []
