@@ -39,7 +39,6 @@ func random_enemy_selection():
 	return enemy_selection[enemy_selection_index]
 
 func create_encounter():
-	print(enemy_selection)
 	for i in range(enemy_resource_array.size()):
 		var new_enemy = load(enemy_resource_array[i].enemy_scene_path).instantiate().duplicate()
 		new_enemy.character_stats = enemy_resource_array[i]
@@ -49,7 +48,6 @@ func create_encounter():
 		new_enemy.get_node("EnemyUI").get_node("EnemySelectionHealth").visible = true
 		new_enemy.get_node("EnemyUI").get_node("EnemyHealthBar").visible = false
 		enemy_array.push_front(new_enemy)
-
 
 func update_enemy_positions():
 	for i in range(enemy_array.size()):

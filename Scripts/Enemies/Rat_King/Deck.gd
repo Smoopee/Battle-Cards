@@ -110,5 +110,9 @@ func card_enchantment_function():
 				var enchant_calc = rng.randi_range(0, 99)
 				if enchant_calc >= 80: i.item_enchant = "Bleed"
 
-
+func tooltip_enemy():
+	get_parent().update_tooltip(str(get_parent().character_stats.name), 
+	"Flavor Text", 
+	"All hail to the king", 
+	"")
 

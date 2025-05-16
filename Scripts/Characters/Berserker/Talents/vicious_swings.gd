@@ -1,7 +1,7 @@
 extends Node2D
 
 var talent_name = "Vicious Swings"
-var tooltip = "WIP"
+var tooltip = "Physical Damage Applies 2 Bleed Damage"
 var talent_scene_path = "res://Scenes/Characters/Berserker/Talents/vicious_swings.tscn"
 var pressed_texture = "res://Resources/Art/Talents/vicious_swings_pressed.png"
 var not_pressed_texture = "res://Resources/Art/Talents/vicious_swings_not_pressed.png"

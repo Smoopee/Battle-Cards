@@ -7,6 +7,7 @@ script = ExtResource("1_trrnd")
 enchantment_art_path = "res://Resources/Art/Enchantments/fiery_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/fiery.tscn"
 enchantment_name = "Fiery"
+enchantment_tooltip = "Applies Bleeding Fiery to a Card"
 buy_price = 5
 target = ""
 tags = []

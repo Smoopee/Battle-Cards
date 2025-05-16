@@ -7,6 +7,7 @@ script = ExtResource("1_paswu")
 enchantment_art_path = "res://Resources/Art/Enchantments/bleed_enchanment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/bleed.tscn"
 enchantment_name = "Bleed"
+enchantment_tooltip = "Applies Bleeding Enchant to a Card"
 buy_price = 5
 target = ""
 tags = []

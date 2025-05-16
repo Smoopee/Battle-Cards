@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://htdhrn5qfhbv"
-path="res://.godot/imported/desert_biome.png-569bf963e7aada6a730ba14e8f5d66e9.ctex"
+uid="uid://cneacawpxbyjx"
+path="res://.godot/imported/biome_border_rarity2.png-c0218238f64a6ddfa6f064857cf35997.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Art/Biomes/desert_biome.png"
-dest_files=["res://.godot/imported/desert_biome.png-569bf963e7aada6a730ba14e8f5d66e9.ctex"]
+source_file="res://Resources/Art/UIElements/Borders/biome_border_rarity2.png"
+dest_files=["res://.godot/imported/biome_border_rarity2.png-c0218238f64a6ddfa6f064857cf35997.ctex"]
 
 [params]
 

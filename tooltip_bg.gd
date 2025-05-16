@@ -58,12 +58,14 @@ func effect_tooltip(category, identifier, body = null, header = null):
 
 func sizing_function():
 	var total_height = 0
-	
 	var biggest_width = 0
 	var width_array = []
 	var height_array = []
 	var height1 = 0
 	var height2 = 0
+	
+	var category_size = category_label.get_minimum_size()
+	width_array.push_back(category_size.x)
 	
 	for j in hbox_array:
 		var total_width = 0
@@ -113,7 +115,9 @@ func update_tooltip(category, identifier, body = null, header = null):
 
 func update_effect_tooltip(category, identifier, body = null, header = null):
 	print("In update effect tooltip")
+	print(body)
 	name = category
+	category_label.text = category
 	header_label.text = str(header)
 	body_label.text = str(body)
 	

@@ -7,6 +7,7 @@ script = ExtResource("1_vi22d")
 enchantment_art_path = "res://Resources/Art/Enchantments/toxic_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/toxic.tscn"
 enchantment_name = "Toxic"
+enchantment_tooltip = "Applies Toxic Enchant to a Card"
 buy_price = 5
 target = ""
 tags = []

@@ -111,4 +111,9 @@ func card_enchantment_function():
 				if enchant_calc >= 80: i.item_enchant = "Bleed"
 
 
+func tooltip_enemy():
+	get_parent().update_tooltip(str(get_parent().character_stats.name), 
+	"Flavor Text", 
+	"A mass of vicious rats", 
+	"")
 

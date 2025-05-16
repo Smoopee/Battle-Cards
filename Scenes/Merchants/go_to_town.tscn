@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0w0yeiw60200"]
+[gd_scene load_steps=5 format=3 uid="uid://d0w0yeiw60200"]
 
 [ext_resource type="Script" path="res://Scripts/Merchants/go_to_town.gd" id="1_nf2st"]
 [ext_resource type="Texture2D" uid="uid://b7x1i2wudg8i4" path="res://Resources/Art/Merchants/town_merchant.png" id="2_82eu2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_durfi"]
 size = Vector2(146, 180)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3lq8"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="GoToTown" type="Node2D"]
 script = ExtResource("1_nf2st")
@@ -18,3 +25,34 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_durfi")
+
+[node name="MerchantUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -73.0
+offset_top = -90.0
+offset_right = 73.0
+offset_bottom = 90.0
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_o3lq8")
+
+[node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="MerchantUI" to="." method="_on_merchant_ui_mouse_entered"]
+[connection signal="mouse_exited" from="MerchantUI" to="." method="_on_merchant_ui_mouse_exited"]

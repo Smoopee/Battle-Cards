@@ -69,7 +69,6 @@ func _input(event):
 				finish_drag()
 
 func start_drag(card):
-	Popups.mouse_occupied = true
 	card_being_dragged = card
 	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_being_dragged.scale = Vector2(1, 1)
@@ -77,7 +76,6 @@ func start_drag(card):
 	card_previous_position = card.position
 
 func finish_drag():
-	Popups.mouse_occupied = false
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
 	var sell_zone_found = raycast_check_for_sell_zone()

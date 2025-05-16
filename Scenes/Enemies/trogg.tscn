@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ctrfn8qrvl7wd"]
+[gd_scene load_steps=16 format=3 uid="uid://ctrfn8qrvl7wd"]
 
 [ext_resource type="Script" path="res://Resources/Enemies/enemy_class.gd" id="1_d0r0g"]
 [ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Deck.gd" id="1_l5y18"]
@@ -24,6 +24,13 @@ height = 24
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6i1g"]
 bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vfp1"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="Trogg" type="Node2D"]
 script = ExtResource("1_d0r0g")
 
@@ -40,18 +47,6 @@ unique_name_in_owner = true
 [node name="EnemyDebuffs" parent="." instance=ExtResource("4_lxjk2")]
 unique_name_in_owner = true
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.25, -1)
-shape = SubResource("RectangleShape2D_cidrl")
-
-[node name="Runes" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("4_6ljk6")
-
 [node name="Deck" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_l5y18")
@@ -60,13 +55,25 @@ script = ExtResource("1_l5y18")
 unique_name_in_owner = true
 script = ExtResource("5_te5x3")
 
+[node name="Runes" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_6ljk6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.25, -1)
+shape = SubResource("RectangleShape2D_cidrl")
+
 [node name="EnemyUI" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -67.0
+offset_left = -73.0
 offset_top = -85.0
-offset_right = 70.0
+offset_right = 73.0
 offset_bottom = 89.0
 
 [node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
@@ -235,3 +242,26 @@ offset_bottom = 99.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "1
 "
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_5vfp1")
+
+[node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="EnemyUI" to="." method="_on_enemy_ui_mouse_entered"]
+[connection signal="mouse_exited" from="EnemyUI" to="." method="_on_enemy_ui_mouse_exited"]

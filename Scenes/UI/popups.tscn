@@ -2,20 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/popups.gd" id="1_lp2vw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsm2y"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-bg_color = Color(1, 1, 0.933333, 0.921569)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ff723"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Popups" type="Control"]
 layout_mode = 3
@@ -29,109 +21,22 @@ script = ExtResource("1_lp2vw")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="CardPopup" type="PopupPanel" parent="UI"]
+[node name="PopupPanel" type="PopupPanel" parent="UI"]
 unique_name_in_owner = true
 transparent_bg = true
-position = Vector2i(960, 450)
-size = Vector2i(728, 174)
-theme_override_styles/panel = SubResource("StyleBoxFlat_nsm2y")
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ff723")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CardPopup"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 718.0
-offset_bottom = 166.0
-
-[node name="Name" type="Label" parent="UI/CardPopup/VBoxContainer"]
+[node name="TooltipContainer" type="VBoxContainer" parent="UI/PopupPanel"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 48
-text = "Name"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/CardPopup/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="UI/CardPopup/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Effect:"
-
-[node name="Information" type="Label" parent="UI/CardPopup/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "libasfd asdof o"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/CardPopup/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="CritLabel" type="Label" parent="UI/CardPopup/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Crit:"
-
-[node name="CritValue" type="Label" parent="UI/CardPopup/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "libasfd asdof o"
-
-[node name="Rarity" type="Label" parent="UI/CardPopup/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-
-[node name="TalentPopup" type="PopupPanel" parent="UI"]
-unique_name_in_owner = true
-transparent_bg = true
-position = Vector2i(960, 450)
-size = Vector2i(364, 230)
-theme_override_styles/panel = SubResource("StyleBoxFlat_nsm2y")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TalentPopup"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 750.0
-offset_bottom = 222.0
-
-[node name="Name" type="Label" parent="UI/TalentPopup/VBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 48
-text = "Name"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/TalentPopup/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1.07
-
-[node name="Label" type="Label" parent="UI/TalentPopup/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Effect:"
-
-[node name="Information" type="Label" parent="UI/TalentPopup/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "libasfd asdof od"
-
-[node name="Timer" type="Timer" parent="."]
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2

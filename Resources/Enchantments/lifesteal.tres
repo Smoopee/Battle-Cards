@@ -7,6 +7,7 @@ script = ExtResource("1_ae3bk")
 enchantment_art_path = "res://Resources/Art/Enchantments/lifesteal_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/lifesteal.tscn"
 enchantment_name = "Lifesteal"
+enchantment_tooltip = "Applies Bleeding Lifesteal to a Card"
 buy_price = 5
 target = ""
 tags = []

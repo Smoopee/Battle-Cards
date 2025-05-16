@@ -3,7 +3,6 @@ extends Node2D
 @onready var parent = $".."
 
 
-
 func effect(player):
 	print("In cheese consumable")
 	if Global.current_scene != "battle_sim": return false

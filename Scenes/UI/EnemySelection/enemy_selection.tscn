@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=23 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
@@ -18,6 +18,18 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_gq20e"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_asw23"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_pcdhg"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_fvbij"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_kxsbu"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_dsxxr"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_613ob"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_dkfnp"]
 
 [node name="EnemySelection" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_ijbvw")
@@ -56,6 +68,12 @@ visible = false
 visible = false
 group1 = SubResource("ButtonGroup_gq20e")
 group2 = SubResource("ButtonGroup_asw23")
+group3 = SubResource("ButtonGroup_pcdhg")
+group4 = SubResource("ButtonGroup_fvbij")
+group5 = SubResource("ButtonGroup_kxsbu")
+group6 = SubResource("ButtonGroup_dsxxr")
+group7 = SubResource("ButtonGroup_613ob")
+group8 = SubResource("ButtonGroup_dkfnp")
 
 [node name="TooltipTimer" type="Timer" parent="."]
 

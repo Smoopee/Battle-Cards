@@ -7,6 +7,7 @@ script = ExtResource("1_t4msr")
 enchantment_art_path = "res://Resources/Art/Enchantments/restoration_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/restoration.tscn"
 enchantment_name = "Restoration"
+enchantment_tooltip = "Applies Restoration Enchant to a Card"
 buy_price = 5
 target = ""
 tags = []

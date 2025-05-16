@@ -1,11 +1,10 @@
 extends Node2D
 
+@onready var parent = $".."
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func tooltip_merchant():
+	var stats = parent.merchant_stats
+	parent.update_tooltip(str(stats.merchant_name), 
+	"Flavor Text", 
+	"Sells Random Skills", 
+	"")

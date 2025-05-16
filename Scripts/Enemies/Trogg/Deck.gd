@@ -14,7 +14,6 @@ func _ready():
 	get_card_selection()
 	create_deck()
 
-
 func get_card_selection():
 	match difficulty:
 		1:
@@ -110,5 +109,10 @@ func card_enchantment_function():
 				var enchant_calc = rng.randi_range(0, 99)
 				if enchant_calc >= 80: i.item_enchant = "Bleed"
 
+func tooltip_enemy():
+	get_parent().update_tooltip(str(get_parent().character_stats.name), 
+	"Flavor Text", 
+	"Likes to smash", 
+	"")
 
 

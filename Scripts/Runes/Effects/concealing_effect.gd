@@ -46,3 +46,11 @@ func reward():
 		get_tree().get_first_node_in_group("enemy").reward_array = [load("res://Resources/Skills/third_wheel.tres")]
 	
 	print("Here is your concealed reward")
+
+func tooltip_effect():
+	var parent = $".."
+	var stats = parent.rune_stats
+	parent.update_tooltip(str(stats.rune_name), 
+	"Effect", 
+	"Enemy cards are concealed \nReward will always be a skill", 
+	"Effect:")

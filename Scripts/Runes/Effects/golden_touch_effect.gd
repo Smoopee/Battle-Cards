@@ -38,3 +38,11 @@ func rune_effect1():
 
 func reward():
 	pass
+
+func tooltip_effect():
+	var parent = $".."
+	var stats = parent.rune_stats
+	parent.update_tooltip(str(stats.rune_name), 
+	"Effect", 
+	"Enemy cards are concealed \nReward will always be a skill", 
+	"Effect:")

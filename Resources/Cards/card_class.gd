@@ -74,7 +74,6 @@ func set_node_names():
 	#tooltip_name.text = str(card_stats.name) + "\n "
 	add_to_group("card")
 
-
 func effect(player_deck, enemy_deck, player, enemy):
 	effects.effect(player_deck, enemy_deck, player, enemy)
 
@@ -160,16 +159,17 @@ func toggle_tooltip_show():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
 	var size = Vector2i(0,0)
+	var x_offset = 85
+	var y_offset = -105
 	
 	#Toggles when mouse is on right side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(position + Vector2(100, -100), size)) 
+		tooltip.popup(Rect2i(position + Vector2(x_offset, y_offset), size)) 
 	else:
 		tooltip.popup(Rect2i(position, size)) 
-		tooltip.position = position + Vector2(-100 - tooltip.size.x , -100)
-
+		tooltip.position = position + Vector2(-x_offset - tooltip.size.x , y_offset)
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)

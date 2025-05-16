@@ -51,7 +51,7 @@ func talent_access_check():
 	if Global.player_level >= 19: tier6_access = true
 	if Global.player_level >= 22: tier7_access = true
 	if Global.player_level >= 25: tier8_access = true
-	
+
 func talent_alert_check():
 	if tier1_access && !tier1_chosen: 
 		get_tree().get_first_node_in_group("bottom ui").talent_alert_toggle(true)
@@ -311,67 +311,56 @@ func disable_out_of_reach_talents():
 	if !tier3_access:
 		for i in group3.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+		$VBoxContainer2/Tier3Block.visible = true
 	else:
 		for i in group3.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
+		$VBoxContainer2/Tier3Block.visible = false
 	
 	if !tier4_access:
 		for i in group4.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+		$VBoxContainer2/Tier4Block.visible = true
 	else:
 		for i in group4.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
+		$VBoxContainer2/Tier4Block.visible = false
 	
 	if !tier5_access:
 		for i in group5.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+		$VBoxContainer2/Tier5Block.visible = true
 	else:
 		for i in group5.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
+		$VBoxContainer2/Tier5Block.visible = false
 	
 	if !tier6_access:
 		for i in group6.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+		$VBoxContainer2/Tier6Block.visible = true
 	else:
 		for i in group6.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
+		$VBoxContainer2/Tier6Block.visible = false
 	
 	if !tier7_access:
 		for i in group7.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+		$VBoxContainer2/Tier7Block.visible = true
 	else:
 		for i in group7.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
+		$VBoxContainer2/Tier7Block.visible = false
 	
 	if !tier8_access:
 		for i in group8.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+		$VBoxContainer2/Tier8Block.visible = true
 	else:
 		for i in group8.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
-
-func _on_texture_button_mouse_entered():
-	update_tooltip(str(group1.get_buttons()[0].get_child(0).talent_name), 
-	"Effect", 
-	str(group1.get_buttons()[0].get_child(0).tooltip), 
-	"Effect: ")
-	toggle_tooltip_show()
-
-
-func _on_texture_button_mouse_exited():
-	toggle_tooltip_hide()
+		$VBoxContainer2/Tier8Block.visible = false
 
 func _on_reset_button_button_down():
 	reset_talents()
@@ -388,29 +377,273 @@ func reset_talents():
 func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
 	var mouse_pos = get_viewport().get_mouse_position()
-	var correction = true
-	var size = Vector2i(0,0)
+
 	
 	#Toggles when mouse is on right side of screen
-	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
+	#if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
-	if correction == false:
-		tooltip.popup(Rect2i(global_position + Vector2(350, 535), size)) 
-	else:
-		var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
-		tooltip.popup(Rect2i(new_position, size)) 
-		
+	#if correction == false:
+	tooltip.popup(Rect2i(global_position + Vector2(1350, 535), size)) 
+	#else:
+		#var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
+		#tooltip.popup(Rect2i(new_position, size)) 
+		#
 func toggle_tooltip_hide():
 	tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
-	var temp
-	for i in tooltip_container.get_children():
-		if i.name == category: 
-			temp = i
-	if temp == null:
-		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
-		tooltip_container.add_child(new_tooltip)
-		new_tooltip.create_tooltip(category, identifier, body, header)
-	else:
-		temp.update_tooltip(category, identifier, body, header)
+	
+	
+	%TooltipContainer.get_child(0).update_tooltip(category, identifier, body, header)
+	
+	#var temp
+	#for i in tooltip_container.get_children():
+		#if i.name == category: 
+			#temp = i
+	#if temp == null:
+		#var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		#tooltip_container.add_child(new_tooltip)
+		#new_tooltip.create_tooltip(category, identifier, body, header)
+	#else:
+		#temp.update_tooltip(category, identifier, body, header)
+
+
+func _on_tier_1_button_1_mouse_entered():
+	update_tooltip(str(group1.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group1.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_1_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_1_button_2_mouse_entered():
+	update_tooltip(str(group1.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group1.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_1_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_1_button_3_mouse_entered():
+	update_tooltip(str(group1.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group1.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_1_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_2_button_1_mouse_entered():
+	update_tooltip(str(group2.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group2.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_2_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_2_button_2_mouse_entered():
+	update_tooltip(str(group2.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group2.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_2_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_2_button_3_mouse_entered():
+	update_tooltip(str(group2.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group2.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_2_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_3_button_1_mouse_entered():
+	update_tooltip(str(group3.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group3.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_3_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_3_button_2_mouse_entered():
+	update_tooltip(str(group3.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group3.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_3_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_3_button_3_mouse_entered():
+	update_tooltip(str(group3.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group3.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_3_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_4_button_1_mouse_entered():
+	update_tooltip(str(group4.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group4.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_4_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_4_button_2_mouse_entered():
+	update_tooltip(str(group4.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group4.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_4_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_4_button_3_mouse_entered():
+	update_tooltip(str(group4.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group4.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_4_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_5_button_1_mouse_entered():
+	update_tooltip(str(group5.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group5.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_5_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_5_button_2_mouse_entered():
+	update_tooltip(str(group5.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group5.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_5_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_5_button_3_mouse_entered():
+	update_tooltip(str(group5.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group5.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_5_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_6_button_1_mouse_entered():
+	update_tooltip(str(group6.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group6.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_6_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_6_button_2_mouse_entered():
+	update_tooltip(str(group6.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group6.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_6_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_6_button_3_mouse_entered():
+	update_tooltip(str(group6.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group6.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_6_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_7_button_1_mouse_entered():
+	update_tooltip(str(group7.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group7.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_7_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_7_button_2_mouse_entered():
+	update_tooltip(str(group7.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group7.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_7_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_7_button_3_mouse_entered():
+	update_tooltip(str(group7.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group7.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_7_button_3_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_8_button_1_mouse_entered():
+	update_tooltip(str(group8.get_buttons()[0].get_child(0).talent_name), 
+	"Effect", 
+	str(group8.get_buttons()[0].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_8_button_1_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_8_button_2_mouse_entered():
+	update_tooltip(str(group8.get_buttons()[1].get_child(0).talent_name), 
+	"Effect", 
+	str(group8.get_buttons()[1].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_8_button_2_mouse_exited():
+	toggle_tooltip_hide()
+
+func _on_tier_8_button_3_mouse_entered():
+	update_tooltip(str(group8.get_buttons()[2].get_child(0).talent_name), 
+	"Effect", 
+	str(group8.get_buttons()[2].get_child(0).tooltip), 
+	"Effect: ")
+	toggle_tooltip_show()
+
+func _on_tier_8_button_3_mouse_exited():
+	toggle_tooltip_hide()

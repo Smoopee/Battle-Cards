@@ -7,6 +7,7 @@ script = ExtResource("1_8vavq")
 enchantment_art_path = "res://Resources/Art/Enchantments/rapid_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/rapid.tscn"
 enchantment_name = "Rapid"
+enchantment_tooltip = "Applies Bleeding Rapid to a Card"
 buy_price = 5
 target = ""
 tags = []

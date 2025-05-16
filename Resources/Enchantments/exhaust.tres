@@ -7,6 +7,7 @@ script = ExtResource("1_q1vmc")
 enchantment_art_path = "res://Resources/Art/Enchantments/exhaust.png"
 enchantment_scene_path = "res://Scenes/Enchantments/exhaust.tscn"
 enchantment_name = "Exhaust"
+enchantment_tooltip = "Applies Exhaust Enchant to a Card"
 buy_price = 5
 target = ""
 tags = []

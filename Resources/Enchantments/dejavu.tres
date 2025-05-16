@@ -7,6 +7,7 @@ script = ExtResource("1_h5j56")
 enchantment_art_path = "res://Resources/Art/Enchantments/dejavu_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/dejavu.tscn"
 enchantment_name = "Dejavu"
+enchantment_tooltip = "Applies Dejavu Enchant to a Card"
 buy_price = 5
 target = ""
 tags = []

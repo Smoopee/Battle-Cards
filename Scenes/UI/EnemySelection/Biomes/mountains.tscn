@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cqim1po1eiipt" path="res://Resources/Art/Biomes/mountains_biome.png" id="1_kl5ud"]
 [ext_resource type="Shader" path="res://Shaders/card_selector.gdshader" id="2_k4rqq"]
-[ext_resource type="Texture2D" uid="uid://b08bd21i3rpiw" path="res://Resources/Art/UIElements/Borders/biome_border.png" id="2_r1a3v"]
+[ext_resource type="Texture2D" uid="uid://liw5xpk8eqv8" path="res://Resources/Art/UIElements/Borders/biome_border_rarity1.png" id="2_osttc"]
 [ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="3_twtl3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_034dt"]
@@ -22,7 +22,7 @@ size = Vector2(140, 175)
 texture = ExtResource("1_kl5ud")
 
 [node name="BorderImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_r1a3v")
+texture = ExtResource("2_osttc")
 
 [node name="GlowEffect" type="Sprite2D" parent="."]
 visible = false

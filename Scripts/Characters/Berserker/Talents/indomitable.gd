@@ -1,7 +1,7 @@
 extends Node2D
 
 var talent_name = "Indomitable"
-var tooltip = "WIP"
+var tooltip = "Rage gained from damage taken is increased by 5"
 var talent_scene_path = "res://Scenes/Characters/Berserker/Talents/indomitable.tscn"
 var pressed_texture  = "res://Resources/Art/Talents/indomitable_pressed.png"
 var not_pressed_texture = "res://Resources/Art/Talents/indomitable_not_pressed.png"

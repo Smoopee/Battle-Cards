@@ -1,7 +1,7 @@
 extends Node2D
 
 var talent_name = "Spiked Armor"
-var tooltip = "WIP"
+var tooltip = "Deal 2 Reflect Damage"
 var talent_scene_path = "res://Scenes/Characters/Berserker/Talents/spiked_armor.tscn"
 var pressed_texture  = "res://Resources/Art/Talents/spiked_armor_pressed.png"
 var not_pressed_texture = "res://Resources/Art/Talents/spiked_armor_not_pressed.png"

@@ -17,7 +17,6 @@ var tooltip_container: VBoxContainer
 func _ready():
 	set_node_names()
 	
-
 func buff_initializer(source):
 	effect.initialize(source)
 

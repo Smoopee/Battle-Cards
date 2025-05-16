@@ -7,6 +7,7 @@ script = ExtResource("1_0s48j")
 enchantment_art_path = "res://Resources/Art/Enchantments/prosperity_enchantment.png"
 enchantment_scene_path = "res://Scenes/Enchantments/prosperity.tscn"
 enchantment_name = "Prosperity"
+enchantment_tooltip = "Applies Bleeding Prosperity to a Card"
 buy_price = 5
 target = ""
 tags = []
