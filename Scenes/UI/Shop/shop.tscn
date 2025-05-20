@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bbudyogspe5gy"]
+[gd_scene load_steps=28 format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
 [ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
@@ -24,13 +24,24 @@
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_k0wj2"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_cys5t"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_67j0r"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_22bbg"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_yl0vo"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_3cs6f"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ljeqi"]
+
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_ujm55")
 
 [node name="ConsumableManger" parent="." instance=ExtResource("2_ykbi3")]
 
 [node name="PlayerInventoryScreen" parent="." instance=ExtResource("20_q2i12")]
-visible = true
 
 [node name="Merchant" type="Node2D" parent="."]
 script = ExtResource("2_wrfdt")
@@ -112,6 +123,12 @@ texture = ExtResource("7_ldslr")
 visible = false
 group1 = SubResource("ButtonGroup_rxp0v")
 group2 = SubResource("ButtonGroup_k0wj2")
+group3 = SubResource("ButtonGroup_cys5t")
+group4 = SubResource("ButtonGroup_67j0r")
+group5 = SubResource("ButtonGroup_22bbg")
+group6 = SubResource("ButtonGroup_yl0vo")
+group7 = SubResource("ButtonGroup_3cs6f")
+group8 = SubResource("ButtonGroup_ljeqi")
 
 [node name="TooltipTimer" type="Timer" parent="."]
 

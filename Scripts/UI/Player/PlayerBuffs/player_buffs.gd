@@ -6,13 +6,15 @@ const BUFF_Y_POSITION = 130
 
 #BUFFS ============================================================================================
 func add_buff(buff_resource, source):
+	print("In player add buff")
 	var new_buff = load(buff_resource.buff_scene_path).instantiate()
-	new_buff.buff_stats = buff_resource
+	new_buff.buff_stats = buff_resource.duplicate()
 	new_buff.buff_stats.owner = get_tree().get_first_node_in_group("character")
 	
 	for i in get_tree().get_nodes_in_group("buff"):
 		if (i.buff_stats.name == new_buff.buff_stats.name 
 		and i.buff_stats.owner == get_tree().get_first_node_in_group("character")): 
+			print(i.buff_stats.owner)
 			i.additional_buff(source)
 			return
 	

@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cj5xnevnwa8tu" path="res://Resources/Art/UIElements/Biome_selection_bg_panel.png" id="7_ehsmf"]
 
 [node name="PlayerCards" type="Node2D" groups=["player cards"]]
-visible = false
 z_index = 1
 script = ExtResource("1_ek0gf")
 

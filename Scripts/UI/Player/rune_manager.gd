@@ -39,8 +39,10 @@ func start_drag(rune):
 	rune.z_index = 2
 	rune.scale = Vector2(1.5, 1.5)
 	rune_previous_position = rune.global_position
+	Global.mouse_occupied = true
 
 func finish_drag():
+	Global.mouse_occupied = false
 	print("in rune manager")
 	
 	if raycast_check_for_enemy():

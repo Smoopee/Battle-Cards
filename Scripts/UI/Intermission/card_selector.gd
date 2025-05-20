@@ -45,7 +45,6 @@ func highlight_card(hoovered):
 		z_index = 1
 		$GlowEffect.visible = true
 
-
 func _on_area_2d_mouse_entered():
 	on_hoovered_over_card()
 

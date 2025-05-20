@@ -14,6 +14,7 @@ signal poisoning_damage_applied
 signal poisoning_damage_taken
 signal heal_received
 
+@onready var character_stats = get_parent().character_stats
 
 const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = 0
@@ -47,7 +48,6 @@ var stun_label : Label
 var tooltip : PopupPanel
 var tooltip_container : VBoxContainer
 
-var character_stats = null
 
 var reward_array = []
 var difficulty_level
@@ -170,11 +170,8 @@ func add_debuff(debuff_resource, source):
 func remove_debuff(debuff):
 	get_tree().get_first_node_in_group("enemy debuffs").remove_debuff(debuff)
 
-
-
 func set_deck():
 	deck = enemy_deck.enemy_deck
-
 
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
@@ -397,14 +394,14 @@ func update_tooltip(category, identifier, body = null, header = null):
 		if i.name == category: 
 			temp = i
 	if temp == null:
-		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		var new_tooltip = load("res://Scenes/UI/Tooltips/tooltip_bg.tscn").instantiate()
 		tooltip_container.add_child(new_tooltip)
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
 		temp.update_tooltip(category, identifier, body, header)
 
 func _on_enemy_ui_mouse_entered():
-	if get_tree().get_first_node_in_group("card manager").card_being_dragged != null: return
+	if Global.mouse_occupied == true: return
 	scale = Vector2(1.1, 1.1)
 	toggle_tooltip_show()
 

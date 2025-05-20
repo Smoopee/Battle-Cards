@@ -46,6 +46,7 @@ func _input(event):
 				finish_drag()
 
 func finish_drag():
+	Global.mouse_occupied = false
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var enemy_found = raycast_check_for_enemy()
 	var biome_found = raycast_check_for_biome()
@@ -71,6 +72,7 @@ func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 	start_card_glow()
+	Global.mouse_occupied = true
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state

@@ -7,7 +7,7 @@ const DEBUFF_Y_POSITION = 130
 #BUFFS ============================================================================================
 func add_debuff(debuff_resource, source):
 	var new_debuff = load(debuff_resource.debuff_scene_path).instantiate()
-	new_debuff.debuff_stats = debuff_resource
+	new_debuff.debuff_stats = debuff_resource.duplicate()
 	new_debuff.debuff_stats.owner = get_tree().get_first_node_in_group("character")
 	
 	for i in get_tree().get_nodes_in_group("debuff"):

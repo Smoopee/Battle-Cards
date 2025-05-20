@@ -42,6 +42,8 @@ var skill_db_reference
 var card_db_reference
 var rune_db_reference
 var consumable_db_reference
+
+var mouse_occupied = false
 #var card_node_reference = 3
 
 
@@ -99,8 +101,7 @@ func instantiate_player_inventory():
 		player_inventory.push_back(card)
 
 func set_player_deck():
-	player_deck_db = ["Strike", "Strike", 
-	"Strike", "Strike", "Strike", "Hardened Skin", "Strengthen", "Rock", "Strengthen", "Shift Stance"]
+	player_deck_db = ["Strike", "Rock", "Strike", "Strengthen", "Swarm", "Hardened Skin", "Daunting Shout", "Swarm", "Swarm", "Swarm"]
 
 func instantiate_player_deck():
 	for i in player_deck_db:

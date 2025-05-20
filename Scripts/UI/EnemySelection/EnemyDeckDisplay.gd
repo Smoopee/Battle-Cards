@@ -27,8 +27,8 @@ func create_enemy_cards(enemy):
 	for i in enemy_inventory:
 		i.upgrade_card(i.card_stats.upgrade_level)
 		i.update_card_ui()
-		i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
-		i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
+		i.get_node("BaseCard").get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
+		i.get_node("BaseCard").get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
 		card_position += 1

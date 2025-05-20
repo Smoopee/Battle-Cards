@@ -6,11 +6,11 @@
 script = ExtResource("1_rhk61")
 merchant_art_path = "res://Resources/Art/Merchants/karver_merchant.png"
 merchant_border_path = "res://Resources/Art/UIElements/Borders/merchant_border.png"
-merchant_scene_path = "res://Scenes/karver.tscn"
+merchant_scene_path = "res://Scenes/Merchants/karver.tscn"
 merchant_name = "Karver"
 merchant_type = "Rune"
 selection_tags = []
 stock_quantity = 2
 buy_modifier = 0
 sell_modifier = 0
-can_refreseh = true
+can_refresh = true

@@ -44,21 +44,23 @@ func start_drag(consumable):
 	consumable.scale = Vector2(1.5, 1.5)
 	consumable_previous_position = consumable.global_position
 	consumable.toggle_info_ui(false)
+	Global.mouse_occupied = true
 
 func finish_drag():
+	Global.mouse_occupied = false
 	consumable_used = false
 	consumable_leftover = false
 	
 	print("in consumable manager")
 
-	
 	var raycast_object
-	if raycast_check_for_player_card(): raycast_object = raycast_check_for_player_card()
+	if raycast_check_for_player_card(): raycast_object = raycast_check_for_player_card().get_parent()
 	elif raycast_check_for_enemy_card(): raycast_object = raycast_check_for_enemy_card()
 	elif raycast_check_for_player(): raycast_object = raycast_check_for_player()
 	elif raycast_check_for_enemy(): raycast_object = raycast_check_for_enemy()
 	
 	if raycast_object: use_consumable(raycast_object)
+	print("The consumable raycast object is " + str(raycast_object))
 	
 	if consumable_leftover:
 		print("in consumable leftover")
@@ -167,7 +169,6 @@ func on_consumable_use():
 	consumable_being_dragged = null
 	consumable_used = true
 
-
 func use_consumable(target):
 	print("use consumable")
 	if target.is_in_group(consumable_being_dragged.consumable_stats.target):
@@ -181,9 +182,9 @@ func start_drag_stack_check():
 		place_holder.global_position = consumable_being_dragged.global_position
 		place_holder.consumable_stats = consumable_being_dragged.consumable_stats.duplicate()
 		place_holder.consumable_stats.stack_amount -= 1
-		place_holder.update_stack_ui()
-		place_holder.toggle_info_ui(true)
 		add_child(place_holder)
+		place_holder.get_node("BaseConsumable").update_stack_ui()
+		place_holder.get_node("BaseConsumable").toggle_info_ui(true)
 		place_holder_used = true
 		print("start drag check is true")
 

@@ -39,10 +39,10 @@ func finish_drag_skill():
 	skill_reset()
 
 func start_drag_skill(skill):
-	skill_being_dragged = skill
+	skill_being_dragged = skill.get_parent()
 	skill_being_dragged.scale = Vector2(1.1, 1.1)
 	skill_being_dragged.z_index = 2
-	skill_previous_position = skill.position
+	skill_previous_position = skill.get_parent().position
 
 func raycast_check_for_skill():
 	var space_state = get_world_2d().direct_space_state

@@ -67,9 +67,9 @@ func combat(player_deck_list, enemy_deck_list):
 	enemy_node.build_deck_position()
 	
 	for i in player_deck_list:
-		i.disable_collision()
+		i.get_node("BaseCard").disable_collision()
 	for i in enemy_deck_list:
-		i.disable_collision()
+		i.get_node("BaseCard").disable_collision()
 	
 	for i in range(0, 10):
 		emit_signal("start_of_turn")
@@ -111,7 +111,7 @@ func play_card():
 	if first == player_card:
 		if !player_card.card_stats.on_cd and stun_check(player_card.card_stats.owner): 
 			emit_signal("card_etb", player_card)
-			player_card.attack_animation(player_card.card_stats.owner)
+			player_card.get_node("BaseCard").attack_animation(player_card.card_stats.owner)
 			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(player_card)
 		
@@ -120,7 +120,7 @@ func play_card():
 		
 		if !enemy_card.card_stats.on_cd and stun_check(enemy_card.card_stats.owner):
 			emit_signal("card_etb", enemy_card)
-			enemy_card.attack_animation(enemy_card.card_stats.owner)
+			enemy_card.get_node("BaseCard").attack_animation(enemy_card.card_stats.owner)
 			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
 	else:

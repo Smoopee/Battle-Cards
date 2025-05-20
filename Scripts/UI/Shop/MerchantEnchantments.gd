@@ -22,11 +22,11 @@ func create_merchant_inventory():
 	
 	var enchantment_position = 0
 	for i in inventory:
-		i.get_node("Area2D").collision_mask = 131072
-		i.get_node("Area2D").collision_layer = 131072
+		i.get_node("BaseEnchantment").get_node("Area2D").collision_mask = 131072
+		i.get_node("BaseEnchantment").get_node("Area2D").collision_layer = 131072
 	
-		i.toggle_shop_ui(true)
-		i.enchantment_shop_ui()
+		i.get_node("BaseEnchantment").toggle_shop_ui(true)
+		i.get_node("BaseEnchantment").enchantment_shop_ui()
 		i.enchantment_stats.inventory_position = enchantment_position
 		i.enchantment_stats.enchantment_owner = get_tree().get_first_node_in_group("merchant")
 		enchantment_position += 1

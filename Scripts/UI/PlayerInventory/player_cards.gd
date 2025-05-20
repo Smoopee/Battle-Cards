@@ -1,5 +1,7 @@
 extends Node2D
 
+signal started_card_drag
+
 var playerData = PlayerData.new()
 
 const CARD_WIDTH = 130
@@ -48,8 +50,9 @@ func _ready():
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+		card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
+			
 
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
@@ -63,19 +66,22 @@ func _input(event):
 				click_card(card_being_dragged)
 				$ClickTimer.start(.5)
 			elif card_being_dragged:
+				card_being_dragged = card_being_dragged.get_parent()
 				start_drag(card_being_dragged)
 		else:
 			if card_being_dragged:
 				finish_drag()
 
 func start_drag(card):
-	card_being_dragged = card
-	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
+	#card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
+	emit_signal("started_card_drag")
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
+	Global.mouse_occupied = true
 
 func finish_drag():
+	Global.mouse_occupied = false
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
 	var sell_zone_found = raycast_check_for_sell_zone()
@@ -104,7 +110,7 @@ func finish_drag():
 		move_from_inventory_to_deck(card_being_dragged, deck_card_slot_found)
 		card_sorted = true
 	elif can_sort_deck:
-		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card())):
+		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent())):
 			if deck_card_slot_reference_index > -1:
 				deck_sorting(card_being_dragged, deck_card_slot_found)
 			else: inventory_to_deck_swap(card_being_dragged, deck_card_slot_found)
@@ -119,15 +125,15 @@ func finish_drag():
 		move_from_deck_to_inventory(card_being_dragged, inventory_card_slot_found)
 		card_sorted = true
 	elif can_sort_inventory:
-		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card())):
+		if !upgrade_mode or (upgrade_mode and !upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent())):
 			if inventory_card_slot_reference_index > -1:
 				inventory_sorting(card_being_dragged, inventory_card_slot_found)
 			else: deck_to_inventory_swap(card_being_dragged, inventory_card_slot_found)
 		card_sorted = true
 	
 	if raycast_check_for_card() and upgrade_mode:
-		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card()):
-			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card())
+		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent()):
+			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card().get_parent())
 			print("Upgrade card")
 			card_reset()
 			return
@@ -518,7 +524,7 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 		print("I am Here 12")
 
 func card_reset():
-	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
+	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null

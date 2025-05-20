@@ -43,8 +43,8 @@ func card_reward(enemy_reward):
 	new_scene.card_stats.is_players = true
 	new_scene.card_stats.cd_remaining = 0
 	new_scene.card_stats.on_cd = false
-	new_scene.get_node("Area2D").collision_mask = 1
-	new_scene.get_node("Area2D").collision_layer = 1
+	new_scene.get_node("BaseCard").get_node("Area2D").collision_mask = 1
+	new_scene.get_node("BaseCard").get_node("Area2D").collision_layer = 1
 	new_scene.upgrade_card(new_scene.card_stats.upgrade_level)
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)

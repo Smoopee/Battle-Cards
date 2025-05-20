@@ -44,9 +44,9 @@ func create_encounter():
 		new_enemy.character_stats = enemy_resource_array[i]
 		add_child(new_enemy)
 		
-		new_enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = true
-		new_enemy.get_node("EnemyUI").get_node("EnemySelectionHealth").visible = true
-		new_enemy.get_node("EnemyUI").get_node("EnemyHealthBar").visible = false
+		new_enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("GoldAndXPBox").visible = true
+		new_enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("EnemySelectionHealth").visible = true
+		new_enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("EnemyHealthBar").visible = false
 		enemy_array.push_front(new_enemy)
 
 func update_enemy_positions():

@@ -6,10 +6,15 @@
 script = ExtResource("1_0sem5")
 consumable_art_path = "res://Resources/Art/Consumables/sharpening_stone_consumable.png"
 consumable_scene_path = "res://Scenes/Consumables/sharpening_stone.tscn"
-consumable_name = "Sharpening Stone"
+name = "Sharpening Stone"
 buy_price = 5
 target = "card"
 stack_amount = 1
 max_stacks = 5
 tags = []
 consumbale_rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

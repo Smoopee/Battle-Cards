@@ -22,15 +22,15 @@ func create_merchant_inventory():
 	
 	var consumable_position = 0
 	for i in inventory:
-		i.get_node("Area2D").collision_mask = 8192
-		i.get_node("Area2D").collision_layer = 8192
+		i.get_node("BaseConsumable").get_node("Area2D").collision_mask = 8192
+		i.get_node("BaseConsumable").get_node("Area2D").collision_layer = 8192
 	
-		i.toggle_shop_ui(true)
-		i.consumable_shop_ui()
+		i.get_node("BaseConsumable").toggle_shop_ui(true)
+		i.get_node("BaseConsumable").consumable_shop_ui()
 		i.consumable_stats.inventory_position = consumable_position
 		i.consumable_stats.consumable_owner = get_tree().get_first_node_in_group("merchant")
-		i.get_node("ConsumableImage").scale = Vector2(2, 2)
-		i.get_node("Area2D").scale = Vector2(2,2)
+		i.get_node("BaseConsumable").get_node("ConsumableImage").scale = Vector2(2, 2)
+		i.get_node("BaseConsumable").get_node("Area2D").scale = Vector2(2,2)
 		consumable_position += 1
 
 func fetch_merchant_inventory():

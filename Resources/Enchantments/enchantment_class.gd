@@ -2,13 +2,13 @@ extends Node2D
 
 class_name Enchantment
 
-var enchantment_stats: Enchantments_Resource = null
+@onready var enchantment_stats = get_parent().enchantment_stats
 
 var enchantment_image : Sprite2D
 var ui : Control
 var shop_panel : Panel
 var shop_label : Label
-var tooltip : PopupPanel
+var tooltip : Panel
 var tooltip_container : VBoxContainer
 
 func _ready():
@@ -32,7 +32,7 @@ func set_node_names():
 	ui = get_node('%EnchantmentUI')
 	shop_panel = get_node('%ShopPanel')
 	shop_label = get_node('%ShopLabel')
-	tooltip = get_node('%PopupPanel')
+	tooltip = get_node('%TooltipPanel')
 	tooltip_container = get_node('%TooltipContainer')
 	
 	enchantment_image.texture = load(enchantment_stats.enchantment_art_path)
@@ -42,23 +42,27 @@ func set_node_names():
 #WIP TOOLTIPS======================================================================================
 func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
+	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
-	var size = Vector2i(0,0)
-	var x_offset = 50
-	var y_offset = -50
+	var x_offset = (%EnchantmentUI.size.x /2) + 20
+	var y_offset = -(%EnchantmentUI.size.y /2) + 11
+	tooltip.size = tooltip_container.size
+	tooltip.visible = true
 	
-	#Toggles when mouse is on right side of screen
+	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(global_position + Vector2(x_offset, y_offset), size)) 
+		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
+		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		var new_position = global_position + Vector2(-x_offset - tooltip.size.x , y_offset)
-		tooltip.popup(Rect2i(new_position, size)) 
+		#tooltip.popup(Rect2i(get_parent().position, size)) 
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 
 func toggle_tooltip_hide():
-	tooltip.hide()
+	toggle_shop_ui(false)
+	tooltip.visible = false
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -66,7 +70,7 @@ func update_tooltip(category, identifier, body = null, header = null):
 		if i.name == category: 
 			temp = i
 	if temp == null:
-		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		var new_tooltip = load("res://Scenes/UI/Tooltips/tooltip_bg.tscn").instantiate()
 		tooltip_container.add_child(new_tooltip)
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:

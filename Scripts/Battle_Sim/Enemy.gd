@@ -23,21 +23,20 @@ var enemy
 var deck = []
 
 
-
 func _ready():
 	enemy = load(Global.current_enemy.enemy_scene_path).instantiate()
 	enemy.character_stats = Global.current_enemy
 	add_child(enemy)
-	enemy.setup()
+	enemy.get_node("BaseEnemy").setup()
 	center_screen_y = get_viewport().size.y / 2
 	center_screen_x = get_viewport().size.x / 2
 	enemy.position = Vector2(center_screen_x, ENEMY_Y_POSITION)
-	enemy.set_stats()
+	enemy.get_node("BaseEnemy").set_stats()
 	
-	enemy.get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
+	enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
 
 func initial_build_deck():
-	enemy_deck = enemy.deck
+	enemy_deck = enemy.get_node("BaseEnemy").deck
 	
 
 	deck = []
@@ -64,7 +63,7 @@ func initial_build_deck():
 			new_card.card_stats.target = get_tree().get_first_node_in_group("character")
 			new_card.card_stats.in_enemy_deck = true
 			new_card.card_stats.deck_position = card_position
-			new_card.update_card_ui()
+			new_card.get_node("BaseCard").update_card_ui()
 		
 		card_position += 1
 	return deck
@@ -74,7 +73,7 @@ func build_deck_position():
 	deck_offset = 0
 	var temp_z_index = 13
 	for i in deck:
-		i.is_discarded = false
+		i.get_node("BaseCard").is_discarded = false
 		i.scale =  Vector2(1, 1)
 		i.position = Vector2(DECK_X_POSITION + deck_offset, DECK_Y_POSITION)
 		i.z_index = temp_z_index
@@ -89,7 +88,7 @@ func animate_card_to_active_position(card):
 	tween.tween_property(card, "position", Vector2(center_screen_x, center_screen_y - 150), 0.2 * Global.COMBAT_SPEED)
 
 func discard(card):
-	card.is_discarded = true
+	card.get_node("BaseCard").is_discarded = true
 	card.z_index = card.card_stats.deck_position
 	card.scale = Vector2(.55, .55)
 	animate_card_to_discard_position(card)
@@ -122,9 +121,9 @@ func build_deck():
 			deck.push_back(load_blank)
 			add_child(load_blank)
 		else:
-			i.get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
-			i.get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
-			i.enable_collision()
+			i.get_node("BaseCard").get_node("Area2D").collision_mask = ENEMY_CARD_COLLISION_LAYER
+			i.get_node("BaseCard").get_node("Area2D").collision_layer = ENEMY_CARD_COLLISION_LAYER
+			i.get_node("BaseCard").enable_collision()
 			i.card_stats.deck_position = card_position
 			i.card_stats.is_players = false
 			i.scale = Vector2(1,1)
@@ -150,4 +149,4 @@ func calculate_card_position(index):
 	return x_offset
 
 func enemy_reward():
-	return enemy.get_reward()
+	return enemy.get_node("BaseEnemy").get_reward()

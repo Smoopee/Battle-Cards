@@ -12,7 +12,7 @@ func _ready():
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
 	difficulty = $"..".set_difficulty()
 	get_skill_selection()
-	create_skill_array()
+	#create_skill_array()
 
 func get_skill_selection():
 	match difficulty:
@@ -55,8 +55,8 @@ func create_skill_array():
 	skill_upgrade_function()
 
 func random_skill_selection():
+	if skill_selection.size() == 0: return
 	var skill_selection_index = rng.randi_range(0, skill_selection.size()-1)
-	if skill_selection_index == -1: return
 	return skill_selection[skill_selection_index]
 
 func skill_upgrade_function():

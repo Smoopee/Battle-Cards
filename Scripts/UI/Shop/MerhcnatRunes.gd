@@ -22,15 +22,15 @@ func create_merchant_inventory():
 	
 	var rune_position = 0
 	for i in inventory:
-		i.get_node("Area2D").collision_mask = 65536 
-		i.get_node("Area2D").collision_layer = 65536 
+		i.get_node("BaseRune").get_node("Area2D").collision_mask = 65536 
+		i.get_node("BaseRune").get_node("Area2D").collision_layer = 65536 
 	
-		i.toggle_shop_ui(true)
-		i.rune_shop_ui()
+		i.get_node("BaseRune").toggle_shop_ui(true)
+		i.get_node("BaseRune").rune_shop_ui()
 		i.rune_stats.inventory_position = rune_position
 		i.rune_stats.rune_owner = get_tree().get_first_node_in_group("merchant")
-		i.get_node("RuneImage").scale = Vector2(2, 2)
-		i.get_node("Area2D").scale = Vector2(2,2)
+		i.get_node("BaseRune").get_node("RuneImage").scale = Vector2(1.5, 1.5)
+		i.get_node("BaseRune").get_node("Area2D").scale = Vector2(1.5,1.5)
 		rune_position += 1
 
 func fetch_merchant_inventory():

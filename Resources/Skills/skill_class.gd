@@ -1,25 +1,23 @@
 extends Node2D
 
-class_name Skill
+#class_name Skill
 
-var skill_stats: Skills_Resource = null
+@onready var skill_stats = get_parent().skill_stats
 
 var shop_label: Label
 var shop_panel: Panel
 var info_label: Label
-var effect: Node2D
 var skill_image: Sprite2D
 var upgrade_border: Sprite2D
 var tooltip_container : VBoxContainer
-var tooltip : PopupPanel
+var tooltip : Panel
 
 
 func _ready():
 	set_node_names()
 
 func upgrade_skill(num):
-	set_node_names()
-	effect.upgrade_skill(num)
+	get_parent().upgrade_skill(num)
 
 func update_skill_image():
 	upgrade_border.texture = load(skill_stats.skill_upgrade_art_path)
@@ -37,11 +35,10 @@ func set_node_names():
 	shop_label = get_node('%ShopLabel')
 	shop_panel = get_node('%ShopPanel')
 	info_label = get_node('%InfoLabel')
-	effect = get_node('%Effect')
 	skill_image = get_node('%SkillImage')
 	upgrade_border = get_node('%UpgradeBorder')
 	tooltip_container = get_node('%TooltipContainer')
-	tooltip = get_node('%PopupPanel')
+	tooltip = get_node('%TooltipPanel')
 	
 	skill_image.texture = load(skill_stats.skill_art_path)
 	z_index = 1
@@ -52,21 +49,26 @@ func toggle_tooltip_show():
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
-	var size = Vector2i(0,0)
+	var x_offset = ($SkillUI.size.x /2) + 20
+	var y_offset = -($SkillUI.size.y /2) + 11
+	tooltip.size = tooltip_container.size
+	tooltip.visible = true
 	
-	#Toggles when mouse is on right side of screen
+	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(global_position + Vector2(25, -35), size)) 
+		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
+		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
-		tooltip.popup(Rect2i(new_position, size)) 
+		#tooltip.popup(Rect2i(get_parent().position, size)) 
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 		
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
-	tooltip.hide()
+	tooltip.visible = false
+	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -74,7 +76,7 @@ func update_tooltip(category, identifier, body = null, header = null):
 		if i.name == category: 
 			temp = i
 	if temp == null:
-		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		var new_tooltip = load("res://Scenes/UI/Tooltips/tooltip_bg.tscn").instantiate()
 		tooltip_container.add_child(new_tooltip)
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:

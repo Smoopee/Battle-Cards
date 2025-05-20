@@ -6,8 +6,9 @@ const BUFF_Y_POSITION = -130
 
 #BUFFS ============================================================================================
 func add_buff(buff_resource, source):
+	print("In enemy add_buff function")
 	var new_buff = load(buff_resource.buff_scene_path).instantiate()
-	new_buff.buff_stats = buff_resource
+	new_buff.buff_stats = buff_resource.duplicate()
 	new_buff.buff_stats.owner = get_tree().get_first_node_in_group("enemy")
 	
 	for i in get_tree().get_nodes_in_group("buff"):
@@ -16,6 +17,7 @@ func add_buff(buff_resource, source):
 			i.additional_buff(source)
 			return
 	
+	print("In add new enemy buff")
 	add_child(new_buff)
 	new_buff.buff_initializer(source)
 	organize_buffs()

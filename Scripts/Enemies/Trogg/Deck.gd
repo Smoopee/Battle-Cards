@@ -8,6 +8,8 @@ var card_selection = []
 var card_db_reference
 var difficulty
 
+var selection_tag
+
 func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 	difficulty = $"..".set_difficulty()

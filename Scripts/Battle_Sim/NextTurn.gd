@@ -15,7 +15,7 @@ func cd_handler(cards):
 		if i == null: continue
 		i.card_stats.cd_remaining -= 1
 		if i.card_stats.cd_remaining <= 0: i.card_stats.on_cd = false
-		i.update_card_ui()
+		i.get_node("BaseCard").update_card_ui()
 
 func slot_player_cards():
 	get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_INHERIT
@@ -23,7 +23,7 @@ func slot_player_cards():
 		if i.card_stats.name == "Blank" : i.queue_free()
 		if i.card_stats.owner == get_tree().get_nodes_in_group("character")[0]:
 			i.scale = Vector2(1, 1)
-			i.enable_collision()
+			i.get_node("BaseCard").enable_collision()
 	
 	var count = 0
 	for i in get_tree().get_first_node_in_group("player cards").deck_card_slot_reference:
@@ -44,11 +44,9 @@ func slot_player_cards():
 func end_fight():
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
 	
-	
 	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
 	get_tree().get_first_node_in_group("player cards").toggle_combat_ui(false)
 	$"../ConsumableManger".visible = false
-
 	
 	for i in get_tree().get_nodes_in_group("card"):
-		i.card_reset()
+		i.get_node("BaseCard").card_reset()

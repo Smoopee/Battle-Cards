@@ -1,9 +1,11 @@
 extends Node2D
 
-@onready var parent = $".."
+@onready var stats = card_stats
+@onready var card = $BaseCard
+
+var card_stats: Cards_Resource = null
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var stats = parent.card_stats
 	var damage = stats.dmg
 	damage = stats.owner.deal_physical_damage(damage)
 	stats.target.take_physical_damage(damage)
@@ -12,7 +14,6 @@ func effect(player_deck, enemy_deck, player, enemy):
 		stats.target.apply_bleeding_damage(stats.bleed_dmg)
 
 func upgrade_card(num):
-	var stats = parent.card_stats
 	match num:
 		1:
 			stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
@@ -39,11 +40,10 @@ func upgrade_card(num):
 			stats.sell_price = 8
 			stats.buy_price = 16
 			
-	parent.update_tooltip("Effect", "Deal " + str(stats.dmg) + " damage", "Effect: ")
-	parent.update_card_ui()
+	card.update_tooltip(str(stats.name), "Effect", "Deal " + str(stats.dmg) + " damage", "Effect: ")
+	card.update_card_ui()
 
 func item_enchant(enchant):
-	var stats = parent.card_stats
 	match enchant:
 		"Bleed":
 			stats.item_enchant = "Bleed"
@@ -64,4 +64,7 @@ func item_enchant(enchant):
 			stats.item_enchant = "Restoration"
 		"Toxic":
 			stats.item_enchant = "Toxic"
-	parent.update_card_ui()
+	card.update_card_ui()
+
+func update_card_ui():
+	card.update_card_ui()

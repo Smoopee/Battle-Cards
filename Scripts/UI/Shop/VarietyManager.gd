@@ -29,10 +29,10 @@ func _input(event):
 				finish_drag_enchantment()
 
 func start_drag_enchantment(enchantment):
-	enchantment_being_dragged = enchantment
+	enchantment_being_dragged = enchantment.get_parent()
 	enchantment_being_dragged.scale = Vector2(1.1, 1.1)
 	enchantment_being_dragged.z_index = 2
-	enchantment_previous_position = enchantment.position
+	enchantment_previous_position = enchantment.get_parent().position
 
 func finish_drag_enchantment():
 	$"../MerchantEnchantments".animate_enchantment_to_position(enchantment_being_dragged, enchantment_previous_position)

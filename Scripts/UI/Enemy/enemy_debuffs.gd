@@ -7,11 +7,11 @@ const DEBUFF_Y_POSITION = -130
 #BUFFS ============================================================================================
 func add_debuff(debuff_resource, source):
 	var new_debuff = load(debuff_resource.debuff_scene_path).instantiate()
-	new_debuff.debuff_stats = debuff_resource
+	new_debuff.debuff_stats = debuff_resource.duplicate()
 	new_debuff.debuff_stats.owner = get_tree().get_first_node_in_group("enemy")
 	
 	for i in get_tree().get_nodes_in_group("debuff"):
-		if (i.debuff_stats.debuff_name == new_debuff.debuff_stats.debuff_name 
+		if (i.debuff_stats.name == new_debuff.debuff_stats.name 
 		and i.debuff_stats.owner == get_tree().get_first_node_in_group("enemy")): 
 			i.additional_debuff(source)
 			return
@@ -22,7 +22,7 @@ func add_debuff(debuff_resource, source):
 
 func remove_debuff(debuff):
 	for i in get_children():
-		if i.debuff_stats.debuff_name == debuff:
+		if i.debuff_stats.name == debuff:
 			i.queue_free()
 	organize_debuffs()
 

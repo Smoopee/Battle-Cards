@@ -7,14 +7,13 @@ const COLLISION_MASK_MERCHANT = 32
 @onready var player_inventory = $PlayerInventoryScreen
 var screen_size
 var card_being_dragged
-var card_selector_reference
+@onready var card_selector_reference = $CardSelector
 
 var intermission_screen = true
 var is_toggle_inventory = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	card_selector_reference = $CardSelector
 	Global.intermission_tracker += 1
 	toggle_inventory()
 
@@ -23,7 +22,8 @@ func _process(delta):
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
-
+	
+		
 func _input(event):
 	if event.is_action_pressed("Inventory"):
 		toggle_inventory()
@@ -38,6 +38,7 @@ func _input(event):
 				finish_drag()
 
 func finish_drag():
+	Global.mouse_occupied = false
 	card_being_dragged.scale = Vector2(1.05, 1.05)
 	var merchant_found = raycast_check_for_merchant()
 	
@@ -55,6 +56,7 @@ func finish_drag():
 		card_being_dragged = null
 
 func start_drag(card):
+	Global.mouse_occupied = true
 	card_being_dragged = card
 	card.scale = Vector2(1, 1)
 

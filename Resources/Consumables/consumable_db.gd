@@ -5,5 +5,5 @@ const ITEMS = {
 	#"Battery" : "res://Resources/Consumables/battery.tres",
 	#"Glue" : "res://Resources/Consumables/glue.tres",
 	"Cheese" : "res://Resources/Consumables/cheese.tres",
-	#"Sharpening Stone" : "res://Resources/Consumables/sharpening_stone.tres"
+	"Sharpening Stone" : "res://Resources/Consumables/sharpening_stone.tres"
 }

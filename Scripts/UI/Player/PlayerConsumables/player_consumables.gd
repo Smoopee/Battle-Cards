@@ -16,18 +16,19 @@ func set_consumables():
 	for i in player_consumables:
 		var new_instance = load(i.consumable_scene_path).instantiate()
 		new_instance.consumable_stats = i
-		new_instance.update_stack_ui()
-		new_instance.toggle_info_ui(true)
 		add_child(new_instance)
+		new_instance.get_node("BaseConsumable").update_stack_ui()
+		new_instance.get_node("BaseConsumable").toggle_info_ui(true)
+		
 	
 	organize_consumables()
 
 func add_consumable(consumable):
 	for i in get_children():
-		if i.consumable_stats.consumable_name == consumable.consumable_name:
+		if i.consumable_stats.name == consumable.name:
 			i.consumable_stats.stack_amount += 1
-			i.update_stack_ui()
-			i.toggle_info_ui(true)
+			i.get_node("BaseConsumable").update_stack_ui()
+			i.get_node("BaseConsumable").toggle_info_ui(true)
 			return
 			
 	var new_instance = load(consumable.consumable_scene_path).instantiate()

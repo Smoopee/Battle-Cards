@@ -29,10 +29,10 @@ func _input(event):
 				finish_drag_consumable()
 
 func start_drag_consumable(consumable):
-	consumable_being_dragged = consumable
+	consumable_being_dragged = consumable.get_parent()
 	consumable_being_dragged.scale = Vector2(1.1, 1.1)
 	consumable_being_dragged.z_index = 2
-	consumable_previous_position = consumable.position
+	consumable_previous_position = consumable.get_parent().position
 
 func finish_drag_consumable():
 	$"../MerchantConsumables".animate_consumable_to_position(consumable_being_dragged, consumable_previous_position)

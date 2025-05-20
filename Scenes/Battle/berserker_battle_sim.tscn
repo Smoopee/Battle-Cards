@@ -59,7 +59,6 @@ script = ExtResource("10_s217y")
 script = ExtResource("14_cprqu")
 
 [node name="PlayerCards" parent="." instance=ExtResource("14_xj11o")]
-visible = true
 
 [node name="Battle" type="Node2D" parent="." groups=["battle sim"]]
 script = ExtResource("2_nmw3s")

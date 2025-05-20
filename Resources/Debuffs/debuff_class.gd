@@ -79,7 +79,7 @@ func update_tooltip(category, identifier, body = null, header = null):
 		if i.name == category: 
 			temp = i
 	if temp == null:
-		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		var new_tooltip = load("res://Scenes/UI/Tooltips/tooltip_bg.tscn").instantiate()
 		tooltip_container.add_child(new_tooltip)
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:

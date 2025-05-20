@@ -14,7 +14,7 @@
 [ext_resource type="ButtonGroup" uid="uid://bx5nhmqsiovpv" path="res://Resources/ButtonGroups/tier6_buttons.tres" id="11_3bdfh"]
 [ext_resource type="ButtonGroup" uid="uid://bylrjcgp4hyt3" path="res://Resources/ButtonGroups/tier5_buttons.tres" id="12_lxf54"]
 [ext_resource type="ButtonGroup" uid="uid://bwik4q0ymfw3a" path="res://Resources/ButtonGroups/tier4_buttons.tres" id="13_iasxx"]
-[ext_resource type="PackedScene" uid="uid://c43p6j3voayit" path="res://tooltip_bg.tscn" id="15_3pvlu"]
+[ext_resource type="PackedScene" uid="uid://c43p6j3voayit" path="res://Scenes/UI/Tooltips/tooltip_bg.tscn" id="15_3pvlu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqynh"]
 bg_color = Color(0, 0, 0, 0.74902)

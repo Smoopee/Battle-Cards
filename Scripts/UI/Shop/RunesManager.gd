@@ -29,10 +29,10 @@ func _input(event):
 				finish_drag_rune()
 
 func start_drag_rune(rune):
-	rune_being_dragged = rune
+	rune_being_dragged = rune.get_parent()
 	rune_being_dragged.scale = Vector2(1.1, 1.1)
 	rune_being_dragged.z_index = 2
-	rune_previous_position = rune.position
+	rune_previous_position = rune.get_parent().position
 
 func finish_drag_rune():
 	$"../MerchantRunes".animate_rune_to_position(rune_being_dragged, rune_previous_position)
