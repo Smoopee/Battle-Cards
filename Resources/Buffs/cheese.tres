@@ -6,5 +6,5 @@
 script = ExtResource("1_fcohk")
 buff_art_path = "res://Resources/Art/Consumables/cheese_consumable.png"
 buff_scene_path = "res://Scenes/Buffs/cheese_buff.tscn"
-buff_name = "Cheese"
+name = "Cheese"
 tags = []

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hmgyncm3s2bd"
-path="res://.godot/imported/Dagger_card.png-21fa3c687f7f0eb0fc2d285fbec340e9.ctex"
+uid="uid://dcjps6fv82siu"
+path="res://.godot/imported/raging.png-114415b601c9ced004e483549677a157.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Cards/CardArt/Dagger_card.png"
-dest_files=["res://.godot/imported/Dagger_card.png-21fa3c687f7f0eb0fc2d285fbec340e9.ctex"]
+source_file="res://Resources/Art/Buffs/raging.png"
+dest_files=["res://.godot/imported/raging.png-114415b601c9ced004e483549677a157.ctex"]
 
 [params]
 

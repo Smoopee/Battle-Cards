@@ -5,9 +5,15 @@
 [resource]
 script = ExtResource("1_er46k")
 skill_art_path = "res://Resources/Art/Skills/steady_temper_skill.png"
+skill_upgrade_art_path = ""
 skill_scene_path = "res://Scenes/Skills/steady_temper.tscn"
-skill_name = "Steady Temper"
+name = "Steady Temper"
 buy_price = 0
 upgrade_level = 0
 tags = ["Berserker", "Rage"]
-skill_rarity = 0
+rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

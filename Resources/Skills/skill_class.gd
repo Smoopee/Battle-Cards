@@ -2,6 +2,7 @@ extends Node2D
 
 #class_name Skill
 
+
 @onready var skill_stats = get_parent().skill_stats
 
 var shop_label: Label
@@ -37,8 +38,8 @@ func set_node_names():
 	info_label = get_node('%InfoLabel')
 	skill_image = get_node('%SkillImage')
 	upgrade_border = get_node('%UpgradeBorder')
-	tooltip_container = get_node('%TooltipContainer')
 	tooltip = get_node('%TooltipPanel')
+	tooltip_container = tooltip.get_child(0)
 	
 	skill_image.texture = load(skill_stats.skill_art_path)
 	z_index = 1

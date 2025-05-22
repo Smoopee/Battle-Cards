@@ -33,7 +33,6 @@ var enchant_image : Sprite2D
 #COLLISION==========================================================================================
 var collision_shape : CollisionShape2D
 
-
 #var card_stats: Cards_Resource = null
 var card_slotted = false
 var is_discarded = false
@@ -47,7 +46,7 @@ func _ready():
 
 func set_node_names():
 	tooltip = get_node('%TooltipPanel')
-	tooltip_container = get_node('%TooltipContainer')
+	tooltip_container = tooltip.get_child(0)
 	upgrade_border = get_node('%UpgradeBorder')
 	dmg_panel = get_node('%DamagPanel')
 	dmg_label = get_node('%DamageLabel')

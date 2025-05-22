@@ -13,4 +13,4 @@ selection_tags = ["Buff"]
 stock_quantity = 4
 buy_modifier = 0
 sell_modifier = 0
-can_refreseh = true
+can_refresh = true

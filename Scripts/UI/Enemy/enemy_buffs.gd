@@ -14,12 +14,12 @@ func add_buff(buff_resource, source):
 	for i in get_tree().get_nodes_in_group("buff"):
 		if (i.buff_stats.name == new_buff.buff_stats.name 
 		and i.buff_stats.owner == get_tree().get_first_node_in_group("enemy")): 
-			i.additional_buff(source)
+			i.get_parent().additional_buff(source)
 			return
 	
 	print("In add new enemy buff")
 	add_child(new_buff)
-	new_buff.buff_initializer(source)
+	new_buff.initialize(source)
 	organize_buffs()
 
 func remove_buff(buff):

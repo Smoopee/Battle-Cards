@@ -5,9 +5,15 @@
 [resource]
 script = ExtResource("1_dllkm")
 skill_art_path = "res://Resources/Art/Skills/thump_skill.png"
+skill_upgrade_art_path = ""
 skill_scene_path = "res://Scenes/Skills/thump.tscn"
-skill_name = "Thump"
+name = "Thump"
 buy_price = 4
 upgrade_level = 0
 tags = ["Trogg", ""]
 rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

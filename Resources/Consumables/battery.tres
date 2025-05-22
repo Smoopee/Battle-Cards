@@ -6,9 +6,15 @@
 script = ExtResource("1_3jly7")
 consumable_art_path = "res://Resources/Art/Consumables/battery_consumable.png"
 consumable_scene_path = "res://Scenes/Consumables/battery.tscn"
-consumable_name = "battery"
+name = "Battery"
 buy_price = 3
 target = "card"
 stack_amount = 1
 max_stacks = 2
 tags = ["Common", "CD"]
+consumbale_rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

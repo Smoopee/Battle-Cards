@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8brlil8m85rn"]
+[gd_scene load_steps=10 format=3 uid="uid://c8brlil8m85rn"]
 
 [ext_resource type="Script" path="res://Tests/Scripts/test_card_class.gd" id="1_o5qm0"]
 [ext_resource type="Texture2D" uid="uid://cbar7wb4edetf" path="res://Resources/Cards/CardArt/strike_card.png" id="2_fto3c"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="3_tjiti"]
+[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="4_538n5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecdyd"]
 size = Vector2(146, 180)
@@ -211,19 +212,8 @@ vertical_alignment = 1
 unique_name_in_owner = true
 stream = ExtResource("3_tjiti")
 
-[node name="TooltipPanel" type="Panel" parent="."]
+[node name="TooltipPanel" parent="." instance=ExtResource("4_538n5")]
 unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0.921569)
-self_modulate = Color(1, 1, 1, 0)
-z_index = 1
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TooltipContainer" type="VBoxContainer" parent="TooltipPanel"]
-unique_name_in_owner = true
-layout_mode = 1
-offset_bottom = 4.0
 
 [connection signal="mouse_entered" from="CardUI" to="." method="_on_card_ui_mouse_entered"]
 [connection signal="mouse_exited" from="CardUI" to="." method="_on_card_ui_mouse_exited"]

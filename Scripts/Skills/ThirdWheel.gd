@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @onready var stats = skill_stats
 @onready var skill = $BaseSkill
 

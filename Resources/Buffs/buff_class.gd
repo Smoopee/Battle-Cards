@@ -5,32 +5,23 @@ class_name Buff
 signal buff_removed
 signal counter_changed
 
-var buff_stats: Buff_Resource = null
+@onready var buff_stats = get_parent().buff_stats
 
 var buff_image: Sprite2D
 var buff_counter: Label
 var buff_counter_panel: Panel
-var effect: Node2D
-var tooltip: PopupPanel
+var tooltip: Panel
 var tooltip_container: VBoxContainer
 
 func _ready():
 	set_node_names()
 	
-func buff_initializer(source):
-	effect.initialize(source)
-
-func additional_buff(source):
-	effect.additional_buff(source)
-
 func set_node_names():
 	buff_counter = get_node('%BuffCounters')
 	buff_counter_panel = get_node('%BuffCounterPanel')
-	effect = get_node('%Effect')
 	buff_image = get_node('%BuffImage')
-	tooltip = get_node('%PopupPanel')
-	tooltip_container = get_node('%TooltipContainer')
-	
+	tooltip = get_node('%TooltipPanel')
+	tooltip_container = tooltip.get_child(0)
 	buff_image.texture = load(buff_stats.buff_art_path)
 	z_index = 1
 	add_to_group("buff")
@@ -51,26 +42,27 @@ func remove_buff():
 	emit_signal("buff_removed")
 	queue_free()
 
-
 #WIP TOOLTIP========================================================================================
 func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
-	var size = Vector2i(0,0)
+	var x_offset = 40
+	var y_offset = -5
+	tooltip.size = tooltip_container.size
+	tooltip.visible = true
 	
-	#Toggles when mouse is on right side of screen
+	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(global_position + Vector2(25, -35), size)) 
+		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
-		tooltip.popup(Rect2i(new_position, size)) 
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 		
 
 func toggle_tooltip_hide():
-	tooltip.hide()
+	tooltip.visible = false
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp

@@ -6,7 +6,7 @@
 script = ExtResource("1_1athl")
 consumable_art_path = "res://Resources/Art/Consumables/strength_potion_consumable.png"
 consumable_scene_path = "res://Scenes/Consumables/strength_potion.tscn"
-consumable_name = "Strength Potion"
+name = "Strength Potion"
 buy_price = 10
 target = "character"
 stack_amount = 1

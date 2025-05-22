@@ -226,7 +226,7 @@ func block_damage():
 	change_block()
 
 func rage_attack_buff():
-	var buff_resource = load('res://Resources/Buffs/rage_attack_increase.tres')
+	var buff_resource = load("res://Resources/Buffs/raging.tres")
 	add_buff(buff_resource, self)
 
 #OTHER =============================================================================================

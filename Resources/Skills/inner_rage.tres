@@ -5,9 +5,15 @@
 [resource]
 script = ExtResource("1_hdc6e")
 skill_art_path = "res://Resources/Art/Skills/inner_rage_skill.png"
+skill_upgrade_art_path = ""
 skill_scene_path = "res://Scenes/Skills/inner_rage.tscn"
-skill_name = "Inner Rage"
+name = "Inner Rage"
 buy_price = 0
 upgrade_level = 1
 tags = ["Berserker", "Rage"]
-skill_rarity = 0
+rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

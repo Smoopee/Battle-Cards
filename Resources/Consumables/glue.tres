@@ -6,10 +6,15 @@
 script = ExtResource("1_xca63")
 consumable_art_path = "res://Resources/Art/Consumables/glue_consumable.png"
 consumable_scene_path = "res://Scenes/Consumables/glue.tscn"
-consumable_name = "Glue"
+name = "Glue"
 buy_price = 5
 target = "card"
 stack_amount = 1
 max_stacks = 2
 tags = ["CD", "Common"]
 consumbale_rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

@@ -55,9 +55,9 @@ func skill_reward(enemy_reward):
 	get_tree().get_first_node_in_group("character").inventory_screen_toggle(false)
 	var new_scene = load(enemy_reward.skill_scene_path).instantiate()
 	new_scene.skill_stats = enemy_reward
-	new_scene.get_node("Area2D").collision_mask = 512
-	new_scene.get_node("Area2D").collision_layer = 512
-	new_scene.upgrade_skill(new_scene.skill_stats.upgrade_level)
+	new_scene.get_node("BaseSkill").get_node("Area2D").collision_mask = 512
+	new_scene.get_node("BaseSkill").get_node("Area2D").collision_layer = 512
+	new_scene.get_node("BaseSkill").upgrade_skill(new_scene.skill_stats.upgrade_level)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
 	add_child(new_scene)

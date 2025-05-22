@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c63hlaepb0bpa"]
+
+[ext_resource type="Script" path="res://Scripts/Buffs/RagingBuff.gd" id="1_mdpfi"]
+[ext_resource type="PackedScene" uid="uid://bw76pl3mtet8k" path="res://Scenes/Buffs/base_buff.tscn" id="2_lx4ht"]
+
+[node name="RagingBuff" type="Node2D"]
+script = ExtResource("1_mdpfi")
+
+[node name="BaseBuff" parent="." instance=ExtResource("2_lx4ht")]

@@ -45,7 +45,7 @@ var armor_label : Label
 var armor_panel : Panel
 var stun_indicator : Panel
 var stun_label : Label
-var tooltip : PopupPanel
+var tooltip : Panel
 var tooltip_container : VBoxContainer
 
 
@@ -60,17 +60,9 @@ var temp_physical_damage = 0
 
 func _ready():
 	set_node_names()
-	set_stats()
-	set_deck()
-	set_stat_container()
-	set_runes()
-	set_enemy_gold()
-	set_enemy_xp()
-	enemy_deck.tooltip_enemy()
 
 func setup():
 	set_stat_container()
-	set_skills()
 	set_runes()
 
 func set_stats() -> void:
@@ -102,15 +94,17 @@ func end_of_round(round):
 
 #SKILLS=============================================================================================
 func set_skills():
+	skills.initialize_skills()
+	
 	for i in skills.enemy_skills:
 		var new_instance = load(i.skill_scene_path).instantiate()
 		new_instance.skill_stats = i
 		new_instance.skill_stats.owner = self
 		new_instance.skill_stats.target = get_tree().get_first_node_in_group("character")
+		print(new_instance)
 		skills.add_child(new_instance)
 		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 		
-	
 	organize_skills()
 
 func organize_skills():
@@ -171,6 +165,7 @@ func remove_debuff(debuff):
 	get_tree().get_first_node_in_group("enemy debuffs").remove_debuff(debuff)
 
 func set_deck():
+	enemy_deck.initialize_deck()
 	deck = enemy_deck.enemy_deck
 
 #COMBAT FUNCTIONS ==================================================================================
@@ -359,8 +354,8 @@ func set_node_names():
 	armor_panel = get_node('%ArmorPanel')
 	stun_indicator = get_node('%StunIndicator')
 	stun_label = get_node('%StunLabel')
-	tooltip = get_node('%PopupPanel')
-	tooltip_container = get_node('%TooltipContainer')
+	tooltip = get_node('%TooltipPanel')
+	tooltip_container = tooltip.get_child(0)
 	
 	enemy_image.texture = load(character_stats.enemy_art_path)
 	enemy_border.texture = load(character_stats.enemy_border_art_path)
@@ -372,21 +367,21 @@ func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
-	var size = Vector2i(0,0)
-	var x_offset = 85
-	var y_offset = -105
+	var x_offset = (%EnemyUI.size.x /2) + 20
+	var y_offset = -(%EnemyUI.size.y /2) + 11
+	tooltip.size = tooltip_container.size
+	tooltip.visible = true
 	
-	#Toggles when mouse is on right side of screen
+	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(global_position + Vector2(x_offset, y_offset), size)) 
+		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		var new_position = global_position + Vector2(-x_offset - tooltip.size.x , y_offset)
-		tooltip.popup(Rect2i(new_position, size)) 
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 
 func toggle_tooltip_hide():
-	tooltip.hide()
+	tooltip.visible = false
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -402,9 +397,7 @@ func update_tooltip(category, identifier, body = null, header = null):
 
 func _on_enemy_ui_mouse_entered():
 	if Global.mouse_occupied == true: return
-	scale = Vector2(1.1, 1.1)
 	toggle_tooltip_show()
 
 func _on_enemy_ui_mouse_exited():
-	scale = Vector2(1, 1)
 	toggle_tooltip_hide()

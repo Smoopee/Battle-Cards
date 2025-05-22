@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct4uf5i6xix78"]
+[gd_scene load_steps=20 format=3 uid="uid://ct4uf5i6xix78"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Inn/InnScreen.gd" id="1_w633f"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="2_8kfc0"]
@@ -14,6 +14,18 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_ctpbg"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_7w1wb"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_vh1bi"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_66a3d"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_c4746"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_admik"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_vl6dk"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_8dkyp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_632ne"]
 size = Vector2(150.5, 230)
@@ -41,6 +53,12 @@ visible = false
 visible = false
 group1 = SubResource("ButtonGroup_ctpbg")
 group2 = SubResource("ButtonGroup_7w1wb")
+group3 = SubResource("ButtonGroup_vh1bi")
+group4 = SubResource("ButtonGroup_66a3d")
+group5 = SubResource("ButtonGroup_c4746")
+group6 = SubResource("ButtonGroup_admik")
+group7 = SubResource("ButtonGroup_vl6dk")
+group8 = SubResource("ButtonGroup_8dkyp")
 
 [node name="TooltipTimer" type="Timer" parent="."]
 

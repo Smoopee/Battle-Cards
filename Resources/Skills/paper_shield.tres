@@ -5,9 +5,15 @@
 [resource]
 script = ExtResource("1_j2cbx")
 skill_art_path = "res://Resources/Art/Skills/paper_shield_skill.png"
+skill_upgrade_art_path = ""
 skill_scene_path = "res://Scenes/Skills/paper_shield.tscn"
-skill_name = "Paper Shield"
+name = "Paper Shield"
 buy_price = 3
 upgrade_level = 1
 tags = []
 rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

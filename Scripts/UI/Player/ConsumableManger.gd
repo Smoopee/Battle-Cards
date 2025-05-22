@@ -55,9 +55,9 @@ func finish_drag():
 
 	var raycast_object
 	if raycast_check_for_player_card(): raycast_object = raycast_check_for_player_card().get_parent()
-	elif raycast_check_for_enemy_card(): raycast_object = raycast_check_for_enemy_card()
+	elif raycast_check_for_enemy_card(): raycast_object = raycast_check_for_enemy_card().get_parent()
 	elif raycast_check_for_player(): raycast_object = raycast_check_for_player()
-	elif raycast_check_for_enemy(): raycast_object = raycast_check_for_enemy()
+	elif raycast_check_for_enemy(): raycast_object = raycast_check_for_enemy().get_parent()
 	
 	if raycast_object: use_consumable(raycast_object)
 	print("The consumable raycast object is " + str(raycast_object))
@@ -79,7 +79,6 @@ func finish_drag():
 			remove_child(i)
 			i.queue_free()
 		place_holder_used = false
-
 
 func raycast_check_for_consumable():
 	var space_state = get_world_2d().direct_space_state

@@ -19,7 +19,7 @@ func set_node_names():
 	shop_panel = get_node('%ShopPanel')
 	rune_image = get_node('%RuneImage')
 	tooltip = get_node('%TooltipPanel')
-	tooltip_container = get_node('%TooltipContainer')
+	tooltip_container = tooltip.get_child(0)
 	
 	rune_image.texture = load(rune_stats.rune_art_path)
 	z_index = 1
@@ -73,7 +73,7 @@ func update_tooltip(category, identifier, body = null, header = null):
 		temp.update_tooltip(category, identifier, body, header)
 
 func _on_area_2d_mouse_entered():
-	if get_tree().get_first_node_in_group("card manager").card_being_dragged != null: return
+	if get_tree().get_first_node_in_group("player cards").card_being_dragged != null: return
 	scale = Vector2(1.1, 1.1)
 	toggle_tooltip_show()
 

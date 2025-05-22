@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx4hatbep7l2s"]
+[gd_scene load_steps=7 format=3 uid="uid://cx4hatbep7l2s"]
 
 [ext_resource type="Script" path="res://Resources/Skills/skill_class.gd" id="1_s3woo"]
 [ext_resource type="Texture2D" uid="uid://ctn37ycsum6fe" path="res://Resources/Art/Skills/building_momentum_skill.png" id="2_114bl"]
+[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="3_nyqqx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vqwq4"]
 size = Vector2(48, 48)
@@ -99,19 +100,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3x2mh")
 
-[node name="TooltipPanel" type="Panel" parent="."]
+[node name="TooltipPanel" parent="." instance=ExtResource("3_nyqqx")]
 unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0.921569)
-self_modulate = Color(1, 1, 1, 0)
-z_index = 1
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TooltipContainer" type="VBoxContainer" parent="TooltipPanel"]
-unique_name_in_owner = true
-layout_mode = 1
-offset_bottom = 4.0
 
 [connection signal="mouse_entered" from="SkillUI" to="." method="_on_skill_ui_mouse_entered"]
 [connection signal="mouse_exited" from="SkillUI" to="." method="_on_skill_ui_mouse_exited"]

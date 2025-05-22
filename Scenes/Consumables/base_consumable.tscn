@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://t3743qo0bahh"]
+[gd_scene load_steps=6 format=3 uid="uid://t3743qo0bahh"]
 
 [ext_resource type="Script" path="res://Resources/Consumables/consumable_class.gd" id="1_al35h"]
+[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="2_77tnl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ltgem"]
 size = Vector2(24, 24)
@@ -93,19 +94,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xq8ne")
 
-[node name="TooltipPanel" type="Panel" parent="."]
+[node name="TooltipPanel" parent="." instance=ExtResource("2_77tnl")]
 unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0.921569)
-self_modulate = Color(1, 1, 1, 0)
-z_index = 1
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TooltipContainer" type="VBoxContainer" parent="TooltipPanel"]
-unique_name_in_owner = true
-layout_mode = 1
-offset_bottom = 4.0
 
 [connection signal="mouse_entered" from="ConsumableUI" to="." method="_on_consumable_ui_mouse_entered"]
 [connection signal="mouse_exited" from="ConsumableUI" to="." method="_on_consumable_ui_mouse_exited"]

@@ -128,3 +128,4 @@ func item_enchant(enchant):
 
 func update_card_ui():
 	card.update_card_ui()
+

@@ -42,7 +42,7 @@ func set_node_names():
 	info_label = get_node('%InfoLabel')
 	image = get_node('%ConsumableImage')
 	tooltip = get_node('%TooltipPanel')
-	tooltip_container = get_node('%TooltipContainer')
+	tooltip_container = tooltip.get_child(0)
 	
 	image.texture = load(consumable_stats.consumable_art_path)
 	z_index = 1
@@ -62,17 +62,14 @@ func toggle_tooltip_show():
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
 		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		#tooltip.popup(Rect2i(get_parent().position, size)) 
 		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 		
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
-	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp

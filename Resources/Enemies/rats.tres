@@ -24,3 +24,4 @@ is_stunned = false
 stun_counter = 0
 runes = []
 biomes = ["Forest", "Desert"]
+selection_tags = ["Rats"]

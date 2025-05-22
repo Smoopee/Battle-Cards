@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://5vrtswwpnnqo"]
-
-[ext_resource type="Script" path="res://Scripts/Cards/exodia.gd" id="1_745ok"]
-[ext_resource type="Resource" uid="uid://b13kuvjp30it3" path="res://Resources/Cards/exodia.tres" id="2_7dwfy"]
-
-[node name="Exodia" type="Node2D"]
-script = ExtResource("1_745ok")
-card_stats_resource = ExtResource("2_7dwfy")

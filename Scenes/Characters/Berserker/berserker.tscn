@@ -221,5 +221,6 @@ text = "1
 "
 
 [node name="InventoryGrid" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-121, 0)
 texture = ExtResource("9_qjpam")

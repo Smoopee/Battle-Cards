@@ -22,3 +22,4 @@ class_name Enemy_Resource
 @export var stun_counter: int
 @export var runes: Array
 @export var biomes: Array
+@export var selection_tags: Array

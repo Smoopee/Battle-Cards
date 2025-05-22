@@ -50,16 +50,15 @@ func create_consumable_selection():
 		add_child(consumable_scene)
 		add_consumable_to_hand(consumable_scene)
 
-	
 	var consumable_position = 0
 	for i in selected_inventory:
-		i.get_node("Area2D").collision_mask =  8192
-		i.get_node("Area2D").collision_layer = 8192
+		i.get_node("BaseConsumable").get_node("Area2D").collision_mask =  8192
+		i.get_node("BaseConsumable").get_node("Area2D").collision_layer = 8192
 		i.consumable_stats.buy_price *= 2
-		i.toggle_shop_ui(true)
-		i.consumable_shop_ui()
-		i.get_node("ConsumableImage").scale = Vector2(2, 2)
-		i.get_node("Area2D").scale = Vector2(2,2)
+		i.get_node("BaseConsumable").toggle_shop_ui(true)
+		i.get_node("BaseConsumable").consumable_shop_ui()
+		i.get_node("BaseConsumable").get_node("ConsumableImage").scale = Vector2(2, 2)
+		i.get_node("BaseConsumable").get_node("Area2D").scale = Vector2(2,2)
 		i.consumable_stats.inventory_position = consumable_position
 		i.consumable_stats.consumable_owner = false
 		consumable_position += 1

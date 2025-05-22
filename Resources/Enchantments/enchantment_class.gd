@@ -33,7 +33,7 @@ func set_node_names():
 	shop_panel = get_node('%ShopPanel')
 	shop_label = get_node('%ShopLabel')
 	tooltip = get_node('%TooltipPanel')
-	tooltip_container = get_node('%TooltipContainer')
+	tooltip_container = tooltip.get_child(0)
 	
 	enchantment_image.texture = load(enchantment_stats.enchantment_art_path)
 	add_to_group("enchantment")
@@ -54,10 +54,8 @@ func toggle_tooltip_show():
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
 		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		#tooltip.popup(Rect2i(get_parent().position, size)) 
 		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 
 func toggle_tooltip_hide():

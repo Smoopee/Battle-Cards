@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Buff_Resource" load_steps=2 format=3 uid="uid://bqo1ho3ur5ct7"]
+
+[ext_resource type="Script" path="res://Resources/Buffs/buff_master_resource.gd" id="1_woagw"]
+
+[resource]
+script = ExtResource("1_woagw")
+buff_art_path = "res://Resources/Art/Buffs/raging.png"
+buff_scene_path = "res://Scenes/Buffs/raging_buff.tscn"
+name = "Raging"
+tags = []

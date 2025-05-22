@@ -62,11 +62,11 @@ func create_skill_selection():
 	
 	var skill_position = 0
 	for i in selected_skills:
-		i.get_node("Area2D").collision_mask = 512
-		i.get_node("Area2D").collision_layer = 512
+		i.get_node("BaseSkill").get_node("Area2D").collision_mask = 512
+		i.get_node("BaseSkill").get_node("Area2D").collision_layer = 512
 	
-		i.toggle_shop_ui(true)
-		i.skill_shop_ui()
+		i.get_node("BaseSkill").toggle_shop_ui(true)
+		i.get_node("BaseSkill").skill_shop_ui()
 		i.skill_stats.inventory_position = skill_position
 		i.skill_stats.owner = get_tree().get_first_node_in_group("merchant")
 		skill_position += 1
