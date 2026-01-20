@@ -41,7 +41,7 @@ func start_drag(consumable):
 	consumable_being_dragged = consumable
 	start_drag_stack_check()
 	consumable.z_index = 2
-	consumable.scale = Vector2(1.5, 1.5)
+	consumable.scale = Vector2(1.5, 1.5) * Global.ui_scaler
 	consumable_previous_position = consumable.global_position
 	consumable.toggle_info_ui(false)
 	Global.mouse_occupied = true
@@ -137,7 +137,7 @@ func raycast_check_for_enemy_card():
 
 func consumable_reset():
 	print("in consumable reset")
-	consumable_being_dragged.scale = Vector2(1, 1)
+	consumable_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	consumable_being_dragged.update_stack_ui()
 	consumable_being_dragged.toggle_info_ui(true)
 	consumable_being_dragged = null
@@ -186,4 +186,3 @@ func start_drag_stack_check():
 		place_holder.get_node("BaseConsumable").toggle_info_ui(true)
 		place_holder_used = true
 		print("start drag check is true")
-

@@ -8,8 +8,11 @@ signal level_up
 var save_file_path = "user://SaveData/"
 var save_file_name = "PlayerSave.tres"
 var playerData = PlayerData.new()
+
+#UI ELEMENTS===================================================================
 var center_screen_x: int
 var center_screen_y: int
+var ui_scaler = Vector2(1,1)
 
 @onready var player_level: int 
 @onready var player_gold: int
@@ -53,6 +56,8 @@ var mouse_occupied = false
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
+	if get_viewport().size == Vector2i(2400, 1080):
+		ui_scaler = Vector2(1.5, 1.5)
 	
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
@@ -106,7 +111,7 @@ func instantiate_player_inventory():
 		player_inventory.push_back(card)
 
 func set_player_deck():
-	player_deck_db = ["Strike", "Rock", "Strike", "Strengthen", "Swarm", "Hardened Skin", "Daunting Shout", "Swarm", "Swarm", "Swarm"]
+	player_deck_db = ["Strike", "Rock", "Strengthen", "Hardened Skin", "Daunting Shout", "Swarm", "Swarm"]
 
 func instantiate_player_deck():
 	for i in player_deck_db:

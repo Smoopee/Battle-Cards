@@ -18,6 +18,7 @@ func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	home_position = Vector2(center_screen_x, Y_POSITION)
 	self.position = home_position
+	self.scale = Global.ui_scaler
 
 
 func _process(delta):

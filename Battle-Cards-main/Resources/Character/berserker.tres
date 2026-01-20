@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Character_Resource" load_steps=2 format=3 uid="uid://cyhj5ybc2b5yp"]
 
-[ext_resource type="Script" path="res://Resources/Character/character_master_resource.gd" id="1_g0ibu"]
+[ext_resource type="Script" uid="uid://drye1wj85ld4b" path="res://Resources/Character/character_master_resource.gd" id="1_g0ibu"]
 
 [resource]
 script = ExtResource("1_g0ibu")
@@ -9,13 +9,4 @@ character_scene_path = "res://Scenes/Characters/berserker.tscn"
 name = "Berserker"
 health = 120
 max_health = 120
-xp = 0
-gold = 0
-bleeding_dmg = 0
-burning_dmg = 0
-poisoning_dmg = 0
-attack = 0
-armor = 0
-defense = 0
-block = 0
 speed = 11

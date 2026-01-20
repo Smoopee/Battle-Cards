@@ -18,6 +18,7 @@ func _ready():
 	get_db_reference()
 	add_to_group("merchant")
 	merchant_variables.tooltip_merchant()
+	self.scale = Global.ui_scaler
 
 func set_node_names():
 	merchant_variables = get_node('%MerchantVariables')
@@ -121,9 +122,9 @@ func update_tooltip(category, identifier, body = null, header = null):
 
 func _on_merchant_ui_mouse_entered():
 	if get_tree().get_first_node_in_group("card manager").card_being_dragged != null: return
-	scale = Vector2(1.1, 1.1)
+	scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	toggle_tooltip_show()
 
 func _on_merchant_ui_mouse_exited():
-	scale = Vector2(1, 1)
+	scale = Vector2(1, 1) * Global.ui_scaler
 	toggle_tooltip_hide()

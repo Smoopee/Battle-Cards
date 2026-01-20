@@ -37,7 +37,7 @@ func _input(event):
 
 func finish_drag():
 	Global.mouse_occupied = false
-	card_being_dragged.scale = Vector2(1.05, 1.05)
+	card_being_dragged.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 	var merchant_found = raycast_check_for_merchant()
 	
 	if merchant_found:
@@ -56,7 +56,7 @@ func finish_drag():
 func start_drag(card):
 	Global.mouse_occupied = true
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	card.scale = Vector2(1, 1) * Global.ui_scaler
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
@@ -130,13 +130,13 @@ func on_hovered_over(card):
 	if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
 	if $ConsumableManger.consumable_being_dragged: return
 	card.mouse_exit = false
-	card.scale = Vector2(1.1, 1.1)
+	card.scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	$TooltipTimer.start()
 	await $TooltipTimer.timeout
 	if card == null: return
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
-	card.scale = Vector2(2, 2)
+	card.scale = Vector2(2, 2) * Global.ui_scaler
 	print("In intermision")
 	card.z_index = 2
 
@@ -144,7 +144,7 @@ func on_hovered_off(card):
 	if card_being_dragged: return
 	card.mouse_exit = true
 	card.toggle_tooltip_hide()
-	card.scale = Vector2(1, 1)
+	card.scale = Vector2(1, 1) * Global.ui_scaler
 	card.z_index = 1
 
 func toggle_inventory():

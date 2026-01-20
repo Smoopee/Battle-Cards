@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://448qbl7atve5"]
 
-[ext_resource type="Script" path="res://Scripts/Merchants/camp.gd" id="1_f0e0r"]
+[ext_resource type="Script" uid="uid://bbs5kso4j7q60" path="res://Scripts/Merchants/camp.gd" id="1_f0e0r"]
 [ext_resource type="Texture2D" uid="uid://dkmkep31nct7h" path="res://Resources/Art/Merchants/camp_merchant.png" id="2_pme53"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eqq42"]

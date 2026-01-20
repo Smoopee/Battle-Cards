@@ -6,6 +6,7 @@ extends Node2D
 var merchant_stats: Merchant_Resource = null
 
 func _ready():
+	self.scale = Global.ui_scaler
 	update_tooltip(str(merchant_stats.merchant_name), 
 	"Flavor Text", 
 	"Head into town. \nSkip the second Intermission.", 

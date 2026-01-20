@@ -75,7 +75,7 @@ func _input(event):
 func start_drag(card):
 	#card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	emit_signal("started_card_drag")
-	card_being_dragged.scale = Vector2(1, 1)
+	card_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
 	Global.mouse_occupied = true
@@ -525,7 +525,7 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 
 func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
-	card_being_dragged.scale = Vector2(1, 1)
+	card_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
 

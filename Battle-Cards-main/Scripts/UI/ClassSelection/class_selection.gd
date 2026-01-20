@@ -34,7 +34,7 @@ func _input(event):
 				finish_drag()
 
 func finish_drag():
-	card_being_dragged.scale = Vector2(1.05, 1.05)
+	card_being_dragged.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 	var class_selected = raycast_check_for_class_selection()
 		
 	if class_selected:
@@ -55,7 +55,7 @@ func finish_drag():
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	card.scale = Vector2(1, 1) * Global.ui_scaler
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)
@@ -77,10 +77,10 @@ func on_hoovered_off_card(card):
 
 func highlight_card(card, hoovered):
 	if hoovered:
-		card.scale = Vector2(1.05, 1.05)
+		card.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 		card.z_index = 2
 	else:
-		card.scale = Vector2(1, 1)
+		card.scale = Vector2(1, 1) * Global.ui_scaler
 		card.z_index = 1
 
 func raycast_check_for_card_selector():

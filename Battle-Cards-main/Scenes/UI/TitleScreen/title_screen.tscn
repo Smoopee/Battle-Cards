@@ -42,3 +42,4 @@ shape = SubResource("RectangleShape2D_r0131")
 
 [node name="CardSelector" parent="." instance=ExtResource("1_8veqb")]
 position = Vector2(1044, 845)
+scale = Vector2(1, 1)

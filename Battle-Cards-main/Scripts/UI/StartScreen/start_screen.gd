@@ -14,8 +14,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	$NewGame.position = Vector2(Global.center_screen_x - 200, 500)
+	$NewGame.scale = Global.ui_scaler
 	$LoadGame.position =  Vector2(Global.center_screen_x + 200, 500)
-
+	$LoadGame.scale = Global.ui_scaler
+	
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -34,10 +36,10 @@ func _input(event):
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	card.scale = Vector2(1, 1) * Global.ui_scaler
 
 func finish_drag():
-	card_being_dragged.scale = Vector2(1.05, 1.05)
+	card_being_dragged.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 	var new_game = raycast_check_for_new_game()
 	var load_game = raycast_check_for_load_game()
 	
@@ -102,10 +104,10 @@ func on_hoovered_off_card(card):
 
 func highlight_card(card, hoovered):
 	if hoovered:
-		card.scale = Vector2(1.05, 1.05)
+		card.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 		card.z_index = 2
 	else:
-		card.scale = Vector2(1, 1)
+		card.scale = Vector2(1, 1) * Global.ui_scaler
 		card.z_index = 1
 
 func raycast_check_for_card_selector():
