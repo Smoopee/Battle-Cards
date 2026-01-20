@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" load_steps=2 format=3 uid="uid://qxfxohb1k3ul"]
+
+[ext_resource type="Script" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_ulap8"]
+
+[resource]
+script = ExtResource("1_ulap8")
+merchant_art_path = "res://Resources/Art/Merchants/well_merchant.png"
+merchant_border_path = "res://Resources/Art/UIElements/Borders/merchant_border.png"
+merchant_scene_path = "res://Scenes/Merchants/well.tscn"
+merchant_name = "Well"
+merchant_type = "Enchantment"
+selection_tags = []
+stock_quantity = 8
+buy_modifier = 0
+sell_modifier = 0
+can_refresh = true

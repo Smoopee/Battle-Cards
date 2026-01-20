@@ -1,0 +1,270 @@
+[gd_scene load_steps=27 format=3 uid="uid://xwc4sjwi65t"]
+
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/berserker_battle_sim.gd" id="1_grqco"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/Battle.gd" id="2_nmw3s"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="3_xdgva"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/player_inventory.gd" id="4_jdp0r"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="5_cfbk6"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="6_1655o"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="7_cu4js"]
+[ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="8_i22sw"]
+[ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_a1ix2"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/SkillManager.gd" id="10_s217y"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="10_v36ef"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="11_vlpbx"]
+[ext_resource type="AudioStream" uid="uid://cxtsqm0vys3fa" path="res://Resources/Sound/Background/BattleBackground.wav" id="12_3imj5"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/NextTurn.gd" id="14_cprqu"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/DeckBuilder.gd" id="15_q4ygm"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/InventorySlots.gd" id="17_2p4it"]
+[ext_resource type="Script" path="res://Scripts/UI/DeckBuilder/DeckCardSlots.gd" id="18_fyuy6"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="19_sxdom"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerDeck.gd" id="20_bgtuq"]
+[ext_resource type="PackedScene" uid="uid://8sds3v74n7g" path="res://Scenes/UI/UIElements/sell_zone.tscn" id="20_ywvep"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="21_rtjmi"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/CardManager.gd" id="21_t4lx0"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="22_bx334"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/CardTransform.gd" id="24_cxdv7"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mdhh2"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_aggqm"]
+
+[node name="BerserkerBattleSim" type="Node2D"]
+script = ExtResource("1_grqco")
+
+[node name="player_deck" type="Node2D" parent="." groups=["player deck"]]
+script = ExtResource("3_xdgva")
+
+[node name="player_inventory" type="Node2D" parent="." groups=["player inventory"]]
+visible = false
+script = ExtResource("4_jdp0r")
+
+[node name="Enemy" type="Node2D" parent="." groups=["enemy deck"]]
+script = ExtResource("5_cfbk6")
+
+[node name="Player" parent="." instance=ExtResource("6_1655o")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("7_cu4js")]
+
+[node name="Battle" type="Node2D" parent="." groups=["battle sim"]]
+script = ExtResource("2_nmw3s")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_i22sw")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 1526.0
+offset_top = 771.0
+offset_right = 1914.0
+offset_bottom = 1015.0
+color = Color(0.254902, 0.254902, 0.254902, 0.752941)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/ColorRect"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 10.0
+offset_right = 374.0
+offset_bottom = 233.0
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
+
+[node name="Labels" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerDamageNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyDamageNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1774.0
+offset_top = 880.0
+offset_right = 1814.0
+offset_bottom = 926.0
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyBleedTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="EnemyBleedDrip" type="Label" parent="UI/Labels/EnemyBleedTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBleedTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBleedDrip" type="Label" parent="UI/Labels/PlayerBleedTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerHealNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0.643698, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyHealNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0.643698, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="PlayerReflectNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyReflectNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="Rounds" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 42.0
+offset_right = 123.0
+offset_bottom = 58.0
+text = "Round: 1"
+
+[node name="BattleRewards" parent="." instance=ExtResource("9_a1ix2")]
+visible = false
+
+[node name="ConsumableManger" parent="." instance=ExtResource("11_vlpbx")]
+
+[node name="SkillManager" type="Node2D" parent="."]
+script = ExtResource("10_s217y")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_3imj5")
+autoplay = true
+
+[node name="NextTurn" type="Node2D" parent="."]
+visible = false
+script = ExtResource("14_cprqu")
+
+[node name="DeckBuilder" type="Node2D" parent="NextTurn"]
+script = ExtResource("15_q4ygm")
+
+[node name="InventorySlots" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("17_2p4it")
+
+[node name="DeckCardSlots" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("18_fyuy6")
+
+[node name="PlayerInventory" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("19_sxdom")
+
+[node name="PlayerDeck" type="Node2D" parent="NextTurn/DeckBuilder"]
+script = ExtResource("20_bgtuq")
+
+[node name="CardManager" type="Node2D" parent="NextTurn/DeckBuilder" groups=["card manager"]]
+script = ExtResource("21_t4lx0")
+
+[node name="SellZone" parent="NextTurn/DeckBuilder" instance=ExtResource("20_ywvep")]
+position = Vector2(0, 20)
+
+[node name="UpgradeButton" type="CheckButton" parent="NextTurn/DeckBuilder"]
+visible = false
+offset_left = 298.0
+offset_top = 807.0
+offset_right = 538.0
+offset_bottom = 838.0
+text = "Upgrade Mode"
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("10_v36ef")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[node name="TalentTree" parent="." instance=ExtResource("22_bx334")]
+process_mode = 3
+visible = false
+group1 = SubResource("ButtonGroup_mdhh2")
+group2 = SubResource("ButtonGroup_aggqm")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("21_rtjmi")]
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 1797.0
+offset_top = 910.0
+offset_right = 1885.0
+offset_bottom = 934.0
+text = "Start"
+
+[node name="ContinueButton" type="Button" parent="."]
+offset_left = 1755.0
+offset_top = 955.0
+offset_right = 1891.0
+offset_bottom = 979.0
+text = "Continue"
+
+[node name="CardTransform" type="Node" parent="." groups=["card transform"]]
+script = ExtResource("24_cxdv7")
+
+[connection signal="toggled" from="NextTurn/DeckBuilder/UpgradeButton" to="NextTurn/DeckBuilder/CardManager" method="_on_upgrade_button_toggled"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TooltipTimer" to="NextTurn/DeckBuilder/CardManager" method="_on_tooltip_timer_timeout"]
+[connection signal="button_down" from="StartButton" to="Battle" method="_on_start_button_button_down"]
+[connection signal="button_down" from="ContinueButton" to="Battle" method="_on_continue_button_button_down"]

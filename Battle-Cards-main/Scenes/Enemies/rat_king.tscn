@@ -1,0 +1,267 @@
+[gd_scene load_steps=16 format=3 uid="uid://cgidlmt15p7xl"]
+
+[ext_resource type="Script" path="res://Resources/Enemies/enemy_class.gd" id="1_qrbsf"]
+[ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="2_vnuja"]
+[ext_resource type="PackedScene" uid="uid://bytg7c32ifr14" path="res://Scenes/UI/Enemy/enemy_buffs.tscn" id="3_5kd83"]
+[ext_resource type="PackedScene" uid="uid://dkkuwrl21x050" path="res://Scenes/UI/Enemy/enemy_debuffs.tscn" id="4_8u6ty"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Runes.gd" id="5_2gf2n"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/Deck.gd" id="6_blidu"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rat_King/Skills.gd" id="7_bs1ot"]
+[ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="8_h41ab"]
+[ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="9_atkuw"]
+[ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="10_frceh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxqdu"]
+size = Vector2(142.5, 174)
+
+[sub_resource type="Gradient" id="Gradient_4pfos"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1tl6u"]
+gradient = SubResource("Gradient_4pfos")
+width = 1300
+height = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q2y7g"]
+bg_color = Color(0.6, 0.6, 0.6, 0.615686)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wymgf"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="RatKing" type="Node2D"]
+script = ExtResource("1_qrbsf")
+
+[node name="EnemyImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_vnuja")
+
+[node name="EnemyBorder" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+
+[node name="EnemyBuffs" parent="." instance=ExtResource("3_5kd83")]
+unique_name_in_owner = true
+
+[node name="EnemyDebuffs" parent="." instance=ExtResource("4_8u6ty")]
+unique_name_in_owner = true
+
+[node name="Deck" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_blidu")
+
+[node name="Skills" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_bs1ot")
+
+[node name="Runes" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_2gf2n")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.25, -1)
+shape = SubResource("RectangleShape2D_rxqdu")
+
+[node name="EnemyUI" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -67.0
+offset_top = -85.0
+offset_right = 70.0
+offset_bottom = 89.0
+
+[node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -583.0
+offset_top = -212.0
+offset_right = 580.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+texture_under = ExtResource("8_h41ab")
+texture_over = ExtResource("9_atkuw")
+texture_progress = ExtResource("10_frceh")
+
+[node name="EnemyHealthLabel" type="Label" parent="EnemyUI/EnemyHealthBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 578.0
+offset_top = 4.0
+offset_right = 722.0
+offset_bottom = 22.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "3000/3000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoldAndXPBox" type="VBoxContainer" parent="EnemyUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 149.0
+offset_top = 6.0
+offset_right = 236.0
+offset_bottom = 46.0
+
+[node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2g"
+
+[node name="EnemyXP" type="Label" parent="EnemyUI/GoldAndXPBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2xp"
+
+[node name="EnemySelectionHealth" type="Label" parent="EnemyUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = -21.0
+offset_right = 122.0
+offset_bottom = -5.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "110/120"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyHealthBar2" type="TextureProgressBar" parent="EnemyUI/EnemySelectionHealth"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = 3.0
+offset_right = 1228.0
+offset_bottom = 27.0
+grow_horizontal = 2
+scale = Vector2(0.112245, 0.46176)
+value = 100.0
+texture_under = SubResource("GradientTexture2D_1tl6u")
+texture_progress = ExtResource("10_frceh")
+
+[node name="StatContainer" type="VBoxContainer" parent="EnemyUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 156.0
+offset_top = 66.0
+offset_right = 252.0
+offset_bottom = 164.0
+
+[node name="AttackLabel" type="Label" parent="EnemyUI/StatContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Atk: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackPanel" type="Panel" parent="EnemyUI/StatContainer/AttackLabel"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DefenseLabel" type="Label" parent="EnemyUI/StatContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Atk: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefensePanel" type="Panel" parent="EnemyUI/StatContainer/DefenseLabel"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArmorLabel" type="Label" parent="EnemyUI/StatContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Def: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArmorPanel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StunIndicator" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -73.0
+offset_top = -90.0
+offset_right = 72.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q2y7g")
+
+[node name="StunLabel" type="Label" parent="StunIndicator"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 65.0
+offset_top = 83.0
+offset_right = 81.0
+offset_bottom = 99.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "1
+"
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_wymgf")
+
+[node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="EnemyUI" to="." method="_on_enemy_ui_mouse_entered"]
+[connection signal="mouse_exited" from="EnemyUI" to="." method="_on_enemy_ui_mouse_exited"]

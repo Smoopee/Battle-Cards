@@ -1,0 +1,125 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4xyg1sf876sa"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Pirate/pirate.gd" id="1_7lxql"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Pirate/Deck.gd" id="2_c1l1j"]
+[ext_resource type="Texture2D" uid="uid://da8cv5kivdg5k" path="res://Resources/Art/Enemies/pirate_enemy.png" id="3_iqa6g"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Pirate/Skills.gd" id="5_xnkwx"]
+[ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_54kny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dj0yc"]
+size = Vector2(98, 128)
+
+[sub_resource type="Gradient" id="Gradient_gxi2u"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_26xrt"]
+gradient = SubResource("Gradient_gxi2u")
+width = 1300
+height = 24
+
+[sub_resource type="Gradient" id="Gradient_gclhs"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fs2w0"]
+gradient = SubResource("Gradient_gclhs")
+width = 1300
+height = 24
+
+[node name="Pirate" type="Node2D" groups=["enemy"]]
+script = ExtResource("1_7lxql")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_iqa6g")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dj0yc")
+
+[node name="Deck" type="Node2D" parent="."]
+script = ExtResource("2_c1l1j")
+
+[node name="Skills" type="Node2D" parent="."]
+script = ExtResource("5_xnkwx")
+
+[node name="EnemyUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -67.0
+offset_top = -85.0
+offset_right = 70.0
+offset_bottom = 89.0
+
+[node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -583.0
+offset_top = -212.0
+offset_right = 580.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_26xrt")
+texture_progress = ExtResource("6_54kny")
+
+[node name="EnemyHealthLabel" type="Label" parent="EnemyUI/EnemyHealthBar"]
+layout_mode = 0
+offset_left = 630.0
+offset_top = 4.0
+offset_right = 670.0
+offset_bottom = 20.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "11"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoldAndXPBox" type="VBoxContainer" parent="EnemyUI"]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 9.0
+offset_right = 238.0
+offset_bottom = 49.0
+
+[node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2g"
+
+[node name="EnemyXP" type="Label" parent="EnemyUI/GoldAndXPBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2xp"
+
+[node name="EnemySelectionHealth" type="Label" parent="EnemyUI"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = -21.0
+offset_right = 122.0
+offset_bottom = -5.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "110/120"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyHealthBar2" type="TextureProgressBar" parent="EnemyUI/EnemySelectionHealth"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = 3.0
+offset_right = 1228.0
+offset_bottom = 27.0
+grow_horizontal = 2
+scale = Vector2(0.112245, 0.46176)
+value = 100.0
+texture_under = SubResource("GradientTexture2D_fs2w0")
+texture_progress = ExtResource("6_54kny")

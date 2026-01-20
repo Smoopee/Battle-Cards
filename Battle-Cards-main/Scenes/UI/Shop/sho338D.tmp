@@ -1,0 +1,186 @@
+[gd_scene load_steps=21 format=3 uid="uid://bbudyogspe5gy"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/Merchant.gd" id="2_wrfdt"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantCards.gd" id="3_82fbf"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/InventoryCardSlots.gd" id="4_vhc0b"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/Inventory.gd" id="5_5052o"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/DeckCardSlots.gd" id="5_de2mv"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/PlayerDeck.gd" id="5_r3th3"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="6_52iue"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantSkills.gd" id="6_hjwsc"]
+[ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="7_b14l4"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="7_ldslr"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/SkillManager.gd" id="10_a7eap"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="10_rtxoi"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/ConsumableManager.gd" id="11_oykye"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/VarietyManager.gd" id="12_8ea5x"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="12_ega66"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_rxp0v"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_k0wj2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kig7s"]
+size = Vector2(623, 248)
+
+[node name="Shop" type="Node2D"]
+script = ExtResource("1_ujm55")
+
+[node name="Merchant" type="Node2D" parent="."]
+script = ExtResource("2_wrfdt")
+
+[node name="InventorySlots" type="Node2D" parent="."]
+script = ExtResource("4_vhc0b")
+
+[node name="DeckCardSlots" type="Node2D" parent="."]
+script = ExtResource("5_de2mv")
+
+[node name="MerchantCards" type="Node2D" parent="."]
+script = ExtResource("3_82fbf")
+
+[node name="MerchantSkills" type="Node2D" parent="."]
+script = ExtResource("6_hjwsc")
+
+[node name="PlayerInventory" type="Node2D" parent="."]
+script = ExtResource("5_5052o")
+
+[node name="PlayerDeck" type="Node2D" parent="."]
+script = ExtResource("5_r3th3")
+
+[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
+process_mode = 4
+visible = false
+script = ExtResource("1_03fvr")
+
+[node name="SkillManager" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("10_a7eap")
+
+[node name="ConsumableManager" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("11_oykye")
+
+[node name="VarietyManager" type="Node2D" parent="."]
+process_mode = 4
+script = ExtResource("12_8ea5x")
+
+[node name="Player" parent="." instance=ExtResource("6_52iue")]
+visible = false
+
+[node name="Berserker" parent="Player" instance=ExtResource("10_rtxoi")]
+
+[node name="ShopUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RerollButton" type="Button" parent="ShopUI"]
+layout_mode = 0
+offset_left = 1060.0
+offset_top = 103.0
+offset_right = 1128.0
+offset_bottom = 134.0
+text = "Refresh"
+
+[node name="RerollPrice" type="Label" parent="ShopUI/RerollButton"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 30.0
+offset_right = 65.0
+offset_bottom = 53.0
+text = "5g"
+
+[node name="UpgradeButton" type="CheckButton" parent="ShopUI"]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 830.0
+offset_right = 414.0
+offset_bottom = 861.0
+text = "Upgrade Mode"
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("7_ldslr")
+
+[node name="TalentTree" parent="." instance=ExtResource("12_ega66")]
+visible = false
+group1 = SubResource("ButtonGroup_rxp0v")
+group2 = SubResource("ButtonGroup_k0wj2")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ExitButton" type="Button" parent="CanvasLayer"]
+offset_left = 1771.0
+offset_top = 884.0
+offset_right = 1859.0
+offset_bottom = 908.0
+text = "Leave"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+self_modulate = Color(0.317647, 0.317647, 0.317647, 0.760784)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -74.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerUI" parent="CanvasLayer/ColorRect" instance=ExtResource("7_b14l4")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015625
+anchor_top = -0.0153846
+anchor_right = 0.015625
+anchor_bottom = -0.0153846
+offset_left = 1581.0
+offset_top = 2.0
+offset_right = 1853.0
+offset_bottom = 42.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TalentButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Talents"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
+[node name="BackButton" type="Button" parent="CanvasLayer/ColorRect/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Back
+"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1587, 747)
+shape = SubResource("RectangleShape2D_kig7s")
+
+[connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
+[connection signal="toggled" from="ShopUI/UpgradeButton" to="CardManager" method="_on_upgrade_button_toggled"]
+[connection signal="toggled" from="ShopUI/UpgradeButton" to="SkillManager" method="_on_upgrade_button_toggled"]
+[connection signal="timeout" from="TooltipTimer" to="CardManager" method="_on_tooltip_timer_timeout"]
+[connection signal="button_down" from="CanvasLayer/ExitButton" to="." method="_on_exit_button_button_down"]

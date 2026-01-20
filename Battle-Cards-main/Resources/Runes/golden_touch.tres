@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Runes_Resource" load_steps=2 format=3 uid="uid://bgxose5d6a4w5"]
+
+[ext_resource type="Script" path="res://Resources/Runes/runes_master_resource.gd" id="1_f3rfh"]
+
+[resource]
+script = ExtResource("1_f3rfh")
+rune_art_path = "res://Resources/Art/Runes/golden_touch_rune.png"
+rune_scene_path = "res://Scenes/Runes/golden_touch.tscn"
+rune_name = "Golden Touch"
+buy_price = 0
+tags = []

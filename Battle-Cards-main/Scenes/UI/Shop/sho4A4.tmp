@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbudyogspe5gy"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/shop.gd" id="1_pggpx"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/Merchant.gd" id="2_wrfdt"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/MerchantCards.gd" id="3_82fbf"]
+[ext_resource type="Script" path="res://Scripts/UI/Shop/Inventory.gd" id="5_5052o"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scripts/UI/player.tscn" id="6_52iue"]
+
+[node name="Shop" type="Node2D"]
+script = ExtResource("1_pggpx")
+
+[node name="Merchant" type="Node2D" parent="."]
+script = ExtResource("2_wrfdt")
+
+[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
+script = ExtResource("1_03fvr")
+
+[node name="MerchantCards" type="Node2D" parent="."]
+script = ExtResource("3_82fbf")
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("5_5052o")
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 1744.0
+offset_top = 936.0
+offset_right = 1797.0
+offset_bottom = 967.0
+text = "Leave"
+
+[node name="Player" parent="." instance=ExtResource("6_52iue")]
+
+[node name="RerollButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="button_down" from="ExitButton" to="." method="_on_exit_button_button_down"]
+[connection signal="button_down" from="RerollButton" to="." method="_on_reroll_button_button_down"]

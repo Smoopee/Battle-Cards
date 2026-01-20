@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqydhp0q2rk7l"]
+
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
+[ext_resource type="Script" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
+
+[node name="EnemySelection" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_ijbvw")
+
+[node name="CardSelector" parent="." instance=ExtResource("1_gdsmo")]
+
+[node name="EnemyOrganizer" type="Node2D" parent="."]
+script = ExtResource("3_gsqul")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0hpake1557ag"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEvents/training_dummy.gd" id="1_m4s1g"]
+[ext_resource type="Texture2D" uid="uid://bbkl8fymc6l88" path="res://Resources/Art/TownEvents/training_dummy.png" id="1_w3dqw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jinm"]
+size = Vector2(140, 175)
+
+[node name="TrainingDummy" type="Node2D"]
+script = ExtResource("1_m4s1g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_w3dqw")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_6jinm")

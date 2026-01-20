@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://blv67tfcri8hj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/Consumables.gd" id="1_8hrwh"]
+[ext_resource type="Texture2D" uid="uid://dy8a8mrivh582" path="res://Resources/Art/TownEvents/AHScreen/Consumables.png" id="1_qljre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fh4mr"]
+size = Vector2(140, 175)
+
+[node name="Consumables" type="Node2D"]
+script = ExtResource("1_8hrwh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qljre")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_fh4mr")

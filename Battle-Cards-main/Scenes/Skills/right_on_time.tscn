@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://nkajiqqpewtb"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/RightOnTime.gd" id="1_k0dl3"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_gq3ed"]
+
+[node name="RightOnTime" type="Node2D"]
+script = ExtResource("1_k0dl3")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_gq3ed")]

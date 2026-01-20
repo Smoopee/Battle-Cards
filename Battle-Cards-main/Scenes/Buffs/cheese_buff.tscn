@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5idubr5eqrvf"]
+
+[ext_resource type="Script" path="res://Scripts/Buffs/CheeseBuff.gd" id="1_3iwa4"]
+[ext_resource type="PackedScene" uid="uid://bw76pl3mtet8k" path="res://Scenes/Buffs/base_buff.tscn" id="2_oqnml"]
+
+[node name="CheeseBuff" type="Node2D"]
+script = ExtResource("1_3iwa4")
+
+[node name="BaseBuff" parent="." instance=ExtResource("2_oqnml")]

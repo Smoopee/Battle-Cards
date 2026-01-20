@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://dw6jbalucdaul"]
+
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_b3lfx"]
+
+[resource]
+script = ExtResource("1_b3lfx")
+card_art_path = "res://Resources/Cards/CardArt/rock_card.png"
+full_art_scene_path = ""
+full_art_texture_path = ""
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
+card_scene_path = "res://Scenes/Cards/rock.tscn"
+card_upgrade_art_path = ""
+buff_scene_path = ""
+name = "Rock"
+dmg = 2
+cd = 0
+cd_remaining = 0
+on_cd = false
+priority = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0
+buff_count = 0
+debuff_count = 0
+position = 0
+inventory_position = 0
+deck_position = 0
+upgrade_level = 1
+burn_dmg = 0
+poison_dmg = 0
+bleed_dmg = 0
+heal = 0
+critical_strike_chance = 0.0
+in_enemy_deck = false
+sell_price = 0
+buy_price = 0
+is_players = false
+item_enchant = ""
+screen_position = Vector2(0, 0)
+is_enchanted = false
+tags = ["Trogg", "Enemy"]
+card_type = ["Attack"]
+is_discarded = false
+is_blank = false
+is_updated = false
+mode = ""
+card_rarity = 0

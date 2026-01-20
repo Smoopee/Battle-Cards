@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4ybcekd8ere6"]
+
+[ext_resource type="Script" uid="uid://dmw0jlmwccaa2" path="res://Scripts/Characters/Berserker/berserker_selection.gd" id="1_makry"]
+[ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="2_sdc65"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td2xn"]
+size = Vector2(98, 128)
+
+[node name="BerserkerSelection" type="Node2D" groups=["berserker"]]
+script = ExtResource("1_makry")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_td2xn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_sdc65")

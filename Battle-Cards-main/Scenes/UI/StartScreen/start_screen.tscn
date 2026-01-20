@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://cg8o1xmo3tpdj"]
+
+[ext_resource type="Script" uid="uid://bacs1gorws72i" path="res://Scripts/UI/StartScreen/start_screen.gd" id="1_hd3kb"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_1chac"]
+[ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="3_dsfx2"]
+[ext_resource type="PackedScene" uid="uid://3jsdastyjdhv" path="res://Scenes/UI/UIElements/background.tscn" id="4_qso3u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e27j"]
+size = Vector2(97, 126)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p7fc"]
+size = Vector2(98, 127)
+
+[node name="StartScreen" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_hd3kb")
+
+[node name="CardSelector" parent="." instance=ExtResource("2_1chac")]
+
+[node name="NewGame" type="Node2D" parent="."]
+position = Vector2(548, 238)
+
+[node name="Sprite2D" type="Sprite2D" parent="NewGame"]
+texture = ExtResource("3_dsfx2")
+
+[node name="Area2D" type="Area2D" parent="NewGame"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NewGame/Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_0e27j")
+
+[node name="Label" type="Label" parent="NewGame"]
+offset_left = -49.0
+offset_top = -10.0
+offset_right = 48.0
+offset_bottom = 13.0
+text = "New
+Game"
+horizontal_alignment = 1
+
+[node name="LoadGame" type="Node2D" parent="."]
+position = Vector2(1287, 504)
+
+[node name="Sprite2D" type="Sprite2D" parent="LoadGame"]
+texture = ExtResource("3_dsfx2")
+
+[node name="Area2D" type="Area2D" parent="LoadGame"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoadGame/Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_5p7fc")
+
+[node name="Label" type="Label" parent="LoadGame"]
+offset_left = -49.0
+offset_top = -11.0
+offset_right = 50.0
+offset_bottom = 12.0
+text = "Load
+Game
+"
+horizontal_alignment = 1
+
+[node name="Background" parent="." instance=ExtResource("4_qso3u")]

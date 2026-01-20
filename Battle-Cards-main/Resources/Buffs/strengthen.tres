@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Buff_Resource" load_steps=2 format=3 uid="uid://cd3uipradjq7u"]
+
+[ext_resource type="Script" path="res://Resources/Buffs/buff_master_resource.gd" id="1_3ktsl"]
+
+[resource]
+script = ExtResource("1_3ktsl")
+buff_art_path = "res://Resources/Art/Buffs/strengthen_buff.png"
+buff_scene_path = "res://Scenes/Buffs/strengthen_buff.tscn"
+name = "Strengthen"
+tags = []

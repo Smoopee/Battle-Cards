@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwqs5wchg56o"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PlayerInventory/player_inventory_screen.gd" id="1_ek0gf"]
+[ext_resource type="Texture2D" uid="uid://djb128otlqcab" path="res://Resources/Art/Backgrounds/inventory_bg.png" id="2_11wxg"]
+
+[node name="PlayerInventoryScreen" type="Node2D" groups=["card manager"]]
+z_index = 4
+script = ExtResource("1_ek0gf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+z_index = 3
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("2_11wxg")

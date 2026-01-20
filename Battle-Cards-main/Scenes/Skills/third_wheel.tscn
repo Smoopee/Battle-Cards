@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://drh6qvuwa0h3d"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/ThirdWheel.gd" id="1_ysx3y"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_00ka3"]
+
+[node name="ThirdWheel" type="Node2D"]
+script = ExtResource("1_ysx3y")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_00ka3")]

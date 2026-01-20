@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b66jkw47ub6qh"]
+
+[ext_resource type="Script" path="res://Scripts/Modifiers/exhaust_modifier.gd" id="1_asnso"]
+[ext_resource type="Texture2D" uid="uid://bt78qmraq7hjk" path="res://Resources/Art/Modifiers/exhaust_modifier.png" id="1_qoh42"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdqul"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p33f4"]
+
+[node name="ExhaustModifier" type="Node2D" groups=["modifier"]]
+script = ExtResource("1_asnso")
+
+[node name="ModifierImage" type="Sprite2D" parent="."]
+texture = ExtResource("1_qoh42")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+transparent_bg = true
+size = Vector2i(378, 50)
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdqul")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 374.0
+offset_bottom = 46.0
+
+[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Rock"
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p33f4")

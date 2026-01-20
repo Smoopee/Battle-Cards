@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://caq6u7xnqd5ga"]
+
+[ext_resource type="Script" path="res://Scripts/Consumables/Glue.gd" id="1_vhs36"]
+[ext_resource type="PackedScene" uid="uid://t3743qo0bahh" path="res://Scenes/Consumables/base_consumable.tscn" id="2_sm3x8"]
+
+[node name="Glue" type="Node2D"]
+script = ExtResource("1_vhs36")
+
+[node name="BaseConsumable" parent="." instance=ExtResource("2_sm3x8")]

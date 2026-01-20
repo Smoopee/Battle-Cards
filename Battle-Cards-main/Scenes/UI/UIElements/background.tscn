@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://3jsdastyjdhv"]
+
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="1_8ls31"]
+[ext_resource type="Script" uid="uid://bf3cju0l43qof" path="res://Scripts/UI/UIElements/background.gd" id="2_farsp"]
+
+[node name="Background" type="TextureRect"]
+z_index = -1
+offset_right = 2400.0
+offset_bottom = 1080.0
+texture = ExtResource("1_8ls31")
+script = ExtResource("2_farsp")

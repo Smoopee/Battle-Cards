@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6bd4r2gdjyww"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Player/PlayerDebuffs/player_debuffs.gd" id="1_x6lkb"]
+
+[node name="PlayerDebuffs" type="Node2D" groups=["player debuffs"]]
+script = ExtResource("1_x6lkb")

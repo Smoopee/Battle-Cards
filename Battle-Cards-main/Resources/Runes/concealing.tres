@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Runes_Resource" load_steps=2 format=3 uid="uid://c37p4jsk4ue3a"]
+
+[ext_resource type="Script" path="res://Resources/Runes/runes_master_resource.gd" id="1_djdff"]
+
+[resource]
+script = ExtResource("1_djdff")
+rune_art_path = "res://Resources/Art/Runes/concealed_rune.png"
+rune_scene_path = "res://Scenes/Runes/concealing.tscn"
+rune_name = "Concealing"
+buy_price = 3
+tags = []

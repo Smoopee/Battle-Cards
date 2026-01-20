@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btucvus7fb5ei"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Player/PlayerSkills/PlayerSkills.gd" id="1_orvcc"]
+
+[node name="PlayerSkills" type="Node2D" groups=["player skills"]]
+script = ExtResource("1_orvcc")

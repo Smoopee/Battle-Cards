@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd0fev7o6iux4"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/InnerRage.gd" id="1_4y6wq"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_xh6ji"]
+
+[node name="InnerRage" type="Node2D"]
+script = ExtResource("1_4y6wq")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_xh6ji")]

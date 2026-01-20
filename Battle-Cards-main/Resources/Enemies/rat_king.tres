@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Enemy_Resource" load_steps=2 format=3 uid="uid://c0j75g44vy3ke"]
+
+[ext_resource type="Script" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_xu8tp"]
+
+[resource]
+script = ExtResource("1_xu8tp")
+enemy_art_path = "res://Resources/Art/Enemies/rat_king_enemy.png"
+enemy_border_art_path = "res://Resources/Art/UIElements/Borders/enemy_border.png"
+enemy_scene_path = "res://Scenes/Enemies/rat_king.tscn"
+name = "Rat King"
+health = 200
+max_health = 200
+xp = 30
+gold = 15
+bleeding_dmg = 0
+burning_dmg = 0
+poisoning_dmg = 0
+armor = 0
+attack = 0
+defense = 0
+block = 0
+speed = 0
+is_stunned = false
+stun_counter = 0
+runes = []
+biomes = ["Desert"]

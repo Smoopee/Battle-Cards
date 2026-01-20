@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://u7bfx5wgbwtw"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
+[ext_resource type="Script" path="res://Scripts/UI/Intermission/Merchant_organizer.gd" id="3_23ndt"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_ts7er"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="5_3txuy"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="5_d4q7p"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="6_i1rkl"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="8_5acn1"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="9_05tst"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manger.tscn" id="10_lr1so"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_lnys5"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_sgsth"]
+
+[node name="Intermission" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_147it")
+
+[node name="CardSelector" parent="." instance=ExtResource("2_4mb0g")]
+process_mode = 4
+visibility_layer = 3
+
+[node name="MerchantOrganizer" type="Node2D" parent="."]
+script = ExtResource("3_23ndt")
+
+[node name="Player" parent="." instance=ExtResource("4_ts7er")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("5_d4q7p")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("5_3txuy")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("6_i1rkl")]
+process_mode = 4
+
+[node name="ConsumableManger" parent="." instance=ExtResource("10_lr1so")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("8_5acn1")]
+visible = false
+group1 = SubResource("ButtonGroup_lnys5")
+group2 = SubResource("ButtonGroup_sgsth")
+
+[node name="CanvasLayer" parent="." instance=ExtResource("9_05tst")]
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="SkipButton" type="Button" parent="."]
+offset_left = 1742.0
+offset_top = 894.0
+offset_right = 1814.0
+offset_bottom = 918.0
+text = "Skip"
+
+[connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]
+[connection signal="button_down" from="SkipButton" to="." method="_on_skip_button_button_down"]

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://dgd8mutnpm5kx"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_ekmm6"]
+
+[resource]
+script = ExtResource("1_ekmm6")
+consumable_art_path = "res://Resources/Art/Consumables/cheese_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/cheese.tscn"
+name = "Cheese"
+buy_price = 0
+target = "character"
+stack_amount = 1
+max_stacks = 20
+tags = ["Food", "Attack"]
+consumbale_rarity = 0
+effect1 = 50
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

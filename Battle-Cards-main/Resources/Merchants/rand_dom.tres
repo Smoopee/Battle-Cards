@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" load_steps=2 format=3 uid="uid://b1ud0gtwmd5cu"]
+
+[ext_resource type="Script" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_kkkkm"]
+
+[resource]
+script = ExtResource("1_kkkkm")
+merchant_art_path = "res://Resources/Art/Merchants/rand_dom_merchant.png"
+merchant_border_path = "res://Resources/Art/UIElements/Borders/merchant_border.png"
+merchant_scene_path = "res://Scenes/Merchants/rand_dom.tscn"
+merchant_name = "Rand Dom"
+merchant_type = "Card"
+selection_tags = []
+stock_quantity = 4
+buy_modifier = 0
+sell_modifier = 0
+can_refresh = true

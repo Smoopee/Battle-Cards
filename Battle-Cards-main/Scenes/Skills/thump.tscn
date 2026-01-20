@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c80p37cnwexji"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/Thump.gd" id="1_c6mbt"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_4hum3"]
+
+[node name="Thump" type="Node2D"]
+script = ExtResource("1_c6mbt")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_4hum3")]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnl8oy3fo3lgo"]
+
+[ext_resource type="Script" path="res://Scripts/Enchantments/bleed.gd" id="1_an5mm"]
+[ext_resource type="PackedScene" uid="uid://dfw6lhtoreedx" path="res://Scenes/Enchantments/base_enchantment.tscn" id="1_hqknk"]
+
+[node name="Bleed" type="Node2D"]
+script = ExtResource("1_an5mm")
+
+[node name="BaseEnchantment" parent="." instance=ExtResource("1_hqknk")]

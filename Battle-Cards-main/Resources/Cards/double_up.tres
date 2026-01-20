@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://dutxthefeba6d"]
+
+[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_yjax4"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_yjax4")
+card_art_path = "res://Resources/Cards/CardArt/double_up_card.png"
+card_scene_path = "res://Scenes/Cards/double_up.tscn"
+buff_scene_path = ""
+name = "Double Up"
+dmg = 0
+cd = 0
+cd_remaining = 0
+on_cd = false
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0
+buff_count = 0
+debuff_count = 0
+position = 0
+inventory_position = 0
+deck_position = 0
+upgrade_level = 1
+burn_dmg = 0
+poison_dmg = 0
+bleed_dmg = 0
+heal = 0
+critical_strike_chance = 0.0
+in_enemy_deck = false
+sell_price = 3
+buy_price = 6
+is_players = false
+item_enchant = ""
+screen_position = Vector2(0, 0)
+is_enchanted = false
+is_enchantment = false
+enchanting_with = ""
+card_type = ""
+is_discarded = false
+is_blank = false
+is_updated = false
+is_buff_card = false
+card_mode = ""

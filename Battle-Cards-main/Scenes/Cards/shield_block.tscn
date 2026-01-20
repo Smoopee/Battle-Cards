@@ -1,0 +1,236 @@
+[gd_scene load_steps=10 format=3 uid="uid://iacjam0rseh3"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/shield_block.gd" id="1_x5ji7"]
+[ext_resource type="Texture2D" uid="uid://dkh7yclejmvuu" path="res://Resources/Cards/CardArt/shield_block_card.png" id="2_22lyt"]
+[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="4_ssdb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsdfn"]
+size = Vector2(143, 180)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5db84"]
+bg_color = Color(1, 1, 0.905882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1j8v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvn1e"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6625l"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5vqw"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[node name="ShieldBlock" type="Node2D" groups=["berserker", "card"]]
+script = ExtResource("1_x5ji7")
+
+[node name="CardImage" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_22lyt")
+
+[node name="CardBorder" type="Sprite2D" parent="."]
+
+[node name="UpgradeBorder" type="Sprite2D" parent="."]
+
+[node name="ItemEnchantImage" type="Sprite2D" parent="."]
+position = Vector2(50, 64.4)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_lsdfn")
+
+[node name="CardUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -71.0
+offset_top = -87.0
+offset_right = 71.0
+offset_bottom = 91.0
+
+[node name="DmgNumContainer" type="HBoxContainer" parent="CardUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.6
+offset_bottom = 17.4
+grow_horizontal = 2
+alignment = 1
+
+[node name="DamagPanel" type="Panel" parent="CardUI/DmgNumContainer"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5db84")
+
+[node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = -1.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DamagPanel2" type="Panel" parent="CardUI/DmgNumContainer"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5db84")
+
+[node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CDDisplayPanel" type="Panel" parent="CardUI"]
+visible = false
+self_modulate = Color(0.415686, 0.415686, 0.415686, 0.839216)
+layout_mode = 0
+offset_top = -2.99999
+offset_right = 142.0
+offset_bottom = 177.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_c1j8v")
+
+[node name="Label" type="Label" parent="CardUI/CDDisplayPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardDamage" type="Label" parent="CardUI"]
+visible = false
+layout_mode = 2
+offset_left = 11.0
+offset_top = 94.0
+offset_right = 12.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="ShopPanel" type="Panel" parent="CardUI"]
+visible = false
+layout_mode = 0
+offset_left = -2.0
+offset_top = 147.4
+offset_right = 28.0
+offset_bottom = 177.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uvn1e")
+
+[node name="ShopLabel" type="Label" parent="CardUI/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CDPanel" type="Panel" parent="CardUI"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+offset_left = 56.0
+offset_top = 155.4
+offset_right = 86.0
+offset_bottom = 185.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_6625l")
+
+[node name="CDLabel" type="Label" parent="CardUI/CDPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ssdb3")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+transparent_bg = true
+size = Vector2i(21, 44)
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5vqw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 11.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+
+[connection signal="mouse_entered" from="CardUI" to="." method="_on_card_ui_mouse_entered"]
+[connection signal="mouse_exited" from="CardUI" to="." method="_on_card_ui_mouse_exited"]

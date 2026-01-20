@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwqs5wchg56o"]
+
+[ext_resource type="Script" uid="uid://dh2w3ltat0geq" path="res://Scripts/UI/PlayerInventory/player_cards.gd" id="1_ek0gf"]
+[ext_resource type="Script" uid="uid://cvjomlbml0f8a" path="res://Scripts/UI/PlayerInventory/DeckCardSlots.gd" id="3_4n06j"]
+[ext_resource type="Script" uid="uid://cp3y53nftdytu" path="res://Scripts/UI/PlayerInventory/InventorySlots.gd" id="4_u7odf"]
+[ext_resource type="Script" uid="uid://cu1ohsf702u08" path="res://Scripts/UI/PlayerInventory/ActiveDeck.gd" id="5_3rxlr"]
+[ext_resource type="PackedScene" uid="uid://8sds3v74n7g" path="res://Scenes/UI/UIElements/sell_zone.tscn" id="6_i6oqa"]
+[ext_resource type="Script" uid="uid://4o2u34cipb0a" path="res://Scripts/UI/PlayerInventory/CurrentInventory.gd" id="6_uxh4d"]
+[ext_resource type="Texture2D" uid="uid://cj5xnevnwa8tu" path="res://Resources/Art/UIElements/Biome_selection_bg_panel.png" id="7_ehsmf"]
+
+[node name="PlayerCards" type="Node2D" groups=["player cards"]]
+z_index = 1
+script = ExtResource("1_ek0gf")
+
+[node name="DeckCardSlots" type="Node2D" parent="."]
+script = ExtResource("3_4n06j")
+
+[node name="InventorySlots" type="Node2D" parent="."]
+script = ExtResource("4_u7odf")
+
+[node name="Deck" type="Node2D" parent="." groups=["player deck"]]
+script = ExtResource("5_3rxlr")
+
+[node name="Inventory" type="Node2D" parent="." groups=["player inventory"]]
+script = ExtResource("6_uxh4d")
+
+[node name="SellZone" parent="." instance=ExtResource("6_i6oqa")]
+visible = false
+
+[node name="UpgradeButton" type="CheckButton" parent="."]
+offset_left = 38.0
+offset_top = 892.0
+offset_right = 278.0
+offset_bottom = 923.0
+text = "Upgrade Mode"
+
+[node name="DeckBG" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = 152.0
+offset_top = 507.0
+offset_right = 1767.0
+offset_bottom = 717.0
+texture = ExtResource("7_ehsmf")
+
+[node name="InventoryBG" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = 550.0
+offset_top = 718.0
+offset_right = 1425.0
+offset_bottom = 928.0
+scale = Vector2(0.933087, 0.97901)
+texture = ExtResource("7_ehsmf")
+
+[node name="ClickTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="FullArt" type="Node2D" parent="." groups=["full art"]]
+
+[connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]

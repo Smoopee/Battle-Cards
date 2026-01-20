@@ -1,0 +1,112 @@
+[gd_scene load_steps=12 format=3 uid="uid://ds4tkwaupm3he"]
+
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_mc5mi"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerSkills.gd" id="2_uev3k"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/Enemy.gd" id="3_7ul7h"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/player_character.gd" id="4_ql2t2"]
+[ext_resource type="Texture2D" uid="uid://cfuatscpo4eww" path="res://Resources/UI/LifeBarMiniUnder.png" id="5_guklw"]
+[ext_resource type="Script" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
+[ext_resource type="Texture2D" uid="uid://bpnu386u0rjka" path="res://Resources/UI/LifeBarMiniProgress.png" id="6_t5303"]
+[ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="8_010y0"]
+[ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_326y0"]
+[ext_resource type="Script" path="res://Scripts/Battle_Sim/PlayerInventory.gd" id="11_njjdc"]
+
+[node name="battle_sim" type="Node2D"]
+script = ExtResource("1_mc5mi")
+
+[node name="PlayerSkills" type="Node2D" parent="."]
+script = ExtResource("2_uev3k")
+
+[node name="player_deck" type="Node2D" parent="."]
+script = ExtResource("2_ti0s5")
+
+[node name="Enemy" type="Node2D" parent="."]
+script = ExtResource("3_7ul7h")
+
+[node name="player_character" type="Node2D" parent="."]
+script = ExtResource("4_ql2t2")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ppjxe")
+
+[node name="player_health" type="TextureProgressBar" parent="UI"]
+layout_mode = 0
+offset_left = 1653.0
+offset_top = 930.0
+offset_right = 1671.0
+offset_bottom = 934.0
+scale = Vector2(13.0004, 9.73088)
+texture_under = ExtResource("5_guklw")
+texture_progress = ExtResource("6_t5303")
+
+[node name="enemy_health" type="TextureProgressBar" parent="UI"]
+layout_mode = 0
+offset_left = 1714.0
+offset_top = 127.0
+offset_right = 1732.0
+offset_bottom = 131.0
+scale = Vector2(9.731, 9.731)
+texture_under = ExtResource("5_guklw")
+texture_progress = ExtResource("6_t5303")
+
+[node name="player_card" type="Sprite2D" parent="UI"]
+position = Vector2(961, 676)
+texture = ExtResource("8_010y0")
+
+[node name="enemy_card" type="Sprite2D" parent="UI"]
+position = Vector2(962, 478)
+texture = ExtResource("8_010y0")
+
+[node name="player_damage_number" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 1116.0
+offset_top = 670.0
+offset_right = 1156.0
+offset_bottom = 693.0
+
+[node name="enemy_damage_number" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 1119.0
+offset_top = 463.0
+offset_right = 1159.0
+offset_bottom = 486.0
+
+[node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
+visible = false
+
+[node name="Button" type="Button" parent="."]
+offset_left = 891.0
+offset_top = 544.0
+offset_right = 1008.0
+offset_bottom = 599.0
+scale = Vector2(1.16536, 1.1912)
+text = "Start"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+offset_left = 873.0
+offset_top = 565.0
+offset_right = 1045.0
+offset_bottom = 596.0
+
+[node name="RearrangeButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rearrange"
+
+[node name="ContinueButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Continue"
+
+[node name="PlayerInventory" type="Node2D" parent="." groups=["card manager"]]
+script = ExtResource("11_njjdc")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="HBoxContainer/RearrangeButton" to="." method="_on_rearrange_button_button_down"]
+[connection signal="button_down" from="HBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]

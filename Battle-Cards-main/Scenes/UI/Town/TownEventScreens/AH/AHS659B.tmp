@@ -1,0 +1,61 @@
+[gd_scene load_steps=15 format=3 uid="uid://bw3d8yhuhnbqb"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/AHScreen.gd" id="1_frlg3"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="1_muppk"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="2_pusqa"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="3_5w421"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_inventory_screen.tscn" id="4_egtkp"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="5_vkgj5"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="6_x0qci"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="7_y8oul"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="8_yb4cm"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/Node2D.gd" id="10_3s53j"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/AHCardDisplay.gd" id="11_8ppsj"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/AHCardManager.gd" id="12_ljohi"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_16cd8"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_d1bew"]
+
+[node name="AhScreen" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_frlg3")
+
+[node name="Player" parent="." instance=ExtResource("1_muppk")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("2_pusqa")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("3_5w421")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("4_egtkp")]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("5_vkgj5")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("6_x0qci")]
+visible = false
+group1 = SubResource("ButtonGroup_16cd8")
+group2 = SubResource("ButtonGroup_d1bew")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("7_y8oul")]
+
+[node name="CardSelector" parent="." groups=["card selector"] instance=ExtResource("8_yb4cm")]
+
+[node name="Selection" type="Node2D" parent="." groups=["organizer"]]
+script = ExtResource("10_3s53j")
+
+[node name="AHCardDisplay" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("11_8ppsj")
+
+[node name="AHCardManager" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("12_ljohi")

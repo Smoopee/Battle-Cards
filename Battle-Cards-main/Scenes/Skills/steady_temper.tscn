@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqoy2idtb7njp"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/SteadyTemper.gd" id="1_w1dga"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_61wmm"]
+
+[node name="SteadyTemper" type="Node2D"]
+script = ExtResource("1_w1dga")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_61wmm")]

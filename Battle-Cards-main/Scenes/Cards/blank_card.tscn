@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddjg00al66e1w"]
+
+[ext_resource type="Script" path="res://Scripts/Cards/BlankCard.gd" id="1_xgrbv"]
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_2irjs"]
+
+[node name="BlankCard" type="Node2D"]
+script = ExtResource("1_xgrbv")
+
+[node name="BaseCard" parent="." instance=ExtResource("2_2irjs")]

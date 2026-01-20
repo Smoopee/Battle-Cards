@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnbol2rppbq25"]
+
+[ext_resource type="Script" path="res://Scripts/Consumables/SharpeningStone.gd" id="1_jih0n"]
+[ext_resource type="PackedScene" uid="uid://t3743qo0bahh" path="res://Scenes/Consumables/base_consumable.tscn" id="2_a8hth"]
+
+[node name="SharpeningStone" type="Node2D"]
+script = ExtResource("1_jih0n")
+
+[node name="BaseConsumable" parent="." instance=ExtResource("2_a8hth")]

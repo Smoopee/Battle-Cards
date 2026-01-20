@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://dt7m5loowe0in"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_xca63"]
+
+[resource]
+script = ExtResource("1_xca63")
+consumable_art_path = "res://Resources/Art/Consumables/glue_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/glue.tscn"
+name = "Glue"
+buy_price = 5
+target = "card"
+stack_amount = 1
+max_stacks = 2
+tags = ["CD", "Common"]
+consumbale_rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

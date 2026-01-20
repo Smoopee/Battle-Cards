@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://caw04u3x4np5c"]
+
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="1_1tipt"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Bank/BankScreen.gd" id="1_m380t"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="2_hcnid"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="3_wjetb"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="4_exkpf"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="5_ln53a"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="6_bjij8"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="7_cj50w"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Bank/Selection.gd" id="9_08chq"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_3k7lk"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_d4xqs"]
+
+[node name="BankScreen" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_m380t")
+
+[node name="Player" parent="." instance=ExtResource("1_1tipt")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("2_hcnid")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("3_wjetb")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("4_exkpf")]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("5_ln53a")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("6_bjij8")]
+visible = false
+group1 = SubResource("ButtonGroup_3k7lk")
+group2 = SubResource("ButtonGroup_d4xqs")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("7_cj50w")]
+
+[node name="Continue" type="Button" parent="."]
+offset_left = 1727.0
+offset_top = 958.0
+offset_right = 1863.0
+offset_bottom = 982.0
+text = "Leave"
+
+[node name="Selection" type="Node2D" parent="."]
+script = ExtResource("9_08chq")
+
+[connection signal="button_down" from="Continue" to="." method="_on_continue_button_down"]

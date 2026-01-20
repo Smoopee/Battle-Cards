@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cevfloo8i2vdt"]
+
+[ext_resource type="PackedScene" uid="uid://bwwv3sibc50m4" path="res://Scenes/Enemies/base_enemy.tscn" id="1_062ph"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Rats/rats.gd" id="1_c5r5q"]
+
+[node name="Rats" type="Node2D"]
+script = ExtResource("1_c5r5q")
+
+[node name="BaseEnemy" parent="." instance=ExtResource("1_062ph")]

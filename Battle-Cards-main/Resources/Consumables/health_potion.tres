@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://yrejal1xj7d1"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_ljuyj"]
+
+[resource]
+script = ExtResource("1_ljuyj")
+consumable_art_path = "res://Resources/Art/Consumables/health_potion_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/health_potion.tscn"
+consumable_name = "Health Potion"
+buy_price = 5
+target = "character"
+stack_amount = 1
+max_stacks = 5
+tags = ["Heal", "Common"]

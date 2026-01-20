@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxmp5gik20s14"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/Berserker/Talents/vicious_swings.gd" id="1_47qlr"]
+
+[node name="ViciousSwings" type="Node2D"]
+script = ExtResource("1_47qlr")

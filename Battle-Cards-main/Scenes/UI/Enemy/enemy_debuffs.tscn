@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkkuwrl21x050"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Enemy/enemy_debuffs.gd" id="1_1cl48"]
+
+[node name="EnemyDebuffs" type="Node2D" groups=["enemy debuffs"]]
+script = ExtResource("1_1cl48")

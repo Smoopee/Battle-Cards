@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://clyvd4dq76637"]
+
+[ext_resource type="Texture2D" uid="uid://bbut17087f72o" path="res://Resources/Art/TownEvents/AHScreen/Tags/Cooldown.png" id="1_h8age"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/AH/Tags/Cooldown.gd" id="1_lut4f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54r4l"]
+size = Vector2(140, 175)
+
+[node name="Cooldown" type="Node2D"]
+script = ExtResource("1_lut4f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h8age")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_54r4l")

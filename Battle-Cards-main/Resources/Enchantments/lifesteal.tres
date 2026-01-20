@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://cxnr6hj86bx7o"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_ae3bk"]
+
+[resource]
+script = ExtResource("1_ae3bk")
+enchantment_art_path = "res://Resources/Art/Enchantments/lifesteal_enchantment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/lifesteal.tscn"
+enchantment_name = "Lifesteal"
+enchantment_tooltip = "Applies Bleeding Lifesteal to a Card"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0

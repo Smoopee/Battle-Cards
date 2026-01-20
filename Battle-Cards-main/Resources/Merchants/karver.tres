@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" load_steps=2 format=3 uid="uid://dqe7d7cufxv0d"]
+
+[ext_resource type="Script" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_rhk61"]
+
+[resource]
+script = ExtResource("1_rhk61")
+merchant_art_path = "res://Resources/Art/Merchants/karver_merchant.png"
+merchant_border_path = "res://Resources/Art/UIElements/Borders/merchant_border.png"
+merchant_scene_path = "res://Scenes/Merchants/karver.tscn"
+merchant_name = "Karver"
+merchant_type = "Rune"
+selection_tags = []
+stock_quantity = 2
+buy_modifier = 0
+sell_modifier = 0
+can_refresh = true

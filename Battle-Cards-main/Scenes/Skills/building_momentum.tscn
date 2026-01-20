@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqfq7k4lbtb22"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/BuildingMomentum.gd" id="1_6og8a"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_7evdy"]
+
+[node name="BuildingMomentum" type="Node2D"]
+script = ExtResource("1_6og8a")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_7evdy")]

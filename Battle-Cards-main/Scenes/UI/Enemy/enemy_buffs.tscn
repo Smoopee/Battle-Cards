@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bytg7c32ifr14"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Enemy/enemy_buffs.gd" id="1_4rvxm"]
+
+[node name="EnemyBuffs" type="Node2D" groups=["enemy buffs"]]
+script = ExtResource("1_4rvxm")

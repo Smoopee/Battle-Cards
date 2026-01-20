@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://brcfab6vlpo17"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/reset_talents.gd" id="1_5wd3u"]
+[ext_resource type="Texture2D" uid="uid://daib2nuy41sj3" path="res://Resources/Art/TownEvents/TrainerScreen/reset_talents.png" id="2_j5lah"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2byj"]
+size = Vector2(140, 175)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jryg"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="ResetTalents" type="Node2D"]
+script = ExtResource("1_5wd3u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_j5lah")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_p2byj")
+
+[node name="ShopPanel" type="Panel" parent="."]
+offset_left = -73.0
+offset_top = 53.0
+offset_right = -37.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6jryg")
+
+[node name="ShopLabel" type="Label" parent="ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "40"
+horizontal_alignment = 1
+vertical_alignment = 1

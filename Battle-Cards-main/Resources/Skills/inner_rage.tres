@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://c70pc1oujcn7b"]
+
+[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_hdc6e"]
+
+[resource]
+script = ExtResource("1_hdc6e")
+skill_art_path = "res://Resources/Art/Skills/inner_rage_skill.png"
+skill_upgrade_art_path = ""
+skill_scene_path = "res://Scenes/Skills/inner_rage.tscn"
+name = "Inner Rage"
+buy_price = 0
+upgrade_level = 1
+tags = ["Berserker", "Rage"]
+rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

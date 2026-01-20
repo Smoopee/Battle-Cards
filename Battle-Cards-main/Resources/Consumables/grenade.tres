@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://4h0ddbptlu5e"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_gyra4"]
+
+[resource]
+script = ExtResource("1_gyra4")
+consumable_art_path = "res://Resources/Art/Consumables/grenade_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/grenade.tscn"
+consumable_name = "Grenade"
+buy_price = 3
+target = "enemy"
+stack_amount = 1
+max_stacks = 1
+tags = ["Damage", "Common"]

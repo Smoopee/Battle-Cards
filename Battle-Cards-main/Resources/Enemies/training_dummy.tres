@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Enemy_Resource" load_steps=2 format=3 uid="uid://bicye7x8c6nyg"]
+
+[ext_resource type="Script" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_7hdqe"]
+
+[resource]
+script = ExtResource("1_7hdqe")
+enemy_art_path = "res://Resources/Art/TownEvents/training_dummy.png"
+enemy_scene_path = "res://Scenes/Enemies/training_dummy.tscn"
+name = "Training Dummy"
+health = 100
+max_health = 100
+xp = 0
+gold = 1
+bleeding_dmg = 0
+burning_dmg = 0
+poisoning_dmg = 0
+armor = 0
+attack = 0
+defense = 0
+block = 0
+speed = 0

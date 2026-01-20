@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" load_steps=2 format=3 uid="uid://ct3wggda68ou2"]
+
+[ext_resource type="Script" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_0sem5"]
+
+[resource]
+script = ExtResource("1_0sem5")
+consumable_art_path = "res://Resources/Art/Consumables/sharpening_stone_consumable.png"
+consumable_scene_path = "res://Scenes/Consumables/sharpening_stone.tscn"
+name = "Sharpening Stone"
+buy_price = 5
+target = "card"
+stack_amount = 1
+max_stacks = 5
+tags = []
+consumbale_rarity = 0
+effect1 = 0
+effect2 = 0
+effect3 = 0
+effect4 = 0
+effect5 = 0

@@ -1,0 +1,89 @@
+[gd_scene load_steps=18 format=3 uid="uid://cfmji2m3glxdx"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/TrainerScreen.gd" id="1_a2u07"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="2_0hrcl"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="3_jsiin"]
+[ext_resource type="Texture2D" uid="uid://c465pilgwamiu" path="res://Resources/Art/Backgrounds/pixel-art-video-games-Moon_bg1.png" id="4_dhpux"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="5_xcms8"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="6_r817g"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="7_c54dh"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="8_w1bms"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="9_beb3o"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/Selection.gd" id="10_oieak"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/CardDisplay.gd" id="11_42qri"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/CardManager.gd" id="12_kx5pu"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/SkillDisplay.gd" id="13_naq0h"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/SkillManager.gd" id="14_6qcpw"]
+[ext_resource type="Script" path="res://Scripts/UI/Town/TownEventScreens/Trainer/ResetTalents.gd" id="15_lh0eh"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_7r7fr"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_x380g"]
+
+[node name="TrainerScreen" type="Node2D" groups=["card manager"]]
+script = ExtResource("1_a2u07")
+
+[node name="Player" parent="." instance=ExtResource("2_0hrcl")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("3_jsiin")]
+
+[node name="Background" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_right = 1920.0
+offset_bottom = 1079.0
+mouse_filter = 2
+texture = ExtResource("4_dhpux")
+
+[node name="PlayerInventoryScreen" parent="." instance=ExtResource("5_xcms8")]
+
+[node name="ConsumableManger" parent="." instance=ExtResource("6_r817g")]
+visible = false
+
+[node name="TalentTree" parent="." instance=ExtResource("7_c54dh")]
+visible = false
+group1 = SubResource("ButtonGroup_7r7fr")
+group2 = SubResource("ButtonGroup_x380g")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("8_w1bms")]
+
+[node name="CardSelector" parent="." groups=["card selector"] instance=ExtResource("9_beb3o")]
+
+[node name="Selection" type="Node2D" parent="."]
+script = ExtResource("10_oieak")
+
+[node name="CardDisplay" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("11_42qri")
+
+[node name="CardManager" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("12_kx5pu")
+
+[node name="SkillDisplay" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("13_naq0h")
+
+[node name="SkillManager" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("14_6qcpw")
+
+[node name="ResetTalents" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+script = ExtResource("15_lh0eh")
+
+[node name="Leave" type="Button" parent="."]
+offset_left = 1742.0
+offset_top = 943.0
+offset_right = 1830.0
+offset_bottom = 967.0
+text = "Leave
+"
+
+[connection signal="button_down" from="Leave" to="." method="_on_leave_button_down"]

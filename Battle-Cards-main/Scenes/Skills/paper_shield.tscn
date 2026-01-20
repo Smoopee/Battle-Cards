@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnybpt4tm8wol"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/PaperShield.gd" id="1_oxcnr"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="2_wqk8p"]
+
+[node name="PaperShield" type="Node2D"]
+script = ExtResource("1_oxcnr")
+
+[node name="BaseSkill" parent="." instance=ExtResource("2_wqk8p")]

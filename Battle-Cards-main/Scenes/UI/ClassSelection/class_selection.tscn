@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://b18gop7t7mmox"]
+
+[ext_resource type="Script" uid="uid://c4w3tmnyoiswv" path="res://Scripts/UI/ClassSelection/class_selection.gd" id="1_a56or"]
+[ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_wqp7k"]
+[ext_resource type="PackedScene" uid="uid://3jsdastyjdhv" path="res://Scenes/UI/UIElements/background.tscn" id="4_5gjvt"]
+[ext_resource type="PackedScene" uid="uid://c4ybcekd8ere6" path="res://Scenes/Characters/Berserker/berserker_selection.tscn" id="4_pg3r6"]
+
+[node name="ClassSelection" type="Node2D"]
+script = ExtResource("1_a56or")
+
+[node name="CardSelector" parent="." instance=ExtResource("1_wqp7k")]
+
+[node name="BerserkerSelection" parent="." instance=ExtResource("4_pg3r6")]
+position = Vector2(540, 470)
+
+[node name="BerserkerSelection2" parent="." instance=ExtResource("4_pg3r6")]
+position = Vector2(957, 474)
+
+[node name="BerserkerSelection3" parent="." instance=ExtResource("4_pg3r6")]
+position = Vector2(1287, 475)
+
+[node name="Background" parent="." instance=ExtResource("4_5gjvt")]

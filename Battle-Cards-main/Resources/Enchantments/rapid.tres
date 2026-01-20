@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Enchantments_Resource" load_steps=2 format=3 uid="uid://e2gvuaucparj"]
+
+[ext_resource type="Script" path="res://Resources/Enchantments/enchantments_master_resource.gd" id="1_8vavq"]
+
+[resource]
+script = ExtResource("1_8vavq")
+enchantment_art_path = "res://Resources/Art/Enchantments/rapid_enchantment.png"
+enchantment_scene_path = "res://Scenes/Enchantments/rapid.tscn"
+enchantment_name = "Rapid"
+enchantment_tooltip = "Applies Bleeding Rapid to a Card"
+buy_price = 5
+target = ""
+tags = []
+enchantment_rarity = 0
