@@ -13,9 +13,9 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
-	$BerserkerSelection.position = Vector2(Global.center_screen_x + 200, 500)
+	$BerserkerSelection.position = Vector2(Global.center_screen_x + 300, 500)
 	$BerserkerSelection2.position = Vector2(Global.center_screen_x, 500)
-	$BerserkerSelection3.position = Vector2(Global.center_screen_x - 200, 500)
+	$BerserkerSelection3.position = Vector2(Global.center_screen_x - 300, 500)
 
 func _process(delta):
 	if card_being_dragged:
