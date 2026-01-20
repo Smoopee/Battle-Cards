@@ -41,6 +41,7 @@ var mouse_exit = false
 var effect_details
 
 func _ready():
+	self.scale = Global.ui_scaler
 	set_node_names()
 	get_tree().get_first_node_in_group("player cards").connect("started_card_drag", card_being_dragged)
 
@@ -301,11 +302,11 @@ func load_full_art():
 
 func _on_card_ui_mouse_entered():
 	if Global.mouse_occupied == true: return
-	scale = Vector2(1.1, 1.1)
+	scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	toggle_tooltip_show()
 
 func _on_card_ui_mouse_exited():
-	scale = Vector2(1, 1)
+	scale = Vector2(1, 1) * Global.ui_scaler
 	toggle_tooltip_hide()
 
 func card_being_dragged():

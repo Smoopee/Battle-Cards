@@ -11,6 +11,7 @@ var card_selector_reference
 
 
 func _ready():
+	#$fader.unfade_screen(false, 1)
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	$NewGame.position = Vector2(Global.center_screen_x - 200, 500)
@@ -80,9 +81,8 @@ func new_game_function():
 	Global.instantiate_player_deck()
 	
 	print("Let's Begin")
-	await get_tree().create_timer(2).timeout
+	$SceneTransition.fade_screen(true, 1.0, func(): get_tree().change_scene_to_file("res://Scenes/UI/ClassSelection/class_selection.tscn"))
 	
-	get_tree().change_scene_to_file("res://Scenes/UI/ClassSelection/class_selection.tscn")
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)

@@ -1,8 +1,8 @@
 extends Node2D
 
 const CARD_WIDTH = 160
-const DECK_Y_POSITION = 610
-const NUMBER_OF_DECKSLOTS = 10
+const DECK_Y_POSITION = 410
+const NUMBER_OF_DECKSLOTS = 7
 
 
 var center_screen_x
@@ -31,7 +31,6 @@ func update_hand_positions():
 		card.position = new_position
 
 func calculate_card_position(index):
-	var total_width = (card_slot_array.size() - 1) * CARD_WIDTH
-	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
+	var total_width = (card_slot_array.size() - 1) * CARD_WIDTH * Global.ui_scaler.x 
+	var x_offset = center_screen_x + index * CARD_WIDTH * Global.ui_scaler.x - total_width / 2
 	return x_offset
-

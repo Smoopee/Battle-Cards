@@ -46,9 +46,8 @@ func finish_drag():
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
 		
-		await get_tree().create_timer(2).timeout
 		print("Let's Continue")
-		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+		$fader.fade_screen(true, 3.0, func(): get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn"))
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null

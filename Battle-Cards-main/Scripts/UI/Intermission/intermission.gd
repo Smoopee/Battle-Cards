@@ -16,6 +16,9 @@ func _ready():
 	Global.intermission_tracker += 1
 	toggle_inventory()
 
+func test():
+	pass
+
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
@@ -116,11 +119,11 @@ func _on_skip_button_button_down():
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
 		Global.current_scene = "intermission"
-		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+		$fader.fade_screen(true, 1.0, func(): get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn"))
 	else:
 		Global.intermission_tracker = 0
 		Global.current_scene = "enemy_selection"
-		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+		$fader.fade_screen(true, 1.0, func(): get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
 
 func connect_card_signals(card):
 	card.connect("hovered_on", on_hovered_over)
@@ -155,7 +158,9 @@ func toggle_inventory():
 		$PlayerInventoryScreen.visible = true
 		$CardSelector.visible = false
 		$Player/Berserker.inventory_screen_toggle(true)
+		$MerchantOrganizer.visible = false
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
+		$MerchantOrganizer.process_mode = Node.PROCESS_MODE_DISABLED
 		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = false
 	#From Inventory to Player Screen
@@ -164,7 +169,9 @@ func toggle_inventory():
 		$PlayerInventoryScreen.visible = false
 		$CardSelector.visible = true
 		$Player/Berserker.inventory_screen_toggle(false)
+		$MerchantOrganizer.visible = true
 		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
+		$MerchantOrganizer.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
 

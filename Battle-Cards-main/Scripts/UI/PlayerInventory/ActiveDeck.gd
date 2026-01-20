@@ -1,6 +1,6 @@
 extends Node2D
 
-const NUMBER_OF_DECKSLOTS = 10
+const NUMBER_OF_DECKSLOTS = 7
 
 var deck_db = []
 var deck = []

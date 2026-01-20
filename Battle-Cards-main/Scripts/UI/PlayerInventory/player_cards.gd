@@ -75,7 +75,7 @@ func _input(event):
 func start_drag(card):
 	#card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	emit_signal("started_card_drag")
-	card_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
+	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.position
 	Global.mouse_occupied = true
@@ -304,7 +304,7 @@ func deck_sorting(card_being_dragged, deck_slot):
 					deck_card_slot_reference.remove_at(deck_card_slot_index-loop_counter)
 					deck_card_slot_reference.insert(deck_card_slot_index-loop_counter, temp_card)
 					deck_card_slot_array[deck_card_slot_index-loop_counter].card_in_slot = true
-					print("I am Here 2")
+					("I am Here 2")
 					
 					break
 				else: 
@@ -315,6 +315,7 @@ func deck_sorting(card_being_dragged, deck_slot):
 					temp_card = second_temp
 					loop_counter += 1
 					print("I am Here 3")
+					print(deck_card_slot_reference)
 
 		else:
 			while loop_counter != 20:
@@ -525,7 +526,7 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 
 func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
-	card_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
+	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null
 

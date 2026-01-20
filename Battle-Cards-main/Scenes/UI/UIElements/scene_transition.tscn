@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://51ki2f4b3sua"]
+
+[ext_resource type="Script" uid="uid://b8pgfsimc8lwv" path="res://Scripts/UI/UIElements/scene_transition.gd" id="1_ny0i3"]
+
+[node name="SceneTransition" type="CanvasLayer"]
+script = ExtResource("1_ny0i3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(3000, 3000)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)

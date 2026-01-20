@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5mcl08k37nuc"]
 
-[ext_resource type="Script" path="res://Scripts/Cards/Strike.gd" id="1_dyqa7"]
+[ext_resource type="Script" uid="uid://drfjvnbsjarl8" path="res://Scripts/Cards/Strike.gd" id="1_dyqa7"]
 [ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_8kuxo"]
 
 [node name="Strike" type="Node2D"]

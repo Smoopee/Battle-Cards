@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cg8o1xmo3tpdj"]
+[gd_scene load_steps=8 format=3 uid="uid://cg8o1xmo3tpdj"]
 
 [ext_resource type="Script" uid="uid://bacs1gorws72i" path="res://Scripts/UI/StartScreen/start_screen.gd" id="1_hd3kb"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_1chac"]
 [ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="3_dsfx2"]
 [ext_resource type="PackedScene" uid="uid://3jsdastyjdhv" path="res://Scenes/UI/UIElements/background.tscn" id="4_qso3u"]
+[ext_resource type="PackedScene" uid="uid://dfu1umbm1741q" path="res://Scenes/UI/UIElements/fader.tscn" id="5_vc6ht"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e27j"]
 size = Vector2(97, 126)
@@ -65,3 +66,5 @@ Game
 horizontal_alignment = 1
 
 [node name="Background" parent="." instance=ExtResource("4_qso3u")]
+
+[node name="fader" parent="." instance=ExtResource("5_vc6ht")]

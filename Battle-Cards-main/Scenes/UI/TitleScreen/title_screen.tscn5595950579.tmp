@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://3jsdastyjdhv" path="res://Scenes/UI/UIElements/background.tscn" id="2_06t2v"]
 [ext_resource type="Script" uid="uid://3i3c0f2hnjgx" path="res://Scripts/UI/TitleScreen/Start.gd" id="2_siocb"]
 [ext_resource type="Texture2D" uid="uid://dpg4ldqkbb88q" path="res://Resources/Cards/CardArt/Card_slot.png" id="3_2k0xr"]
-[ext_resource type="PackedScene" uid="uid://banmyciknc20a" path="res://Scenes/UI/UIElements/fader.tscn" id="6_5t3qj"]
+[ext_resource type="PackedScene" uid="uid://dfu1umbm1741q" path="res://Scenes/UI/UIElements/fader.tscn" id="6_5t3qj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0131"]
 size = Vector2(98, 127)
@@ -45,4 +45,4 @@ shape = SubResource("RectangleShape2D_r0131")
 position = Vector2(1044, 845)
 scale = Vector2(1, 1)
 
-[node name="Fader" parent="." instance=ExtResource("6_5t3qj")]
+[node name="fader" parent="." instance=ExtResource("6_5t3qj")]

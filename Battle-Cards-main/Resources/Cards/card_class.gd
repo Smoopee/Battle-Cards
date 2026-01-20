@@ -308,4 +308,3 @@ func _on_card_ui_mouse_entered():
 func _on_card_ui_mouse_exited():
 	scale = Vector2(1, 1)
 	toggle_tooltip_hide()
-

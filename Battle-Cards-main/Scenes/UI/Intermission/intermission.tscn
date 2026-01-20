@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://u7bfx5wgbwtw"]
+[gd_scene load_steps=21 format=3 uid="uid://u7bfx5wgbwtw"]
 
 [ext_resource type="Script" uid="uid://xs47ftbdkmo3" path="res://Scripts/UI/Intermission/intermission.gd" id="1_147it"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_4mb0g"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bua11o6oudri4" path="res://Scenes/UI/Player/rune_manager.tscn" id="9_i2n8q"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="10_lr1so"]
 [ext_resource type="PackedScene" uid="uid://3jsdastyjdhv" path="res://Scenes/UI/UIElements/background.tscn" id="11_hd3th"]
+[ext_resource type="PackedScene" uid="uid://dfu1umbm1741q" path="res://Scenes/UI/UIElements/fader.tscn" id="12_u1v4g"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_lnys5"]
 
@@ -72,6 +73,8 @@ offset_bottom = 918.0
 text = "Skip"
 
 [node name="BottomNavBar" parent="." instance=ExtResource("9_05tst")]
+
+[node name="fader" parent="." instance=ExtResource("12_u1v4g")]
 
 [connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]
 [connection signal="button_down" from="SkipButton" to="." method="_on_skip_button_button_down"]
