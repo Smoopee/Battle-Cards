@@ -2,6 +2,7 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 
+var enemy_deck_size = 7
 var enemy_deck = []
 var card_selection = []
 var card_db_reference
@@ -56,7 +57,7 @@ func get_card_selection():
 							card_selection.push_back(temp)
 
 func create_deck():
-	for i in range(0, 10):
+	for i in range(0, enemy_deck_size):
 		var selection = random_card_selection().duplicate()
 		enemy_deck.push_front(selection)
 	
@@ -122,5 +123,3 @@ func tooltip_enemy():
 	"Flavor Text", 
 	"Likes to smash", 
 	"")
-
-

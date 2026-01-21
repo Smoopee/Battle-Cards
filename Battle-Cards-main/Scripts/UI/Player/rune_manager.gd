@@ -37,7 +37,7 @@ func _input(event):
 func start_drag(rune):
 	rune_being_dragged = rune
 	rune.z_index = 2
-	rune.scale = Vector2(1.5, 1.5)
+	rune.scale = Vector2(1.5, 1.5) * Global.ui_scaler
 	rune_previous_position = rune.global_position
 	Global.mouse_occupied = true
 
@@ -90,7 +90,7 @@ func raycast_check_for_enemy():
 
 func rune_reset():
 	print("in rune reset")
-	rune_being_dragged.scale = Vector2(1, 1)
+	rune_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	rune_being_dragged = null
 
 func animate_rune_back_to_position(rune, new_position):

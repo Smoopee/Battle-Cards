@@ -66,3 +66,6 @@ func item_enchant(enchant):
 		"Toxic":
 			stats.item_enchant = "Toxic"
 	card.update_card_ui()
+
+func update_card_ui():
+	card.update_card_ui()

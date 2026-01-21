@@ -21,6 +21,7 @@ var center_screen_x
 var center_screen_y
 
 func _ready():
+	self.scale = Global.ui_scaler
 	player = get_tree().get_nodes_in_group("character")[0]
 	enemy = get_tree().get_nodes_in_group("enemy")[0]
 	

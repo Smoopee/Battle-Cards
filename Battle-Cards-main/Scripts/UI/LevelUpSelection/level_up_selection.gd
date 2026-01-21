@@ -79,8 +79,11 @@ func toggle_inventory():
 		is_toggle_inventory = true
 
 func _on_continue_button_down():
+	Global.current_scene = "intermission"
 	inventory_and_deck_save()
 	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
 	Global.player_runes = get_tree().get_first_node_in_group("player runes").get_rune_array()
 	Global.save_function()
-	get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+	get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
+	queue_free()

@@ -12,7 +12,8 @@ var level_up_screen = false
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	Global.connect("level_up", level_up)
-
+	$RewardBGRect.position.x = center_screen_x
+	
 func level_up():
 	level_up_screen = true
 
@@ -89,15 +90,20 @@ func _on_button_button_down():
 	Global.save_function()
 	
 	
-	if Global.intermission_tracker >= 2:
-		Global.current_scene = "enemy selection"
-		Global.intermission_tracker = 0
-		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
-	elif level_up_screen == true:
+	#if Global.intermission_tracker >= 2:
+		#Global.current_scene = "enemy selection"
+		#Global.intermission_tracker = 0
+		#get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+	if level_up_screen == true:
 		Global.battle_tracker += 1
 		Global.current_scene = "level up selection"
-		get_tree().change_scene_to_file("res://Scenes/UI/LevelUpSelection/level_up_selection.tscn")
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_tree().get_first_node_in_group("main").add_scene("res://Scenes/UI/LevelUpSelection/level_up_selection.tscn")
+		get_parent().queue_free()
 	else:
 		Global.current_scene = "intermission"
 		Global.battle_tracker += 1
-		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_tree().get_first_node_in_group("main").add_scene("res://Scenes/UI/Intermission/intermission.tscn")
+		get_parent().queue_free()
+		

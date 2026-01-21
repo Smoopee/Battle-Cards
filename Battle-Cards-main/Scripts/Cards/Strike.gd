@@ -54,7 +54,7 @@ func upgrade_card(num):
 		1:
 			stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade1.png"
 			stats.upgrade_level = 1
-			stats.dmg = 5
+			stats.dmg = 100
 			stats.sell_price = 2
 			stats.buy_price = 4
 		2: 

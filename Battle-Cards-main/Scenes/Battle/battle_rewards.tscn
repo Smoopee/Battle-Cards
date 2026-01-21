@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bp847kvytvbu6"]
 
-[ext_resource type="Script" path="res://Scripts/Battle_Sim/battle_rewards.gd" id="1_klkux"]
+[ext_resource type="Script" uid="uid://82u386todsni" path="res://Scripts/Battle_Sim/battle_rewards.gd" id="1_klkux"]
 [ext_resource type="Texture2D" uid="uid://dwgrgwtu3550k" path="res://Resources/TestArt/Test.png" id="2_peuei"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bds6"]
@@ -13,7 +13,7 @@ border_color = Color(0, 0, 0, 1)
 [node name="BattleRewards" type="Node2D"]
 script = ExtResource("1_klkux")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="RewardBGRect" type="TextureRect" parent="."]
 visible = false
 offset_left = 723.0
 offset_top = 82.0

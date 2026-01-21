@@ -32,4 +32,3 @@ func organize_debuffs():
 		i.position = position + Vector2(x_offset + DEBUFF_X_POSITION, DEBUFF_Y_POSITION)
 		i.scale = Vector2(1,1)
 		x_offset += 50
-

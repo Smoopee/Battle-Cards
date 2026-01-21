@@ -75,7 +75,7 @@ func build_deck_position():
 	for i in deck:
 		i.get_node("BaseCard").is_discarded = false
 		i.scale =  Vector2(1, 1)
-		i.position = Vector2(DECK_X_POSITION + deck_offset, DECK_Y_POSITION)
+		i.position = Vector2(DECK_X_POSITION * Global.ui_scaler.x  + deck_offset, DECK_Y_POSITION)
 		i.z_index = temp_z_index
 		deck_offset -= 40
 		temp_z_index -= 1
@@ -95,7 +95,7 @@ func discard(card):
 
 func animate_card_to_discard_position(card):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", Vector2(1450 - discard_offset, 200), 0.1 * Global.COMBAT_SPEED)
+	tween.tween_property(card, "position", Vector2(1450 * Global.ui_scaler.x  - discard_offset, 200), 0.1 * Global.COMBAT_SPEED)
 	discard_offset += 20
 
 
@@ -144,8 +144,8 @@ func update_hand_positions():
 		card.position = new_position
 
 func calculate_card_position(index):
-	var total_width = (enemy_inventory.size() - 1) * CARD_WIDTH
-	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
+	var total_width = (enemy_inventory.size() - 1) * CARD_WIDTH * Global.ui_scaler.x 
+	var x_offset = center_screen_x + index * CARD_WIDTH * Global.ui_scaler.x  - total_width / 2
 	return x_offset
 
 func enemy_reward():

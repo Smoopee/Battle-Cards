@@ -71,7 +71,7 @@ func combat(player_deck_list, enemy_deck_list):
 	for i in enemy_deck_list:
 		i.get_node("BaseCard").disable_collision()
 	
-	for i in range(0, 10):
+	for i in range(0, 7):
 		emit_signal("start_of_turn")
 		player_card = player_deck_list[i]
 		enemy_card = enemy_deck_list[i]

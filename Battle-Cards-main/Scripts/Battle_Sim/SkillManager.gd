@@ -41,7 +41,7 @@ func finish_drag_skill():
 
 func start_drag_skill(skill):
 	skill_being_dragged = skill
-	skill_being_dragged.scale = Vector2(1.1, 1.1)
+	skill_being_dragged.scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	skill_being_dragged.z_index = 2
 	skill_previous_position = skill.position
 
@@ -71,7 +71,7 @@ func update_player_gold():
 	get_tree().get_first_node_in_group("bottom ui").change_player_gold() 
 
 func skill_reset():
-	skill_being_dragged.scale = Vector2(1, 1)
+	skill_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	skill_being_dragged.z_index = 1
 	skill_being_dragged = null
 

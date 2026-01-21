@@ -47,7 +47,7 @@ func _input(event):
 
 func finish_drag():
 	Global.mouse_occupied = false
-	card_being_dragged.scale = Vector2(1.05, 1.05)
+	card_being_dragged.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 	var enemy_found = raycast_check_for_enemy()
 	var biome_found = raycast_check_for_biome()
 	
@@ -64,8 +64,12 @@ func finish_drag():
 		Global.player_runes = get_tree().get_first_node_in_group("player runes").get_rune_array()
 		Global.save_function()
 		Global.current_scene = "battle_sim"
+		for i in get_tree().get_nodes_in_group("enemy"):
+			i.queue_free()
+		for j in get_tree().get_nodes_in_group("player"):
+			j.queue_free()
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
-		get_parent().add_scene("res://Scenes/Battle/berserker_battle_sim.tscn")
+		get_parent().add_scene("res://Scenes/Battle/battle_sim.tscn")
 		queue_free()
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
@@ -74,7 +78,7 @@ func finish_drag():
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	card.scale = Vector2(1, 1) * Global.ui_scaler
 	start_card_glow()
 	Global.mouse_occupied = true
 

@@ -59,6 +59,7 @@ var dealing_physical_dmg = 0
 var temp_physical_damage = 0
 
 func _ready():
+	self.scale = Global.ui_scaler
 	set_node_names()
 
 func setup():
@@ -75,8 +76,8 @@ func set_stat_container():
 	
 	enemy_health_bar.max_value = character_stats.max_health
 	enemy_health_bar.value = character_stats.max_health
-	enemy_health_label.text = str(enemy_health_bar.value) + "/" + str(enemy_health_bar.max_value)
-	enemy_selection_hp_label.text = str(enemy_health_bar.value) + "/" + str(enemy_health_bar.max_value)
+	enemy_health_label.text = str(int(enemy_health_bar.value)) + "/" + str(int(enemy_health_bar.max_value))
+	enemy_selection_hp_label.text = str(int(enemy_health_bar.value))
 
 #SIGNALS ===========================================================================================
 func connect_signals(battle_sim):

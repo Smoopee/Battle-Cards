@@ -49,6 +49,6 @@ func update_hand_positions():
 		card.position = new_position
  
 func calculate_card_position(index):
-	var total_width = (enemy_inventory.size() - 1) * CARD_WIDTH
-	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
+	var total_width = (enemy_inventory.size() - 1) * CARD_WIDTH * Global.ui_scaler.x 
+	var x_offset = center_screen_x + index * CARD_WIDTH * Global.ui_scaler.x - total_width / 2
 	return x_offset

@@ -1,12 +1,12 @@
 [gd_scene load_steps=16 format=3 uid="uid://bwwv3sibc50m4"]
 
-[ext_resource type="Script" path="res://Resources/Enemies/enemy_class.gd" id="1_dvpn2"]
+[ext_resource type="Script" uid="uid://b1yahn21hgwbd" path="res://Resources/Enemies/enemy_class.gd" id="1_dvpn2"]
 [ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="2_k24bp"]
 [ext_resource type="PackedScene" uid="uid://bytg7c32ifr14" path="res://Scenes/UI/Enemy/enemy_buffs.tscn" id="3_x28el"]
 [ext_resource type="PackedScene" uid="uid://dkkuwrl21x050" path="res://Scenes/UI/Enemy/enemy_debuffs.tscn" id="4_bjjea"]
 [ext_resource type="PackedScene" uid="uid://bpd2de3rcq1y4" path="res://Scenes/Enemies/enemy_deck_node.tscn" id="5_87uqv"]
 [ext_resource type="PackedScene" uid="uid://4upwwtb4irk8" path="res://Scenes/Enemies/enemy_skills_node.tscn" id="5_orf8w"]
-[ext_resource type="Script" path="res://Scripts/Enemies/Trogg/Runes.gd" id="7_qdf2y"]
+[ext_resource type="Script" uid="uid://da58q7xfa5l85" path="res://Scripts/Enemies/Trogg/Runes.gd" id="7_qdf2y"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="8_u54sm"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="9_xotyc"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="10_s27e1"]
@@ -71,16 +71,14 @@ offset_bottom = 89.0
 [node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -583.0
-offset_top = -212.0
-offset_right = 580.0
-offset_bottom = -188.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -652.0
+offset_top = -26.0
+offset_right = 648.0
+offset_bottom = -2.0
 grow_horizontal = 2
-grow_vertical = 0
 value = 100.0
 texture_under = ExtResource("8_u54sm")
 texture_over = ExtResource("9_xotyc")
@@ -122,13 +120,18 @@ text = "2xp"
 [node name="EnemySelectionHealth" type="Label" parent="EnemyUI"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 0
-offset_left = 10.0
-offset_top = -21.0
-offset_right = 122.0
-offset_bottom = -5.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.0
+offset_top = -22.0
+offset_right = 55.0
+offset_bottom = -6.0
+grow_horizontal = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
 text = "110/120"
 horizontal_alignment = 1
 vertical_alignment = 1

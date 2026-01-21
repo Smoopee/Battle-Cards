@@ -59,7 +59,7 @@ func build_deck_position():
 	for i in deck:
 		i.card_stats.is_discarded = false
 		i.scale =  Vector2(1, 1)
-		i.position = Vector2(DECK_X_POSITION + deck_offset, DECK_Y_POSITION)
+		i.position = Vector2(DECK_X_POSITION * Global.ui_scaler.x  + deck_offset, DECK_Y_POSITION)
 		i.z_index = temp_z_index
 		deck_offset -= 40
 		temp_z_index -= 1
@@ -103,6 +103,6 @@ func discard(card):
 
 func animate_card_to_discard_position(card):
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", Vector2(1450 - discard_offset, 790), 0.1 * Global.COMBAT_SPEED)
+	tween.tween_property(card, "position", Vector2(1450 * Global.ui_scaler.x - discard_offset, 790), 0.1 * Global.COMBAT_SPEED)
 	await tween.finished
 	discard_offset += 20

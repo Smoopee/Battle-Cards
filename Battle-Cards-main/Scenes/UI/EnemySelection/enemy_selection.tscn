@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqydhp0q2rk7l"]
+[gd_scene load_steps=22 format=3 uid="uid://cqydhp0q2rk7l"]
 
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_gdsmo"]
 [ext_resource type="Script" uid="uid://47uq1sx5vlrt" path="res://Scripts/UI/EnemySelection/enemy_selection.gd" id="1_ijbvw"]
-[ext_resource type="PackedScene" uid="uid://3jsdastyjdhv" path="res://Scenes/UI/UIElements/background.tscn" id="2_78k7o"]
 [ext_resource type="Script" uid="uid://bu70cwkunbwl" path="res://Scripts/UI/EnemySelection/Biomes.gd" id="3_enisl"]
 [ext_resource type="Script" uid="uid://dwcsnlvkl6y2j" path="res://Scripts/UI/EnemySelection/EnemyOrganizer.gd" id="3_gsqul"]
 [ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="4_5sm1h"]
@@ -33,8 +32,6 @@
 
 [node name="EnemySelection" type="Node2D" groups=["card manager"]]
 script = ExtResource("1_ijbvw")
-
-[node name="Background" parent="." instance=ExtResource("2_78k7o")]
 
 [node name="CardSelector" parent="." instance=ExtResource("1_gdsmo")]
 
