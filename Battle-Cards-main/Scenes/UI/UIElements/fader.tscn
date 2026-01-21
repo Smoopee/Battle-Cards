@@ -9,4 +9,5 @@ script = ExtResource("1_fwttj")
 custom_minimum_size = Vector2(5000, 5000)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)

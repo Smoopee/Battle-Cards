@@ -17,8 +17,7 @@ shader_parameter/glow_radius = 10.0
 size = Vector2(140, 175)
 
 [node name="CardSelector" type="Node2D"]
-position = Vector2(275, 279)
-scale = Vector2(1.5, 1.5)
+z_index = 2
 script = ExtResource("1_20arn")
 
 [node name="CardImage" type="Sprite2D" parent="."]

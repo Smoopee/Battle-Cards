@@ -10,5 +10,3 @@ func _ready():
 	
 	var center_screen_x = get_viewport().size.x / 2
 	merchant.position = Vector2(center_screen_x, 150)
-
-

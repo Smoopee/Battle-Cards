@@ -45,6 +45,8 @@ func finish_drag():
 	
 	if merchant_found:
 		Global.current_merchant = merchant_found.merchant_stats
+		card_being_dragged.position = merchant_found.position
+		card_being_dragged = null
 		if merchant_found.merchant_stats.merchant_type == "Town":
 			go_to_town()
 		elif merchant_found.merchant_stats.merchant_type == "Camp":
@@ -118,12 +120,14 @@ func _on_skip_button_button_down():
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
-		Global.current_scene = "intermission"
-		$fader.fade_screen(true, 1.0, func(): get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn"))
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
+		queue_free()
 	else:
 		Global.intermission_tracker = 0
-		Global.current_scene = "enemy_selection"
-		$fader.fade_screen(true, 1.0, func(): get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn"))
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_parent().add_scene("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+		queue_free()
 
 func connect_card_signals(card):
 	card.connect("hovered_on", on_hovered_over)
@@ -158,9 +162,9 @@ func toggle_inventory():
 		$PlayerInventoryScreen.visible = true
 		$CardSelector.visible = false
 		$Player/Berserker.inventory_screen_toggle(true)
-		$MerchantOrganizer.visible = false
+		#$MerchantOrganizer.visible = false
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
-		$MerchantOrganizer.process_mode = Node.PROCESS_MODE_DISABLED
+		#$MerchantOrganizer.process_mode = Node.PROCESS_MODE_DISABLED
 		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = false
 	#From Inventory to Player Screen
@@ -169,9 +173,9 @@ func toggle_inventory():
 		$PlayerInventoryScreen.visible = false
 		$CardSelector.visible = true
 		$Player/Berserker.inventory_screen_toggle(false)
-		$MerchantOrganizer.visible = true
+		#$MerchantOrganizer.visible = true
 		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
-		$MerchantOrganizer.process_mode = Node.PROCESS_MODE_INHERIT
+		#$MerchantOrganizer.process_mode = Node.PROCESS_MODE_INHERIT
 		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
 		is_toggle_inventory = true
 
@@ -181,17 +185,21 @@ func _on_tooltip_timer_timeout():
 func go_to_shop():
 	inventory_and_deck_save()
 	Global.save_function()
-	Global.current_scene = "shop"
-	get_tree().change_scene_to_file("res://Scenes/UI/Shop/shop.tscn")
+	$MerchantOrganizer.queue_free()
+	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+	get_parent().add_scene("res://Scenes/UI/Shop/shop.tscn")
+	queue_free()
 
 func go_to_town():
 	inventory_and_deck_save()
 	Global.save_function()
-	Global.current_scene = "town"
-	get_tree().change_scene_to_file("res://Scenes/UI/Town/town.tscn")
+	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+	get_parent().add_scene("res://Scenes/UI/Town/town.tscn")
+	queue_free()
 
 func go_camping():
 	inventory_and_deck_save()
 	Global.save_function()
-	Global.current_scene = "camp"
-	get_tree().change_scene_to_file("res://Scenes/UI/Camp/Camp.tscn")
+	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+	get_parent().add_scene("res://Scenes/UI/Camp/Camp.tscn")
+	queue_free()

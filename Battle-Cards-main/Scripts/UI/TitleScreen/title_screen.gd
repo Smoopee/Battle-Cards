@@ -12,6 +12,7 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
+	print(get_parent())
 	
 func _process(delta):
 	if card_being_dragged:
@@ -36,13 +37,10 @@ func finish_drag():
 		card_being_dragged.position = start_found.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
-		
 		print("Let's Begin")
-		Global.next_scene = "res://Scenes/UI/StartScreen/start_screen.tscn"
-		#get_tree().change_scene_to_file("res://Scenes/UI/UIElements/scene_transition.tscn")
-		await $Fader.fade(1, 1.0).finished
-		get_tree().change_scene_to_file("res://Scenes/UI/UIElements/scene_transition.tscn")
-		
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_parent().add_scene("res://Scenes/UI/StartScreen/start_screen.tscn")
+		queue_free()
 		
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)

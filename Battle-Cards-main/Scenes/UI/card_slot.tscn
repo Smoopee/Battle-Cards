@@ -26,3 +26,10 @@ offset_right = 34.0
 offset_bottom = 90.0
 text = "1"
 metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color(0.08627451, 0.08627451, 0.08627451, 0.5137255)
+offset_left = -49.0
+offset_top = -64.0
+offset_right = 49.0
+offset_bottom = 64.0

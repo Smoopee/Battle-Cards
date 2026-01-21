@@ -53,12 +53,14 @@ func _on_exit_button_button_down():
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
-		Global.current_scene = "intermission"
-		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
+		queue_free()
 	else:
 		Global.intermission_tracker = 0
-		Global.current_scene = "enemy_selection"
-		get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_parent().add_scene("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+		queue_free()
 
 func _on_reroll_button_button_down():
 	if Global.player_gold < 5:

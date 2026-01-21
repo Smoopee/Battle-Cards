@@ -1,16 +1,16 @@
 extends Node2D
 
 const CARD_WIDTH = 160
-const DECK_Y_POSITION = 410
 const NUMBER_OF_DECKSLOTS = 7
 
-
+var deck_y_position
 var center_screen_x
 var card_slot_array = []
 
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
+	positioning()
 	var current_slot = NUMBER_OF_DECKSLOTS
 	
 	for i in range(0, NUMBER_OF_DECKSLOTS):
@@ -20,13 +20,16 @@ func _ready():
 		current_slot -= 1
 		add_card_to_hand(card_slot)
 
+func positioning():
+	deck_y_position = get_viewport().size.y - 460
+
 func add_card_to_hand(card_slot):
 	card_slot_array.push_front(card_slot)
 	update_hand_positions()
 
 func update_hand_positions():
 	for i in range(card_slot_array.size()):
-		var new_position = Vector2(calculate_card_position(i), DECK_Y_POSITION)
+		var new_position = Vector2(calculate_card_position(i), deck_y_position)
 		var card = card_slot_array[i]
 		card.position = new_position
 

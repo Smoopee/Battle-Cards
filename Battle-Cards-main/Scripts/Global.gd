@@ -42,7 +42,6 @@ var rested_xp = 0
 var intermission_tracker = 0
 var battle_tracker = 1
 var current_scene = ""
-var next_scene = ""
 
 var skill_db_reference
 var card_db_reference
@@ -58,7 +57,7 @@ func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	center_screen_y = get_viewport().size.y / 2
 	if get_viewport().size == Vector2i(2400, 1080):
-		ui_scaler = Vector2(1.3, 1.3)
+		ui_scaler = Vector2(1.2, 1.2)
 	
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
