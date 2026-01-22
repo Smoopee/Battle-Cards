@@ -1,10 +1,9 @@
 extends Node2D
 
-#class_name Skill
-
 
 @onready var skill_stats = get_parent().skill_stats
 
+#UI=================================================================================================
 var shop_label: Label
 var shop_panel: Panel
 var info_label: Label
@@ -15,6 +14,7 @@ var tooltip : Panel
 
 
 func _ready():
+	self.scale = Global.ui_scaler
 	set_node_names()
 
 func upgrade_skill(num):

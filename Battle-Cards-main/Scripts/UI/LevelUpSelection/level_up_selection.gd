@@ -13,11 +13,11 @@ func _ready():
 	player_inventory.toggle_sell_zone(true)
 	$RewardSelection.reward_selection()
 
-func _process(delta):
-	if card_being_dragged:
-		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
-			clamp(mouse_pos.y, 0, screen_size.y))
+#func _process(delta):
+	#if card_being_dragged:
+		#var mouse_pos = get_global_mouse_position()
+		#card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+			#clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
 	if event.is_action_pressed("Inventory"):
@@ -40,29 +40,29 @@ func inventory_and_deck_save():
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
 
-func connect_card_signals(card):
-	card.connect("hovered_on", on_hovered_over)
-	card.connect("hovered_off", on_hovered_off)
+#func connect_card_signals(card):
+	#card.connect("hovered_on", on_hovered_over)
+	#card.connect("hovered_off", on_hovered_off)
 
-func on_hovered_over(card):
-	if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
-	if $ConsumableManger.consumable_being_dragged: return
-	card.mouse_exit = false
-	card.scale = Vector2(1.1, 1.1)
-	$TooltipTimer.start()
-	await $TooltipTimer.timeout
-	if card == null: return
-	if card.mouse_exit or card_being_dragged: return
-	card.toggle_tooltip_show()
-	card.scale = Vector2(2, 2)
-	card.z_index = 2
-
-func on_hovered_off(card):
-	if card_being_dragged: return
-	card.mouse_exit = true
-	card.toggle_tooltip_hide()
-	card.scale = Vector2(1, 1)
-	card.z_index = 1
+#func on_hovered_over(card):
+	#if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
+	#if $ConsumableManger.consumable_being_dragged: return
+	#card.mouse_exit = false
+	#card.scale = Vector2(1.1, 1.1)
+	#$TooltipTimer.start()
+	#await $TooltipTimer.timeout
+	#if card == null: return
+	#if card.mouse_exit or card_being_dragged: return
+	#card.toggle_tooltip_show()
+	#card.scale = Vector2(2, 2)
+	#card.z_index = 2
+#
+#func on_hovered_off(card):
+	#if card_being_dragged: return
+	#card.mouse_exit = true
+	#card.toggle_tooltip_hide()
+	#card.scale = Vector2(1, 1)
+	#card.z_index = 1
 
 func toggle_inventory():
 	#From player screen to Inventory

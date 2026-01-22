@@ -39,7 +39,7 @@ func _ready():
 	$RageBar.position = get_parent().position + Vector2(70, -38)
 	$PlayerHealthBar.max_value = character_stats.max_health
 	$PlayerHealthBar.value = character_stats.health
-	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
+	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
 
 #SETUP  ===========================================================================================
 func set_stats() -> void:
@@ -89,11 +89,18 @@ func add_buff(buff_resource, source):
 func remove_buff(buff):
 	get_tree().get_first_node_in_group("player buffs").remove_buff(buff)
 
+func buff_reset():
+	get_tree().get_first_node_in_group("player buffs").buff_reset()
+
 func add_debuff(debuff_resource, source):
 	get_tree().get_first_node_in_group("player debuffs").add_debuff(debuff_resource, source)
 
 func remove_debuff(debuff):
 	get_tree().get_first_node_in_group("player debuffs").remove_debuff(debuff)
+
+func debuff_reset():
+	get_tree().get_first_node_in_group("player debuffs").debuff_reset()
+
 
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
@@ -143,7 +150,6 @@ func burn_damage_turn_keeper():
 func burn_damage_round_keeper():
 	if character_stats.burning_dmg > 0:
 		character_stats.burning_dmg /= 2
-		print(character_stats.burning_dmg)
 		emit_signal("burning_damage_taken", character_stats.burning_dmg)
 
 func deal_poison_damage():

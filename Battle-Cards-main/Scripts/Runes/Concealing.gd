@@ -30,7 +30,6 @@ func rune_effect1():
 			i.get_node("BaseCard").get_node("CardUI").visible = false
 
 func rune_effect2():
-	print("concealing rune effect 2")
 	for i in get_tree().get_first_node_in_group("enemy deck").get_children():
 		if i.is_in_group("card"):
 			i.get_node("BaseCard").get_node("CardImage").texture = load(i.card_stats.card_art_path)
@@ -53,7 +52,6 @@ func reward():
 	for i in get_tree().get_first_node_in_group("enemy").reward_array:
 		get_tree().get_first_node_in_group("enemy").reward_array = [load("res://Resources/Skills/third_wheel.tres")]
 	
-	print("Here is your concealed reward")
 
 func tooltip_effect():
 	rune.update_tooltip(str(stats.rune_name), 

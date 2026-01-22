@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://dac2v2br3grnx"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
+[ext_resource type="Script" uid="uid://b7opyer1dxfp7" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
 [ext_resource type="PackedScene" uid="uid://c12ekuq1diigx" path="res://Scenes/UI/Player/PlayerBuffs/player_buffs.tscn" id="2_akq4v"]
 [ext_resource type="PackedScene" uid="uid://c6bd4r2gdjyww" path="res://Scenes/UI/Player/PlayerDebuffs/player_debuffs.tscn" id="2_lkafq"]
 [ext_resource type="PackedScene" uid="uid://c6q0n1yria3h1" path="res://Scenes/UI/Player/PlayerConsumables/player_consumables.tscn" id="2_svm5r"]

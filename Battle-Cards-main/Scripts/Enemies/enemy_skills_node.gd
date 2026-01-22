@@ -21,11 +21,8 @@ func get_skill_selection():
 		1:
 			for i in skill_db_reference.ITEMS:
 				var temp = load(skill_db_reference.ITEMS[i])
-				print(temp.tags)
 				for j in temp.tags:
-					print("J is " + str(j))
 					for k in selection_tags:
-						print("K is " + str(k))
 						if j.find(k) >= 0 and temp.rarity <= 1:
 							skill_selection.push_back(temp)
 		2:

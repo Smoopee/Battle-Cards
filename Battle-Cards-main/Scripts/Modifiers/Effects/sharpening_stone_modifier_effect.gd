@@ -12,7 +12,7 @@ func initialize(target):
 	target.update_tooltip("Modifier", "SharpeningStoneModifier", "Card's Damage increased by " + str(5) + "\n ", "Sharpening Stone: ")
 	
 func additional_modifier(target):
-	print("In additional modifier sharpening stone modifier")
+	pass
 	
 
 func modifier_decrement(round):

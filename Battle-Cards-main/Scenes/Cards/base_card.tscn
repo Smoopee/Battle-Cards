@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c8brlil8m85rn"]
 
-[ext_resource type="Script" path="res://Tests/Scripts/test_card_class.gd" id="1_o5qm0"]
+[ext_resource type="Script" uid="uid://1pcf6hf6wuvi" path="res://Tests/Scripts/test_card_class.gd" id="1_o5qm0"]
 [ext_resource type="Texture2D" uid="uid://cbar7wb4edetf" path="res://Resources/Cards/CardArt/strike_card.png" id="2_fto3c"]
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="3_tjiti"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="4_538n5"]
@@ -183,7 +183,7 @@ vertical_alignment = 1
 [node name="CDPanel" type="Panel" parent="CardUI"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
+layout_mode = 0
 offset_left = 56.0
 offset_top = 155.4
 offset_right = 86.0

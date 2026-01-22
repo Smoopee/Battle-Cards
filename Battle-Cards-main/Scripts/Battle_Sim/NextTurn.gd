@@ -39,6 +39,7 @@ func slot_player_cards():
 			count += 1
 			continue
 		i.position = get_tree().get_first_node_in_group("player cards").inventory_card_slot_array[count].position
+		i.visible = true
 		count += 1
 
 func end_fight():

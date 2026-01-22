@@ -43,7 +43,6 @@ func start_drag(rune):
 
 func finish_drag():
 	Global.mouse_occupied = false
-	print("in rune manager")
 	
 	if raycast_check_for_enemy():
 		var enemy = raycast_check_for_enemy()
@@ -89,7 +88,6 @@ func raycast_check_for_enemy():
 	return null 
 
 func rune_reset():
-	print("in rune reset")
 	rune_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	rune_being_dragged = null
 

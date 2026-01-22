@@ -6,7 +6,6 @@ const BUFF_Y_POSITION = -130
 
 #BUFFS ============================================================================================
 func add_buff(buff_resource, source):
-	print("In enemy add_buff function")
 	var new_buff = load(buff_resource.buff_scene_path).instantiate()
 	new_buff.buff_stats = buff_resource.duplicate()
 	new_buff.buff_stats.owner = get_tree().get_first_node_in_group("enemy")
@@ -17,7 +16,6 @@ func add_buff(buff_resource, source):
 			i.get_parent().additional_buff(source)
 			return
 	
-	print("In add new enemy buff")
 	add_child(new_buff)
 	new_buff.initialize(source)
 	organize_buffs()
@@ -34,4 +32,3 @@ func organize_buffs():
 		i.position = position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
 		i.scale = Vector2(1,1)
 		x_offset += 50
-

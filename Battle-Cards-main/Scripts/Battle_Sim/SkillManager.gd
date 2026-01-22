@@ -16,7 +16,7 @@ func _ready():
 func _process(delta):
 	if skill_being_dragged:
 		var mouse_pos = get_global_mouse_position()
-		skill_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+		skill_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):

@@ -1,10 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4ybcekd8ere6"]
+[gd_scene load_steps=7 format=3 uid="uid://c4ybcekd8ere6"]
 
 [ext_resource type="Script" uid="uid://dmw0jlmwccaa2" path="res://Scripts/Characters/Berserker/berserker_selection.gd" id="1_makry"]
 [ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="2_sdc65"]
+[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="3_qmpc3"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="4_ugi8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td2xn"]
 size = Vector2(98, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5v1r"]
+shader = ExtResource("3_qmpc3")
+shader_parameter/onoff = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
 
 [node name="BerserkerSelection" type="Node2D" groups=["berserker"]]
 script = ExtResource("1_makry")
@@ -19,3 +29,10 @@ shape = SubResource("RectangleShape2D_td2xn")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_sdc65")
+
+[node name="GlowEffect" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_t5v1r")
+position = Vector2(0.4999981, -5.2452087e-06)
+scale = Vector2(1.0320513, 1.0210526)
+texture = ExtResource("4_ugi8t")

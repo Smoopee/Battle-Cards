@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cx4hatbep7l2s"]
 
-[ext_resource type="Script" path="res://Resources/Skills/skill_class.gd" id="1_s3woo"]
+[ext_resource type="Script" uid="uid://bf36clrofgt2a" path="res://Resources/Skills/skill_class.gd" id="1_s3woo"]
 [ext_resource type="Texture2D" uid="uid://ctn37ycsum6fe" path="res://Resources/Art/Skills/building_momentum_skill.png" id="2_114bl"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="3_nyqqx"]
 

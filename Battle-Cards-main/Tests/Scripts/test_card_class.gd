@@ -1,6 +1,5 @@
 extends Node2D
 
-#class_name TestCard
 
 @onready var card_stats = get_parent().card_stats
 

@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var glow_effect = $GlowEffect
 
-
 var glow_power = 3.0
 var speed = 2.0
 

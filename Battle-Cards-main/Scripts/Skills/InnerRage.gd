@@ -35,5 +35,3 @@ func upgrade_skill(num):
 	"Generate an additional 5 Rage", 
 	"Effect: ")
 	skill.update_skill_image()
-
-

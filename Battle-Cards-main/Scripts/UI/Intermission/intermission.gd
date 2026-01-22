@@ -144,7 +144,6 @@ func on_hovered_over(card):
 	if card.mouse_exit or card_being_dragged: return
 	card.toggle_tooltip_show()
 	card.scale = Vector2(2, 2) * Global.ui_scaler
-	print("In intermision")
 	card.z_index = 2
 
 func on_hovered_off(card):
@@ -155,10 +154,8 @@ func on_hovered_off(card):
 	card.z_index = 1
 
 func toggle_inventory():
-	print("INVENTORY : intermission scene")
 	#From player screen to Inventory
 	if is_toggle_inventory == true:
-		print("INVENTORY IS TOGGLED : intermission scene")
 		$PlayerInventoryScreen.visible = true
 		$CardSelector.visible = false
 		$Player/Berserker.inventory_screen_toggle(true)
@@ -169,7 +166,6 @@ func toggle_inventory():
 		is_toggle_inventory = false
 	#From Inventory to Player Screen
 	else:
-		print("INVENTORY UNTOGGLED : intermission scene")
 		$PlayerInventoryScreen.visible = false
 		$CardSelector.visible = true
 		$Player/Berserker.inventory_screen_toggle(false)

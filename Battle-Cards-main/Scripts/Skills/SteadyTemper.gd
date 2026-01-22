@@ -11,7 +11,6 @@ func _ready():
 
 func skill_effect():
 	stats.owner.rage_degeneration = 0
-	print("In steady temper skill")
 
 func upgrade_skill(num):
 	match num:

@@ -14,4 +14,3 @@ class_name PlayerData
 @export var player_runes: Array
 @export var player_stats : Resource
 var current_scene_path: String
-

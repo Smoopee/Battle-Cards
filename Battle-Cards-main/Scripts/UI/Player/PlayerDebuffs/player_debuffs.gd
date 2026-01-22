@@ -33,3 +33,6 @@ func organize_debuffs():
 		i.scale = Vector2(1,1)
 		x_offset += 50
 
+func debuff_reset():
+	for i in get_children():
+		i.queue_free()

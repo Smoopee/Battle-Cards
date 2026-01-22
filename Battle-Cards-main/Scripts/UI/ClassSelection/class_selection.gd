@@ -49,12 +49,20 @@ func finish_drag():
 		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
 		queue_free()
 	else:
+		$BerserkerSelection.highlight_card(true)
+		$BerserkerSelection2.highlight_card(true)
+		$BerserkerSelection3.highlight_card(true)
+		card_being_dragged.highlight_card(false)
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
+	$BerserkerSelection.highlight_card(false)
+	$BerserkerSelection2.highlight_card(false)
+	$BerserkerSelection3.highlight_card(false)
+	card_being_dragged.highlight_card(true)
 
 func connect_card_signals(card):
 	card.connect("hoovered", on_hoovered_over_card)

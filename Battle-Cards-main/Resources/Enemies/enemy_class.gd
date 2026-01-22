@@ -61,6 +61,9 @@ var temp_physical_damage = 0
 func _ready():
 	self.scale = Global.ui_scaler
 	set_node_names()
+	if Global.current_scene != "battle_sim":
+		%Skills.visible = false
+	else: %Skills.visible = true
 
 func setup():
 	set_stat_container()
@@ -102,7 +105,6 @@ func set_skills():
 		new_instance.skill_stats = i
 		new_instance.skill_stats.owner = self
 		new_instance.skill_stats.target = get_tree().get_first_node_in_group("character")
-		print(new_instance)
 		skills.add_child(new_instance)
 		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 		
@@ -215,7 +217,6 @@ func burn_damage_turn_keeper():
 func burn_damage_round_keeper():
 	if character_stats.burning_dmg > 0:
 		character_stats.burning_dmg /= 2
-		print(character_stats.burning_dmg)
 		emit_signal("burning_damage_taken", character_stats.burning_dmg)
 
 func deal_poison_damage():
@@ -249,7 +250,7 @@ func change_health(amount):
 	character_stats.health += amount
 	if character_stats.health > character_stats.max_health: character_stats.health = character_stats.max_health
 	enemy_health_bar.value = character_stats.health
-	enemy_health_label.text = str(enemy_health_bar.value) + "/" + str(enemy_health_bar.max_value)
+	enemy_health_label.text = str(int(enemy_health_bar.value)) + "/" + str(int(enemy_health_bar.max_value))
 	emit_signal("health_changed")
 
 func stun_toggle(toggle):
@@ -311,8 +312,8 @@ func get_reward():
 	var rng = RandomNumberGenerator.new()
 	reward_array = enemy_deck.enemy_deck + skills.enemy_skills 
 	emit_signal("generate_reward")
-	
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
+	print("BASE ENEMY REWARD ARRAY IS " + str(reward_array[reward_index]))
 	return reward_array[reward_index]
 
 func active_enemy_deck_access():

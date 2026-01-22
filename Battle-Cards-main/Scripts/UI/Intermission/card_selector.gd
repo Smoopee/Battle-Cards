@@ -9,6 +9,7 @@ var is_hoovering_on_card
 var disabled_collision = false
 var center_screen_x
 var home_position
+var is_being_dragged = false
 
 var glow_power = 3.0
 var speed = 2.0
@@ -33,22 +34,22 @@ func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, 0.1)
 
-func on_hoovered_over_card():
-	highlight_card(true)
+#func on_hoovered_over_card():
+	#highlight_card(true)
+#
+#func on_hoovered_off_card():
+	#highlight_card(false)
 
-func on_hoovered_off_card():
-	highlight_card(false)
-
-func highlight_card(hoovered):
-	if hoovered:
+func highlight_card(being_dragged):
+	if being_dragged:
 		z_index = 2
 		$GlowEffect.visible = false
 	else:
 		z_index = 1
 		$GlowEffect.visible = true
 
-func _on_area_2d_mouse_entered():
-	on_hoovered_over_card()
-
-func _on_area_2d_mouse_exited():
-	on_hoovered_off_card()
+#func _on_area_2d_mouse_entered():
+	#on_hoovered_over_card()
+#
+#func _on_area_2d_mouse_exited():
+	#on_hoovered_off_card()

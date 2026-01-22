@@ -13,12 +13,10 @@ func _ready():
 		stats.owner.connect("physical_damage_taken", skill_effect)
 
 func skill_effect(damage):
-	print("In skills effect for paper shield")
 	if one_shot == false: return
 	if damage >= 6:
 		get_tree().get_first_node_in_group("character").receiving_physical_dmg = 0
 		one_shot = false
-		print("WE BLOCKED WITH A PAPER SHIELD")
 		skill.skill_image.self_modulate.a = .5
 		skill.upgrade_border.self_modulate.a = .5
 

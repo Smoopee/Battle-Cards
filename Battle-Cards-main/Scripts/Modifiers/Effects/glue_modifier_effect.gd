@@ -13,7 +13,7 @@ func initialize(target):
 	parent.count = 2
 	
 func additional_modifier(target):
-	print("In additional modifier glue modifier")
+	pass
 
 func modifier_decrement(round):
 	parent.change_counter(-1)

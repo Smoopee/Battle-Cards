@@ -189,6 +189,9 @@ func end_fight_cleanup():
 	next_turn.end_fight()
 	emit_signal("end_fight")
 	$"../CardTransform".revert_cards()
+	$"../NextTurn".slot_player_cards()
+	get_tree().get_first_node_in_group("character").buff_reset()
+	get_tree().get_first_node_in_group("character").debuff_reset()
 	$"../BattleRewards".update_rewards()
 	$"../BattleRewards".visible = true
 	
@@ -197,6 +200,8 @@ func end_fight_cleanup():
 	for i in enemy_node.get_children():
 		i.queue_free()
 	$"../UI/Labels".visible = false
+	
+	print("FSDFSD00" + str(get_tree().get_first_node_in_group("player cards").inventory_card_slot_reference))
 
 func _on_start_button_button_down():
 	during_combat_ui_toggle()

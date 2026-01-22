@@ -32,13 +32,11 @@ func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	enemy.position = Vector2(center_screen_x, ENEMY_Y_POSITION)
 	enemy.get_node("BaseEnemy").set_stats()
-	
 	enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
 
 func initial_build_deck():
 	enemy_deck = enemy.get_node("BaseEnemy").deck
 	
-
 	deck = []
 	var card_position = 0
 	var blank = load("res://Resources/Cards/blank.tres")

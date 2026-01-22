@@ -51,8 +51,6 @@ func finish_drag():
 	consumable_used = false
 	consumable_leftover = false
 	
-	print("in consumable manager")
-
 	var raycast_object
 	if raycast_check_for_player_card(): raycast_object = raycast_check_for_player_card().get_parent()
 	elif raycast_check_for_enemy_card(): raycast_object = raycast_check_for_enemy_card().get_parent()
@@ -60,21 +58,17 @@ func finish_drag():
 	elif raycast_check_for_enemy(): raycast_object = raycast_check_for_enemy().get_parent()
 	
 	if raycast_object: use_consumable(raycast_object)
-	print("The consumable raycast object is " + str(raycast_object))
 	
 	if consumable_leftover:
-		print("in consumable leftover")
 		consumable_being_dragged.global_position = consumable_previous_position
 		consumable_reset()
 		consumable_used = true
 	
 	if !consumable_used: 
-		print("in consumable not used")
 		animate_consumable_back_to_position(consumable_being_dragged, consumable_previous_position)
 		consumable_reset()
 	
 	if place_holder_used and consumable_used:
-		print("in place holder used")
 		for i in get_children():
 			remove_child(i)
 			i.queue_free()
@@ -136,7 +130,6 @@ func raycast_check_for_enemy_card():
 	return null 
 
 func consumable_reset():
-	print("in consumable reset")
 	consumable_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	consumable_being_dragged.update_stack_ui()
 	consumable_being_dragged.toggle_info_ui(true)
@@ -148,14 +141,12 @@ func animate_consumable_back_to_position(consumable, new_position):
 	tween.tween_property(consumable, "z_index", 1, 0)
 	if place_holder_used:
 		await tween.finished
-		print("in place holder used")
 		for i in get_children():
 			remove_child(i)
 			i.queue_free()
 		place_holder_used = false
 
 func consumable_stack_check():
-	print("consumable stat check")
 	if consumable_being_dragged.consumable_stats.stack_amount >= 2:
 		consumable_being_dragged.consumable_stats.stack_amount -= 1
 		consumable_leftover = true
@@ -163,19 +154,16 @@ func consumable_stack_check():
 	else: return false
 
 func on_consumable_use():
-	print("on consumable use")
 	consumable_being_dragged.queue_free()
 	consumable_being_dragged = null
 	consumable_used = true
 
 func use_consumable(target):
-	print("use consumable")
 	if target.is_in_group(consumable_being_dragged.consumable_stats.target):
 		if consumable_being_dragged.consumable_effect(target):
 			if !consumable_stack_check(): on_consumable_use()
 
 func start_drag_stack_check():
-	print("start drag check")
 	if consumable_being_dragged.consumable_stats.stack_amount >= 2:
 		var place_holder = load(consumable_being_dragged.consumable_stats.consumable_scene_path).instantiate()
 		place_holder.global_position = consumable_being_dragged.global_position
@@ -185,4 +173,3 @@ func start_drag_stack_check():
 		place_holder.get_node("BaseConsumable").update_stack_ui()
 		place_holder.get_node("BaseConsumable").toggle_info_ui(true)
 		place_holder_used = true
-		print("start drag check is true")

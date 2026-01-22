@@ -10,14 +10,13 @@ func _ready():
 			get_tree().get_first_node_in_group("enemy").connect("generate_reward", reward)
 
 func rune_effect1():
-	print("In rune of growing effect")
 	var enemy = get_tree().get_first_node_in_group("enemy")
 	enemy.change_attack(10)
 	enemy.character_stats.max_health *= 1.5
 	enemy.set_stat_container()
 
 func reward():
-	print("In growing reward")
+	pass
 
 func tooltip_effect():
 	var parent = $".."

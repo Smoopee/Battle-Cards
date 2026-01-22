@@ -42,7 +42,7 @@ func _ready():
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+		card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
@@ -71,19 +71,16 @@ func finish_drag_card():
 
 	if raycast_check_for_deck_slot() and not deck_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_deck(card_being_dragged, deck_card_slot_found)
-		print("Buy card for Deck")
 		card_reset()
 		return
 	
 	if raycast_check_for_inventory_slot() and not inventory_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_inventory(card_being_dragged, inventory_card_slot_found)
-		print("Buy card for Inventory")
 		card_reset()
 		return
 	
 	if raycast_check_for_card() and not card_being_dragged.card_stats.is_players:
 		var temp = upgrade_from_merchant(card_being_dragged, raycast_check_for_upgrade_card())
-		print("Upgrade from merchant")
 		hover_on_upgrade_test = false
 		card_reset()
 		hover_on_upgrade_test = true
@@ -175,7 +172,7 @@ func buy_card_for_deck(card, deck_slot):
 	merchant_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
 	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
-	card_being_dragged.position = deck_slot.position
+	card_being_dragged.global_position = deck_slot.position
 	deck_slot.card_in_slot = true
 	deck_card_slot_reference.remove_at(deck_card_slot_index)
 	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
@@ -187,7 +184,7 @@ func buy_card_for_inventory(card, inventory_slot):
 	merchant_inventory_reference.remove_card_from_hand(card)
 	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
 	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
-	card_being_dragged.position = inventory_slot.position
+	card_being_dragged.global_position = inventory_slot.position
 	inventory_slot.card_in_slot = true
 	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
 	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)

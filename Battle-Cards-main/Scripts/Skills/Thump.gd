@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @onready var stats = skill_stats
 @onready var skill = $BaseSkill
 
@@ -18,7 +17,6 @@ func _ready():
 func skill_effect1():
 	var rng = RandomNumberGenerator.new()
 	counter = rng.randi_range(1, 10)
-	print("In thump skill effect")
 	skill.info_label.visible = true
 	skill.info_label.text = str(counter)
 

@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var xp_reward_label = $Panel/HBoxContainer/VariableContainer/XpReward
-@onready var gold_reward_label = $Panel/HBoxContainer/VariableContainer/GoldReward
-@onready var player_gold_label = $Panel/HBoxContainer/VariableContainer/Gold
-@onready var player_xp_label = $Panel/HBoxContainer/VariableContainer/Xp
+@onready var xp_reward_label = %XpRewardUnit
+@onready var gold_reward_label = %GoldRewardUnit
+@onready var player_gold_label = %GoldUnit
+@onready var player_xp_label = %XpUnit
 
 var center_screen_x
 var reward
@@ -12,7 +12,7 @@ var level_up_screen = false
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	Global.connect("level_up", level_up)
-	$RewardBGRect.position.x = center_screen_x
+	$BGForRewardBox.position.x = center_screen_x - $BGForRewardBox.size.x / 2
 	
 func level_up():
 	level_up_screen = true
@@ -53,15 +53,16 @@ func card_reward(enemy_reward):
 	reward = new_scene
 
 func skill_reward(enemy_reward):
-	get_tree().get_first_node_in_group("character").inventory_screen_toggle(false)
+	get_tree().get_first_node_in_group("character").inventory_screen_toggle(true)
+	
 	var new_scene = load(enemy_reward.skill_scene_path).instantiate()
 	new_scene.skill_stats = enemy_reward
+	add_child(new_scene)
 	new_scene.get_node("BaseSkill").get_node("Area2D").collision_mask = 512
 	new_scene.get_node("BaseSkill").get_node("Area2D").collision_layer = 512
-	new_scene.get_node("BaseSkill").upgrade_skill(new_scene.skill_stats.upgrade_level)
+	new_scene.upgrade_skill(new_scene.skill_stats.upgrade_level)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
-	add_child(new_scene)
 	reward = new_scene
 
 func _on_button_button_down():

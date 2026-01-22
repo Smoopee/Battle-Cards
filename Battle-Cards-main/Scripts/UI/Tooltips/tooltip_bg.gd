@@ -26,7 +26,6 @@ func create_tooltip(category, identifier, body = null, header = null):
 			effect_tooltip(category, identifier, body, header)
 	
 func enchantment_tooltip(category, identifier, body = null, header = null):
-	print("In echantment tooltip")
 	name = category
 	category_label.text = str(category)
 	header_label.text = str(header)
@@ -36,7 +35,6 @@ func enchantment_tooltip(category, identifier, body = null, header = null):
 	add_panel_spacer()
 
 func modifier_tooltip(category, identifier, body = null, header = null):
-	print("in modifier tooltip")
 	name = category
 	category_label.text = str(category)
 	header_label.text = str(header)
@@ -47,7 +45,6 @@ func modifier_tooltip(category, identifier, body = null, header = null):
 	add_panel_spacer()
 
 func effect_tooltip(category, identifier, body = null, header = null):
-	print("in effect tooltip")
 	name = category
 	category_label.text = str(category)
 	header_label.text = str(header)
@@ -114,8 +111,6 @@ func update_tooltip(category, identifier, body = null, header = null):
 			update_effect_tooltip(category, identifier, body, header)
 
 func update_effect_tooltip(category, identifier, body = null, header = null):
-	print("In update effect tooltip")
-	print(body)
 	name = category
 	category_label.text = category
 	header_label.text = str(header)
@@ -124,14 +119,12 @@ func update_effect_tooltip(category, identifier, body = null, header = null):
 	sizing_function()
 
 func update_enchantment_tooltip(category, identifier, body = null, header = null):
-	print("in update enchantment tooltip")
 	name = category
 	header_label.text = str(header)
 	body_label.text = str(body)
 	sizing_function()
 
 func update_modifier_tooltip(category, identifier, body = null, header = null):
-	print("in update date modifier tooltip")
 	var temp
 	for j in hbox_array:
 		for i in j.get_children():
@@ -143,7 +136,6 @@ func update_modifier_tooltip(category, identifier, body = null, header = null):
 		create_new_modifier_tooltip(category, identifier, body, header)
 
 func create_new_modifier_tooltip(category, identifier, body = null, header = null):
-	print("In create new modifier")
 	var new_modifier = load("res://Scenes/UI/Tooltips/add_modifier_tooltip.tscn").instantiate()
 	new_modifier.add_modifier_tooltip(category, identifier, body, header)
 	vbox.add_child(new_modifier)

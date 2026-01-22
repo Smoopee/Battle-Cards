@@ -14,9 +14,9 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	$NewGame.position = Vector2(Global.center_screen_x - 200, 500)
-	$NewGame.scale = Global.ui_scaler
+	$NewGame.scale = Vector2(1.4,1.4) * Global.ui_scaler
 	$LoadGame.position =  Vector2(Global.center_screen_x + 200, 500)
-	$LoadGame.scale = Global.ui_scaler
+	$LoadGame.scale = Vector2(1.4,1.4) * Global.ui_scaler
 	
 func _process(delta):
 	if card_being_dragged:
@@ -37,6 +37,10 @@ func _input(event):
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
+	
+	$NewGame.highlight_card(false)
+	$LoadGame.highlight_card(false)
+	card_being_dragged.highlight_card(true)
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05) * Global.ui_scaler
@@ -55,9 +59,11 @@ func finish_drag():
 		card_being_dragged = null
 		
 		await get_tree().create_timer(2).timeout
-		print("Let's Continue")
 		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 	else:
+		$NewGame.highlight_card(true)
+		$LoadGame.highlight_card(true)
+		card_being_dragged.highlight_card(false)
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
@@ -79,7 +85,6 @@ func new_game_function():
 	Global.set_player_deck()
 	Global.instantiate_player_deck()
 	
-	print("Let's Begin")
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/ClassSelection/class_selection.tscn")
 	queue_free()

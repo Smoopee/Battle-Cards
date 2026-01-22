@@ -12,7 +12,7 @@ var card_selector_reference
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
-	print(get_parent())
+	$Start.scale = Vector2(1.4,1.4) * Global.ui_scaler
 	
 func _process(delta):
 	if card_being_dragged:
@@ -37,37 +37,39 @@ func finish_drag():
 		card_being_dragged.position = start_found.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
-		print("Let's Begin")
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/UI/StartScreen/start_screen.tscn")
 		queue_free()
 		
 	else:
+		$Start.highlight_card(true)
+		card_being_dragged.highlight_card(false)
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
+	$Start.highlight_card(false)
+	card_being_dragged.highlight_card(true)
 	
-
-func connect_card_signals(card):
-	card.connect("hoovered", on_hoovered_over_card)
-	card.connect("hoovered_off", on_hoovered_off_card)
-
-func on_hoovered_over_card(card):
-	if !is_hoovering_on_card:
-		is_hoovering_on_card = true
-		highlight_card(card, true)
-
-func on_hoovered_off_card(card):
-	if !card_being_dragged:
-		highlight_card(card, false)
-		var new_card_hoovered = raycast_check_for_card()
-		if new_card_hoovered:
-			highlight_card(new_card_hoovered, true)
-		else:
-			is_hoovering_on_card = false
+#func connect_card_signals(card):
+	#card.connect("hoovered", on_hoovered_over_card)
+	#card.connect("hoovered_off", on_hoovered_off_card)
+#
+#func on_hoovered_over_card(card):
+	#if !is_hoovering_on_card:
+		#is_hoovering_on_card = true
+		#highlight_card(card, true)
+#
+#func on_hoovered_off_card(card):
+	#if !card_being_dragged:
+		#highlight_card(card, false)
+		#var new_card_hoovered = raycast_check_for_card()
+		#if new_card_hoovered:
+			#highlight_card(new_card_hoovered, true)
+		#else:
+			#is_hoovering_on_card = false
 
 func highlight_card(card, hoovered):
 	if hoovered:

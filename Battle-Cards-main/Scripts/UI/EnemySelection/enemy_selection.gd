@@ -127,7 +127,7 @@ func get_card_with_highest_z_index(cards):
 	return highest_z_card
 
 func enemy_loader(enemy):
-	Global.current_enemy = enemy.character_stats
+	Global.current_enemy = enemy.character_stats.duplicate()
 
 
 func inventory_and_deck_save():
