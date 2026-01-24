@@ -25,6 +25,7 @@ func load_card_rewards():
 	
 	creator.get_inventory()
 	creator.create_card_selection()
+	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
 
 func load_skill_rewards():
 	var creator = $"../SkillSelectionCreator"
@@ -37,3 +38,4 @@ func load_skill_rewards():
 	
 	creator.get_inventory()
 	creator.create_skill_selection()
+	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)

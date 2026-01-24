@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://t3743qo0bahh"]
 
-[ext_resource type="Script" path="res://Resources/Consumables/consumable_class.gd" id="1_al35h"]
+[ext_resource type="Script" uid="uid://cta422gm8pc15" path="res://Resources/Consumables/consumable_class.gd" id="1_al35h"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="2_77tnl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ltgem"]

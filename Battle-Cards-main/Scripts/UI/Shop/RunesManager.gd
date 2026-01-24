@@ -30,7 +30,7 @@ func _input(event):
 
 func start_drag_rune(rune):
 	rune_being_dragged = rune.get_parent()
-	rune_being_dragged.scale = Vector2(1.1, 1.1)
+	rune_being_dragged.scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	rune_being_dragged.z_index = 2
 	rune_previous_position = rune.get_parent().position
 
@@ -76,6 +76,6 @@ func buy_rune():
 	update_player_gold()
 
 func rune_reset():
-	rune_being_dragged.scale = Vector2(1, 1)
+	rune_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	rune_being_dragged.z_index = 1
 	rune_being_dragged = null

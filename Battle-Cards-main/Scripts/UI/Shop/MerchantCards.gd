@@ -24,17 +24,18 @@ func create_merchant_inventory():
 	
 	var card_position = 0
 	for i in inventory:
-		i.get_node("Area2D").collision_mask = 64
-		i.get_node("Area2D").collision_layer = 64
-		i.toggle_shop_ui(true)
-		i.card_shop_ui()
+		i.get_node("BaseCard").get_node("Area2D").collision_mask = 64
+		i.get_node("BaseCard").get_node("Area2D").collision_layer = 64
+		i.get_node("BaseCard").toggle_shop_ui(true)
+		i.get_node("BaseCard").card_shop_ui()
 		i.card_stats.inventory_position = card_position
 		i.card_stats.is_players = false
 		card_position += 1
 
 func fetch_merchant_inventory():
-	$"../Merchant".get_child(0).get_inventory()
-	inventory_db = $"../Merchant".get_child(0).inventory
+	var merchant_reference = get_tree().get_first_node_in_group("merchant").get_child(0)
+	merchant_reference.get_inventory()
+	inventory_db = merchant_reference.inventory
 
 func add_card_to_hand(card):
 	if card not in inventory:

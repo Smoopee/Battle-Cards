@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Biome_Resource" load_steps=2 format=3 uid="uid://b446v0sbfau2p"]
+
+[ext_resource type="Script" uid="uid://bb5i7jkv8mqci" path="res://Resources/Biomes/biome_master_resource.gd" id="1_yyl6f"]
+
+[resource]
+script = ExtResource("1_yyl6f")
+biome_art_path = "res://Resources/Art/Biomes/desert_biome1.png"
+biome_border_path = "res://Resources/Art/UIElements/Borders/biome_border.png"
+biome_scene_path = "res://Scenes/Biomes/desert.tscn"
+biome_name = "Desert"
+metadata/_custom_type_script = "uid://bb5i7jkv8mqci"

@@ -42,7 +42,7 @@ func _ready():
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+		card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
@@ -56,11 +56,11 @@ func _input(event):
 				finish_drag_card()
 
 func start_drag_card(card):
-	card_being_dragged = card
+	card_being_dragged = card.get_parent()
 	card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card_being_dragged.scale = Vector2(1.1, 1.1)
 	card_being_dragged.z_index = 2
-	card_previous_position = card.position
+	card_previous_position = card.global_position
 
 func finish_drag_card():
 	print("finish drag")
@@ -92,7 +92,7 @@ func finish_drag_card():
 		return
 	
 	if !card_being_dragged.card_stats.is_players:
-		$"../MerchantCards".add_card_to_hand(card_being_dragged)
+		$"../MerchantCards".animate_card_to_position(card_being_dragged, card_previous_position)
 	
 	card_reset()
 
@@ -151,7 +151,6 @@ func raycast_check_for_inventory_slot():
 		return result[0].collider.get_parent()
 	return null 
 
-
 func get_card_with_highest_z_index(cards):
 	var highest_z_card = cards[0].collider.get_parent()
 	var highest_z_index = highest_z_card.z_index
@@ -181,14 +180,14 @@ func buy_card_for_deck(card, deck_slot):
 		return
 	Global.player_gold -= card.card_stats.buy_price
 	merchant_inventory_reference.remove_card_from_hand(card)
-	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
-	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
+	card.get_node("BaseCard").get_node("Area2D").collision_layer = COLLISION_MASK_CARD
+	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
 	card_being_dragged.position = deck_slot.position
 	deck_slot.card_in_slot = true
 	deck_card_slot_reference.remove_at(deck_card_slot_index)
 	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
 	card.card_stats.is_players = true
-	card.card_shop_ui()
+	card.get_node("BaseCard").card_shop_ui()
 	update_player_gold()
 
 func buy_card_for_inventory(card, inventory_slot):
@@ -198,14 +197,14 @@ func buy_card_for_inventory(card, inventory_slot):
 		return
 	Global.player_gold -= card.card_stats.buy_price
 	merchant_inventory_reference.remove_card_from_hand(card)
-	card.get_node("Area2D").collision_layer = COLLISION_MASK_CARD
-	card.get_node("Area2D").collision_mask = COLLISION_MASK_CARD
-	card_being_dragged.position = inventory_slot.position
+	card.get_node("BaseCard").get_node("Area2D").collision_layer = COLLISION_MASK_CARD
+	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
+	card_being_dragged.global_position = inventory_slot.global_position
 	inventory_slot.card_in_slot = true
 	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
 	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
 	card.card_stats.is_players = true
-	card.card_shop_ui()
+	card.get_node("BaseCard").card_shop_ui()
 	update_player_gold()
 
 func upgrade_check(upgrade_card, base_card):
@@ -257,7 +256,7 @@ func update_player_gold():
 	$"../BottomNavBar".change_player_gold() 
 
 func card_reset():
-	card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
+	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
 	card_being_dragged = null

@@ -26,15 +26,15 @@ position = Vector2(1031, 525)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("2_siocb")
 
-[node name="Sprite2D" type="Sprite2D" parent="Start"]
-texture = ExtResource("3_2k0xr")
-
-[node name="ColorRect" type="ColorRect" parent="Start/Sprite2D"]
-self_modulate = Color(0, 0, 0, 0.5764706)
+[node name="ColorRect" type="ColorRect" parent="Start"]
+self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 0.74509805)
 offset_left = -49.333374
 offset_top = -64.0
 offset_right = 49.333313
 offset_bottom = 64.66669
+
+[node name="Sprite2D" type="Sprite2D" parent="Start"]
+texture = ExtResource("3_2k0xr")
 
 [node name="Label" type="Label" parent="Start"]
 anchors_preset = 8

@@ -12,6 +12,7 @@ var tooltip_container: VBoxContainer
 
 
 func _ready():
+	self.scale = Global.ui_scaler
 	set_node_names()
 
 func set_node_names():

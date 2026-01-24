@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://jimrmkx6x18g"]
 
-[ext_resource type="Script" path="res://Scripts/UI/TalentTree/talent_tree.gd" id="1_7fw2i"]
+[ext_resource type="Script" uid="uid://braa1qn0y4yfp" path="res://Scripts/UI/TalentTree/talent_tree.gd" id="1_7fw2i"]
 [ext_resource type="Texture2D" uid="uid://c8c7kuix3q4fi" path="res://Resources/TestArt/talenttalent_buttont.png" id="1_eg10p"]
 [ext_resource type="ButtonGroup" uid="uid://ditwwv3igt113" path="res://Resources/ButtonGroups/tier2_buttons.tres" id="2_0yu7o"]
 [ext_resource type="Texture2D" uid="uid://chvjystwenuny" path="res://Resources/TestArt/talent_button_hoover.png" id="2_1fsxt"]
@@ -43,13 +43,13 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = 15.0
-offset_right = -8.0
-offset_bottom = 15.0
+offset_right = -1920.0
+offset_bottom = -1080.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
+size_flags_horizontal = 6
+size_flags_vertical = 6
 script = ExtResource("1_7fw2i")
 group1 = ExtResource("2_bvv1t")
 group2 = ExtResource("2_0yu7o")
@@ -64,44 +64,41 @@ group8 = ExtResource("5_hai5o")
 show_behind_parent = true
 z_index = 2
 z_as_relative = false
-custom_minimum_size = Vector2(2000, 1080)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.5
-offset_top = -17.0
-offset_right = 80.5
-offset_bottom = -17.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 954.5
+offset_bottom = 535.5
 theme_override_styles/panel = SubResource("StyleBoxFlat_cqynh")
 
-[node name="TalentPanel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 360.0
-offset_top = 45.5
-offset_right = 663.0
-offset_bottom = 410.5
-theme_override_styles/panel = SubResource("StyleBoxTexture_oead2")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TalentPanel"]
+[node name="TalentPanel" type="Panel" parent="BGDimmer"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.5
-offset_top = 9.0
-offset_right = -0.5
-offset_bottom = 44.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.5
+offset_top = -182.5
+offset_right = 151.5
+offset_bottom = 182.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_oead2")
 
-[node name="Tier8Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BGDimmer/TalentPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 348.0
+grow_horizontal = 2
+
+[node name="Tier8Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier8Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier8Buttons" groups=["talent_button"]]
+[node name="Tier8Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -111,7 +108,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier8Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier8Buttons" groups=["talent_button"]]
+[node name="Tier8Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -121,7 +118,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier8Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier8Buttons" groups=["talent_button"]]
+[node name="Tier8Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -131,11 +128,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier7Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier7Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier7Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier7Buttons" groups=["talent_button"]]
+[node name="Tier7Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -145,7 +142,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier7Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier7Buttons" groups=["talent_button"]]
+[node name="Tier7Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -155,7 +152,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier7Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier7Buttons" groups=["talent_button"]]
+[node name="Tier7Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -165,11 +162,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier6Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier6Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier6Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier6Buttons" groups=["talent_button"]]
+[node name="Tier6Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -179,7 +176,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier6Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier6Buttons" groups=["talent_button"]]
+[node name="Tier6Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -189,7 +186,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier6Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier6Buttons" groups=["talent_button"]]
+[node name="Tier6Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -199,11 +196,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier5Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier5Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier5Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier5Buttons" groups=["talent_button"]]
+[node name="Tier5Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -213,7 +210,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier5Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier5Buttons" groups=["talent_button"]]
+[node name="Tier5Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -223,7 +220,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier5Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier5Buttons" groups=["talent_button"]]
+[node name="Tier5Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -233,11 +230,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier4Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier4Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier4Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier4Buttons" groups=["talent_button"]]
+[node name="Tier4Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -247,7 +244,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier4Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier4Buttons" groups=["talent_button"]]
+[node name="Tier4Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -257,7 +254,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier4Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier4Buttons" groups=["talent_button"]]
+[node name="Tier4Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -267,11 +264,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier3Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier3Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier3Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier3Buttons" groups=["talent_button"]]
+[node name="Tier3Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -281,7 +278,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier3Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier3Buttons" groups=["talent_button"]]
+[node name="Tier3Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -291,7 +288,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier3Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier3Buttons" groups=["talent_button"]]
+[node name="Tier3Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -301,11 +298,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier2Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier2Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier2Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+[node name="Tier2Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -315,7 +312,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier2Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+[node name="Tier2Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -325,7 +322,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier2Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
+[node name="Tier2Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -335,11 +332,11 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier1Buttons" type="HBoxContainer" parent="TalentPanel/VBoxContainer"]
+[node name="Tier1Buttons" type="HBoxContainer" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Tier1Button1" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+[node name="Tier1Button1" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -349,7 +346,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier1Button2" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+[node name="Tier1Button2" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -359,7 +356,7 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="Tier1Button3" type="TextureButton" parent="TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
+[node name="Tier1Button3" type="TextureButton" parent="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons" groups=["talent_button"]]
 layout_mode = 2
 toggle_mode = true
 action_mode = 0
@@ -369,35 +366,38 @@ texture_pressed = ExtResource("2_xuxyw")
 texture_hover = ExtResource("2_1fsxt")
 texture_disabled = ExtResource("2_pxyn2")
 
-[node name="ConfirmButton" type="Button" parent="TalentPanel/VBoxContainer"]
+[node name="ConfirmButton" type="Button" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 text = "Confirm
 "
 
-[node name="ResetButton" type="Button" parent="TalentPanel/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="BGDimmer/TalentPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 16
 text = "Reset
 "
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 379.5
-offset_top = 54.0
-offset_right = 644.5
-offset_bottom = 322.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="BGDimmer/TalentPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.5
+offset_right = 132.5
+offset_bottom = 268.0
+grow_horizontal = 2
 scale = Vector2(0.983953, 1.06422)
 mouse_filter = 2
 
-[node name="Tier8Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier8Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier8Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier8Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -408,12 +408,12 @@ text = "Reach Level 7"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier7Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier7Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier7Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier7Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -424,12 +424,12 @@ text = "Reach Level 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier6Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier6Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier6Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier6Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -440,12 +440,12 @@ text = "Reach Level 7"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier5Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier5Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier5Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier5Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -456,12 +456,12 @@ text = "Reach Level 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier4Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier4Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier4Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier4Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -472,12 +472,12 @@ text = "Reach Level 7"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier3Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier3Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier3Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier3Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -488,12 +488,12 @@ text = "Reach Level 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier2Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier2Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier2Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier2Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -504,12 +504,12 @@ text = "Reach Level 7"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tier1Block" type="Panel" parent="VBoxContainer2"]
+[node name="Tier1Block" type="Panel" parent="BGDimmer/TalentPanel/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u55q0")
 
-[node name="Label" type="Label" parent="VBoxContainer2/Tier1Block"]
+[node name="Label" type="Label" parent="BGDimmer/TalentPanel/VBoxContainer2/Tier1Block"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -522,7 +522,6 @@ vertical_alignment = 1
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 unique_name_in_owner = true
-transparent_bg = true
 size = Vector2i(21, 44)
 theme_override_styles/panel = SubResource("StyleBoxFlat_x1v3d")
 
@@ -543,53 +542,53 @@ grow_vertical = 2
 [node name="TooltipBG" parent="PopupPanel/TooltipContainer" instance=ExtResource("15_3pvlu")]
 layout_mode = 2
 
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button1" to="." method="_on_tier_8_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button1" to="." method="_on_tier_8_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button2" to="." method="_on_tier_8_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button2" to="." method="_on_tier_8_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button3" to="." method="_on_tier_8_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button3" to="." method="_on_tier_8_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button1" to="." method="_on_tier_7_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button1" to="." method="_on_tier_7_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button2" to="." method="_on_tier_7_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button2" to="." method="_on_tier_7_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button3" to="." method="_on_tier_7_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button3" to="." method="_on_tier_7_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button1" to="." method="_on_tier_6_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button1" to="." method="_on_tier_6_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button2" to="." method="_on_tier_6_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button2" to="." method="_on_tier_6_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button3" to="." method="_on_tier_6_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button3" to="." method="_on_tier_6_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button1" to="." method="_on_tier_5_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button1" to="." method="_on_tier_5_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button2" to="." method="_on_tier_5_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button2" to="." method="_on_tier_5_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button3" to="." method="_on_tier_5_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button3" to="." method="_on_tier_5_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button1" to="." method="_on_tier_4_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button1" to="." method="_on_tier_4_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button2" to="." method="_on_tier_4_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button2" to="." method="_on_tier_4_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button3" to="." method="_on_tier_4_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button3" to="." method="_on_tier_4_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button1" to="." method="_on_tier_3_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button1" to="." method="_on_tier_3_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button2" to="." method="_on_tier_3_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button2" to="." method="_on_tier_3_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button3" to="." method="_on_tier_3_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button3" to="." method="_on_tier_3_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button1" to="." method="_on_tier_2_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button1" to="." method="_on_tier_2_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button2" to="." method="_on_tier_2_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button2" to="." method="_on_tier_2_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button3" to="." method="_on_tier_2_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button3" to="." method="_on_tier_2_button_3_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button1" to="." method="_on_tier_1_button_1_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button1" to="." method="_on_tier_1_button_1_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button2" to="." method="_on_tier_1_button_2_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button2" to="." method="_on_tier_1_button_2_mouse_exited"]
-[connection signal="mouse_entered" from="TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button3" to="." method="_on_tier_1_button_3_mouse_entered"]
-[connection signal="mouse_exited" from="TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button3" to="." method="_on_tier_1_button_3_mouse_exited"]
-[connection signal="button_down" from="TalentPanel/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_button_down"]
-[connection signal="button_down" from="TalentPanel/VBoxContainer/ResetButton" to="." method="_on_reset_button_button_down"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button1" to="." method="_on_tier_8_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button1" to="." method="_on_tier_8_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button2" to="." method="_on_tier_8_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button2" to="." method="_on_tier_8_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button3" to="." method="_on_tier_8_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier8Buttons/Tier8Button3" to="." method="_on_tier_8_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button1" to="." method="_on_tier_7_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button1" to="." method="_on_tier_7_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button2" to="." method="_on_tier_7_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button2" to="." method="_on_tier_7_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button3" to="." method="_on_tier_7_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier7Buttons/Tier7Button3" to="." method="_on_tier_7_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button1" to="." method="_on_tier_6_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button1" to="." method="_on_tier_6_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button2" to="." method="_on_tier_6_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button2" to="." method="_on_tier_6_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button3" to="." method="_on_tier_6_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier6Buttons/Tier6Button3" to="." method="_on_tier_6_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button1" to="." method="_on_tier_5_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button1" to="." method="_on_tier_5_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button2" to="." method="_on_tier_5_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button2" to="." method="_on_tier_5_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button3" to="." method="_on_tier_5_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier5Buttons/Tier5Button3" to="." method="_on_tier_5_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button1" to="." method="_on_tier_4_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button1" to="." method="_on_tier_4_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button2" to="." method="_on_tier_4_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button2" to="." method="_on_tier_4_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button3" to="." method="_on_tier_4_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier4Buttons/Tier4Button3" to="." method="_on_tier_4_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button1" to="." method="_on_tier_3_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button1" to="." method="_on_tier_3_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button2" to="." method="_on_tier_3_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button2" to="." method="_on_tier_3_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button3" to="." method="_on_tier_3_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier3Buttons/Tier3Button3" to="." method="_on_tier_3_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button1" to="." method="_on_tier_2_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button1" to="." method="_on_tier_2_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button2" to="." method="_on_tier_2_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button2" to="." method="_on_tier_2_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button3" to="." method="_on_tier_2_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier2Buttons/Tier2Button3" to="." method="_on_tier_2_button_3_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button1" to="." method="_on_tier_1_button_1_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button1" to="." method="_on_tier_1_button_1_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button2" to="." method="_on_tier_1_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button2" to="." method="_on_tier_1_button_2_mouse_exited"]
+[connection signal="mouse_entered" from="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button3" to="." method="_on_tier_1_button_3_mouse_entered"]
+[connection signal="mouse_exited" from="BGDimmer/TalentPanel/VBoxContainer/Tier1Buttons/Tier1Button3" to="." method="_on_tier_1_button_3_mouse_exited"]
+[connection signal="button_down" from="BGDimmer/TalentPanel/VBoxContainer/ConfirmButton" to="." method="_on_confirm_button_button_down"]
+[connection signal="button_down" from="BGDimmer/TalentPanel/VBoxContainer/ResetButton" to="." method="_on_reset_button_button_down"]

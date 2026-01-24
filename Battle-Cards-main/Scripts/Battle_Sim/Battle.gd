@@ -47,7 +47,7 @@ func _ready():
 	emit_signal("start_of_battle")
 
 func connect_signal_setup():
-	enemy = get_tree().get_nodes_in_group("enemy")[0] 
+	enemy = get_tree().get_nodes_in_group("enemy")[0]
 	player = get_tree().get_nodes_in_group("character")[0]
 
 	player.connect_signals(self)
@@ -97,10 +97,17 @@ func combat(player_deck_list, enemy_deck_list):
 		if is_dead: break
 		emit_signal("end_of_turn")
 	
-	if is_dead: return
-	round_counter += round_incrementer
-	emit_signal("end_of_round", round_counter)
-	next_turn_handler()
+	if is_dead and player.character_stats.health <= 0:
+		Global.current_scene == "start_screen"
+		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
+		get_tree().get_first_node_in_group("main").add_scene("res://Scenes/UI/StartScreen/start_screen.tscn")
+		get_parent().queue_free()
+	elif is_dead:
+		end_fight_cleanup()
+	else:
+		round_counter += round_incrementer
+		emit_signal("end_of_round", round_counter)
+		next_turn_handler()
 
 func play_card():
 	var first = play_order_check(player_card, enemy_card)
@@ -155,7 +162,6 @@ func death_checker():
 	else: false
 	
 	if enemy.character_stats.health <= 0: 
-		end_fight_cleanup()
 		return true
 	else: false
 
@@ -200,8 +206,6 @@ func end_fight_cleanup():
 	for i in enemy_node.get_children():
 		i.queue_free()
 	$"../UI/Labels".visible = false
-	
-	print("FSDFSD00" + str(get_tree().get_first_node_in_group("player cards").inventory_card_slot_reference))
 
 func _on_start_button_button_down():
 	during_combat_ui_toggle()
@@ -249,8 +253,8 @@ func during_combat_ui_toggle():
 	$"../ConsumableManger".visible = true
 	$"../ConsumableManger".process_mode = Node.PROCESS_MODE_INHERIT
 	
-	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(false)
-	get_tree().get_first_node_in_group("player cards").toggle_combat_ui(true)
+	get_tree().get_first_node_in_group("bottom ui").is_battling = true
+	get_tree().get_first_node_in_group("bottom ui").toggle_combat_ui(true)
 	
 	player_deck_list = player_deck.build_deck()
 	enemy_deck_list = enemy_node.deck

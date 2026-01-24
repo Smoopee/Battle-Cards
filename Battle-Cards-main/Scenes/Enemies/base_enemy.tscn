@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwwv3sibc50m4"]
+[gd_scene load_steps=19 format=3 uid="uid://bwwv3sibc50m4"]
 
 [ext_resource type="Script" uid="uid://b1yahn21hgwbd" path="res://Resources/Enemies/enemy_class.gd" id="1_dvpn2"]
 [ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="2_k24bp"]
+[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="3_4215w"]
 [ext_resource type="PackedScene" uid="uid://bytg7c32ifr14" path="res://Scenes/UI/Enemy/enemy_buffs.tscn" id="3_x28el"]
 [ext_resource type="PackedScene" uid="uid://dkkuwrl21x050" path="res://Scenes/UI/Enemy/enemy_debuffs.tscn" id="4_bjjea"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="4_vhyvu"]
 [ext_resource type="PackedScene" uid="uid://bpd2de3rcq1y4" path="res://Scenes/Enemies/enemy_deck_node.tscn" id="5_87uqv"]
 [ext_resource type="PackedScene" uid="uid://4upwwtb4irk8" path="res://Scenes/Enemies/enemy_skills_node.tscn" id="5_orf8w"]
 [ext_resource type="Script" uid="uid://da58q7xfa5l85" path="res://Scripts/Enemies/Trogg/Runes.gd" id="7_qdf2y"]
@@ -11,6 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="9_xotyc"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="10_s27e1"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="11_4cvw8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sjjs4"]
+shader = ExtResource("3_4215w")
+shader_parameter/onoff = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8yrtx"]
 size = Vector2(142.5, 174)
@@ -34,6 +44,14 @@ texture = ExtResource("2_k24bp")
 
 [node name="EnemyBorder" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+
+[node name="GlowEffect" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_sjjs4")
+position = Vector2(-3.09944e-06, 3.72529e-06)
+scale = Vector2(1.07692, 1.06316)
+texture = ExtResource("4_vhyvu")
 
 [node name="EnemyBuffs" parent="." instance=ExtResource("3_x28el")]
 unique_name_in_owner = true
@@ -155,6 +173,7 @@ texture_progress = ExtResource("10_s27e1")
 
 [node name="StatContainer" type="VBoxContainer" parent="EnemyUI"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 156.0
 offset_top = 66.0

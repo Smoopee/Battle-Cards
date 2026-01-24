@@ -6,7 +6,6 @@ extends Node2D
 @onready var player_xp_label = %XpUnit
 
 var center_screen_x
-var reward
 var level_up_screen = false
 
 func _ready():
@@ -20,7 +19,6 @@ func level_up():
 func update_rewards():
 	var enemy_reward = $"../Enemy".enemy_reward()
 
-	
 	if enemy_reward.get_script() == load("res://Resources/Cards/cards_master_resource.gd"):
 		card_reward(enemy_reward)
 	elif enemy_reward.get_script() == load("res://Resources/Skills/skills_master_resource.gd"):
@@ -37,6 +35,7 @@ func update_rewards():
 
 
 func card_reward(enemy_reward):
+	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
@@ -50,11 +49,10 @@ func card_reward(enemy_reward):
 	new_scene.item_enchant(new_scene.card_stats.item_enchant)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
-	reward = new_scene
+
 
 func skill_reward(enemy_reward):
-	get_tree().get_first_node_in_group("character").inventory_screen_toggle(true)
-	
+	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
 	var new_scene = load(enemy_reward.skill_scene_path).instantiate()
 	new_scene.skill_stats = enemy_reward
 	add_child(new_scene)
@@ -63,7 +61,7 @@ func skill_reward(enemy_reward):
 	new_scene.upgrade_skill(new_scene.skill_stats.upgrade_level)
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
-	reward = new_scene
+
 
 func _on_button_button_down():
 	var card_manager = $"../PlayerCards"
@@ -85,16 +83,10 @@ func _on_button_button_down():
 		else:
 			temp_deck.push_back(null)
 	Global.player_deck = temp_deck
-	
-	
+
 	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
 	Global.save_function()
-	
-	
-	#if Global.intermission_tracker >= 2:
-		#Global.current_scene = "enemy selection"
-		#Global.intermission_tracker = 0
-		#get_tree().change_scene_to_file("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
+
 	if level_up_screen == true:
 		Global.battle_tracker += 1
 		Global.current_scene = "level up selection"

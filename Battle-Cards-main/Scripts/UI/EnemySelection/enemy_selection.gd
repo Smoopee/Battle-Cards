@@ -10,7 +10,6 @@ var screen_size
 var is_hoovering_on_card
 var card_being_dragged
 var card_selector_reference
-var is_toggle_inventory = false
 
 var glow_power = 3.0
 var speed = 2.0
@@ -19,19 +18,15 @@ var speed = 2.0
 func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
-	toggle_inventory()
+	
 
 func _process(delta):
 	if card_being_dragged:
-		glow_pulse(delta)
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
-	if event.is_action_pressed("Inventory"):
-		toggle_inventory()
-	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			$TooltipTimer.stop()
@@ -53,7 +48,7 @@ func finish_drag():
 	
 	if biome_found:
 		$Biomes.clear_biomes()
-		$EnemyOrganizer.enemy_setup(biome_found.name)
+		$EnemyOrganizer.enemy_setup(biome_found.biome_stats.biome_name)
 
 	if enemy_found:
 		card_being_dragged.position = enemy_found.global_position
@@ -73,14 +68,22 @@ func finish_drag():
 		queue_free()
 	else:
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
+		for i in get_tree().get_nodes_in_group("biome"):
+			i.get_child(0).highlight_card(true)
+		for i in get_tree().get_nodes_in_group("enemy"):
+			i.highlight_card(true)
+		card_being_dragged.highlight_card(false)
 		card_being_dragged = null
-		stop_card_glow()
 
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
-	start_card_glow()
 	Global.mouse_occupied = true
+	for i in get_tree().get_nodes_in_group("biome"):
+		i.get_child(0).highlight_card(false)
+	for i in get_tree().get_nodes_in_group("enemy"):
+		i.highlight_card(false)
+	card_being_dragged.highlight_card(true)
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
@@ -129,7 +132,6 @@ func get_card_with_highest_z_index(cards):
 func enemy_loader(enemy):
 	Global.current_enemy = enemy.character_stats.duplicate()
 
-
 func inventory_and_deck_save():
 	var temp_inventory = []
 	for i in player_inventory.inventory_card_slot_reference:
@@ -151,37 +153,3 @@ func display_enemy_cards(enemy):
 	for i in $EnemyDeckDisplay.get_children():
 		i.queue_free()
 	$EnemyDeckDisplay.create_enemy_cards(enemy)
-
-func toggle_inventory():
-	#From player screen to Inventory
-	if is_toggle_inventory == true:
-		$PlayerInventoryScreen.visible = true
-		$CardSelector.visible = false
-		$Player/Berserker.inventory_screen_toggle(true)
-		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
-		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
-		is_toggle_inventory = false
-	#From Inventory to Player Screen
-	else:
-		$PlayerInventoryScreen.visible = false
-		$CardSelector.visible = true
-		$Player/Berserker.inventory_screen_toggle(false)
-		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
-		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
-		is_toggle_inventory = true
-
-func start_card_glow():
-	for i in $Biomes.get_children():
-		i.get_node("GlowEffect").visible = true
-
-func stop_card_glow():
-	for i in $Biomes.get_children():
-		i.get_node("GlowEffect").visible = false
-
-func glow_pulse(delta):
-	for i in $Biomes.get_children():
-		glow_power += delta * speed
-		if glow_power >= 2.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
-			speed *= -1.0
-		i.get_node("GlowEffect").modulate.a = glow_power/ 4
-		i.get_node("GlowEffect").get_material().set_shader_parameter("glow_power", glow_power)

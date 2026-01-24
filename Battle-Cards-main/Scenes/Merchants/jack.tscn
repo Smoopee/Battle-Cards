@@ -1,67 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://gpyqoxy8ha4q"]
+[gd_scene load_steps=3 format=3 uid="uid://gpyqoxy8ha4q"]
 
-[ext_resource type="Script" path="res://Resources/Merchants/merchant_class.gd" id="1_8n36x"]
-[ext_resource type="Texture2D" uid="uid://cdr6q6ac2w38h" path="res://Resources/Art/Merchants/karver_merchant.png" id="2_x4n7r"]
-[ext_resource type="Script" path="res://Scripts/Merchants/jack_variables.gd" id="3_7ctya"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h717c"]
-size = Vector2(146, 180)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5tki"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[ext_resource type="Script" uid="uid://wpevdrct3qj3" path="res://Scripts/Merchants/jack.gd" id="1_wx57f"]
+[ext_resource type="PackedScene" uid="uid://byuun7s17ahy6" path="res://Scenes/Merchants/base_merchant.tscn" id="2_1g07t"]
 
 [node name="Jack" type="Node2D"]
-script = ExtResource("1_8n36x")
+script = ExtResource("1_wx57f")
 
-[node name="MerchantVariables" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("3_7ctya")
-
-[node name="MerchantImage" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-texture = ExtResource("2_x4n7r")
-
-[node name="BorderImage" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_h717c")
-
-[node name="MerchantUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -73.0
-offset_top = -90.0
-offset_right = 73.0
-offset_bottom = 90.0
-
-[node name="PopupPanel" type="PopupPanel" parent="."]
-unique_name_in_owner = true
-transparent_bg = true
-size = Vector2i(21, 44)
-theme_override_styles/panel = SubResource("StyleBoxFlat_u5tki")
-
-[node name="TooltipContainer" type="VBoxContainer" parent="PopupPanel"]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 20.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[connection signal="mouse_entered" from="MerchantUI" to="." method="_on_merchant_ui_mouse_entered"]
-[connection signal="mouse_exited" from="MerchantUI" to="." method="_on_merchant_ui_mouse_exited"]
+[node name="BaseMerchant" parent="." instance=ExtResource("2_1g07t")]

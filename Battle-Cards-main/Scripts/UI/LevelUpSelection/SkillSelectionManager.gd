@@ -15,7 +15,7 @@ func _ready():
 func _process(delta):
 	if skill_being_dragged:
 		var mouse_pos = get_global_mouse_position()
-		skill_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
+		skill_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
@@ -36,13 +36,15 @@ func finish_drag_skill():
 			upgrade_skill(upgradeable_skill)
 		else:
 			get_skill()
-	skill_reset()
+			get_parent().next_scene()
+	else:
+		skill_reset()
 
 func start_drag_skill(skill):
-	skill_being_dragged = skill
+	skill_being_dragged = skill.get_parent()
 	skill_being_dragged.scale = Vector2(1.1, 1.1)
 	skill_being_dragged.z_index = 2
-	skill_previous_position = skill.position
+	skill_previous_position = skill.global_position
 
 func raycast_check_for_skill():
 	var space_state = get_world_2d().direct_space_state
@@ -77,7 +79,7 @@ func skill_reset():
 func check_for_upgrade_skill():
 	if skill_being_dragged.skill_stats.upgrade_level >= 4: return
 	for i in get_tree().get_first_node_in_group("player skills").get_children():
-		if i.skill_stats.skill_name != skill_being_dragged.skill_stats.skill_name:
+		if i.skill_stats.name != skill_being_dragged.skill_stats.name:
 			continue
 		if i.skill_stats.upgrade_level == skill_being_dragged.skill_stats.upgrade_level:
 			return i
@@ -94,5 +96,3 @@ func get_skill():
 	$"../SkillSelectionCreator".remove_skill_from_inventory(skill_being_dragged)
 	skill_being_dragged.queue_free()
 	update_player_gold()
-
-

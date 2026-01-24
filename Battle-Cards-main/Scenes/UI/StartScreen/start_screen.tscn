@@ -31,15 +31,15 @@ script = ExtResource("1_hd3kb")
 position = Vector2(548, 238)
 script = ExtResource("3_vc6ht")
 
-[node name="Sprite2D" type="Sprite2D" parent="NewGame"]
-texture = ExtResource("3_dsfx2")
-
-[node name="ColorRect" type="ColorRect" parent="NewGame/Sprite2D"]
-self_modulate = Color(0, 0, 0, 0.5764706)
+[node name="ColorRect" type="ColorRect" parent="NewGame"]
+self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 0.74509805)
 offset_left = -49.333374
 offset_top = -64.0
 offset_right = 49.333313
 offset_bottom = 64.66669
+
+[node name="Sprite2D" type="Sprite2D" parent="NewGame"]
+texture = ExtResource("3_dsfx2")
 
 [node name="Area2D" type="Area2D" parent="NewGame"]
 collision_layer = 2
@@ -78,15 +78,15 @@ texture = ExtResource("6_b2pu5")
 position = Vector2(1287, 504)
 script = ExtResource("5_rj7o4")
 
-[node name="Sprite2D" type="Sprite2D" parent="LoadGame"]
-texture = ExtResource("3_dsfx2")
-
-[node name="ColorRect" type="ColorRect" parent="LoadGame/Sprite2D"]
-self_modulate = Color(0, 0, 0, 0.5764706)
+[node name="ColorRect" type="ColorRect" parent="LoadGame"]
+self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 0.74509805)
 offset_left = -49.333374
 offset_top = -64.0
 offset_right = 49.333313
 offset_bottom = 64.66669
+
+[node name="Sprite2D" type="Sprite2D" parent="LoadGame"]
+texture = ExtResource("3_dsfx2")
 
 [node name="Area2D" type="Area2D" parent="LoadGame"]
 collision_layer = 4

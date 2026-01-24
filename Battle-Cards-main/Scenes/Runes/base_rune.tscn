@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwc5irk035u0e"]
 
-[ext_resource type="Script" path="res://Resources/Runes/rune_class.gd" id="1_82u5h"]
+[ext_resource type="Script" uid="uid://dgju6k6sv2onp" path="res://Resources/Runes/rune_class.gd" id="1_82u5h"]
 [ext_resource type="Texture2D" uid="uid://diso5woo0pt0g" path="res://Resources/Art/Runes/concealed_rune.png" id="2_ifx8c"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="3_ijl05"]
 

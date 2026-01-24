@@ -1,0 +1,313 @@
+[gd_scene load_steps=25 format=3 uid="uid://xwc4sjwi65t"]
+
+[ext_resource type="Script" uid="uid://beednkkrc1u31" path="res://Scripts/Battle_Sim/battle_sim.gd" id="1_kogdo"]
+[ext_resource type="Script" uid="uid://ov1lqiycpbg4" path="res://Scripts/Battle_Sim/decks.gd" id="2_ti0s5"]
+[ext_resource type="Script" uid="uid://dbxpl2ovqrn68" path="res://Scripts/Battle_Sim/Enemy.gd" id="3_7ul7h"]
+[ext_resource type="Script" uid="uid://c0sag5c1lngk" path="res://Scripts/UI/Battle_Sim/UI.gd" id="5_ppjxe"]
+[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_th71o"]
+[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="6_otqk3"]
+[ext_resource type="PackedScene" uid="uid://bp847kvytvbu6" path="res://Scenes/Battle/battle_rewards.tscn" id="9_326y0"]
+[ext_resource type="Script" uid="uid://cgkxegxldb101" path="res://Scripts/Battle_Sim/SkillManager.gd" id="9_wyqok"]
+[ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="10_1g37w"]
+[ext_resource type="AudioStream" uid="uid://cxtsqm0vys3fa" path="res://Resources/Sound/Background/BattleBackground.wav" id="10_pbym1"]
+[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="11_02f8f"]
+[ext_resource type="Script" uid="uid://j36aoncuwt8h" path="res://Scripts/Battle_Sim/Battle.gd" id="12_05066"]
+[ext_resource type="Script" uid="uid://ddglqu7gnlvwk" path="res://Scripts/Battle_Sim/NextTurn.gd" id="13_gppgb"]
+[ext_resource type="PackedScene" uid="uid://jimrmkx6x18g" path="res://Scenes/UI/TalentTree/talent_tree.tscn" id="15_ob4kr"]
+[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="16_lpe1p"]
+[ext_resource type="Script" uid="uid://cj5mdiosnctnu" path="res://Scripts/Battle_Sim/CardTransform.gd" id="17_2744l"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mdhh2"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_aggqm"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_yw2p0"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hgeac"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_p1md6"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_umr5y"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4p0yo"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_h5ybu"]
+
+[node name="BerserkerBattleSim" type="Node2D"]
+script = ExtResource("1_kogdo")
+
+[node name="player_deck" type="Node2D" parent="." groups=["player deck"]]
+script = ExtResource("2_ti0s5")
+
+[node name="Enemy" type="Node2D" parent="." groups=["enemy deck"]]
+script = ExtResource("3_7ul7h")
+
+[node name="Player" parent="." instance=ExtResource("5_th71o")]
+
+[node name="Berserker" parent="Player" instance=ExtResource("6_otqk3")]
+
+[node name="BattleRewards" parent="." instance=ExtResource("9_326y0")]
+visible = false
+
+[node name="ConsumableManger" parent="." instance=ExtResource("10_1g37w")]
+
+[node name="SkillManager" type="Node2D" parent="."]
+script = ExtResource("9_wyqok")
+
+[node name="NextTurn" type="Node2D" parent="."]
+script = ExtResource("13_gppgb")
+
+[node name="PlayerCards" parent="." instance=ExtResource("11_02f8f")]
+
+[node name="Battle" type="Node2D" parent="." groups=["battle sim"]]
+visible = false
+script = ExtResource("12_05066")
+
+[node name="UI" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_ppjxe")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 1526.0
+offset_top = 771.0
+offset_right = 1914.0
+offset_bottom = 1015.0
+color = Color(0.254902, 0.254902, 0.254902, 0.752941)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/ColorRect"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 10.0
+offset_right = 374.0
+offset_bottom = 233.0
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
+
+[node name="Labels" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerDamageNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyDamageNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1774.0
+offset_top = 880.0
+offset_right = 1814.0
+offset_bottom = 926.0
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyBleedTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="EnemyBleedDrip" type="Label" parent="UI/Labels/EnemyBleedTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBleedTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBleedDrip" type="Label" parent="UI/Labels/PlayerBleedTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.652057, 0.0009675, 0.000530305, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerHealNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0.643698, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyHealNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0, 0.643698, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="PlayerReflectNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="EnemyReflectNumber" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 193.0
+offset_right = 1832.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.67451, 0.364706, 0.156863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+
+[node name="Rounds" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 42.0
+offset_right = 123.0
+offset_bottom = 58.0
+text = "Round: 1"
+
+[node name="EnemyBurnTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.920566, 0.37126, 0.203271, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="EnemyBurnt" type="Label" parent="UI/Labels/EnemyBurnTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.920566, 0.37126, 0.203271, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBurnTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.920566, 0.37126, 0.203271, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerBurnt" type="Label" parent="UI/Labels/PlayerBurnTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.920566, 0.37126, 0.203271, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="EnemyPoisonTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="EnemyDose" type="Label" parent="UI/Labels/EnemyPoisonTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerPoisonTaken" type="Label" parent="UI/Labels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="PlayerDose" type="Label" parent="UI/Labels/PlayerPoisonTaken"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0.431357, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_pbym1")
+volume_db = -80.0
+autoplay = true
+
+[node name="AnimationTimer" type="Timer" parent="."]
+wait_time = 0.6
+autostart = true
+
+[node name="TalentTree" parent="." instance=ExtResource("15_ob4kr")]
+process_mode = 3
+visible = false
+group1 = SubResource("ButtonGroup_mdhh2")
+group2 = SubResource("ButtonGroup_aggqm")
+group3 = SubResource("ButtonGroup_yw2p0")
+group4 = SubResource("ButtonGroup_hgeac")
+group5 = SubResource("ButtonGroup_p1md6")
+group6 = SubResource("ButtonGroup_umr5y")
+group7 = SubResource("ButtonGroup_4p0yo")
+group8 = SubResource("ButtonGroup_h5ybu")
+
+[node name="TooltipTimer" type="Timer" parent="."]
+
+[node name="BottomNavBar" parent="." instance=ExtResource("16_lpe1p")]
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 1797.0
+offset_top = 910.0
+offset_right = 1885.0
+offset_bottom = 934.0
+text = "Start"
+
+[node name="ContinueButton" type="Button" parent="."]
+offset_left = 1755.0
+offset_top = 955.0
+offset_right = 1891.0
+offset_bottom = 979.0
+text = "Continue"
+
+[node name="CardTransform" type="Node" parent="." groups=["card transform"]]
+script = ExtResource("17_2744l")
+
+[node name="PlayOrder" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_timer_timeout"]
+[connection signal="button_down" from="StartButton" to="Battle" method="_on_start_button_button_down"]
+[connection signal="button_down" from="ContinueButton" to="Battle" method="_on_continue_button_button_down"]

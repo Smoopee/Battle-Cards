@@ -16,7 +16,7 @@ shader_parameter/glow_radius = 10.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dr6uf"]
 size = Vector2(267, 175)
 
-[node name="Forest" type="Node2D"]
+[node name="Forest" type="Node2D" groups=["biome"]]
 
 [node name="BiomeImage" type="Sprite2D" parent="."]
 texture = ExtResource("1_noic1")

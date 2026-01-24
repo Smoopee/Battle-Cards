@@ -78,7 +78,7 @@ func skill_reset():
 func check_for_upgrade_skill():
 	if skill_being_dragged.skill_stats.upgrade_level >= 4: return
 	for i in get_tree().get_first_node_in_group("player skills").get_children():
-		if i.skill_stats.skill_name != skill_being_dragged.skill_stats.skill_name:
+		if i.skill_stats.name != skill_being_dragged.skill_stats.name:
 			continue
 		if i.skill_stats.upgrade_level == skill_being_dragged.skill_stats.upgrade_level:
 			return i

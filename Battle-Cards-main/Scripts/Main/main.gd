@@ -8,7 +8,7 @@ func _ready():
 
 func add_scene(scene_path):
 	var new_scene = load(scene_path).instantiate()
-	add_child(new_scene)
+	add_child.call_deferred(new_scene)
 
 func scene_transition(alpha, duration):
 	await $Fader.fade(alpha, duration).finished

@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://cl37it5rms21m"]
+
+[ext_resource type="Script" uid="uid://dxp31dbbn0veu" path="res://Scripts/Biomes/base_biome.gd" id="1_bpjsm"]
+[ext_resource type="Texture2D" uid="uid://cqim1po1eiipt" path="res://Resources/Art/Biomes/mountains_biome.png" id="2_1j6i1"]
+[ext_resource type="Texture2D" uid="uid://liw5xpk8eqv8" path="res://Resources/Art/UIElements/Borders/biome_border_rarity1.png" id="3_d5s4c"]
+[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="4_tm7yr"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="5_o7hsc"]
+[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="6_d5s4c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fm4gi"]
+shader = ExtResource("4_tm7yr")
+shader_parameter/onoff = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqiiq"]
+size = Vector2(267, 175)
+
+[node name="BaseBiome" type="Node2D"]
+script = ExtResource("1_bpjsm")
+
+[node name="BiomeImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_1j6i1")
+
+[node name="BorderImage" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("3_d5s4c")
+
+[node name="GlowEffect" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_fm4gi")
+position = Vector2(-0.4999931, -0.5000005)
+scale = Vector2(1.8782052, 1.0052632)
+texture = ExtResource("5_o7hsc")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_lqiiq")
+
+[node name="TooltipPanel" parent="." instance=ExtResource("6_d5s4c")]
+unique_name_in_owner = true

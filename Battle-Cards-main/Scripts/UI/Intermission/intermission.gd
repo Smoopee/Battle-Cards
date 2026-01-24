@@ -4,20 +4,14 @@ const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_MERCHANT = 32
 
 @onready var player_inventory = $PlayerInventoryScreen
+@onready var card_selector_reference = $CardSelector
 var screen_size
 var card_being_dragged
-@onready var card_selector_reference = $CardSelector
 
-var intermission_screen = true
-var is_toggle_inventory = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
 	Global.intermission_tracker += 1
-	toggle_inventory()
-
-func test():
-	pass
 
 func _process(delta):
 	if card_being_dragged:
@@ -26,9 +20,6 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 	
 func _input(event):
-	if event.is_action_pressed("Inventory"):
-		toggle_inventory()
-		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card_selector()
@@ -45,7 +36,7 @@ func finish_drag():
 	
 	if merchant_found:
 		Global.current_merchant = merchant_found.merchant_stats
-		card_being_dragged.position = merchant_found.position
+		card_being_dragged.position = merchant_found.global_position
 		card_being_dragged = null
 		if merchant_found.merchant_stats.merchant_type == "Town":
 			go_to_town()
@@ -55,6 +46,9 @@ func finish_drag():
 			go_to_shop()
 		
 	else:
+		for i in get_tree().get_nodes_in_group("merchant"):
+			i.get_child(0).highlight_card(true)
+		card_being_dragged.highlight_card(false)
 		card_selector_reference.animate_card_to_position(card_being_dragged, card_being_dragged.home_position)
 		card_being_dragged = null
 
@@ -62,6 +56,9 @@ func start_drag(card):
 	Global.mouse_occupied = true
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
+	for i in get_tree().get_nodes_in_group("merchant"):
+		i.get_child(0).highlight_card(false)
+	card_being_dragged.highlight_card(true)
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state
@@ -120,11 +117,13 @@ func _on_skip_button_button_down():
 	Global.save_function()
 	if Global.intermission_tracker <= 1: 
 		Global.intermission_tracker += 1
+		Global.current_scene = "intermission"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
 		queue_free()
 	else:
 		Global.intermission_tracker = 0
+		Global.current_scene = "enemy_selection"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 		queue_free()
@@ -153,34 +152,13 @@ func on_hovered_off(card):
 	card.scale = Vector2(1, 1) * Global.ui_scaler
 	card.z_index = 1
 
-func toggle_inventory():
-	#From player screen to Inventory
-	if is_toggle_inventory == true:
-		$PlayerInventoryScreen.visible = true
-		$CardSelector.visible = false
-		$Player/Berserker.inventory_screen_toggle(true)
-		#$MerchantOrganizer.visible = false
-		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
-		#$MerchantOrganizer.process_mode = Node.PROCESS_MODE_DISABLED
-		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
-		is_toggle_inventory = false
-	#From Inventory to Player Screen
-	else:
-		$PlayerInventoryScreen.visible = false
-		$CardSelector.visible = true
-		$Player/Berserker.inventory_screen_toggle(false)
-		#$MerchantOrganizer.visible = true
-		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
-		#$MerchantOrganizer.process_mode = Node.PROCESS_MODE_INHERIT
-		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
-		is_toggle_inventory = true
-
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.
 
 func go_to_shop():
 	inventory_and_deck_save()
 	Global.save_function()
+	Global.current_scene = "shop"
 	$MerchantOrganizer.queue_free()
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/Shop/shop.tscn")
@@ -189,6 +167,7 @@ func go_to_shop():
 func go_to_town():
 	inventory_and_deck_save()
 	Global.save_function()
+	Global.current_scene = "town"
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/Town/town.tscn")
 	queue_free()
@@ -196,6 +175,7 @@ func go_to_town():
 func go_camping():
 	inventory_and_deck_save()
 	Global.save_function()
+	Global.current_scene = "camping"
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/Camp/Camp.tscn")
 	queue_free()

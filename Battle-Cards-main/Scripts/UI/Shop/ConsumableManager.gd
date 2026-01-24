@@ -30,7 +30,7 @@ func _input(event):
 
 func start_drag_consumable(consumable):
 	consumable_being_dragged = consumable.get_parent()
-	consumable_being_dragged.scale = Vector2(1.1, 1.1)
+	consumable_being_dragged.scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	consumable_being_dragged.z_index = 2
 	consumable_previous_position = consumable.get_parent().position
 
@@ -76,7 +76,6 @@ func buy_consumable():
 	update_player_gold()
 
 func consumable_reset():
-	consumable_being_dragged.scale = Vector2(1, 1)
+	consumable_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	consumable_being_dragged.z_index = 1
 	consumable_being_dragged = null
-

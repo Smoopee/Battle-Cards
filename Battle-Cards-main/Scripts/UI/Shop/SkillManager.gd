@@ -40,7 +40,7 @@ func finish_drag_skill():
 
 func start_drag_skill(skill):
 	skill_being_dragged = skill.get_parent()
-	skill_being_dragged.scale = Vector2(1.1, 1.1)
+	skill_being_dragged.scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	skill_being_dragged.z_index = 2
 	skill_previous_position = skill.get_parent().position
 
@@ -70,7 +70,7 @@ func update_player_gold():
 	$"../BottomNavBar".change_player_gold() 
 
 func skill_reset():
-	skill_being_dragged.scale = Vector2(1, 1)
+	skill_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	skill_being_dragged.z_index = 1
 	skill_being_dragged = null
 
@@ -101,5 +101,3 @@ func buy_skill():
 	$"../MerchantSkills".remove_skill_from_inventory(skill_being_dragged)
 	skill_being_dragged.queue_free()
 	update_player_gold()
-
-

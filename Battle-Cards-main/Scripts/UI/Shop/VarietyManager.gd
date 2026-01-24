@@ -30,7 +30,7 @@ func _input(event):
 
 func start_drag_enchantment(enchantment):
 	enchantment_being_dragged = enchantment.get_parent()
-	enchantment_being_dragged.scale = Vector2(1.1, 1.1)
+	enchantment_being_dragged.scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	enchantment_being_dragged.z_index = 2
 	enchantment_previous_position = enchantment.get_parent().position
 
@@ -90,6 +90,6 @@ func enchant_from_merchant(enchantment, base_card):
 	update_player_gold()
 
 func enchantment_reset():
-	enchantment_being_dragged.scale = Vector2(1, 1)
+	enchantment_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler
 	enchantment_being_dragged.z_index = 1
 	enchantment_being_dragged = null

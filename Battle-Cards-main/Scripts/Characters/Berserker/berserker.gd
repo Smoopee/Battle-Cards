@@ -183,7 +183,7 @@ func change_health(amount):
 	character_stats.health += amount
 	if character_stats.health > character_stats.max_health: character_stats.health = character_stats.max_health
 	$PlayerHealthBar.value = character_stats.health
-	$PlayerHealthBar/PlayerHealthLabel.text = str($PlayerHealthBar.value) + "/" + str($PlayerHealthBar.max_value)
+	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
 	emit_signal("health_changed")
 
 func stun_toggle(toggle):
@@ -236,28 +236,6 @@ func rage_attack_buff():
 	add_buff(buff_resource, self)
 
 #OTHER =============================================================================================
-func inventory_screen_toggle(toggle):
-	if toggle:
-		$RageBar.visible = false
-		$StatContainer.visible = false
-		$BlockSymbol.visible = false
-		$ClassImage.visible = false
-		get_tree().get_first_node_in_group("player runes").visible = false
-		get_tree().get_first_node_in_group("player skills").visible = false
-		$PlayerHealthBar.visible = false
-		$Area2D.process_mode = Node.PROCESS_MODE_DISABLED
-		get_tree().get_first_node_in_group("player consumables").organize_consumables_horiziontal()
-	if !toggle:
-		$RageBar.visible = true
-		$StatContainer.visible = true
-		if character_stats.block >= 0: $BlockSymbol.visible = true
-		$ClassImage.visible = true
-		get_tree().get_first_node_in_group("player runes").visible = true
-		get_tree().get_first_node_in_group("player skills").visible = true
-		$PlayerHealthBar.visible = true
-		$Area2D.process_mode = Node.PROCESS_MODE_INHERIT
-		get_tree().get_first_node_in_group("player consumables").organize_consumables()
-
 func active_deck_access():
 	var temp_array = Global.player_deck + Global.player_inventory
 	return temp_array

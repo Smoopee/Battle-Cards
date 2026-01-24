@@ -91,8 +91,8 @@ func calculate_card_position(index):
 		more_space = 30
 	if selected_inventory.size() > 12:
 		more_space = 50
-	var total_width = (selected_inventory.size() - 1) * (CARD_WIDTH - more_space)
-	var x_offset = center_screen_x + (index * (CARD_WIDTH - more_space)) - (total_width / 2)
+	var total_width = (selected_inventory.size() - 1) * (CARD_WIDTH * Global.ui_scaler.x - more_space)
+	var x_offset = center_screen_x + (index * (CARD_WIDTH * Global.ui_scaler.x - more_space)) - (total_width / 2)
 	return x_offset
 
 func remove_card_from_hand(card):

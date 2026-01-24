@@ -12,6 +12,7 @@ extends Control
 @onready var level = Global.player_level
 @onready var tooltip = %PopupPanel
 @onready var tooltip_container = %TooltipContainer
+@onready var vbox = $BGDimmer/TalentPanel/VBoxContainer2
 var talent_tree_reference = load("res://Scripts/Characters/Berserker/Talents/berserker_talents.gd")
 
 var tier1_access = false
@@ -35,6 +36,7 @@ var tier8_chosen = false
 
 
 func _ready():
+	
 	Global.connect("level_up", level_up)
 	create_talent_tree()
 	talent_access_check()

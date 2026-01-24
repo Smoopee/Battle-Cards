@@ -45,6 +45,7 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="TalentButton" type="Button" parent="ColorRect/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Talents"
 
@@ -57,9 +58,9 @@ offset_right = 121.0
 offset_bottom = 10.0
 texture = ExtResource("2_3dam2")
 
-[node name="MenuButton" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="Character" type="Button" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
-text = "Menu"
+text = "Character"
 
 [node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer"]
 layout_mode = 2
@@ -71,6 +72,11 @@ layout_mode = 2
 text = "Back
 "
 
+[node name="MenuButton" type="Button" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+text = "Menu"
+
 [connection signal="button_down" from="ColorRect/HBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
+[connection signal="button_down" from="ColorRect/HBoxContainer/Character" to="." method="_on_character_button_down"]
 [connection signal="button_down" from="ColorRect/HBoxContainer/InventoryButton" to="." method="_on_inventory_pressed"]
 [connection signal="button_down" from="ColorRect/HBoxContainer/BackButton" to="." method="_on_back_button_button_down"]

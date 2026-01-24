@@ -16,7 +16,7 @@ shader_parameter/glow_radius = 10.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52q5g"]
 size = Vector2(140, 175)
 
-[node name="CardSelector" type="Node2D"]
+[node name="CardSelector" type="Node2D" groups=["card selector"]]
 z_index = 2
 script = ExtResource("1_20arn")
 

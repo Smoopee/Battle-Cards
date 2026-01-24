@@ -7,8 +7,8 @@ func next_turn():
 	cd_handler(get_tree().get_nodes_in_group("card"))
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
 	slot_player_cards()
-	get_tree().get_first_node_in_group("player cards").toggle_combat_ui(false)
-	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
+	get_tree().get_first_node_in_group("bottom ui").is_battling = false
+	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
 
 func cd_handler(cards):
 	for i in cards:
@@ -43,10 +43,8 @@ func slot_player_cards():
 		count += 1
 
 func end_fight():
+	get_tree().get_first_node_in_group("bottom ui").is_battling = false
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
-	
-	get_tree().get_nodes_in_group("character")[0].inventory_screen_toggle(true)
-	get_tree().get_first_node_in_group("player cards").toggle_combat_ui(false)
 	$"../ConsumableManger".visible = false
 	
 	for i in get_tree().get_nodes_in_group("card"):

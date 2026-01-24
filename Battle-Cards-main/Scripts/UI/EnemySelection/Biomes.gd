@@ -28,7 +28,8 @@ func _ready():
 
 func create_encounter(biome_event_array):
 	for i in range(biome_event_array.size()):
-		var new_event = biome_event_array[i].instantiate()
+		var new_event = load(biome_event_array[i].biome_scene_path).instantiate().duplicate()
+		new_event.biome_stats = biome_event_array[i]
 		add_child(new_event)
 		biome_event_selection.push_front(new_event)
 		update_event_positions()

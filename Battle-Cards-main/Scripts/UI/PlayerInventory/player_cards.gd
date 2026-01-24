@@ -73,7 +73,6 @@ func _input(event):
 				finish_drag()
 
 func start_drag(card):
-	#card.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_IGNORE
 	emit_signal("started_card_drag")
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
@@ -264,6 +263,9 @@ func enchant_from_inventory(base_card):
 	base_card.card_shop_ui()
 
 func move_from_inventory_to_deck(card_being_dragged, deck_slot):
+	if inventory_reference == card_being_dragged.get_parent():
+		inventory_reference.remove_child(card_being_dragged)
+		deck_reference.add_child(card_being_dragged)
 	card_being_dragged.position = deck_slot.position
 	deck_slot.card_in_slot = true
 	deck_card_slot_reference.remove_at(deck_card_slot_index)
@@ -274,6 +276,9 @@ func move_from_inventory_to_deck(card_being_dragged, deck_slot):
 	print("I am Here 1")
 
 func move_from_deck_to_inventory(card_being_dragged, inventory_slot):
+	if deck_reference == card_being_dragged.get_parent():
+		deck_reference.remove_child(card_being_dragged)
+		inventory_reference.add_child(card_being_dragged)
 	card_being_dragged.position = inventory_slot.position
 	inventory_slot.card_in_slot = true
 	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
@@ -315,7 +320,6 @@ func deck_sorting(card_being_dragged, deck_slot):
 					temp_card = second_temp
 					loop_counter += 1
 					print("I am Here 3")
-					print(deck_card_slot_reference)
 
 		else:
 			while loop_counter != 20:
@@ -338,6 +342,8 @@ func deck_sorting(card_being_dragged, deck_slot):
 
 func inventory_to_deck_swap(card_being_dragged, deck_slot):
 	var deck_full = true
+	inventory_reference.remove_child(card_being_dragged)
+	deck_reference.add_child(card_being_dragged)
 	for i in deck_card_slot_array:
 		if i.card_in_slot == false:
 			deck_full = false
@@ -397,6 +403,8 @@ func inventory_to_deck_swap(card_being_dragged, deck_slot):
 					print("I am Here 16")
 	else:
 		var temp_card = deck_card_slot_reference[deck_card_slot_index]
+		deck_reference.remove_child(temp_card)
+		inventory_reference.add_child(temp_card)
 		deck_reference.animate_card_to_position(card_being_dragged, deck_card_slot_array[deck_card_slot_index].position)
 		deck_card_slot_reference.remove_at(deck_card_slot_index)
 		deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
@@ -457,6 +465,8 @@ func inventory_sorting(card_being_dragged, inventory_card_slot_found):
 
 func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 	var inventory_full = true
+	deck_reference.remove_child(card_being_dragged)
+	inventory_reference.add_child(card_being_dragged)
 	for i in inventory_card_slot_array:
 		if i.card_in_slot == false:
 			inventory_full = false
@@ -516,6 +526,8 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 					print("I am Here 11")
 	else:
 		var temp_card = inventory_card_slot_reference[inventory_card_slot_index]
+		inventory_reference.remove_child(temp_card)
+		deck_reference.add_child(temp_card)
 		inventory_reference.animate_card_to_position(card_being_dragged, inventory_card_slot_array[inventory_card_slot_index].position)
 		inventory_card_slot_reference.remove_at(inventory_card_slot_index)
 		inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
@@ -551,11 +563,3 @@ func clear_full_art():
 	for i in $FullArt.get_children():
 		i.queue_free()
 	full_art_toggle = false
-
-func toggle_combat_ui(toggle):
-	if toggle:
-		$DeckCardSlots.visible = false
-		$InventorySlots.visible = false
-	else:
-		$DeckCardSlots.visible = true
-		$InventorySlots.visible = true

@@ -1,29 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4eqel671j6v4"]
+[gd_scene load_steps=3 format=3 uid="uid://c4eqel671j6v4"]
 
-[ext_resource type="Script" path="res://Resources/Merchants/merchant_class.gd" id="1_rlbit"]
-[ext_resource type="Texture2D" uid="uid://cdr6q6ac2w38h" path="res://Resources/Art/Merchants/karver_merchant.png" id="2_kelp7"]
-[ext_resource type="Script" path="res://Scripts/Merchants/rand_dom_variables.gd" id="3_yb8yi"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ro63"]
-size = Vector2(146, 180)
+[ext_resource type="Script" uid="uid://dn283db6jwixm" path="res://Scripts/Merchants/rand_dom.gd" id="1_3hf8x"]
+[ext_resource type="PackedScene" uid="uid://byuun7s17ahy6" path="res://Scenes/Merchants/base_merchant.tscn" id="2_3hf8x"]
 
 [node name="RandDom" type="Node2D"]
-script = ExtResource("1_rlbit")
+script = ExtResource("1_3hf8x")
 
-[node name="MerchantImage" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-texture = ExtResource("2_kelp7")
-
-[node name="BorderImage" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-
-[node name="MerchantVariables" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("3_yb8yi")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_8ro63")
+[node name="BaseMerchant" parent="." instance=ExtResource("2_3hf8x")]

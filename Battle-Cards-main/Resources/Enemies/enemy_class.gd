@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name Enemy
+#class_name Enemy
 
 signal generate_reward
 signal health_changed
@@ -15,6 +15,8 @@ signal poisoning_damage_taken
 signal heal_received
 
 @onready var character_stats = get_parent().character_stats
+@onready var glow_effect = $GlowEffect
+
 
 const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = 0
@@ -47,7 +49,8 @@ var stun_indicator : Panel
 var stun_label : Label
 var tooltip : Panel
 var tooltip_container : VBoxContainer
-
+var glow_power = 3.0
+var speed = 2.0
 
 var reward_array = []
 var difficulty_level
@@ -60,10 +63,19 @@ var temp_physical_damage = 0
 
 func _ready():
 	self.scale = Global.ui_scaler
+	add_to_group("enemy")
 	set_node_names()
 	if Global.current_scene != "battle_sim":
 		%Skills.visible = false
 	else: %Skills.visible = true
+
+func _process(delta):
+	if glow_effect:
+		glow_power += delta * speed
+		if glow_power >= 2.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
+			speed *= -1.0
+		$GlowEffect.modulate.a = glow_power/ 4
+		$GlowEffect.get_material().set_shader_parameter("glow_power", glow_power)
 
 func setup():
 	set_stat_container()
@@ -313,7 +325,6 @@ func get_reward():
 	reward_array = enemy_deck.enemy_deck + skills.enemy_skills 
 	emit_signal("generate_reward")
 	var reward_index =  rng.randi_range(0, reward_array.size()-1)
-	print("BASE ENEMY REWARD ARRAY IS " + str(reward_array[reward_index]))
 	return reward_array[reward_index]
 
 func active_enemy_deck_access():
@@ -362,7 +373,6 @@ func set_node_names():
 	enemy_image.texture = load(character_stats.enemy_art_path)
 	enemy_border.texture = load(character_stats.enemy_border_art_path)
 	z_index = 1
-	add_to_group("enemy")
 
 #WIP TOOLTIPS======================================================================================
 func toggle_tooltip_show():
@@ -396,6 +406,14 @@ func update_tooltip(category, identifier, body = null, header = null):
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
 		temp.update_tooltip(category, identifier, body, header)
+
+func highlight_card(being_dragged):
+	if being_dragged:
+		z_index = 2
+		$GlowEffect.visible = false
+	else:
+		z_index = 1
+		$GlowEffect.visible = true
 
 func _on_enemy_ui_mouse_entered():
 	if Global.mouse_occupied == true: return

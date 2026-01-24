@@ -42,9 +42,10 @@ func finish_drag():
 		Global.player_class = class_selected.set_class()
 		Global.player_stats = load("res://Resources/Character/berserker.tres")
 		Global.save_function()
-		card_being_dragged.position = class_selected.position + Vector2(0, 120)
+		card_being_dragged.position = class_selected.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
+		Global.current_scene = "intermission"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
 		queue_free()

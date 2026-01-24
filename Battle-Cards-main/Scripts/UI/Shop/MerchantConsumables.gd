@@ -34,8 +34,9 @@ func create_merchant_inventory():
 		consumable_position += 1
 
 func fetch_merchant_inventory():
-	$"../Merchant".get_child(0).get_inventory()
-	inventory_db = $"../Merchant".get_child(0).inventory
+	var merchant_reference = get_tree().get_first_node_in_group("merchant").get_child(0)
+	merchant_reference.get_inventory()
+	inventory_db = merchant_reference.inventory
 
 func add_consumable_to_inventory(consumable):
 	if consumable not in inventory:

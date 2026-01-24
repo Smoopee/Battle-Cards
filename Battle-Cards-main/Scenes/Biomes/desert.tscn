@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkamfrv4wd1pa"]
+
+[ext_resource type="PackedScene" uid="uid://cl37it5rms21m" path="res://Scenes/Biomes/base_biome.tscn" id="1_2y4qb"]
+[ext_resource type="Script" uid="uid://bkagxm0u172u4" path="res://Scripts/Biomes/desert.gd" id="1_7pwb7"]
+
+[node name="Desert" type="Node2D"]
+script = ExtResource("1_7pwb7")
+
+[node name="BaseBiome" parent="." instance=ExtResource("1_2y4qb")]

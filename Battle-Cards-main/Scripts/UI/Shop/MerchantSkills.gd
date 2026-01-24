@@ -25,7 +25,6 @@ func create_merchant_inventory():
 	for i in inventory:
 		i.get_node("BaseSkill").get_node("Area2D").collision_mask = 512
 		i.get_node("BaseSkill").get_node("Area2D").collision_layer = 512
-	
 		i.get_node("BaseSkill").toggle_shop_ui(true)
 		i.get_node("BaseSkill").skill_shop_ui()
 		i.skill_stats.inventory_position = skill_position
@@ -33,8 +32,9 @@ func create_merchant_inventory():
 		skill_position += 1
 
 func fetch_merchant_inventory():
-	$"../Merchant".get_child(0).get_inventory()
-	inventory_db = $"../Merchant".get_child(0).inventory
+	var merchant_reference = get_tree().get_first_node_in_group("merchant").get_child(0)
+	merchant_reference.get_inventory()
+	inventory_db = merchant_reference.inventory
 
 func add_skill_to_inventory(skill):
 	if skill not in inventory:
