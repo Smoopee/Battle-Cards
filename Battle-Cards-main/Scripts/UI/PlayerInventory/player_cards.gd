@@ -31,6 +31,8 @@ var inventory_card_slot_reference_index
 var previous_card_slot
 var inventory_screen = false
 var full_art_toggle = false
+var deck_is_full = true
+var inventory_is_full = true
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
@@ -137,11 +139,24 @@ func finish_drag():
 			card_reset()
 			return
 	
+	if raycast_check_for_card() and not card_being_dragged.card_stats.is_players:
+		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent()):
+			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card().get_parent())
+			print("Upgrade from merchant")
+			card_reset()
+			return
+	
 	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
 	card_sorted = false
+	
+	if !card_being_dragged.card_stats.is_players:
+		animate_card_to_position(card_being_dragged, card_previous_position)
 	card_reset()
-	card_being_dragged = null
-
+	
+func animate_card_to_position(card, new_position):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", new_position, 0.1)
+	
 func raycast_check_for_deck_slot():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()

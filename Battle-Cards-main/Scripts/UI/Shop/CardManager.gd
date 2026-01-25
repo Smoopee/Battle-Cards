@@ -184,6 +184,8 @@ func buy_card_for_deck(card, deck_slot):
 	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
 	card_being_dragged.position = deck_slot.position
 	deck_slot.card_in_slot = true
+	$"../MerchantCards".remove_child(card)
+	get_tree().get_first_node_in_group("player deck").add_child(card)
 	deck_card_slot_reference.remove_at(deck_card_slot_index)
 	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
 	card.card_stats.is_players = true
@@ -201,6 +203,8 @@ func buy_card_for_inventory(card, inventory_slot):
 	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
 	card_being_dragged.global_position = inventory_slot.global_position
 	inventory_slot.card_in_slot = true
+	$"../MerchantCards".remove_child(card)
+	get_tree().get_first_node_in_group("player inventory").add_child(card)
 	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
 	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
 	card.card_stats.is_players = true
