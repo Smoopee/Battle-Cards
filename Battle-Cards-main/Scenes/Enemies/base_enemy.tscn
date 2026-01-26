@@ -173,7 +173,6 @@ texture_progress = ExtResource("10_s27e1")
 
 [node name="StatContainer" type="VBoxContainer" parent="EnemyUI"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
 offset_left = 156.0
 offset_top = 66.0

@@ -107,6 +107,7 @@ func take_physical_damage(damage):
 	receiving_physical_dmg = damage
 	receiving_physical_dmg -= character_stats.armor
 	receiving_physical_dmg -= character_stats.defense
+	receiving_physical_dmg = block_damage(damage)
 	if character_stats.is_stunned: 
 		receiving_physical_dmg *= 2
 	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
@@ -222,14 +223,13 @@ func change_block():
 	if character_stats.block <= 0: $BlockSymbol.visible = false
 
 #CLASS MECHANICS ==============================================+====================================
-func block_damage():
+func block_damage(damage):
 	var mitigated_damage
-	mitigated_damage = battle_sim.damage - character_stats.block
+	mitigated_damage = damage - character_stats.block
 	if mitigated_damage < 0: mitigated_damage = 0
-	
-	battle_sim.damage = mitigated_damage
 	character_stats.block = 0 
 	change_block()
+	return mitigated_damage
 
 func rage_attack_buff():
 	var buff_resource = load("res://Resources/Buffs/raging.tres")

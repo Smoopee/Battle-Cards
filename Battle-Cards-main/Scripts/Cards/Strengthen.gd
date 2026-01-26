@@ -7,7 +7,6 @@ var card_stats: Cards_Resource = null
 
 func effect(player_deck, enemy_deck, player, enemy):
 	var target = stats.owner
-	print("In strenghthen card effect, owner is " + str(target))
 	var buff_resource = load('res://Resources/Buffs/strengthen.tres')
 	target.add_buff(buff_resource, card)
 
@@ -65,7 +64,4 @@ func item_enchant(enchant):
 			stats.item_enchant = "Restoration"
 		"Toxic":
 			stats.item_enchant = "Toxic"
-	card.update_card_ui()
-
-func update_card_ui():
 	card.update_card_ui()

@@ -14,6 +14,7 @@ func _ready():
 
 func create_merchant_inventory():
 	fetch_merchant_inventory()
+	card_upgrade_function()
 	
 	for i in range(inventory_db.size()):
 		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
@@ -36,6 +37,16 @@ func fetch_merchant_inventory():
 	var merchant_reference = get_tree().get_first_node_in_group("merchant").get_child(0)
 	merchant_reference.get_inventory()
 	inventory_db = merchant_reference.inventory
+
+func card_upgrade_function():
+	var rng = RandomNumberGenerator.new()
+	
+	for i in inventory_db:
+		var upgrade_calc = rng.randi_range(0, 99)
+		if upgrade_calc >= 96: i.upgrade_level = 4
+		elif upgrade_calc >= 69: i.upgrade_level = 3
+		elif upgrade_calc >= 49: i.upgrade_level = 2
+		elif upgrade_calc >= 0: i.upgrade_level = 1
 
 func add_card_to_hand(card):
 	if card not in inventory:

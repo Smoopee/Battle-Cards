@@ -13,6 +13,7 @@ func _ready():
 
 func create_merchant_inventory():
 	fetch_merchant_inventory()
+	skill_upgrade_function()
 	
 	for i in range(inventory_db.size()):
 		var skill_scene = load(inventory_db[i].skill_scene_path).instantiate()
@@ -35,6 +36,27 @@ func fetch_merchant_inventory():
 	var merchant_reference = get_tree().get_first_node_in_group("merchant").get_child(0)
 	merchant_reference.get_inventory()
 	inventory_db = merchant_reference.inventory
+
+func skill_upgrade_function():
+	var rng = RandomNumberGenerator.new()
+	
+	for i in inventory_db:
+		var upgrade_calc = rng.randi_range(0, 99)
+		if upgrade_calc >= 96: i.upgrade_level = 4
+		elif upgrade_calc >= 69: i.upgrade_level = 3
+		elif upgrade_calc >= 49: i.upgrade_level = 2
+		elif upgrade_calc >= 0: i.upgrade_level = 1
+	
+	player_skill_upgrade_match()
+	
+func player_skill_upgrade_match():
+	var player_skills = []
+	for j in Global.player_skills:
+		player_skills.push_back(j.name)
+		
+	for i in inventory_db:
+		if player_skills.find(i.name) > -1:
+			i.upgrade_level = Global.player_skills[player_skills.find(i.name)].upgrade_level
 
 func add_skill_to_inventory(skill):
 	if skill not in inventory:

@@ -16,7 +16,6 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	Global.intermission_tracker += 1
-	toggle_inventory()
 
 
 func _process(delta):
@@ -26,9 +25,6 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 
 func _input(event):
-	if event.is_action_pressed("Inventory"):
-		toggle_inventory()
-		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			var card = raycast_check_for_card_selector()
@@ -143,24 +139,6 @@ func on_hovered_off(card):
 	card.toggle_tooltip_hide()
 	card.scale = Vector2(1, 1) * Global.ui_scaler
 	card.z_index = 1
-
-func toggle_inventory():
-	#From player screen to Inventory
-	if is_toggle_inventory == true:
-		$PlayerInventoryScreen.visible = true
-		$CardSelector.visible = false
-		$Player/Berserker.inventory_screen_toggle(true)
-		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_INHERIT
-		$CardSelector.process_mode = Node.PROCESS_MODE_DISABLED
-		is_toggle_inventory = false
-	#From Inventory to Player Screen
-	else:
-		$PlayerInventoryScreen.visible = false
-		$CardSelector.visible = true
-		$Player/Berserker.inventory_screen_toggle(false)
-		$CardSelector.process_mode = Node.PROCESS_MODE_INHERIT
-		$PlayerInventoryScreen.process_mode = Node.PROCESS_MODE_DISABLED
-		is_toggle_inventory = true
 
 func hunt():
 	Global.player_gold += 20

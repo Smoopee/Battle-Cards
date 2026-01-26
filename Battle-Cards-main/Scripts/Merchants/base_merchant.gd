@@ -59,13 +59,46 @@ func get_db_reference():
 func get_inventory():
 	inventory = []
 	inventory_selection = []
-	get_inventory_selection()
-	create_inventory()
 	
-	if merchant_stats.merchant_type == "Skill" or merchant_stats.merchant_type == "Card":
-		item_upgrade_function()
+	if merchant_stats.merchant_type == "Card":
+		get_card_selection()
+		create_inventory()
 
-func get_inventory_selection():
+	if merchant_stats.merchant_type == "Skill":
+		get_skill_selection()
+		create_inventory()
+	
+	if merchant_stats.merchant_type =="Consumable":
+		get_consumable_selection()
+		create_inventory()
+
+func get_card_selection():
+	if merchant_stats.selection_tags == []:
+		for i in db_reference.ITEMS:
+			var temp = load(db_reference.ITEMS[i])
+			inventory_selection.push_back(temp)
+	
+	else:
+		for i in merchant_stats.selection_tags:
+			for j in db_reference.ITEMS:
+				var temp = load(db_reference.ITEMS[j])
+				if temp.tags.find(i) > -1 : 
+					inventory_selection.push_back(temp)
+
+func get_skill_selection():
+	if merchant_stats.selection_tags == []:
+		for i in db_reference.ITEMS:
+			var temp = load(db_reference.ITEMS[i])
+			inventory_selection.push_back(temp)
+	
+	else:
+		for i in merchant_stats.selection_tags:
+			for j in db_reference.ITEMS:
+				var temp = load(db_reference.ITEMS[j])
+				if temp.tags.find(i) > -1 : 
+					inventory_selection.push_back(temp)
+
+func get_consumable_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
@@ -87,17 +120,9 @@ func random_item_selection():
 	var rng = RandomNumberGenerator.new()
 	
 	var item_selection_index = rng.randi_range(0, inventory_selection.size()-1)
-	return inventory_selection[item_selection_index]
-
-func item_upgrade_function():
-	var rng = RandomNumberGenerator.new()
-	
-	for i in inventory:
-		var upgrade_calc = rng.randi_range(0, 99)
-		if upgrade_calc >= 96: i.upgrade_level = 4
-		elif upgrade_calc >= 69: i.upgrade_level = 3
-		elif upgrade_calc >= 49: i.upgrade_level = 2
-		elif upgrade_calc >= 0: i.upgrade_level = 1
+	var selection = inventory_selection[item_selection_index]
+	if merchant_stats.merchant_type == "Skill": inventory_selection.remove_at(item_selection_index)
+	return selection
 
 func highlight_card(being_dragged):
 	if being_dragged:

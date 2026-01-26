@@ -28,7 +28,7 @@ func get_inventory_selection():
 				inventory_selection.push_back(temp)
 
 func create_inventory():
-	for i in range(0, 4):
+	for i in range(0, 3):
 		var selection = random_item_selection().duplicate()
 		inventory.push_front(selection)
 		
@@ -38,7 +38,9 @@ func random_item_selection():
 	var rng = RandomNumberGenerator.new()
 	
 	var item_selection_index = rng.randi_range(0, inventory_selection.size()-1)
-	return inventory_selection[item_selection_index]
+	var selection = inventory_selection[item_selection_index]
+	inventory_selection.remove_at(item_selection_index)
+	return selection
 
 func skill_upgrade_function():
 	var rng = RandomNumberGenerator.new()
@@ -49,7 +51,17 @@ func skill_upgrade_function():
 		elif upgrade_calc >= 69: i.upgrade_level = 3
 		elif upgrade_calc >= 49: i.upgrade_level = 2
 		elif upgrade_calc >= 0: i.upgrade_level = 1
+	
+	player_skill_upgrade_match()
 
+func player_skill_upgrade_match():
+	var player_skills = []
+	for j in Global.player_skills:
+		player_skills.push_back(j.name)
+		
+	for i in inventory:
+		if player_skills.find(i.name) > -1:
+			i.upgrade_level = Global.player_skills[player_skills.find(i.name)].upgrade_level
 # Displaying Skills ================================================================================
 
 func create_skill_selection():

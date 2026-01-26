@@ -1,8 +1,8 @@
 extends Node2D
 
 const CARD_WIDTH = 160
-const NUMBER_OF_DECKSLOTS = 7
 
+var number_of_deck_slots = 7
 var deck_y_position
 var center_screen_x
 var card_slot_array = []
@@ -11,9 +11,9 @@ var card_slot_array = []
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
 	positioning()
-	var current_slot = NUMBER_OF_DECKSLOTS
+	var current_slot = number_of_deck_slots
 	
-	for i in range(0, NUMBER_OF_DECKSLOTS):
+	for i in range(0, number_of_deck_slots):
 		var card_slot = load("res://Scenes/UI/card_slot.tscn").instantiate()
 		add_child(card_slot)
 		card_slot.change_slot_number(current_slot)
@@ -21,7 +21,7 @@ func _ready():
 		add_card_to_hand(card_slot)
 
 func positioning():
-	deck_y_position = get_viewport().size.y - 460
+	deck_y_position = get_viewport().size.y - 430
 
 func add_card_to_hand(card_slot):
 	card_slot_array.push_front(card_slot)

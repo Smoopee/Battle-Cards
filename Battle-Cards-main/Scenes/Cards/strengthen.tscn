@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr864vgc7f602"]
 
-[ext_resource type="Script" path="res://Scripts/Cards/Strengthen.gd" id="1_k7i8v"]
+[ext_resource type="Script" uid="uid://b1rqjuk5hlyrp" path="res://Scripts/Cards/Strengthen.gd" id="1_k7i8v"]
 [ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_p2xif"]
 
 [node name="Strengthen" type="Node2D"]

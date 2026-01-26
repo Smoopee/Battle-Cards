@@ -62,8 +62,8 @@ func create_card_selection():
 	
 	var card_position = 0
 	for i in selected_inventory:
-		i.get_node("BaseCard").get_node("Area2D").collision_mask = 64
-		i.get_node("BaseCard").get_node("Area2D").collision_layer = 64
+		i.get_node("BaseCard").get_node("Area2D").collision_mask = 1
+		i.get_node("BaseCard").get_node("Area2D").collision_layer = 1
 		i.get_node("BaseCard").toggle_shop_ui(true)
 		i.get_node("BaseCard").card_shop_ui()
 		i.card_stats.inventory_position = card_position

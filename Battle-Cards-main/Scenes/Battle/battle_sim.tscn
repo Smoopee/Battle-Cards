@@ -281,6 +281,50 @@ script = ExtResource("17_2744l")
 [node name="PlayOrder" type="Timer" parent="."]
 wait_time = 0.3
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(50, 50)
+offset_left = 402.0
+offset_top = 464.0
+offset_right = 1520.0
+offset_bottom = 561.0
+size_flags_vertical = 4
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="CheckBox2" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="CheckBox3" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="CheckBox4" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="CheckBox5" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="CheckBox6" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="CheckBox7" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
 [connection signal="timeout" from="AnimationTimer" to="." method="_on_timer_timeout"]
 [connection signal="button_down" from="StartButton" to="Battle" method="_on_start_button_button_down"]
 [connection signal="button_down" from="ContinueButton" to="Battle" method="_on_continue_button_button_down"]

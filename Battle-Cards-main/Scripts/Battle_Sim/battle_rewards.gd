@@ -39,7 +39,7 @@ func card_reward(enemy_reward):
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
-	new_scene.card_stats.in_enemy_deck = true
+	new_scene.card_stats.in_enemy_deck = false
 	new_scene.card_stats.is_players = false
 	new_scene.card_stats.cd_remaining = 0
 	new_scene.card_stats.on_cd = false
@@ -54,6 +54,7 @@ func card_reward(enemy_reward):
 func skill_reward(enemy_reward):
 	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
 	var new_scene = load(enemy_reward.skill_scene_path).instantiate()
+	enemy_reward = player_skill_upgrade_match(enemy_reward)
 	new_scene.skill_stats = enemy_reward
 	add_child(new_scene)
 	new_scene.get_node("BaseSkill").get_node("Area2D").collision_mask = 512
@@ -62,6 +63,16 @@ func skill_reward(enemy_reward):
 	new_scene.position = Vector2(center_screen_x, 350)
 	new_scene.z_index = 3
 
+func player_skill_upgrade_match(skill):
+	var player_skills = []
+	for j in Global.player_skills:
+		player_skills.push_back(j.name)
+	
+	if player_skills.find(skill.name) > -1:
+		skill.upgrade_level = Global.player_skills[player_skills.find(skill.name)].upgrade_level
+		return skill
+	
+	return skill
 
 func _on_button_button_down():
 	var card_manager = $"../PlayerCards"

@@ -55,7 +55,6 @@ func _on_exit_button_button_down():
 
 func _on_reroll_button_button_down():
 	if Global.player_gold < 5:
-		print("Not enough gold")
 		return
 	current_merhant_organizer.inventory = []
 	

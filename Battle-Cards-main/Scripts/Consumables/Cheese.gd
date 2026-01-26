@@ -20,4 +20,3 @@ func tooltip_effect():
 	"Effect", 
 	"Increase Atk by " + str(stats.effect1), 
 	"Effect:")
-

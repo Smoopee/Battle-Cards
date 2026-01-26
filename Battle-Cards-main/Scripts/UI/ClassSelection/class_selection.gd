@@ -12,6 +12,8 @@ var card_selector_reference
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	$HeaderPanel.position.x = screen_size.x /2 - $HeaderPanel.size.x /2
+	$HeaderPanel.position.y = 100
 	card_selector_reference = $CardSelector
 	$BerserkerSelection.position = Vector2(Global.center_screen_x + 300, 500)
 	$BerserkerSelection2.position = Vector2(Global.center_screen_x, 500)
@@ -40,7 +42,7 @@ func finish_drag():
 	if class_selected:
 		
 		Global.player_class = class_selected.set_class()
-		Global.player_stats = load("res://Resources/Character/berserker.tres")
+		Global.player_stats = load("res://Resources/Character/berserker.tres").duplicate()
 		Global.save_function()
 		card_being_dragged.position = class_selected.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8

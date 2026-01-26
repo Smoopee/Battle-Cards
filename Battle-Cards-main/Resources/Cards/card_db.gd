@@ -1,7 +1,7 @@
 const ITEMS = {
 	"Rock" : "res://Resources/Cards/rock.tres",
 	"Strike" : "res://Resources/Cards/strike.tres",
-	#"Shield Block" : "res://Resources/Cards/shield_block.tres",
+	"Shield Block" : "res://Resources/Cards/shield_block.tres",
 	#"Shift Stance" : "res://Resources/Cards/shift_stance.tres",
 	"Hardened Skin" : "res://Resources/Cards/hardened_skin.tres", 
 	#"Boulder" : "res://Resources/Cards/boulder.tres",

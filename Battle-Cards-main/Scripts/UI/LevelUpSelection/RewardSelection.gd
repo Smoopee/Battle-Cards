@@ -16,12 +16,9 @@ func reward_selection():
 
 func load_card_rewards():
 	var creator = $"../CardSelectionCreator"
-	var manager = $"../CardSelectionManager"
 	
 	creator.visible = true
-	manager.visible = true
 	creator.process_mode = Node.PROCESS_MODE_INHERIT
-	manager.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	creator.get_inventory()
 	creator.create_card_selection()

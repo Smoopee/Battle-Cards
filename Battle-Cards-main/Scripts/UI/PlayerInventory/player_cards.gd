@@ -134,10 +134,29 @@ func finish_drag():
 	
 	if raycast_check_for_card() and upgrade_mode:
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent()):
+			if inventory_card_slot_reference_index >= 0:
+				inventory_card_slot_reference[inventory_card_slot_reference_index] = null
+				inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
+			if deck_card_slot_reference_index >= 0:
+				deck_card_slot_reference[deck_card_slot_reference_index] = null
+				deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
 			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card().get_parent())
 			print("Upgrade card")
 			card_reset()
 			return
+	
+	if raycast_check_for_deck_slot() and not deck_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
+		buy_card_for_deck(card_being_dragged, deck_card_slot_found)
+		print("Player Cards: Buy card for Deck")
+		card_reset()
+		return
+	
+	if raycast_check_for_inventory_slot() and not inventory_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
+		buy_card_for_inventory(card_being_dragged, inventory_card_slot_found)
+		print("Player Cards: Buy card for Inventory")
+		card_reset()
+		return
+	
 	
 	if raycast_check_for_card() and not card_being_dragged.card_stats.is_players:
 		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent()):
@@ -550,6 +569,31 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 		deck_card_slot_reference.remove_at(deck_card_slot_reference_index)
 		deck_card_slot_reference.insert(deck_card_slot_reference_index, temp_card)
 		print("I am Here 12")
+
+func buy_card_for_deck(card, deck_slot):
+	card.get_node("BaseCard").get_node("Area2D").collision_layer = COLLISION_MASK_CARD
+	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
+	card_being_dragged.position = deck_slot.position
+	deck_slot.card_in_slot = true
+	deck_card_slot_reference.remove_at(deck_card_slot_index)
+	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
+	card.card_stats.is_players = true
+	card.get_parent().remove_child(card)
+	get_tree().get_first_node_in_group("player deck").add_child(card)
+	card.get_node("BaseCard").card_shop_ui()
+
+func buy_card_for_inventory(card, inventory_slot):
+	card.get_node("BaseCard").get_node("Area2D").collision_layer = COLLISION_MASK_CARD
+	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
+	card_being_dragged.global_position = inventory_slot.global_position
+	inventory_slot.card_in_slot = true
+	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
+	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
+	card.card_stats.is_players = true
+	card.get_parent().remove_child(card)
+	get_tree().get_first_node_in_group("player inventory").add_child(card)
+	card.get_node("BaseCard").card_shop_ui()
+
 
 func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP

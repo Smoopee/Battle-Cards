@@ -147,6 +147,7 @@ func animate_consumable_back_to_position(consumable, new_position):
 		place_holder_used = false
 
 func consumable_stack_check():
+	print("Consumable_stack_check")
 	if consumable_being_dragged.consumable_stats.stack_amount >= 2:
 		consumable_being_dragged.consumable_stats.stack_amount -= 1
 		consumable_leftover = true
@@ -154,14 +155,19 @@ func consumable_stack_check():
 	else: return false
 
 func on_consumable_use():
+	print("on_consumable_use")
+	get_tree().get_first_node_in_group("player consumables").remove_consumable(consumable_being_dragged.consumable_stats)
 	consumable_being_dragged.queue_free()
 	consumable_being_dragged = null
 	consumable_used = true
 
 func use_consumable(target):
+	print("use_consumable")
+	print(target.is_in_group(consumable_being_dragged.consumable_stats.target))
 	if target.is_in_group(consumable_being_dragged.consumable_stats.target):
-		if consumable_being_dragged.consumable_effect(target):
-			if !consumable_stack_check(): on_consumable_use()
+		print(consumable_being_dragged.consumable_effect(target))
+		consumable_being_dragged.consumable_effect(target)
+		if !consumable_stack_check(): on_consumable_use()
 
 func start_drag_stack_check():
 	if consumable_being_dragged.consumable_stats.stack_amount >= 2:

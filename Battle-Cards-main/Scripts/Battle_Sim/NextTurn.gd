@@ -8,7 +8,7 @@ func next_turn():
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
 	slot_player_cards()
 	get_tree().get_first_node_in_group("bottom ui").is_battling = false
-	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
+	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
 
 func cd_handler(cards):
 	for i in cards:

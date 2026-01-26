@@ -8,6 +8,7 @@ var is_battling = false
 
 func _ready() -> void:
 	$ColorRect.size.x = get_viewport().size.x
+	$ColorRect.size.y = 45
 	$ColorRect.position.y = get_viewport().size.y - $ColorRect.size.y
 	$ColorRect/PlayerUI.position.x += 50
 	$ColorRect/HBoxContainer.position.x -= 75
@@ -22,6 +23,12 @@ func _on_character_button_down() -> void:
 	else:
 		toggle_character(false)
 
+func toggle_card_selection():
+	hide_player_cards()
+	hide_character()
+	show_card_selector()
+	show_player_health_bar()
+
 func toggle_character(toggle):
 	if is_battling: return
 	if toggle == true:
@@ -34,13 +41,13 @@ func toggle_character(toggle):
 		character_toggle = true
 	else:
 		character_toggle = false
-		if Global.current_scene == "battle_sim": return
+		if Global.current_scene == "battle_sim" or  Global.current_scene == "shop": return
 		hide_character()
 		hide_player_cards()
 		hide_deck()
 		if Global.current_scene == "intermission" or Global.current_scene == "enemy_selection": show_card_selector()
 		if Global.current_scene == "shop": show_character()
-		
+
 
 func _on_inventory_pressed() -> void:
 	#get_parent().toggle_inventory()
@@ -60,11 +67,12 @@ func toggle_inventory(toggle):
 		show_inventory_slots()
 		show_deck_slots()
 		hide_character()
+		show_player_health_bar()
 		if Global.current_scene == "intermission" or Global.current_scene == "enemy_selection": hide_card_selector()
 		
 	else:
 		inventory_toggle = false
-		if Global.current_scene == "battle_sim":
+		if Global.current_scene == "battle_sim" or  Global.current_scene == "shop":
 			show_character()
 			hide_inventory()
 			return
@@ -116,6 +124,11 @@ func hide_character():
 
 func show_character():
 	var character = get_tree().get_first_node_in_group("player")
+	get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = true
+	get_tree().get_first_node_in_group("character").get_node("RageBar").visible = true
+	get_tree().get_first_node_in_group("character").get_node("PlayerConsumables").visible = true
+	get_tree().get_first_node_in_group("character").get_node("StatContainer").visible = true
+	get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
 	character.visible = true
 	character.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -184,3 +197,17 @@ func show_deck_slots():
 	var deck_slots = get_tree().get_first_node_in_group("player cards").get_node("DeckCardSlots")
 	deck_slots.visible = true
 	deck_slots.process_mode = Node.PROCESS_MODE_INHERIT
+
+func show_player_health_bar():
+	get_tree().get_first_node_in_group("player").visible = true
+	get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = false
+	get_tree().get_first_node_in_group("character").get_node("RageBar").visible = false
+	get_tree().get_first_node_in_group("character").get_node("PlayerConsumables").visible = false
+	get_tree().get_first_node_in_group("character").get_node("StatContainer").visible = false
+	get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
+
+#func hide_player_health_bar():
+	#get_tree().get_first_node_in_group("player").visible = true
+	#get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = false
+	#get_tree().get_first_node_in_group("character").get_node("RageBar").visible = false
+	#get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true

@@ -4,11 +4,16 @@ extends Node2D
 @onready var player_inventory = $PlayerInventoryScreen
 var screen_size
 
+var is_reward_setup = false
+var is_reward_chosen = false
 
 func _ready():
 	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
 	screen_size = get_viewport_rect().size
+	$HeaderPanel.position.x = screen_size.x /2 - $HeaderPanel.size.x /2
+	$HeaderPanel.position.y = 100
 	$RewardSelection.reward_selection()
+	is_reward_setup = true
 
 func inventory_and_deck_save():
 	var temp_inventory = []
@@ -28,6 +33,7 @@ func inventory_and_deck_save():
 	Global.player_deck = temp_deck
 
 func _on_continue_button_down():
+	is_reward_chosen = true
 	next_scene()
 
 func next_scene():
@@ -39,3 +45,8 @@ func next_scene():
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
 	queue_free()
+
+func _on_reward_chosen() -> void:
+	if is_reward_setup and not is_reward_chosen: 
+		is_reward_chosen = true
+		next_scene()

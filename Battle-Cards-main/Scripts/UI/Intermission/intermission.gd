@@ -10,6 +10,7 @@ var card_being_dragged
 
 
 func _ready():
+	get_tree().get_first_node_in_group("bottom ui").toggle_card_selection()
 	screen_size = get_viewport_rect().size
 	Global.intermission_tracker += 1
 
@@ -157,8 +158,8 @@ func _on_tooltip_timer_timeout():
 
 func go_to_shop():
 	inventory_and_deck_save()
-	Global.save_function()
 	Global.current_scene = "shop"
+	Global.save_function()
 	$MerchantOrganizer.queue_free()
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/Shop/shop.tscn")
