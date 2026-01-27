@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://douvo7o182s2"]
+[gd_scene format=3 uid="uid://douvo7o182s2"]
 
 [ext_resource type="Script" uid="uid://brguqg68sinbl" path="res://Scripts/UI/UIElements/bottom_nav_bar.gd" id="1_ku0vv"]
 [ext_resource type="PackedScene" uid="uid://dwfyxhnik18ry" path="res://Scenes/UI/Player/player_ui.tscn" id="1_l5a5a"]
 [ext_resource type="Texture2D" uid="uid://dx3kt0kk38b3n" path="res://Resources/Art/UIElements/alert.png" id="2_3dam2"]
 
-[node name="BottomNavBar" type="CanvasLayer" groups=["bottom ui"]]
+[node name="BottomNavBar" type="CanvasLayer" unique_id=1021028102 groups=["bottom ui"]]
 script = ExtResource("1_ku0vv")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1719727537]
 self_modulate = Color(0.317647, 0.317647, 0.317647, 0.760784)
 anchors_preset = -1
-anchor_top = 0.9675926
+anchor_top = 0.94166666
 anchor_right = 1.0
 anchor_bottom = 0.94166666
 offset_left = -2.0
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerUI" parent="ColorRect" instance=ExtResource("1_l5a5a")]
+[node name="PlayerUI" parent="ColorRect" unique_id=1598316046 instance=ExtResource("1_l5a5a")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -33,7 +33,7 @@ offset_right = 49.0
 offset_bottom = 3.5
 grow_horizontal = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect" unique_id=1122156551]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -46,12 +46,12 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="TalentButton" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="TalentButton" type="Button" parent="ColorRect/HBoxContainer" unique_id=1167233990]
 visible = false
 layout_mode = 2
 text = "Talents"
 
-[node name="AlertIndicator" type="TextureRect" parent="ColorRect/HBoxContainer/TalentButton"]
+[node name="AlertIndicator" type="TextureRect" parent="ColorRect/HBoxContainer/TalentButton" unique_id=324820850]
 visible = false
 layout_mode = 0
 offset_left = 105.0
@@ -60,21 +60,21 @@ offset_right = 121.0
 offset_bottom = 10.0
 texture = ExtResource("2_3dam2")
 
-[node name="Character" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="Character" type="Button" parent="ColorRect/HBoxContainer" unique_id=2043338367]
 layout_mode = 2
 text = "Character"
 
-[node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer" unique_id=932105549]
 layout_mode = 2
 text = "Inventory"
 
-[node name="BackButton" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="BackButton" type="Button" parent="ColorRect/HBoxContainer" unique_id=154832435]
 visible = false
 layout_mode = 2
 text = "Back
 "
 
-[node name="MenuButton" type="Button" parent="ColorRect/HBoxContainer"]
+[node name="MenuButton" type="Button" parent="ColorRect/HBoxContainer" unique_id=1613027380]
 layout_mode = 2
 text = "Menu"
 
@@ -82,3 +82,4 @@ text = "Menu"
 [connection signal="button_down" from="ColorRect/HBoxContainer/Character" to="." method="_on_character_button_down"]
 [connection signal="button_down" from="ColorRect/HBoxContainer/InventoryButton" to="." method="_on_inventory_pressed"]
 [connection signal="button_down" from="ColorRect/HBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
+[connection signal="button_down" from="ColorRect/HBoxContainer/MenuButton" to="." method="_on_menu_button_down"]

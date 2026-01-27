@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bua11o6oudri4" path="res://Scenes/UI/Player/rune_manager.tscn" id="9_i2n8q"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="10_lr1so"]
 
-[node name="Intermission" type="Node2D" groups=["card manager"]]
+[node name="Intermission" type="Node2D" groups=["card manager", "current scene"]]
 script = ExtResource("1_147it")
 
 [node name="CardSelector" parent="." instance=ExtResource("2_4mb0g")]

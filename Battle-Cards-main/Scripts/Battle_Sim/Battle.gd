@@ -35,6 +35,8 @@ var enemy_card
 
 var physical_damage
 
+var is_battle_interupted = false
+
 
 func _ready():
 	connect_signal_setup()
@@ -76,9 +78,12 @@ func combat(player_deck_list, enemy_deck_list):
 		player_card = player_deck_list[i]
 		enemy_card = enemy_deck_list[i]
 		
+		interupt_check(i)
+		
 		player_deck.play_card(player_card)
 		enemy_node.play_card(enemy_card)
 		
+		if is_battle_interupted: await $"../InteruptContinueButton".button_down
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		play_card()
@@ -96,7 +101,7 @@ func combat(player_deck_list, enemy_deck_list):
 		is_dead = death_checker()
 		if is_dead: break
 		emit_signal("end_of_turn")
-	
+
 	if is_dead and player.character_stats.health <= 0:
 		Global.current_scene == "start_screen"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
@@ -185,6 +190,15 @@ func stun_check(character):
 	else: return true
 
 #==================Non Battle Functions============================================================
+func interupt_battle():
+	#get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_DISABLED
+	is_battle_interupted = true
+	get_tree().get_first_node_in_group("bottom ui").is_battling = false
+	player_card.get_node("BaseCard").enable_collision()
+	enemy_card.get_node("BaseCard").enable_collision()
+
+func interupt_check(turn):
+	if $"../InteruptUI".turn_interupt_array[turn]: interupt_battle()
 
 func next_turn_handler():
 	next_turn.next_turn()
@@ -209,12 +223,14 @@ func end_fight_cleanup():
 
 func _on_start_button_button_down():
 	during_combat_ui_toggle()
+	$"../InteruptUI".visible = false
 	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
 
 func _on_continue_button_button_down():
 	during_combat_ui_toggle()
+	$"../InteruptUI".visible = false
 	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
@@ -263,4 +279,10 @@ func during_combat_ui_toggle():
 	for i in player_inventory_list:
 		if i == null: continue
 		i.visible = false
-	
+
+func _on_interupt_continue_button_pressed() -> void:
+	get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_INHERIT
+	player_card.get_node("BaseCard").disable_collision()
+	enemy_card.get_node("BaseCard").disable_collision()
+	get_tree().get_first_node_in_group("bottom ui").is_battling = true
+	is_battle_interupted = false

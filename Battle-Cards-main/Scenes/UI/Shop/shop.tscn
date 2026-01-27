@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bbudyogspe5gy"]
+[gd_scene load_steps=19 format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" uid="uid://dwskp8s4s2otu" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
 [ext_resource type="Script" uid="uid://cqkkcp76wiwis" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
@@ -16,9 +16,10 @@
 [ext_resource type="Script" uid="uid://dse6g1yjownwk" path="res://Scripts/UI/Shop/VarietyManager.gd" id="12_8ea5x"]
 [ext_resource type="Script" uid="uid://dr8ryxu4vw5cn" path="res://Scripts/UI/Shop/RunesManager.gd" id="14_eplhd"]
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="16_uj84y"]
+[ext_resource type="PackedScene" uid="uid://dryjn7f2ubrq" path="res://Scenes/UI/Menu/menu.tscn" id="18_d86e2"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="20_q2i12"]
 
-[node name="Shop" type="Node2D"]
+[node name="Shop" type="Node2D" groups=["current scene"]]
 script = ExtResource("1_ujm55")
 
 [node name="ConsumableManger" parent="." instance=ExtResource("2_ykbi3")]
@@ -106,6 +107,8 @@ offset_bottom = 908.0
 text = "Leave"
 
 [node name="BottomNavBar" parent="." instance=ExtResource("16_uj84y")]
+
+[node name="Menu" parent="." instance=ExtResource("18_d86e2")]
 
 [connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
 [connection signal="timeout" from="TooltipTimer" to="CardManager" method="_on_tooltip_timer_timeout"]

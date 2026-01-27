@@ -21,6 +21,7 @@ var deck_offset = 0
 var enemy_deck = []
 var enemy
 var deck = []
+var total_card_area_width = 0
 
 
 func _ready():
@@ -144,6 +145,8 @@ func update_hand_positions():
 func calculate_card_position(index):
 	var total_width = (enemy_inventory.size() - 1) * CARD_WIDTH * Global.ui_scaler.x 
 	var x_offset = center_screen_x + index * CARD_WIDTH * Global.ui_scaler.x  - total_width / 2
+	total_card_area_width = total_width + CARD_WIDTH * Global.ui_scaler.x
+	$"../InteruptUI".set_size_and_position()
 	return x_offset
 
 func enemy_reward():

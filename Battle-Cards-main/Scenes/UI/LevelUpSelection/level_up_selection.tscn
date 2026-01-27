@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://81n3gvx42dfs"]
+[gd_scene load_steps=12 format=3 uid="uid://81n3gvx42dfs"]
 
 [ext_resource type="Script" uid="uid://ichf4a4hb20t" path="res://Scripts/UI/LevelUpSelection/level_up_selection.gd" id="1_aiy27"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="2_0x6gc"]
@@ -8,10 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="6_3387g"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="7_gqrgq"]
 [ext_resource type="Script" uid="uid://drtq6176rutef" path="res://Scripts/UI/LevelUpSelection/CardSelection.gd" id="10_shfif"]
+[ext_resource type="PackedScene" uid="uid://dryjn7f2ubrq" path="res://Scenes/UI/Menu/menu.tscn" id="11_s2nco"]
 [ext_resource type="Script" uid="uid://db16v3a0gshqt" path="res://Scripts/UI/LevelUpSelection/SkillSelectionCreator.gd" id="12_f20my"]
 [ext_resource type="Script" uid="uid://bk5dohuatd16f" path="res://Scripts/UI/LevelUpSelection/SkillSelectionManager.gd" id="13_hwkwr"]
 
-[node name="LevelUpSelection" type="Node2D" groups=["card manager"]]
+[node name="LevelUpSelection" type="Node2D" groups=["card manager", "current scene"]]
 script = ExtResource("1_aiy27")
 
 [node name="RewardSelection" type="Node2D" parent="."]
@@ -71,6 +72,8 @@ offset_top = 911.0
 offset_right = 1863.0
 offset_bottom = 935.0
 text = "Continue"
+
+[node name="Menu" parent="." instance=ExtResource("11_s2nco")]
 
 [connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]
 [connection signal="child_order_changed" from="CardSelectionCreator" to="." method="_on_reward_chosen"]

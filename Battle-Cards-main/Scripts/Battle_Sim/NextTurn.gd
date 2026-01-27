@@ -9,6 +9,8 @@ func next_turn():
 	slot_player_cards()
 	get_tree().get_first_node_in_group("bottom ui").is_battling = false
 	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
+	$"../InteruptUI".visible = true
+	$"../InteruptUI".interupt_reset()
 
 func cd_handler(cards):
 	for i in cards:

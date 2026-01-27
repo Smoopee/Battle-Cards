@@ -40,7 +40,7 @@ func _input(event):
 func start_drag(consumable):
 	consumable_being_dragged = consumable
 	start_drag_stack_check()
-	consumable.z_index = 2
+	consumable.z_index = 20
 	consumable.scale = Vector2(1.5, 1.5) * Global.ui_scaler
 	consumable_previous_position = consumable.global_position
 	consumable.toggle_info_ui(false)

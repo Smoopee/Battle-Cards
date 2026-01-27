@@ -16,10 +16,10 @@ var speed = 2.0
 
 
 func _ready():
+	get_tree().get_first_node_in_group("bottom ui").toggle_card_selection()
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	
-
 func _process(delta):
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()

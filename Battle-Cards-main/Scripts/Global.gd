@@ -1,6 +1,6 @@
 extends Node
 
-const COMBAT_SPEED = .4
+var COMBAT_SPEED = 1
 
 
 signal level_up

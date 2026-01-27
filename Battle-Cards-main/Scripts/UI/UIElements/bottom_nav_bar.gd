@@ -11,7 +11,7 @@ func _ready() -> void:
 	$ColorRect.size.y = 45
 	$ColorRect.position.y = get_viewport().size.y - $ColorRect.size.y
 	$ColorRect/PlayerUI.position.x += 50
-	$ColorRect/HBoxContainer.position.x -= 75
+	$ColorRect/HBoxContainer.position.x -= 100
 	
 func _on_talent_button_button_down():
 	toggle_talent_screen()
@@ -86,7 +86,6 @@ func toggle_combat_ui(toggle):
 	if toggle:
 		show_character()
 		show_player_cards()
-		hide_inventory()
 		hide_inventory_slots()
 		hide_deck_slots()
 
@@ -211,3 +210,9 @@ func show_player_health_bar():
 	#get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = false
 	#get_tree().get_first_node_in_group("character").get_node("RageBar").visible = false
 	#get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
+
+
+func _on_menu_button_down() -> void:
+	get_tree().get_first_node_in_group("current scene").process_mode = Node.PROCESS_MODE_DISABLED
+	get_tree().get_first_node_in_group("menu").visible = true
+	get_tree().get_first_node_in_group("menu").process_mode = Node.PROCESS_MODE_INHERIT

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cx4hatbep7l2s"]
+[gd_scene format=3 uid="uid://cx4hatbep7l2s"]
 
 [ext_resource type="Script" uid="uid://bf36clrofgt2a" path="res://Resources/Skills/skill_class.gd" id="1_s3woo"]
 [ext_resource type="Texture2D" uid="uid://ctn37ycsum6fe" path="res://Resources/Art/Skills/building_momentum_skill.png" id="2_114bl"]
@@ -23,24 +23,24 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[node name="BaseSkill" type="Node2D"]
+[node name="BaseSkill" type="Node2D" unique_id=1674251778]
 script = ExtResource("1_s3woo")
 
-[node name="SkillImage" type="Sprite2D" parent="."]
+[node name="SkillImage" type="Sprite2D" parent="." unique_id=647381957]
 unique_name_in_owner = true
 texture = ExtResource("2_114bl")
 
-[node name="UpgradeBorder" type="Sprite2D" parent="."]
+[node name="UpgradeBorder" type="Sprite2D" parent="." unique_id=1592977235]
 unique_name_in_owner = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1427950009]
 collision_layer = 256
 collision_mask = 256
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1697990053]
 shape = SubResource("RectangleShape2D_vqwq4")
 
-[node name="SkillUI" type="Control" parent="."]
+[node name="SkillUI" type="Control" parent="." unique_id=1420509828]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.0
@@ -48,7 +48,7 @@ offset_top = -24.0
 offset_right = 24.0
 offset_bottom = 24.0
 
-[node name="ShopPanel" type="Panel" parent="SkillUI"]
+[node name="ShopPanel" type="Panel" parent="SkillUI" unique_id=1335115242]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
@@ -59,7 +59,7 @@ offset_bottom = 36.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0i5kp")
 
-[node name="ShopLabel" type="Label" parent="SkillUI/ShopPanel"]
+[node name="ShopLabel" type="Label" parent="SkillUI/ShopPanel" unique_id=1921802622]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -72,7 +72,7 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InfoLabel" type="Label" parent="SkillUI"]
+[node name="InfoLabel" type="Label" parent="SkillUI" unique_id=1899574703]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 12)
@@ -87,7 +87,7 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InfoPanel" type="Panel" parent="SkillUI/InfoLabel"]
+[node name="InfoPanel" type="Panel" parent="SkillUI/InfoLabel" unique_id=1393561093]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -100,7 +100,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3x2mh")
 
-[node name="TooltipPanel" parent="." instance=ExtResource("3_nyqqx")]
+[node name="TooltipPanel" parent="." unique_id=1853166149 instance=ExtResource("3_nyqqx")]
 unique_name_in_owner = true
 
 [connection signal="mouse_entered" from="SkillUI" to="." method="_on_skill_ui_mouse_entered"]
