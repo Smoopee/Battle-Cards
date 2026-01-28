@@ -125,9 +125,9 @@ func show_character():
 	var character = get_tree().get_first_node_in_group("player")
 	get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = true
 	get_tree().get_first_node_in_group("character").get_node("RageBar").visible = true
-	get_tree().get_first_node_in_group("character").get_node("PlayerConsumables").visible = true
 	get_tree().get_first_node_in_group("character").get_node("StatContainer").visible = true
 	get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
+	get_tree().get_first_node_in_group("character").get_node("ItemsUI").visible = true
 	character.visible = true
 	character.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -201,9 +201,9 @@ func show_player_health_bar():
 	get_tree().get_first_node_in_group("player").visible = true
 	get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = false
 	get_tree().get_first_node_in_group("character").get_node("RageBar").visible = false
-	get_tree().get_first_node_in_group("character").get_node("PlayerConsumables").visible = false
 	get_tree().get_first_node_in_group("character").get_node("StatContainer").visible = false
 	get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
+	get_tree().get_first_node_in_group("character").get_node("ItemsUI").visible = false
 
 #func hide_player_health_bar():
 	#get_tree().get_first_node_in_group("player").visible = true

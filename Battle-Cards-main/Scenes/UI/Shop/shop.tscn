@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbudyogspe5gy"]
+[gd_scene format=3 uid="uid://bbudyogspe5gy"]
 
 [ext_resource type="Script" uid="uid://dwskp8s4s2otu" path="res://Scripts/UI/Shop/CardManager.gd" id="1_03fvr"]
 [ext_resource type="Script" uid="uid://cqkkcp76wiwis" path="res://Scripts/UI/Shop/shop.gd" id="1_ujm55"]
@@ -19,69 +19,69 @@
 [ext_resource type="PackedScene" uid="uid://dryjn7f2ubrq" path="res://Scenes/UI/Menu/menu.tscn" id="18_d86e2"]
 [ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="20_q2i12"]
 
-[node name="Shop" type="Node2D" groups=["current scene"]]
+[node name="Shop" type="Node2D" unique_id=1128083072 groups=["current scene"]]
 script = ExtResource("1_ujm55")
 
-[node name="ConsumableManger" parent="." instance=ExtResource("2_ykbi3")]
+[node name="ConsumableManger" parent="." unique_id=617941831 instance=ExtResource("2_ykbi3")]
 
-[node name="PlayerInventoryScreen" parent="." instance=ExtResource("20_q2i12")]
+[node name="PlayerInventoryScreen" parent="." unique_id=487115570 instance=ExtResource("20_q2i12")]
 visible = false
 
-[node name="Merchant" type="Node2D" parent="."]
+[node name="Merchant" type="Node2D" parent="." unique_id=766206556]
 script = ExtResource("2_wrfdt")
 
-[node name="MerchantCards" type="Node2D" parent="."]
+[node name="MerchantCards" type="Node2D" parent="." unique_id=1542209589]
 script = ExtResource("3_82fbf")
 
-[node name="MerchantSkills" type="Node2D" parent="."]
+[node name="MerchantSkills" type="Node2D" parent="." unique_id=2062241394]
 script = ExtResource("6_hjwsc")
 
-[node name="MerchantConsumables" type="Node2D" parent="."]
+[node name="MerchantConsumables" type="Node2D" parent="." unique_id=1644225663]
 script = ExtResource("7_0nbtm")
 
-[node name="MerchantEnchantments" type="Node2D" parent="."]
+[node name="MerchantEnchantments" type="Node2D" parent="." unique_id=641947047]
 script = ExtResource("8_k04rg")
 
-[node name="MerchantRunes" type="Node2D" parent="."]
+[node name="MerchantRunes" type="Node2D" parent="." unique_id=1804008543]
 script = ExtResource("9_8vwr3")
 
-[node name="CardManager" type="Node2D" parent="." groups=["card manager"]]
+[node name="CardManager" type="Node2D" parent="." unique_id=73119166 groups=["card manager"]]
 process_mode = 4
 visible = false
 script = ExtResource("1_03fvr")
 
-[node name="SkillManager" type="Node2D" parent="."]
+[node name="SkillManager" type="Node2D" parent="." unique_id=711306977]
 process_mode = 4
 visible = false
 script = ExtResource("10_a7eap")
 
-[node name="MerchantConsumableManager" type="Node2D" parent="."]
+[node name="MerchantConsumableManager" type="Node2D" parent="." unique_id=1163307397]
 process_mode = 4
 visible = false
 script = ExtResource("11_oykye")
 
-[node name="EnchantmentManager" type="Node2D" parent="."]
+[node name="EnchantmentManager" type="Node2D" parent="." unique_id=607377890]
 process_mode = 4
 visible = false
 script = ExtResource("12_8ea5x")
 
-[node name="RunesManager" type="Node2D" parent="."]
+[node name="RunesManager" type="Node2D" parent="." unique_id=1528557843]
 process_mode = 4
 visible = false
 script = ExtResource("14_eplhd")
 
-[node name="Player" parent="." instance=ExtResource("6_52iue")]
+[node name="Player" parent="." unique_id=59502400 instance=ExtResource("6_52iue")]
 visible = false
 
-[node name="Berserker" parent="Player" instance=ExtResource("10_rtxoi")]
+[node name="Berserker" parent="Player" unique_id=1139074396 instance=ExtResource("10_rtxoi")]
 
-[node name="ShopUI" type="Control" parent="."]
+[node name="ShopUI" type="Control" parent="." unique_id=1307650340]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="RerollButton" type="Button" parent="ShopUI"]
+[node name="RerollButton" type="Button" parent="ShopUI" unique_id=1165336062]
 layout_mode = 0
 offset_left = 1060.0
 offset_top = 103.0
@@ -89,7 +89,7 @@ offset_right = 1128.0
 offset_bottom = 134.0
 text = "Refresh"
 
-[node name="RerollPrice" type="Label" parent="ShopUI/RerollButton"]
+[node name="RerollPrice" type="Label" parent="ShopUI/RerollButton" unique_id=1602885316]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 30.0
@@ -97,18 +97,18 @@ offset_right = 65.0
 offset_bottom = 53.0
 text = "5g"
 
-[node name="TooltipTimer" type="Timer" parent="."]
+[node name="TooltipTimer" type="Timer" parent="." unique_id=388928088]
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="ExitButton" type="Button" parent="." unique_id=1243523104]
 offset_left = 1771.0
 offset_top = 884.0
 offset_right = 1859.0
 offset_bottom = 908.0
 text = "Leave"
 
-[node name="BottomNavBar" parent="." instance=ExtResource("16_uj84y")]
+[node name="BottomNavBar" parent="." unique_id=613632974 instance=ExtResource("16_uj84y")]
 
-[node name="Menu" parent="." instance=ExtResource("18_d86e2")]
+[node name="Menu" parent="." unique_id=234622863 instance=ExtResource("18_d86e2")]
 
 [connection signal="button_down" from="ShopUI/RerollButton" to="." method="_on_reroll_button_button_down"]
 [connection signal="timeout" from="TooltipTimer" to="CardManager" method="_on_tooltip_timer_timeout"]

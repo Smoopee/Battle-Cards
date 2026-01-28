@@ -48,8 +48,6 @@ func remove_consumable(consumable, amount = 1):
 			organize_consumables()
 			return
 			
-	
-
 func organize_consumables():
 	var counter = 0
 	var x_offset = 0
@@ -57,10 +55,10 @@ func organize_consumables():
 	
 	for i in get_children():
 		if counter >= 4: 
-			x_offset = -32
+			x_offset = -32 
 			y_offset = 0
 			counter = 0
-		i.position = Vector2(x_offset + CONSUMABLE_X_POSITION, y_offset + CONSUMABLE_Y_POSITION)
+		i.position = Vector2(x_offset + CONSUMABLE_X_POSITION - $"../ItemsUI".size.x, y_offset + CONSUMABLE_Y_POSITION)
 		y_offset += 45
 		counter += 1
 

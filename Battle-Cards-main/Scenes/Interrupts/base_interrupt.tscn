@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://qer4441imvbe"]
+
+[ext_resource type="Script" uid="uid://gce3lalo2yol" path="res://Resources/Interrupts/interrupt_class.gd" id="1_xiu8v"]
+[ext_resource type="Texture2D" uid="uid://pauurg2s774y" path="res://Resources/Art/Interrupts/ExtraOomph.png" id="2_m8qjt"]
+[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="2_xiu8v"]
+[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="4_mv0w1"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="5_kktuv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8qjt"]
+size = Vector2(46, 46)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kktuv"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkm6u"]
+shader = ExtResource("4_mv0w1")
+shader_parameter/onoff = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
+
+[node name="BaseInterrupt" type="Node2D" unique_id=1028670782]
+script = ExtResource("1_xiu8v")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1618590400]
+collision_layer = 1048576
+collision_mask = 1048576
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1220029783]
+shape = SubResource("RectangleShape2D_m8qjt")
+
+[node name="InterruptUI" type="Control" parent="." unique_id=238496922]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+
+[node name="InfoLabel" type="Label" parent="InterruptUI" unique_id=19909923]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 0
+offset_left = 36.0
+offset_top = 34.0
+offset_right = 52.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoPanel" type="Panel" parent="InterruptUI/InfoLabel" unique_id=1461277923]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kktuv")
+
+[node name="TooltipPanel" parent="." unique_id=76491561 instance=ExtResource("2_xiu8v")]
+unique_name_in_owner = true
+
+[node name="ImageButton" type="TextureButton" parent="." unique_id=1688594684]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+disabled = true
+toggle_mode = true
+texture_normal = ExtResource("2_m8qjt")
+
+[node name="GlowEffect" type="Sprite2D" parent="." unique_id=973731455]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_qkm6u")
+position = Vector2(-1.9669533e-06, -0.49999973)
+scale = Vector2(0.3076923, 0.24736843)
+texture = ExtResource("5_kktuv")
+
+[connection signal="toggled" from="ImageButton" to="." method="_on_image_button_toggled"]

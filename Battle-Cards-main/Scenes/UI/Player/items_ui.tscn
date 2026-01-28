@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://beq5hrbn5bvp6"]
+
+[ext_resource type="Script" uid="uid://b6e2i4hlb57gf" path="res://Scripts/UI/Player/items_ui.gd" id="1_ibi0k"]
+[ext_resource type="ButtonGroup" uid="uid://bobu2ij6rbvhj" path="res://Resources/UI/item_ui_button_group.tres" id="2_xecul"]
+
+[node name="ItemsUI" type="Panel" groups=["items ui"]]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -263.0
+offset_top = -90.0
+offset_right = -73.0
+offset_bottom = 88.0
+script = ExtResource("1_ibi0k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ConsumablesButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+button_group = ExtResource("2_xecul")
+text = "Items"
+
+[node name="InterruptsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+button_group = ExtResource("2_xecul")
+text = "Interrupts"
+
+[node name="GadgetsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+button_group = ExtResource("2_xecul")
+text = "Gadgets"
+
+[node name="RunesButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+button_group = ExtResource("2_xecul")
+text = "Runes"
+
+[connection signal="toggled" from="VBoxContainer/ConsumablesButton" to="." method="_on_consumables_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/InterruptsButton" to="." method="_on_interrupts_button_toggled"]

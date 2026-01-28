@@ -18,7 +18,6 @@ signal heal_received
 var character_stats
 var battle_sim
 var deck
-var consumable_orientation = true
 
 #COMBAT VARIABLES==================================================================================
 var receiving_physical_dmg = 0

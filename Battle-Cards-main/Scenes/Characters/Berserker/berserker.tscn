@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dac2v2br3grnx"]
+[gd_scene format=3 uid="uid://dac2v2br3grnx"]
 
 [ext_resource type="Script" uid="uid://b7opyer1dxfp7" path="res://Scripts/Characters/Berserker/berserker.gd" id="1_2i22b"]
 [ext_resource type="PackedScene" uid="uid://c12ekuq1diigx" path="res://Scenes/UI/Player/PlayerBuffs/player_buffs.tscn" id="2_akq4v"]
@@ -12,8 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="6_i2nsu"]
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_tlmij"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="7_d0ter"]
-[ext_resource type="Texture2D" uid="uid://bu5udw5yj1t1i" path="res://Resources/Art/UIElements/inventory_grid1.png" id="9_qjpam"]
+[ext_resource type="PackedScene" uid="uid://cbuylixaxf1p6" path="res://Scenes/UI/Player/player_interrupts.tscn" id="7_ruoki"]
 [ext_resource type="Texture2D" uid="uid://c5v1kq45qxngx" path="res://Resources/Art/UIElements/block_symbol.png" id="9_vfrul"]
+[ext_resource type="PackedScene" uid="uid://beq5hrbn5bvp6" path="res://Scenes/UI/Player/items_ui.tscn" id="14_wm4uu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qj8m8"]
 size = Vector2(98, 128)
@@ -33,45 +34,52 @@ border_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pttw3"]
 bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 
-[node name="Berserker" type="Node2D" groups=["character"]]
+[node name="Berserker" type="Node2D" unique_id=423685648 groups=["character"]]
 script = ExtResource("1_2i22b")
 
-[node name="PlayerDebuffs" parent="." instance=ExtResource("2_lkafq")]
+[node name="PlayerDebuffs" parent="." unique_id=1134381130 instance=ExtResource("2_lkafq")]
 
-[node name="PlayerBuffs" parent="." instance=ExtResource("2_akq4v")]
+[node name="PlayerBuffs" parent="." unique_id=2042762000 instance=ExtResource("2_akq4v")]
 
-[node name="PlayerConsumables" parent="." instance=ExtResource("2_svm5r")]
+[node name="PlayerConsumables" parent="." unique_id=1787368643 instance=ExtResource("2_svm5r")]
+visible = false
 
-[node name="PlayerSkills" parent="." instance=ExtResource("3_ruasw")]
+[node name="PlayerSkills" parent="." unique_id=78266357 instance=ExtResource("3_ruasw")]
 
-[node name="PlayerRunes" parent="." instance=ExtResource("4_p0pnd")]
+[node name="PlayerRunes" parent="." unique_id=1633574852 instance=ExtResource("4_p0pnd")]
+visible = false
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="PlayerInterrupts" parent="." unique_id=216238792 instance=ExtResource("7_ruoki")]
+
+[node name="PlayerGadgets" type="Node2D" parent="." unique_id=312393566]
+visible = false
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2004006427]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1718450755]
 shape = SubResource("RectangleShape2D_qj8m8")
 
-[node name="Talents" type="Node2D" parent="."]
+[node name="Talents" type="Node2D" parent="." unique_id=1451807582]
 
-[node name="ClassImage" type="Sprite2D" parent="."]
+[node name="ClassImage" type="Sprite2D" parent="." unique_id=1619673927]
 texture_filter = 1
 texture = ExtResource("4_xoway")
 
-[node name="StatContainer" type="VBoxContainer" parent="."]
+[node name="StatContainer" type="VBoxContainer" parent="." unique_id=537213826]
 offset_left = 105.0
 offset_top = -17.0
 offset_right = 241.0
 offset_bottom = 81.0
 
-[node name="Panel" type="Panel" parent="StatContainer"]
+[node name="Panel" type="Panel" parent="StatContainer" unique_id=654921205]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8k3g5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StatContainer/Panel" unique_id=298340670]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,13 +88,13 @@ offset_right = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="StatContainer/Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="StatContainer/Panel/HBoxContainer" unique_id=143730331]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = " Atk:"
 vertical_alignment = 1
 
-[node name="AttackLabel" type="Label" parent="StatContainer/Panel/HBoxContainer"]
+[node name="AttackLabel" type="Label" parent="StatContainer/Panel/HBoxContainer" unique_id=868148876]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -96,13 +104,13 @@ text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Panel2" type="Panel" parent="StatContainer"]
+[node name="Panel2" type="Panel" parent="StatContainer" unique_id=2128507839]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8k3g5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatContainer/Panel2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StatContainer/Panel2" unique_id=1904541367]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,13 +119,13 @@ offset_right = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="StatContainer/Panel2/HBoxContainer"]
+[node name="Label" type="Label" parent="StatContainer/Panel2/HBoxContainer" unique_id=466734244]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = " Def:"
 vertical_alignment = 1
 
-[node name="DefenseLabel" type="Label" parent="StatContainer/Panel2/HBoxContainer"]
+[node name="DefenseLabel" type="Label" parent="StatContainer/Panel2/HBoxContainer" unique_id=858859313]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -127,13 +135,13 @@ text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Panel3" type="Panel" parent="StatContainer"]
+[node name="Panel3" type="Panel" parent="StatContainer" unique_id=150755311]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8k3g5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatContainer/Panel3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StatContainer/Panel3" unique_id=2127689983]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,13 +150,13 @@ offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="StatContainer/Panel3/HBoxContainer"]
+[node name="Label" type="Label" parent="StatContainer/Panel3/HBoxContainer" unique_id=2081848856]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = " Armor:"
 vertical_alignment = 1
 
-[node name="ArmorLabel" type="Label" parent="StatContainer/Panel3/HBoxContainer"]
+[node name="ArmorLabel" type="Label" parent="StatContainer/Panel3/HBoxContainer" unique_id=1663483486]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -158,7 +166,7 @@ text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="RageBar" type="TextureProgressBar" parent="."]
+[node name="RageBar" type="TextureProgressBar" parent="." unique_id=1965415107]
 offset_left = 73.0
 offset_top = -38.0
 offset_right = 91.0
@@ -168,7 +176,7 @@ texture_under = ExtResource("3_mcllw")
 texture_progress = ExtResource("3_svegv")
 texture_progress_offset = Vector2(2, 0)
 
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="."]
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="." unique_id=374077712]
 offset_left = -649.0
 offset_top = 93.0
 offset_right = 651.0
@@ -178,7 +186,7 @@ texture_under = ExtResource("6_tlmij")
 texture_over = ExtResource("7_d0ter")
 texture_progress = ExtResource("6_i2nsu")
 
-[node name="PlayerHealthLabel" type="Label" parent="PlayerHealthBar"]
+[node name="PlayerHealthLabel" type="Label" parent="PlayerHealthBar" unique_id=714978094]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -197,18 +205,18 @@ text = "3000/3000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlockSymbol" type="Sprite2D" parent="."]
+[node name="BlockSymbol" type="Sprite2D" parent="." unique_id=254393485]
 visible = false
 position = Vector2(85, -78)
 texture = ExtResource("9_vfrul")
 
-[node name="Label" type="Label" parent="BlockSymbol"]
+[node name="Label" type="Label" parent="BlockSymbol" unique_id=269586928]
 offset_left = -11.0
 offset_top = -30.0
 offset_right = 69.0
 offset_bottom = -14.0
 
-[node name="StunIndicator" type="Panel" parent="."]
+[node name="StunIndicator" type="Panel" parent="." unique_id=1649902480]
 visible = false
 offset_left = -73.0
 offset_top = -90.0
@@ -216,7 +224,7 @@ offset_right = 72.0
 offset_bottom = 90.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pttw3")
 
-[node name="Label" type="Label" parent="StunIndicator"]
+[node name="Label" type="Label" parent="StunIndicator" unique_id=1111960050]
 layout_mode = 0
 offset_left = 65.0
 offset_top = 83.0
@@ -226,7 +234,4 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "1
 "
 
-[node name="InventoryGrid" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-121, 0)
-texture = ExtResource("9_qjpam")
+[node name="ItemsUI" parent="." unique_id=45935826 instance=ExtResource("14_wm4uu")]

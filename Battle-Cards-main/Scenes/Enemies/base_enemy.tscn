@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bwwv3sibc50m4"]
+[gd_scene format=3 uid="uid://bwwv3sibc50m4"]
 
 [ext_resource type="Script" uid="uid://b1yahn21hgwbd" path="res://Resources/Enemies/enemy_class.gd" id="1_dvpn2"]
 [ext_resource type="Texture2D" uid="uid://bby03wvnyaw12" path="res://Resources/Art/Enemies/trogg_enemy.png" id="2_k24bp"]
@@ -35,17 +35,17 @@ height = 24
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j1tnv"]
 bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 
-[node name="BaseEnemy" type="Node2D"]
+[node name="BaseEnemy" type="Node2D" unique_id=1369513174]
 script = ExtResource("1_dvpn2")
 
-[node name="EnemyImage" type="Sprite2D" parent="."]
+[node name="EnemyImage" type="Sprite2D" parent="." unique_id=514146124]
 unique_name_in_owner = true
 texture = ExtResource("2_k24bp")
 
-[node name="EnemyBorder" type="Sprite2D" parent="."]
+[node name="EnemyBorder" type="Sprite2D" parent="." unique_id=12286129]
 unique_name_in_owner = true
 
-[node name="GlowEffect" type="Sprite2D" parent="."]
+[node name="GlowEffect" type="Sprite2D" parent="." unique_id=252580824]
 unique_name_in_owner = true
 visible = false
 material = SubResource("ShaderMaterial_sjjs4")
@@ -53,31 +53,31 @@ position = Vector2(-3.09944e-06, 3.72529e-06)
 scale = Vector2(1.07692, 1.06316)
 texture = ExtResource("4_vhyvu")
 
-[node name="EnemyBuffs" parent="." instance=ExtResource("3_x28el")]
+[node name="EnemyBuffs" parent="." unique_id=272886962 instance=ExtResource("3_x28el")]
 unique_name_in_owner = true
 
-[node name="EnemyDebuffs" parent="." instance=ExtResource("4_bjjea")]
+[node name="EnemyDebuffs" parent="." unique_id=2076837581 instance=ExtResource("4_bjjea")]
 unique_name_in_owner = true
 
-[node name="Skills" parent="." instance=ExtResource("5_orf8w")]
+[node name="Skills" parent="." unique_id=1035105054 instance=ExtResource("5_orf8w")]
 unique_name_in_owner = true
 
-[node name="Deck" parent="." instance=ExtResource("5_87uqv")]
+[node name="Deck" parent="." unique_id=1259350867 instance=ExtResource("5_87uqv")]
 unique_name_in_owner = true
 
-[node name="Runes" type="Node2D" parent="."]
+[node name="Runes" type="Node2D" parent="." unique_id=1121139635]
 unique_name_in_owner = true
 script = ExtResource("7_qdf2y")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=2004523041]
 collision_layer = 128
 collision_mask = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1791708826]
 position = Vector2(-0.25, -1)
 shape = SubResource("RectangleShape2D_8yrtx")
 
-[node name="EnemyUI" type="Control" parent="."]
+[node name="EnemyUI" type="Control" parent="." unique_id=1525194470]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
@@ -86,7 +86,7 @@ offset_top = -85.0
 offset_right = 73.0
 offset_bottom = 89.0
 
-[node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI"]
+[node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI" unique_id=536318409]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -102,7 +102,7 @@ texture_under = ExtResource("8_u54sm")
 texture_over = ExtResource("9_xotyc")
 texture_progress = ExtResource("10_s27e1")
 
-[node name="EnemyHealthLabel" type="Label" parent="EnemyUI/EnemyHealthBar"]
+[node name="EnemyHealthLabel" type="Label" parent="EnemyUI/EnemyHealthBar" unique_id=1590816724]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 578.0
@@ -115,7 +115,7 @@ text = "3000/3000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GoldAndXPBox" type="VBoxContainer" parent="EnemyUI"]
+[node name="GoldAndXPBox" type="VBoxContainer" parent="EnemyUI" unique_id=46253487]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 149.0
@@ -123,19 +123,19 @@ offset_top = 6.0
 offset_right = 236.0
 offset_bottom = 46.0
 
-[node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox"]
+[node name="EnemyGold" type="Label" parent="EnemyUI/GoldAndXPBox" unique_id=1789676923]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2g"
 
-[node name="EnemyXP" type="Label" parent="EnemyUI/GoldAndXPBox"]
+[node name="EnemyXP" type="Label" parent="EnemyUI/GoldAndXPBox" unique_id=61945262]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2xp"
 
-[node name="EnemySelectionHealth" type="Label" parent="EnemyUI"]
+[node name="EnemySelectionHealth" type="Label" parent="EnemyUI" unique_id=1370865480]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -154,7 +154,7 @@ text = "110/120"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EnemyHealthBar2" type="TextureProgressBar" parent="EnemyUI/EnemySelectionHealth"]
+[node name="EnemyHealthBar2" type="TextureProgressBar" parent="EnemyUI/EnemySelectionHealth" unique_id=1489078488]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -171,7 +171,7 @@ value = 100.0
 texture_under = SubResource("GradientTexture2D_yiy73")
 texture_progress = ExtResource("10_s27e1")
 
-[node name="StatContainer" type="VBoxContainer" parent="EnemyUI"]
+[node name="StatContainer" type="VBoxContainer" parent="EnemyUI" unique_id=1167210705]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 156.0
@@ -179,7 +179,7 @@ offset_top = 66.0
 offset_right = 252.0
 offset_bottom = 164.0
 
-[node name="AttackLabel" type="Label" parent="EnemyUI/StatContainer"]
+[node name="AttackLabel" type="Label" parent="EnemyUI/StatContainer" unique_id=2125607870]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -188,7 +188,7 @@ text = "Atk: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AttackPanel" type="Panel" parent="EnemyUI/StatContainer/AttackLabel"]
+[node name="AttackPanel" type="Panel" parent="EnemyUI/StatContainer/AttackLabel" unique_id=1981420282]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -198,7 +198,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DefenseLabel" type="Label" parent="EnemyUI/StatContainer"]
+[node name="DefenseLabel" type="Label" parent="EnemyUI/StatContainer" unique_id=366164538]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -207,7 +207,7 @@ text = "Atk: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DefensePanel" type="Panel" parent="EnemyUI/StatContainer/DefenseLabel"]
+[node name="DefensePanel" type="Panel" parent="EnemyUI/StatContainer/DefenseLabel" unique_id=342207982]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -217,7 +217,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ArmorLabel" type="Label" parent="EnemyUI/StatContainer"]
+[node name="ArmorLabel" type="Label" parent="EnemyUI/StatContainer" unique_id=1534695737]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -226,7 +226,7 @@ text = "Def: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArmorPanel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel"]
+[node name="ArmorPanel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel" unique_id=1035909385]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1
@@ -236,7 +236,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StunIndicator" type="Panel" parent="."]
+[node name="StunIndicator" type="Panel" parent="." unique_id=257852930]
 unique_name_in_owner = true
 visible = false
 offset_left = -73.0
@@ -245,7 +245,7 @@ offset_right = 72.0
 offset_bottom = 90.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_j1tnv")
 
-[node name="StunLabel" type="Label" parent="StunIndicator"]
+[node name="StunLabel" type="Label" parent="StunIndicator" unique_id=853913083]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 65.0
@@ -256,7 +256,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "1
 "
 
-[node name="TooltipPanel" parent="." instance=ExtResource("11_4cvw8")]
+[node name="TooltipPanel" parent="." unique_id=184987963 instance=ExtResource("11_4cvw8")]
 unique_name_in_owner = true
 
 [connection signal="mouse_entered" from="EnemyUI" to="." method="_on_enemy_ui_mouse_entered"]

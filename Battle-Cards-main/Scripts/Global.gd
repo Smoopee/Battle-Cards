@@ -23,11 +23,13 @@ var ui_scaler = Vector2(1,1)
 @onready var player_deck = []
 @onready var player_skills = []
 @onready var player_consumables = []
+@onready var player_interrupts = []
 @onready var player_runes = []
 @onready var player_inventory_db = []
 @onready var player_deck_db
 @onready var player_skills_db
 @onready var player_consumables_db
+@onready var player_interrupts_db
 @onready var player_runes_db
 @onready var player_inventory = []
 @onready var player_talent_array = []
@@ -47,6 +49,7 @@ var skill_db_reference
 var card_db_reference
 var rune_db_reference
 var consumable_db_reference
+var interrupt_db_reference
 
 var mouse_occupied = false
 #var card_node_reference = 3
@@ -63,10 +66,12 @@ func _ready():
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
 	rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
+	interrupt_db_reference = preload("res://Resources/Interrupts/interrupt_db.gd")
 	
 	set_player_skills()
 	instantiate_player_skills()
 	set_player_consumables()
+	set_player_interrupts()
 	instantiate_player_consumables()
 	set_player_runes()
 	instantiate_player_runes()
@@ -78,6 +83,7 @@ func _ready():
 		instantiate_player_deck()
 		instantiate_player_inventory()
 		instantiate_player_skills()
+		instantiate_player_consumables()
 
 func verify_save_directory(path: String):
 	DirAccess.make_dir_absolute(path)
@@ -134,6 +140,14 @@ func instantiate_player_consumables():
 	for i in player_consumables_db:
 		var consumable = load(consumable_db_reference.ITEMS[i]).duplicate()
 		player_consumables.push_back(consumable)
+
+func set_player_interrupts():
+	player_interrupts_db = ["Bide","Extra Oomph", "Bide"]
+
+func instantiate_player_interrupts():
+	for i in player_interrupts_db:
+		var interrupt = load(interrupt_db_reference.ITEMS[i]).duplicate()
+		player_interrupts.push_back(interrupt)
 
 func set_player_runes():
 	player_runes_db = []

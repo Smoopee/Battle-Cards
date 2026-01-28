@@ -2,30 +2,31 @@ extends Node2D
 
 
 @onready var interrupt_stats = get_parent().interrupt_stats
+@onready var glow_effect = $GlowEffect
 
-var shop_label: Label
-var shop_panel: Panel
+var glow_power = 3.0
+var speed = 2.0
 var info_label: Label
-var image: Sprite2D
+var image_button: TextureButton
 var tooltip : Panel
 var tooltip_container : VBoxContainer
 
 func _ready():
 	self.scale = Global.ui_scaler
 	set_node_names()
+	add_to_group("interrupt")
 	#effect.tooltip_effect()
+
+func _process(delta):
+	if glow_effect:
+		glow_power += delta * speed
+		if glow_power >= 2.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
+			speed *= -1.0
+		$GlowEffect.modulate.a = glow_power/ 4
+		$GlowEffect.get_material().set_shader_parameter("glow_power", glow_power)
 
 func interrupt_effect(target):
 	get_parent().effect(target)
-
-func interrupt_shop_ui():
-	if interrupt_stats.interrupt_owner != get_tree().get_first_node_in_group("character"):
-		shop_label.text =  str(interrupt_stats.buy_price)
-
-func toggle_shop_ui(show):
-	if show: shop_panel.visible = true
-	if Global.current_scene == "shop": return
-	if !show: shop_panel.visible = false
 
 func toggle_info_ui(show):
 	if show: info_label.visible = true
@@ -37,20 +38,17 @@ func update_stack_ui():
 	info_label.text = str(interrupt_stats.stack_amount)
 
 func set_node_names():
-	shop_label = get_node('%ShopLabel')
-	shop_panel = get_node('%ShopPanel')
 	info_label = get_node('%InfoLabel')
-	image = get_node('%ConsumableImage')
+	image_button = get_node('%ImageButton')
 	tooltip = get_node('%TooltipPanel')
 	tooltip_container = tooltip.get_child(0)
 	
-	image.texture = load(interrupt_stats.interrupt_art_path)
+	image_button.texture_normal = load(interrupt_stats.interrupt_art_path)
 	z_index = 1
 
 #WIP TOOLTIPS======================================================================================
 func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
-	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
 	var x_offset = 40
@@ -68,7 +66,6 @@ func toggle_tooltip_show():
 		
 
 func toggle_tooltip_hide():
-	toggle_shop_ui(false)
 	tooltip.visible = false
 
 func update_tooltip(category, identifier, body = null, header = null):
@@ -90,3 +87,12 @@ func _on_interrupt_ui_mouse_entered():
 func _on_interrupt_ui_mouse_exited():
 	scale = Vector2(1, 1)
 	toggle_tooltip_hide()
+
+
+func _on_image_button_toggled(toggled_on: bool) -> void:
+	if toggled_on: 
+		%GlowEffect.visible = true
+	else: 
+		%GlowEffect.visible = false
+	
+	get_parent().interrupt_toggled(toggled_on)

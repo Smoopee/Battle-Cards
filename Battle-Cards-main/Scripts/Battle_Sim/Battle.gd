@@ -74,10 +74,10 @@ func combat(player_deck_list, enemy_deck_list):
 		i.get_node("BaseCard").disable_collision()
 	
 	for i in range(0, 7):
-		emit_signal("start_of_turn")
 		player_card = player_deck_list[i]
 		enemy_card = enemy_deck_list[i]
 		
+		emit_signal("start_of_turn")
 		interupt_check(i)
 		
 		player_deck.play_card(player_card)
@@ -193,6 +193,7 @@ func stun_check(character):
 func interupt_battle():
 	#get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_DISABLED
 	is_battle_interupted = true
+	get_tree().get_first_node_in_group("player interrupts").enable_interrupts()
 	get_tree().get_first_node_in_group("bottom ui").is_battling = false
 	player_card.get_node("BaseCard").enable_collision()
 	enemy_card.get_node("BaseCard").enable_collision()
@@ -281,6 +282,7 @@ func during_combat_ui_toggle():
 		i.visible = false
 
 func _on_interupt_continue_button_pressed() -> void:
+	get_tree().get_first_node_in_group("player interrupts").disable_interrupts()
 	get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_INHERIT
 	player_card.get_node("BaseCard").disable_collision()
 	enemy_card.get_node("BaseCard").disable_collision()

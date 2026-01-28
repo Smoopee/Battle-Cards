@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cbuylixaxf1p6"]
+
+[ext_resource type="Script" uid="uid://dcbm4ffaehqea" path="res://Scripts/UI/Player/player_interrupts.gd" id="1_gmuo3"]
+
+[node name="PlayerInterrupts" type="Node2D" unique_id=852330355 groups=["player interrupts"]]
+visible = false
+script = ExtResource("1_gmuo3")

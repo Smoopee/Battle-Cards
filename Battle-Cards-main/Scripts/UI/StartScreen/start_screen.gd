@@ -84,6 +84,11 @@ func new_game_function():
 	Global.instantiate_player_inventory()
 	Global.set_player_deck()
 	Global.instantiate_player_deck()
+	Global.set_player_consumables()
+	Global.instantiate_player_consumables()
+	Global.set_player_interrupts()
+	Global.instantiate_player_interrupts()
+	
 	
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 	get_parent().add_scene("res://Scenes/UI/ClassSelection/class_selection.tscn")

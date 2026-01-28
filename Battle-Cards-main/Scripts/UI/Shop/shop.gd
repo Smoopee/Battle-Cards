@@ -22,6 +22,7 @@ func _ready():
 		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
 		$MerchantConsumables.create_merchant_inventory()
 		current_merhant_organizer = $MerchantConsumables
+		get_tree().get_first_node_in_group("items ui").toggle_consumables(true)
 	elif merchant.merchant_stats.merchant_type == "Enchantment":
 		merchant_type = "Enchantment"
 		$EnchantmentManager.process_mode = Node.PROCESS_MODE_INHERIT
