@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1uce1yo4700a"]
+[gd_scene format=3 uid="uid://b1uce1yo4700a"]
 
-[ext_resource type="Script" path="res://Scripts/Consumables/Cheese.gd" id="1_meg4w"]
+[ext_resource type="Script" uid="uid://ckl0rtgrsrd7i" path="res://Scripts/Consumables/Cheese.gd" id="1_meg4w"]
 [ext_resource type="PackedScene" uid="uid://t3743qo0bahh" path="res://Scenes/Consumables/base_consumable.tscn" id="2_31g0d"]
 
-[node name="Cheese" type="Node2D"]
+[node name="Cheese" type="Node2D" unique_id=1395841983]
 script = ExtResource("1_meg4w")
 
-[node name="BaseConsumable" parent="." instance=ExtResource("2_31g0d")]
+[node name="BaseConsumable" parent="." unique_id=712516755 instance=ExtResource("2_31g0d")]

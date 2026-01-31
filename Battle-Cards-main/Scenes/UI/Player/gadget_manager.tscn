@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c521ndv5v6yor"]
+
+[ext_resource type="Script" uid="uid://dosgitq7cvm11" path="res://Scripts/UI/Player/gadget_manager.gd" id="1_yksnx"]
+
+[node name="GadgetManager" type="Node2D" unique_id=2004117247]
+script = ExtResource("1_yksnx")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d3mugisv4lotn"]
+
+[ext_resource type="PackedScene" uid="uid://isfnfx64qfg8" path="res://Scenes/Gadgets/base_gadget.tscn" id="1_00wub"]
+[ext_resource type="Script" uid="uid://c33u2cxe504rj" path="res://Scripts/Gadgets/stocks.gd" id="1_bix81"]
+
+[node name="Stocks" type="Node2D" unique_id=337886514]
+script = ExtResource("1_bix81")
+
+[node name="BaseGadget" parent="." unique_id=1250733867 instance=ExtResource("1_00wub")]

@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @export var group1 = ButtonGroup.new()
 @export var group2 = ButtonGroup.new()
@@ -36,13 +36,14 @@ var tier8_chosen = false
 
 
 func _ready():
-	
+	get_tree().get_first_node_in_group("main").connect("scene_change", talent_connect)
 	Global.connect("level_up", level_up)
 	create_talent_tree()
 	talent_access_check()
 	disable_out_of_reach_talents()
 	load_player_selected_talents()
 	talent_alert_check()
+	$BGDimmer.size = get_viewport().size
 
 func talent_access_check():
 	if Global.player_level >= 4: tier1_access = true
@@ -94,6 +95,8 @@ func _on_confirm_button_button_down():
 	for i in get_tree().get_nodes_in_group("talent_button"):
 		if i.button_pressed == false:
 			i.disabled = true
+		else: 
+			i.get_child(0).is_selected = true
 	save_talent_array()
 
 func save_talent_array():
@@ -139,16 +142,23 @@ func save_talent_array():
 		if i.button_pressed: tier8_talent =  i.get_child(0).talent_scene_path
 		tier8_chosen = true
 	
-	talent_array.push_back(tier1_talent)
-	talent_array.push_back(tier2_talent)
-	talent_array.push_back(tier3_talent)
-	talent_array.push_back(tier4_talent)
-	talent_array.push_back(tier5_talent)
-	talent_array.push_back(tier6_talent)
-	talent_array.push_back(tier7_talent)
-	talent_array.push_back(tier8_talent)
+	if tier1_talent != null :
+		talent_array.push_back(tier1_talent)
+	if tier2_talent != null :
+		talent_array.push_back(tier2_talent)
+	if tier3_talent != null :
+		talent_array.push_back(tier3_talent)
+	if tier4_talent != null :
+		talent_array.push_back(tier4_talent)
+	if tier5_talent != null :
+		talent_array.push_back(tier5_talent)
+	if tier6_talent != null :
+		talent_array.push_back(tier6_talent)
+	if tier7_talent != null :
+		talent_array.push_back(tier7_talent)
+	if tier8_talent != null :
+		talent_array.push_back(tier8_talent)
 	Global.player_talent_array = talent_array
-	
 	if tier1_chosen == true and tier1_access: 
 		get_tree().get_first_node_in_group("bottom ui").talent_alert_toggle(false)
 
@@ -295,74 +305,73 @@ func disable_out_of_reach_talents():
 	if !tier1_access:
 		for i in group1.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier1Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group1.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier1Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 		
 	if !tier2_access:
 		for i in group2.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier2Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group2.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier2Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 		
 	if !tier3_access:
 		for i in group3.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier3Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group3.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier3Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if !tier4_access:
 		for i in group4.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier4Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group4.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier4Block.visible = false
-	
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 	if !tier5_access:
 		for i in group5.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier5Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group5.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier5Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if !tier6_access:
 		for i in group6.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier6Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group6.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier6Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if !tier7_access:
 		for i in group7.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier7Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group7.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier7Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if !tier8_access:
 		for i in group8.get_buttons():
 			i.disabled = true
-		$VBoxContainer2/Tier8Block.visible = true
+			i.process_mode = Node.PROCESS_MODE_DISABLED
 	else:
 		for i in group8.get_buttons():
 			i.disabled = false
-		$VBoxContainer2/Tier8Block.visible = false
+			i.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _on_reset_button_button_down():
 	reset_talents()
@@ -373,7 +382,7 @@ func reset_talents():
 		i.disabled = false
 		Global.player_talent_array = []
 	
-	disable_out_of_reach_talents()
+	#disable_out_of_reach_talents()
 
 #WIP TOOLTIP========================================================================================
 func toggle_tooltip_show():
@@ -385,7 +394,7 @@ func toggle_tooltip_show():
 	#if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	#if correction == false:
-	tooltip.popup(Rect2i(global_position + Vector2(1350, 535), size)) 
+	#tooltip.popup(Rect2i(global_position + Vector2(1350, 535), size)) 
 	#else:
 		#var new_position = global_position + Vector2(-25 - tooltip.size.x , -35)
 		#tooltip.popup(Rect2i(new_position, size)) 
@@ -649,3 +658,8 @@ func _on_tier_8_button_3_mouse_entered():
 
 func _on_tier_8_button_3_mouse_exited():
 	toggle_tooltip_hide()
+
+func talent_connect(scene):
+	for i in get_tree().get_nodes_in_group("talent"):
+		if i.is_selected == true:
+			i.talent_signal_connect(scene)

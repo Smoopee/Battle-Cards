@@ -1,34 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://81n3gvx42dfs"]
+[gd_scene format=3 uid="uid://81n3gvx42dfs"]
 
 [ext_resource type="Script" uid="uid://ichf4a4hb20t" path="res://Scripts/UI/LevelUpSelection/level_up_selection.gd" id="1_aiy27"]
-[ext_resource type="PackedScene" uid="uid://bwqs5wchg56o" path="res://Scenes/UI/PlayerInventory/player_cards.tscn" id="2_0x6gc"]
 [ext_resource type="Script" uid="uid://cpd2nl0kgphbi" path="res://Scripts/UI/LevelUpSelection/RewardSelection.gd" id="2_sljq4"]
-[ext_resource type="PackedScene" uid="uid://c0dq60hmfb20e" path="res://Scenes/UI/Player/player.tscn" id="5_2psu5"]
-[ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="5_abffh"]
-[ext_resource type="PackedScene" uid="uid://dac2v2br3grnx" path="res://Scenes/Characters/Berserker/berserker.tscn" id="6_3387g"]
 [ext_resource type="PackedScene" uid="uid://dluppe6lcdir0" path="res://Scenes/UI/Player/consumable_manager.tscn" id="7_gqrgq"]
 [ext_resource type="Script" uid="uid://drtq6176rutef" path="res://Scripts/UI/LevelUpSelection/CardSelection.gd" id="10_shfif"]
-[ext_resource type="PackedScene" uid="uid://dryjn7f2ubrq" path="res://Scenes/UI/Menu/menu.tscn" id="11_s2nco"]
 [ext_resource type="Script" uid="uid://db16v3a0gshqt" path="res://Scripts/UI/LevelUpSelection/SkillSelectionCreator.gd" id="12_f20my"]
 [ext_resource type="Script" uid="uid://bk5dohuatd16f" path="res://Scripts/UI/LevelUpSelection/SkillSelectionManager.gd" id="13_hwkwr"]
 
-[node name="LevelUpSelection" type="Node2D" groups=["card manager", "current scene"]]
+[node name="LevelUpSelection" type="Node2D" unique_id=770080921 groups=["card manager", "current scene"]]
 script = ExtResource("1_aiy27")
 
-[node name="RewardSelection" type="Node2D" parent="."]
+[node name="RewardSelection" type="Node2D" parent="." unique_id=1459278646]
 script = ExtResource("2_sljq4")
 
-[node name="PlayerInventoryScreen" parent="." instance=ExtResource("2_0x6gc")]
+[node name="ConsumableManger" parent="." unique_id=769123926 instance=ExtResource("7_gqrgq")]
 
-[node name="BottomNavBar" parent="." instance=ExtResource("5_abffh")]
-
-[node name="Player" parent="." instance=ExtResource("5_2psu5")]
-
-[node name="Berserker" parent="Player" instance=ExtResource("6_3387g")]
-
-[node name="ConsumableManger" parent="." instance=ExtResource("7_gqrgq")]
-
-[node name="HeaderPanel" type="Panel" parent="."]
+[node name="HeaderPanel" type="Panel" parent="." unique_id=198306832]
 custom_minimum_size = Vector2(500, 0)
 anchors_preset = 5
 anchor_left = 0.5
@@ -38,7 +25,7 @@ offset_right = 288.5
 offset_bottom = 59.0
 grow_horizontal = 2
 
-[node name="Label" type="Label" parent="HeaderPanel"]
+[node name="Label" type="Label" parent="HeaderPanel" unique_id=484954627]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 5.0
@@ -49,31 +36,29 @@ text = "LEVEL UP SELECTION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TooltipTimer" type="Timer" parent="."]
+[node name="TooltipTimer" type="Timer" parent="." unique_id=113740674]
 
-[node name="CardSelectionCreator" type="Node2D" parent="."]
+[node name="CardSelectionCreator" type="Node2D" parent="." unique_id=1771022442]
 process_mode = 4
 visible = false
 script = ExtResource("10_shfif")
 
-[node name="SkillSelectionCreator" type="Node2D" parent="."]
+[node name="SkillSelectionCreator" type="Node2D" parent="." unique_id=46290451]
 process_mode = 4
 visible = false
 script = ExtResource("12_f20my")
 
-[node name="SkillSelectionManager" type="Node2D" parent="."]
+[node name="SkillSelectionManager" type="Node2D" parent="." unique_id=887438405]
 process_mode = 4
 visible = false
 script = ExtResource("13_hwkwr")
 
-[node name="Continue" type="Button" parent="."]
+[node name="Continue" type="Button" parent="." unique_id=1217089862]
 offset_left = 1727.0
 offset_top = 911.0
 offset_right = 1863.0
 offset_bottom = 935.0
 text = "Continue"
-
-[node name="Menu" parent="." instance=ExtResource("11_s2nco")]
 
 [connection signal="timeout" from="TooltipTimer" to="." method="_on_tooltip_timer_timeout"]
 [connection signal="child_order_changed" from="CardSelectionCreator" to="." method="_on_reward_chosen"]

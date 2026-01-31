@@ -32,11 +32,11 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	merchant_inventory_reference = $"../MerchantCards"
 	
-	inventory_card_slot_reference = $"../PlayerInventoryScreen".inventory_card_slot_reference
-	deck_card_slot_reference = $"../PlayerInventoryScreen".deck_card_slot_reference
+	inventory_card_slot_reference = get_tree().get_first_node_in_group("player cards").inventory_card_slot_reference
+	deck_card_slot_reference = get_tree().get_first_node_in_group("player cards").deck_card_slot_reference
 	
-	inventory_card_slot_array = $"../PlayerInventoryScreen".inventory_card_slot_array
-	deck_card_slot_array =  $"../PlayerInventoryScreen".deck_card_slot_array
+	inventory_card_slot_array = get_tree().get_first_node_in_group("player cards").inventory_card_slot_array
+	deck_card_slot_array =  get_tree().get_first_node_in_group("player cards").deck_card_slot_array
 
 
 func _process(delta):
@@ -257,7 +257,7 @@ func upgrade_from_merchant(upgrade_card, base_card):
 	pass
 
 func update_player_gold():
-	$"../BottomNavBar".change_player_gold() 
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold() 
 
 func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bkfnnptxa8ndj"]
+
+[ext_resource type="Script" uid="uid://c1vxbg4fwi3ro" path="res://Scripts/Buffs/growing_buff.gd" id="1_d8jgg"]
+[ext_resource type="PackedScene" uid="uid://bw76pl3mtet8k" path="res://Scenes/Buffs/base_buff.tscn" id="2_6m4oj"]
+
+[node name="GrowingBuff" type="Node2D" unique_id=1632087948]
+script = ExtResource("1_d8jgg")
+
+[node name="BaseBuff" parent="." unique_id=327930684 instance=ExtResource("2_6m4oj")]

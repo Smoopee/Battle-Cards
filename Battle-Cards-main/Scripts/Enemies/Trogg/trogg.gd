@@ -12,7 +12,6 @@ func _ready():
 	character.set_deck()
 	character.set_skills()
 	character.set_stat_container()
-	character.set_runes()
 	character.set_enemy_gold()
 	character.set_enemy_xp()
 

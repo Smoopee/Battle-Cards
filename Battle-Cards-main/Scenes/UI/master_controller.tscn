@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bdeyg6uyeev2f"]
+
+[ext_resource type="Script" uid="uid://dhulaiqbvmrj2" path="res://Scripts/master_controller.gd" id="1_ykpi8"]
+
+[node name="MasterController" type="Node2D" unique_id=2123400557]
+script = ExtResource("1_ykpi8")

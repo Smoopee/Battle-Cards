@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://6jrqqrya5q5w"]
+[gd_scene format=3 uid="uid://6jrqqrya5q5w"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Berserker/Talents/blood_bath.gd" id="1_gai4p"]
+[ext_resource type="Script" uid="uid://rfu5l467vmgj" path="res://Scripts/Characters/Berserker/Talents/blood_bath.gd" id="1_gai4p"]
 
-[node name="BloodBath" type="Node2D"]
+[node name="BloodBath" type="Node2D" unique_id=1347478443 groups=["talent"]]
 script = ExtResource("1_gai4p")

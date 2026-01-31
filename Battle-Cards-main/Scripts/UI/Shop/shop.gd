@@ -1,11 +1,14 @@
 extends Node2D
 
+signal instantiate_merchant
+
 var current_merhant_organizer
 var merchant_type 
 
 func _ready():
 	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
 	var merchant = get_tree().get_first_node_in_group("merchant")
+	emit_signal("instantiate_merchant", merchant)
 	if merchant.merchant_stats.merchant_type == "Card":
 		merchant_type = "Card"
 		$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
@@ -17,6 +20,11 @@ func _ready():
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT
 		$MerchantSkills.create_merchant_inventory()
 		current_merhant_organizer = $MerchantSkills
+	elif merchant.merchant_stats.merchant_type == "Gadget":
+		merchant_type = "Gadget"
+		$GadgetManager.process_mode = Node.PROCESS_MODE_INHERIT
+		$MerchantGadgets.create_merchant_inventory()
+		current_merhant_organizer = $MerchantGadgets
 	elif merchant.merchant_stats.merchant_type == "Consumable":
 		merchant_type = "Consumable"
 		$MerchantConsumableManager.process_mode = Node.PROCESS_MODE_INHERIT
@@ -33,7 +41,8 @@ func _ready():
 		$RunesManager.process_mode = Node.PROCESS_MODE_INHERIT
 		$MerchantRunes.create_merchant_inventory()
 		current_merhant_organizer = $MerchantRunes
-	
+		
+	$ShopUI.position = merchant.position + Vector2(100, 0)
 	toggle_refresh(merchant)
 
 func _on_exit_button_button_down():
@@ -72,7 +81,7 @@ func _on_reroll_button_button_down():
 	get_tree().get_first_node_in_group("bottom ui").change_player_gold()
 
 func inventory_and_deck_save():
-	var deck_and_inventory_reference = $PlayerInventoryScreen
+	var deck_and_inventory_reference = get_tree().get_first_node_in_group("player cards")
 	var temp_inventory = []
 	for i in deck_and_inventory_reference.inventory_card_slot_reference:
 		if i != null:

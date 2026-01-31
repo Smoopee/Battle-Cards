@@ -216,3 +216,8 @@ func _on_menu_button_down() -> void:
 	get_tree().get_first_node_in_group("current scene").process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().get_first_node_in_group("menu").visible = true
 	get_tree().get_first_node_in_group("menu").process_mode = Node.PROCESS_MODE_INHERIT
+
+
+func change_gold(gold):
+	Global.player_gold += gold
+	$ColorRect/PlayerUI.change_player_gold()

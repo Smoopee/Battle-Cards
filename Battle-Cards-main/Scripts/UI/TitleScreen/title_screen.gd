@@ -37,6 +37,7 @@ func finish_drag():
 		card_being_dragged.position = start_found.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
+		Global.current_scene = "start_screen"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/UI/StartScreen/start_screen.tscn")
 		queue_free()

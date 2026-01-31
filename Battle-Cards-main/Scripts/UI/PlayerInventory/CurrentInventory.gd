@@ -3,8 +3,8 @@ extends Node2D
 
 const CARD_WIDTH = 130
 const HAND_Y_POSITION = 730
-const NUMBER_OF_INVENTORY_SLOTS = 5
 
+var number_of_slots
 var inventory_db = []
 var inventory = []
 
@@ -16,13 +16,14 @@ var animation_cancel = true
 
 
 func _ready():
+	number_of_slots = Global.number_of_inventory_slots
 	center_screen_x = get_viewport().size.x / 2
 	
 	for i in $"../InventorySlots".get_children():
 		card_slot_array.push_front(i)
 		
 	create_inventory()
-	while card_slot_reference.size() < NUMBER_OF_INVENTORY_SLOTS:
+	while card_slot_reference.size() < number_of_slots:
 		card_slot_reference.push_back(null)
 		
 	animation_cancel = false

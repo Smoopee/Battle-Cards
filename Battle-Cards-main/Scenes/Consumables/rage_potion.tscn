@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b7bas5t6hgnvl"]
+
+[ext_resource type="PackedScene" uid="uid://t3743qo0bahh" path="res://Scenes/Consumables/base_consumable.tscn" id="1_k2mvd"]
+[ext_resource type="Script" uid="uid://cpqre42o826u1" path="res://Scripts/Consumables/rage_potion.gd" id="1_mbs5o"]
+
+[node name="RagePotion" type="Node2D" unique_id=319723806]
+script = ExtResource("1_mbs5o")
+
+[node name="BaseConsumable" parent="." unique_id=1571067073 instance=ExtResource("1_k2mvd")]

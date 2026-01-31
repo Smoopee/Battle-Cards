@@ -1,50 +1,48 @@
 extends Node2D
 
 
-@onready var interrupt_stats = get_parent().interrupt_stats
+@onready var gadget_stats = get_parent().gadget_stats
 
+#UI=================================================================================================
 var shop_label: Label
 var shop_panel: Panel
 var info_label: Label
-var image: Sprite2D
-var tooltip : Panel
+var gadget_image: Sprite2D
+var upgrade_border: Sprite2D
 var tooltip_container : VBoxContainer
+var tooltip : Panel
+
 
 func _ready():
 	self.scale = Global.ui_scaler
+	add_to_group("gadget")
 	set_node_names()
-	#effect.tooltip_effect()
 
-func interrupt_effect(target):
-	get_parent().effect(target)
+func upgrade_gadget(num):
+	get_parent().upgrade_gadget(num)
 
-func interrupt_shop_ui():
-	if interrupt_stats.interrupt_owner != get_tree().get_first_node_in_group("character"):
-		shop_label.text =  str(interrupt_stats.buy_price)
+func update_gadget_image():
+	upgrade_border.texture = load(gadget_stats.gadget_upgrade_art_path)
+
+func gadget_shop_ui():
+	if gadget_stats.owner != get_tree().get_first_node_in_group("character"):
+		shop_label.text =  str(gadget_stats.buy_price)
 
 func toggle_shop_ui(show):
 	if show: shop_panel.visible = true
 	if Global.current_scene == "shop": return
-	if !show: shop_panel.visible = false
-
-func toggle_info_ui(show):
-	if show: info_label.visible = true
-	if !show: info_label.visible = false
-	if interrupt_stats.stack_amount <= 1:  info_label.visible = false
-
-func update_stack_ui():
-	set_node_names()
-	info_label.text = str(interrupt_stats.stack_amount)
+	if !show:  shop_panel.visible = false
 
 func set_node_names():
 	shop_label = get_node('%ShopLabel')
 	shop_panel = get_node('%ShopPanel')
 	info_label = get_node('%InfoLabel')
-	image = get_node('%ConsumableImage')
+	gadget_image = get_node('%GadgetImage')
+	upgrade_border = get_node('%UpgradeBorder')
 	tooltip = get_node('%TooltipPanel')
 	tooltip_container = tooltip.get_child(0)
 	
-	image.texture = load(interrupt_stats.interrupt_art_path)
+	gadget_image.texture = load(gadget_stats.gadget_art_path)
 	z_index = 1
 
 #WIP TOOLTIPS======================================================================================
@@ -53,8 +51,8 @@ func toggle_tooltip_show():
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
-	var x_offset = 40
-	var y_offset = -5
+	var x_offset = ($GadgetUI.size.x /2) + 20
+	var y_offset = -($GadgetUI.size.y /2) + 11
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
 	
@@ -62,14 +60,17 @@ func toggle_tooltip_show():
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
+		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
 		tooltip.position = Vector2(x_offset, y_offset)
 	else:
+		#tooltip.popup(Rect2i(get_parent().position, size)) 
 		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 		
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
+	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -83,10 +84,10 @@ func update_tooltip(category, identifier, body = null, header = null):
 	else:
 		temp.update_tooltip(category, identifier, body, header)
 
-func _on_interrupt_ui_mouse_entered():
+func _on_gadget_ui_mouse_entered():
 	scale = Vector2(1.1, 1.1)
 	toggle_tooltip_show()
 
-func _on_interrupt_ui_mouse_exited():
+func _on_gadget_ui_mouse_exited():
 	scale = Vector2(1, 1)
 	toggle_tooltip_hide()

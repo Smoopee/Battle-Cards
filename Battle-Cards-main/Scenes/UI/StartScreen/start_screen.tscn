@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cg8o1xmo3tpdj"]
+[gd_scene format=3 uid="uid://cg8o1xmo3tpdj"]
 
 [ext_resource type="Script" uid="uid://bacs1gorws72i" path="res://Scripts/UI/StartScreen/start_screen.gd" id="1_hd3kb"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="2_1chac"]
@@ -22,34 +22,34 @@ shader_parameter/glow_radius = 10.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p7fc"]
 size = Vector2(98, 127)
 
-[node name="StartScreen" type="Node2D" groups=["card manager"]]
+[node name="StartScreen" type="Node2D" unique_id=121272920 groups=["card manager"]]
 script = ExtResource("1_hd3kb")
 
-[node name="CardSelector" parent="." instance=ExtResource("2_1chac")]
+[node name="CardSelector" parent="." unique_id=876249466 instance=ExtResource("2_1chac")]
 
-[node name="NewGame" type="Node2D" parent="."]
+[node name="NewGame" type="Node2D" parent="." unique_id=1790120630]
 position = Vector2(548, 238)
 script = ExtResource("3_vc6ht")
 
-[node name="ColorRect" type="ColorRect" parent="NewGame"]
+[node name="ColorRect" type="ColorRect" parent="NewGame" unique_id=1122667632]
 self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 0.74509805)
 offset_left = -49.333374
 offset_top = -64.0
 offset_right = 49.333313
 offset_bottom = 64.66669
 
-[node name="Sprite2D" type="Sprite2D" parent="NewGame"]
+[node name="Sprite2D" type="Sprite2D" parent="NewGame" unique_id=669062225]
 texture = ExtResource("3_dsfx2")
 
-[node name="Area2D" type="Area2D" parent="NewGame"]
+[node name="Area2D" type="Area2D" parent="NewGame" unique_id=160350446]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NewGame/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NewGame/Area2D" unique_id=1725131779]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_0e27j")
 
-[node name="Label" type="Label" parent="NewGame"]
+[node name="Label" type="Label" parent="NewGame" unique_id=1687225209]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -67,36 +67,36 @@ Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GlowEffect" type="Sprite2D" parent="NewGame"]
+[node name="GlowEffect" type="Sprite2D" parent="NewGame" unique_id=975679153]
 visible = false
 material = SubResource("ShaderMaterial_peuub")
 position = Vector2(-6.1035156e-05, -1.5258789e-05)
 scale = Vector2(0.71794844, 0.7438595)
 texture = ExtResource("6_b2pu5")
 
-[node name="LoadGame" type="Node2D" parent="."]
+[node name="LoadGame" type="Node2D" parent="." unique_id=1420210256]
 position = Vector2(1287, 504)
 script = ExtResource("5_rj7o4")
 
-[node name="ColorRect" type="ColorRect" parent="LoadGame"]
+[node name="ColorRect" type="ColorRect" parent="LoadGame" unique_id=217980828]
 self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 0.74509805)
 offset_left = -49.333374
 offset_top = -64.0
 offset_right = 49.333313
 offset_bottom = 64.66669
 
-[node name="Sprite2D" type="Sprite2D" parent="LoadGame"]
+[node name="Sprite2D" type="Sprite2D" parent="LoadGame" unique_id=1089659220]
 texture = ExtResource("3_dsfx2")
 
-[node name="Area2D" type="Area2D" parent="LoadGame"]
+[node name="Area2D" type="Area2D" parent="LoadGame" unique_id=1288525175]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LoadGame/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoadGame/Area2D" unique_id=1238539107]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_5p7fc")
 
-[node name="Label" type="Label" parent="LoadGame"]
+[node name="Label" type="Label" parent="LoadGame" unique_id=2048096838]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -113,7 +113,7 @@ Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GlowEffect" type="Sprite2D" parent="LoadGame"]
+[node name="GlowEffect" type="Sprite2D" parent="LoadGame" unique_id=1117809713]
 visible = false
 material = SubResource("ShaderMaterial_peuub")
 position = Vector2(-3.787875e-05, -1.168251e-05)

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bua11o6oudri4"]
+[gd_scene format=3 uid="uid://bua11o6oudri4"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Player/rune_manager.gd" id="1_3d4d6"]
+[ext_resource type="Script" uid="uid://dvuvgk6pny5q" path="res://Scripts/UI/Player/rune_manager.gd" id="1_3d4d6"]
 
-[node name="RuneManager" type="Node2D"]
+[node name="RuneManager" type="Node2D" unique_id=1836203158]
 script = ExtResource("1_3d4d6")

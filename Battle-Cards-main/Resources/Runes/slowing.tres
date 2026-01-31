@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Runes_Resource" format=3 uid="uid://47c0ijscqei8"]
+
+[ext_resource type="Script" uid="uid://khxquttii5do" path="res://Resources/Runes/runes_master_resource.gd" id="1_306se"]
+
+[resource]
+script = ExtResource("1_306se")
+rune_art_path = "res://Resources/Art/Runes/slowing_rune.png"
+rune_scene_path = "res://Scenes/Runes/slowing.tscn"
+rune_name = "Slowing"
+buy_price = 1
+metadata/_custom_type_script = "uid://khxquttii5do"

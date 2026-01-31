@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://y42auer73w37"]
+[gd_scene format=3 uid="uid://y42auer73w37"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Berserker/Talents/indomitable.gd" id="1_fxkjk"]
+[ext_resource type="Script" uid="uid://bc1ffurgplg1d" path="res://Scripts/Characters/Berserker/Talents/indomitable.gd" id="1_fxkjk"]
 
-[node name="Indomitable" type="Node2D"]
+[node name="Indomitable" type="Node2D" unique_id=1189318316 groups=["talent"]]
 script = ExtResource("1_fxkjk")

@@ -1,11 +1,11 @@
 extends Node2D
 
 
-const INTERRUPT_Y_POSITION = -115
+const INTERRUPT_Y_POSITION = 775
 
 var interrupt_x_position = 0
 var interrupt_array = []
-var interrupt_width = 46
+var interrupt_width = 50
 
 
 func _ready():
@@ -52,20 +52,15 @@ func remove_interrupt(interrupt, amount = 1):
 			return
 
 func organize_interrupts():
-	var x_offset = 0
-	
 	for i in get_children():
 		interrupt_array.push_front(i)
 		update_interrupt_positions()
-		print(i.global_position)
-		#i.global_position = Vector2(x_offset + interrupt_x_position, INTERRUPT_Y_POSITION)
-		#x_offset += 20
 
 func update_interrupt_positions():
 	for i in range(interrupt_array.size()):
 		var new_position = Vector2(calculate_interrupt_position(i), INTERRUPT_Y_POSITION)
 		var interrupt = interrupt_array[i]
-		interrupt.global_position = new_position - Vector2(960, 0)
+		interrupt.global_position = new_position 
 
 func calculate_interrupt_position(index):
 	var total_width = (interrupt_array.size() - 1) * interrupt_width * Global.ui_scaler.x 

@@ -28,7 +28,7 @@ func create_merchant_inventory():
 		i.get_node("BaseRune").toggle_shop_ui(true)
 		i.get_node("BaseRune").rune_shop_ui()
 		i.rune_stats.inventory_position = rune_position
-		i.rune_stats.rune_owner = get_tree().get_first_node_in_group("merchant")
+		i.rune_stats.owner = get_tree().get_first_node_in_group("merchant")
 		i.get_node("BaseRune").get_node("RuneImage").scale = Vector2(1.5, 1.5)
 		i.get_node("BaseRune").get_node("Area2D").scale = Vector2(1.5,1.5)
 		rune_position += 1

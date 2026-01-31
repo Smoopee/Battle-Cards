@@ -15,6 +15,7 @@ extends Control
 @onready var enemy_poisoning_label = $Labels/EnemyPoisonTaken
 @onready var player_poisoning_label = $Labels/PlayerPoisonTaken
 
+
 var player
 var enemy
 var center_screen_x
@@ -27,15 +28,15 @@ func _ready():
 	
 	enemy_bleeding_label.position = $"../Enemy".enemy.position + Vector2(35, 60)
 	enemy_bleeding_label.text = ""
-	player_bleeding_label.position = $"../Player".position + Vector2(35, -80)
+	player_bleeding_label.position = player.position + Vector2(35, -80)
 	player_bleeding_label.text = ""
 	enemy_burning_label.position = $"../Enemy".enemy.position + Vector2(15, 60)
 	enemy_burning_label.text = ""
-	player_burning_label.position = $"../Player".position + Vector2(15, -80)
+	player_burning_label.position = player.position + Vector2(15, -80)
 	player_burning_label.text = ""
 	enemy_poisoning_label.position = $"../Enemy".enemy.position + Vector2(-5, 60)
 	enemy_poisoning_label.text = ""
-	player_poisoning_label.position = $"../Player".position + Vector2(-5, -80)
+	player_poisoning_label.position = player.position + Vector2(-5, -80)
 	player_poisoning_label.text = ""
 	
 	

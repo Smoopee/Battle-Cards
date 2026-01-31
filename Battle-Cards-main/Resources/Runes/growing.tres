@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="Runes_Resource" load_steps=2 format=3 uid="uid://bc7pbktclwxg0"]
+[gd_resource type="Resource" script_class="Runes_Resource" format=3 uid="uid://bc7pbktclwxg0"]
 
-[ext_resource type="Script" path="res://Resources/Runes/runes_master_resource.gd" id="1_57jnd"]
+[ext_resource type="Script" uid="uid://khxquttii5do" path="res://Resources/Runes/runes_master_resource.gd" id="1_57jnd"]
 
 [resource]
 script = ExtResource("1_57jnd")
 rune_art_path = "res://Resources/Art/Runes/growing_rune.png"
 rune_scene_path = "res://Scenes/Runes/growing.tscn"
 rune_name = "Growing"
-buy_price = 0
-tags = []
+effect1 = 5

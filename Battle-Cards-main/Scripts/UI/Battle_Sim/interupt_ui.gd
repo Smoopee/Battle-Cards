@@ -1,4 +1,6 @@
-extends HBoxContainer
+extends Control
+
+@onready var organizer = $HBox
 
 var turn_interupt_array = [false, false, false, false, false, false, false]
 
@@ -10,10 +12,12 @@ func set_size_and_position():
 	var screen_size = get_viewport_rect().size
 	self.size.x = $"../Enemy".total_card_area_width
 	self.position.x = screen_size.x /2 - self.size.x /2
+	self.position.y = screen_size. y/2 - self.size.y /2
+	organizer.size.x = self.size.x
 
 func interupt_reset():
-	for i in get_children():
-		i.button_pressed= false
+	for i in organizer.get_children():
+		i.button_pressed = false
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	turn_interupt_array[0] = toggled_on
@@ -41,3 +45,12 @@ func _on_check_box_6_toggled(toggled_on: bool) -> void:
 
 func _on_check_box_7_toggled(toggled_on: bool) -> void:
 	turn_interupt_array[6] = toggled_on
+
+
+func _on_master_toggle_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		for i in organizer.get_children():
+			i.button_pressed = true
+	else:
+		for i in organizer.get_children():
+			i.button_pressed = false

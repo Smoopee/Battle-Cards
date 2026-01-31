@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="6_tlmij"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="7_d0ter"]
 [ext_resource type="PackedScene" uid="uid://cbuylixaxf1p6" path="res://Scenes/UI/Player/player_interrupts.tscn" id="7_ruoki"]
+[ext_resource type="PackedScene" uid="uid://cn7bmmty2rmay" path="res://Scenes/UI/Player/player_gadgets.tscn" id="8_flvq4"]
 [ext_resource type="Texture2D" uid="uid://c5v1kq45qxngx" path="res://Resources/Art/UIElements/block_symbol.png" id="9_vfrul"]
 [ext_resource type="PackedScene" uid="uid://beq5hrbn5bvp6" path="res://Scenes/UI/Player/items_ui.tscn" id="14_wm4uu"]
 
@@ -42,17 +43,14 @@ script = ExtResource("1_2i22b")
 [node name="PlayerBuffs" parent="." unique_id=2042762000 instance=ExtResource("2_akq4v")]
 
 [node name="PlayerConsumables" parent="." unique_id=1787368643 instance=ExtResource("2_svm5r")]
-visible = false
 
 [node name="PlayerSkills" parent="." unique_id=78266357 instance=ExtResource("3_ruasw")]
 
 [node name="PlayerRunes" parent="." unique_id=1633574852 instance=ExtResource("4_p0pnd")]
-visible = false
 
 [node name="PlayerInterrupts" parent="." unique_id=216238792 instance=ExtResource("7_ruoki")]
 
-[node name="PlayerGadgets" type="Node2D" parent="." unique_id=312393566]
-visible = false
+[node name="PlayerGadgets" parent="." unique_id=878448781 instance=ExtResource("8_flvq4")]
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2004006427]
 collision_layer = 8

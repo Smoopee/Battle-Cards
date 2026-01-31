@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://vpgqhv782kwr"]
+[gd_scene format=3 uid="uid://vpgqhv782kwr"]
 
-[ext_resource type="Script" path="res://Scripts/Runes/Concealing.gd" id="1_elk3r"]
+[ext_resource type="Script" uid="uid://bh0lqpv4uxi05" path="res://Scripts/Runes/Concealing.gd" id="1_elk3r"]
 [ext_resource type="PackedScene" uid="uid://dwc5irk035u0e" path="res://Scenes/Runes/base_rune.tscn" id="2_klrsv"]
 
-[node name="Concealing" type="Node2D"]
+[node name="Concealing" type="Node2D" unique_id=1419879815]
 script = ExtResource("1_elk3r")
 
-[node name="BaseRune" parent="." instance=ExtResource("2_klrsv")]
+[node name="BaseRune" parent="." unique_id=532311757 instance=ExtResource("2_klrsv")]

@@ -8,8 +8,13 @@ class_name Runes_Resource
 @export var buy_price: int
 @export var tags: Array
 @export var rune_rarity: int
-var rune_owner
+@export var effect1: int
+@export var effect2: int
+@export var effect3: int
+@export var effect4: int
+@export var effect5: int
+var stack_amount: int
+var owner
 var inventory_position
 var attached: bool
 var screen_position
-

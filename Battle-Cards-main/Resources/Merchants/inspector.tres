@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Merchant_Resource" format=3 uid="uid://cs5a2rbt0d206"]
+
+[ext_resource type="Script" uid="uid://cvnbaxshrbcct" path="res://Resources/Merchants/merchant_master_resource.gd" id="1_2nkun"]
+
+[resource]
+script = ExtResource("1_2nkun")
+merchant_art_path = "res://Resources/Art/Merchants/grack_merchant.png"
+merchant_border_path = "res://Resources/Art/UIElements/Borders/merchant_border.png"
+merchant_scene_path = "res://Scenes/Merchants/inspector.tscn"
+merchant_name = "Inspector"
+merchant_type = "Gadget"
+stock_quantity = 2
+metadata/_custom_type_script = "uid://cvnbaxshrbcct"

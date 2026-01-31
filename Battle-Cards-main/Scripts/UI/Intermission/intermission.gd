@@ -3,11 +3,10 @@ extends Node2D
 const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_MERCHANT = 32
 
-@onready var player_inventory = $PlayerInventoryScreen
+@onready var player_inventory = get_tree().get_first_node_in_group("player cards")
 @onready var card_selector_reference = $CardSelector
 var screen_size
 var card_being_dragged
-
 
 func _ready():
 	get_tree().get_first_node_in_group("bottom ui").toggle_card_selection()
@@ -36,7 +35,7 @@ func finish_drag():
 	var merchant_found = raycast_check_for_merchant()
 	
 	if merchant_found:
-		Global.current_merchant = merchant_found.merchant_stats
+		Global.current_merchant = merchant_found.merchant_stats.duplicate()
 		card_being_dragged.position = merchant_found.global_position
 		card_being_dragged = null
 		if merchant_found.merchant_stats.merchant_type == "Town":
@@ -112,7 +111,7 @@ func inventory_and_deck_save():
 	Global.player_deck = temp_deck
 
 func _on_skip_button_button_down():
-	Global.player_gold += 5
+	get_tree().get_first_node_in_group("bottom ui").change_gold(Global.income)
 	inventory_and_deck_save()
 	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
 	Global.save_function()

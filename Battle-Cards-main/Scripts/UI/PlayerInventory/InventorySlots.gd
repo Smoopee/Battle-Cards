@@ -1,26 +1,26 @@
 extends Node2D
 
 const CARD_WIDTH = 160
-const NUMBER_OF_INVENTORY_SLOTS = 5
 
 var center_screen_x
 var inventory_y_position: int
 var card_slot_array = []
-var current_slot = 1
+var number_of_slots
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	var current_slot = NUMBER_OF_INVENTORY_SLOTS
+	number_of_slots = Global.number_of_inventory_slots
 	positioning()
 	
-	for i in range(0, NUMBER_OF_INVENTORY_SLOTS):
+	for i in range(0, number_of_slots):
 		var card_slot = load("res://Scenes/UI/card_slot.tscn").instantiate()
 		add_child(card_slot)
-		card_slot.change_slot_number(current_slot)
-		current_slot -= 1
+		card_slot.change_slot_number(number_of_slots)
+		number_of_slots -= 1
 		card_slot.get_node("Area2D").collision_mask = 4
 		card_slot.get_node("Area2D").collision_layer = 4
 		add_card_to_hand(card_slot)
+
 
 func positioning():
 	inventory_y_position = get_viewport().size.y - 195

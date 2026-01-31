@@ -57,7 +57,7 @@ func finish_drag():
 		card_being_dragged.position = load_game.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
-		
+		Global.current_scene = "class_selection"
 		await get_tree().create_timer(2).timeout
 		get_tree().change_scene_to_file("res://Scenes/UI/Intermission/intermission.tscn")
 	else:
@@ -80,6 +80,7 @@ func new_game_function():
 	Global.player_skills = []
 	Global.player_consumables = []
 	Global.player_runes = []
+	Global.player_gadgets = []
 	Global.set_player_inventory()
 	Global.instantiate_player_inventory()
 	Global.set_player_deck()
@@ -88,6 +89,10 @@ func new_game_function():
 	Global.instantiate_player_consumables()
 	Global.set_player_interrupts()
 	Global.instantiate_player_interrupts()
+	Global.set_player_gadgets()
+	Global.instantiate_player_gadgets()
+	Global.set_player_runes()
+	Global.instantiate_player_runes()
 	
 	
 	await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)

@@ -5,9 +5,6 @@ extends Panel
 @onready var player_gadgets = $"../PlayerGadgets"
 @onready var player_interrupts = $"../PlayerInterrupts"
 
-func _ready():
-	pass 
-
 func hide_inventory():
 	player_consumables.visible = false
 	player_runes.visible = false
@@ -16,7 +13,6 @@ func hide_inventory():
 
 func toggle_consumables(toggle):
 	if toggle:
-		$VBoxContainer/ConsumablesButton.button_pressed = true
 		player_consumables.visible = true
 		player_runes.visible = false
 		player_gadgets.visible = false
@@ -41,7 +37,6 @@ func toggle_gadgets(toggle):
 
 func toggle_interrupts(toggle):
 	if toggle:
-		$VBoxContainer/InterruptsButton.button_pressed = true
 		player_consumables.visible = false
 		player_runes.visible = false
 		player_gadgets.visible = false
@@ -55,3 +50,11 @@ func _on_consumables_button_toggled(toggled_on: bool) -> void:
 
 func _on_interrupts_button_toggled(toggled_on: bool) -> void:
 	toggle_interrupts(toggled_on)
+
+
+func _on_gadgets_button_toggled(toggled_on: bool) -> void:
+	toggle_gadgets(toggled_on)
+
+
+func _on_runes_button_toggled(toggled_on: bool) -> void:
+	toggle_runes(toggled_on)

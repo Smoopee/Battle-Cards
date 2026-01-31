@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b45vencoy3qu3"]
+[gd_scene format=3 uid="uid://b45vencoy3qu3"]
 
 [ext_resource type="Script" uid="uid://y2cmn5ttvut1" path="res://Scripts/Merchants/karver.gd" id="1_g8uxm"]
 [ext_resource type="PackedScene" uid="uid://byuun7s17ahy6" path="res://Scenes/Merchants/base_merchant.tscn" id="1_w5m5l"]
 
-[node name="Karver" type="Node2D"]
+[node name="Karver" type="Node2D" unique_id=1315901315]
 script = ExtResource("1_g8uxm")
 
-[node name="BaseMerchant" parent="." instance=ExtResource("1_w5m5l")]
+[node name="BaseMerchant" parent="." unique_id=128676829 instance=ExtResource("1_w5m5l")]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxmp5gik20s14"]
+[gd_scene format=3 uid="uid://cxmp5gik20s14"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Berserker/Talents/vicious_swings.gd" id="1_47qlr"]
+[ext_resource type="Script" uid="uid://bgij8sgu03kxt" path="res://Scripts/Characters/Berserker/Talents/vicious_swings.gd" id="1_47qlr"]
 
-[node name="ViciousSwings" type="Node2D"]
+[node name="ViciousSwings" type="Node2D" unique_id=2141749399 groups=["talent"]]
 script = ExtResource("1_47qlr")

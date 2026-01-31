@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bk8gvoxma3edu"]
+
+[ext_resource type="Script" uid="uid://cs614nugxp3v2" path="res://Scripts/Characters/Berserker/Talents/test_talent.gd" id="1_jsnpw"]
+
+[node name="TestTalent" type="Node2D" unique_id=6215066]
+script = ExtResource("1_jsnpw")

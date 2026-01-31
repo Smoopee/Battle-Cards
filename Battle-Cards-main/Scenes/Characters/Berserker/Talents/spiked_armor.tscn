@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmj5m0w3rw7xb"]
+[gd_scene format=3 uid="uid://cmj5m0w3rw7xb"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Berserker/Talents/spiked_armor.gd" id="1_0d1d6"]
+[ext_resource type="Script" uid="uid://blkbckkvpk0nh" path="res://Scripts/Characters/Berserker/Talents/spiked_armor.gd" id="1_0d1d6"]
 
-[node name="SpikedArmor" type="Node2D"]
+[node name="SpikedArmor" type="Node2D" unique_id=1858224733 groups=["talent"]]
 script = ExtResource("1_0d1d6")

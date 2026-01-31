@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwc5irk035u0e"]
+[gd_scene format=3 uid="uid://dwc5irk035u0e"]
 
 [ext_resource type="Script" uid="uid://dgju6k6sv2onp" path="res://Resources/Runes/rune_class.gd" id="1_82u5h"]
 [ext_resource type="Texture2D" uid="uid://diso5woo0pt0g" path="res://Resources/Art/Runes/concealed_rune.png" id="2_ifx8c"]
@@ -12,21 +12,21 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="BaseRune" type="Node2D"]
+[node name="BaseRune" type="Node2D" unique_id=1742133488]
 script = ExtResource("1_82u5h")
 
-[node name="RuneImage" type="Sprite2D" parent="."]
+[node name="RuneImage" type="Sprite2D" parent="." unique_id=405877679]
 unique_name_in_owner = true
 texture = ExtResource("2_ifx8c")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1663346381]
 collision_layer = 32768
 collision_mask = 32768
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1967607193]
 polygon = PackedVector2Array(-9, -17, 9, -17, 17, -9, 17, 9, 9, 17, -9, 17, -17, 9, -17, -9)
 
-[node name="RuneUI" type="Control" parent="."]
+[node name="RuneUI" type="Control" parent="." unique_id=535765397]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -15.0
@@ -35,7 +35,7 @@ offset_right = 15.0
 offset_bottom = 14.0
 mouse_filter = 2
 
-[node name="ShopPanel" type="Panel" parent="RuneUI"]
+[node name="ShopPanel" type="Panel" parent="RuneUI" unique_id=1617106112]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
@@ -45,7 +45,7 @@ offset_right = -1.0
 offset_bottom = 48.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_c6lwp")
 
-[node name="ShopLabel" type="Label" parent="RuneUI/ShopPanel"]
+[node name="ShopLabel" type="Label" parent="RuneUI/ShopPanel" unique_id=309766367]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -58,7 +58,7 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TooltipPanel" parent="." instance=ExtResource("3_ijl05")]
+[node name="TooltipPanel" parent="." unique_id=828733968 instance=ExtResource("3_ijl05")]
 unique_name_in_owner = true
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

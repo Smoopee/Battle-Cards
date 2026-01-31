@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3j6gcn6p17yi"]
+
+[ext_resource type="Script" uid="uid://bk2t5lbe6nugr" path="res://Scripts/Gadgets/big_deck.gd" id="1_u0mqt"]
+[ext_resource type="PackedScene" uid="uid://isfnfx64qfg8" path="res://Scenes/Gadgets/base_gadget.tscn" id="2_e08hk"]
+
+[node name="BigDeck" type="Node2D" unique_id=2008076816]
+script = ExtResource("1_u0mqt")
+
+[node name="BaseGadget" parent="." unique_id=1250733867 instance=ExtResource("2_e08hk")]

@@ -53,6 +53,8 @@ func get_db_reference():
 			db_reference = preload("res://Resources/Skills/skill_db.gd")
 		"Consumable":
 			db_reference = preload("res://Resources/Consumables/consumable_db.gd")
+		"Gadget":
+			db_reference = preload("res://Resources/Gadgets/gadget_db.gd")
 		"Enchantment":
 			db_reference = preload("res://Resources/Enchantments/enchantment_db.gd")
 
@@ -68,8 +70,16 @@ func get_inventory():
 		get_skill_selection()
 		create_inventory()
 	
-	if merchant_stats.merchant_type =="Consumable":
+	if merchant_stats.merchant_type == "Gadget":
+		get_gadget_selection()
+		create_inventory()
+	
+	if merchant_stats.merchant_type == "Consumable":
 		get_consumable_selection()
+		create_inventory()
+	
+	if merchant_stats.merchant_type == "Rune":
+		get_rune_selection()
 		create_inventory()
 
 func get_card_selection():
@@ -98,7 +108,33 @@ func get_skill_selection():
 				if temp.tags.find(i) > -1 : 
 					inventory_selection.push_back(temp)
 
+func get_gadget_selection():
+	if merchant_stats.selection_tags == []:
+		for i in db_reference.ITEMS:
+			var temp = load(db_reference.ITEMS[i])
+			inventory_selection.push_back(temp)
+	
+	else:
+		for i in merchant_stats.selection_tags:
+			for j in db_reference.ITEMS:
+				var temp = load(db_reference.ITEMS[j])
+				if temp.tags.find(i) > -1 : 
+					inventory_selection.push_back(temp)
+
 func get_consumable_selection():
+	if merchant_stats.selection_tags == []:
+		for i in db_reference.ITEMS:
+			var temp = load(db_reference.ITEMS[i])
+			inventory_selection.push_back(temp)
+	
+	else:
+		for i in merchant_stats.selection_tags:
+			for j in db_reference.ITEMS:
+				var temp = load(db_reference.ITEMS[j])
+				if temp.tags.find(i) > -1 : 
+					inventory_selection.push_back(temp)
+
+func get_rune_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
@@ -122,6 +158,7 @@ func random_item_selection():
 	var item_selection_index = rng.randi_range(0, inventory_selection.size()-1)
 	var selection = inventory_selection[item_selection_index]
 	if merchant_stats.merchant_type == "Skill": inventory_selection.remove_at(item_selection_index)
+	if merchant_stats.merchant_type == "Gadget": inventory_selection.remove_at(item_selection_index)
 	return selection
 
 func highlight_card(being_dragged):

@@ -7,7 +7,7 @@ extends Node2D
 var rune_stats: Runes_Resource = null
 
 	
-func _ready():
+func activate_rune():
 	if get_tree().get_first_node_in_group("enemy deck") != null:
 		get_tree().get_first_node_in_group("enemy deck").connect("build_enemy_deck", rune_effect1)
 

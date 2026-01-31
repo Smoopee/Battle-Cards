@@ -56,6 +56,10 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 			
 
+
+func update_inventory_slots():
+	$InventorySlots.update_inventory_slots()
+
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

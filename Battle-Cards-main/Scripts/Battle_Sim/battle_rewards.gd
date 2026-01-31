@@ -75,7 +75,7 @@ func player_skill_upgrade_match(skill):
 	return skill
 
 func _on_button_button_down():
-	var card_manager = $"../PlayerCards"
+	var card_manager = get_tree().get_first_node_in_group("player cards")
 	
 	var temp_inventory = []
 	for i in card_manager.inventory_card_slot_reference:
@@ -96,6 +96,7 @@ func _on_button_button_down():
 	Global.player_deck = temp_deck
 
 	Global.player_consumables = get_tree().get_first_node_in_group("player consumables").get_consumable_array()
+	get_tree().get_first_node_in_group("character").set_stats()
 	Global.save_function()
 
 	if level_up_screen == true:

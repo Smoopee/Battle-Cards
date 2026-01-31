@@ -63,7 +63,7 @@ func raycast_check_for_player():
 	return null 
 
 func update_player_gold():
-	$"../BottomNavBar".change_player_gold() 
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold() 
 
 func buy_consumable():
 	if Global.player_gold < consumable_being_dragged.consumable_stats.buy_price:

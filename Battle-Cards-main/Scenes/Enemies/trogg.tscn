@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctrfn8qrvl7wd"]
+[gd_scene format=3 uid="uid://ctrfn8qrvl7wd"]
 
 [ext_resource type="Script" uid="uid://qubnwcp28mqw" path="res://Scripts/Enemies/Trogg/trogg.gd" id="1_762y3"]
 [ext_resource type="PackedScene" uid="uid://bwwv3sibc50m4" path="res://Scenes/Enemies/base_enemy.tscn" id="1_np1mh"]
 
-[node name="Trogg" type="Node2D"]
+[node name="Trogg" type="Node2D" unique_id=1699443149]
 script = ExtResource("1_762y3")
 
-[node name="BaseEnemy" parent="." groups=["base enemy"] instance=ExtResource("1_np1mh")]
+[node name="BaseEnemy" parent="." unique_id=98685813 groups=["base enemy"] instance=ExtResource("1_np1mh")]

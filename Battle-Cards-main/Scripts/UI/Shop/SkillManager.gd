@@ -67,7 +67,7 @@ func raycast_check_for_player():
 	return null 
 
 func update_player_gold():
-	$"../BottomNavBar".change_player_gold() 
+	get_tree().get_first_node_in_group("bottom ui").change_player_gold() 
 
 func skill_reset():
 	skill_being_dragged.scale = Vector2(1, 1) * Global.ui_scaler

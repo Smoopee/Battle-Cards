@@ -15,7 +15,6 @@ var current_screen = ""
 @onready var player_deck = $"../player_deck"
 @onready var enemy_node = $"../Enemy"
 @onready var ui = $"../UI"
-@onready var player_node = $"../Player"
 @onready var next_turn = $"../NextTurn"
 @onready var timer_between_animations = $"../AnimationTimer"
 @onready var play_order_timer = $"../PlayOrder"
@@ -83,7 +82,7 @@ func combat(player_deck_list, enemy_deck_list):
 		player_deck.play_card(player_card)
 		enemy_node.play_card(enemy_card)
 		
-		if is_battle_interupted: await $"../InteruptContinueButton".button_down
+		if is_battle_interupted: await $"../ButtonController/InteruptContinueButton".button_down
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		play_card()
@@ -98,9 +97,10 @@ func combat(player_deck_list, enemy_deck_list):
 		timer_between_animations.start()
 		await timer_between_animations.timeout
 		
+		emit_signal("end_of_turn")
 		is_dead = death_checker()
 		if is_dead: break
-		emit_signal("end_of_turn")
+		
 
 	if is_dead and player.character_stats.health <= 0:
 		Global.current_scene == "start_screen"
@@ -192,6 +192,7 @@ func stun_check(character):
 #==================Non Battle Functions============================================================
 func interupt_battle():
 	#get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_DISABLED
+	$"../ButtonController".show_interrupt_button()
 	is_battle_interupted = true
 	get_tree().get_first_node_in_group("player interrupts").enable_interrupts()
 	get_tree().get_first_node_in_group("bottom ui").is_battling = false
@@ -204,7 +205,7 @@ func interupt_check(turn):
 func next_turn_handler():
 	next_turn.next_turn()
 	next_turn.visible = true
-	$"../ContinueButton".visible = true
+	$"../ButtonController".show_continue_button()
 
 func end_fight_cleanup():
 	next_turn.end_fight()
@@ -265,8 +266,7 @@ func _on_talent_button_button_down():
 	current_screen = "talents"
 
 func during_combat_ui_toggle():
-	$"../StartButton".visible = false
-	$"../ContinueButton".visible = false
+	$"../ButtonController".hide_buttons()
 	$"../ConsumableManger".visible = true
 	$"../ConsumableManger".process_mode = Node.PROCESS_MODE_INHERIT
 	
@@ -276,11 +276,11 @@ func during_combat_ui_toggle():
 	player_deck_list = player_deck.build_deck()
 	enemy_deck_list = enemy_node.deck
 	player_inventory_list = get_tree().get_first_node_in_group("player cards").inventory_card_slot_reference
-	
+
 	for i in player_inventory_list:
 		if i == null: continue
 		i.visible = false
-
+ 
 func _on_interupt_continue_button_pressed() -> void:
 	get_tree().get_first_node_in_group("player interrupts").disable_interrupts()
 	get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_INHERIT
@@ -288,3 +288,4 @@ func _on_interupt_continue_button_pressed() -> void:
 	enemy_card.get_node("BaseCard").disable_collision()
 	get_tree().get_first_node_in_group("bottom ui").is_battling = true
 	is_battle_interupted = false
+	$"../ButtonController".hide_buttons()

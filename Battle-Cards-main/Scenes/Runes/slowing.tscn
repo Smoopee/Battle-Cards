@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b6dsry8a5s642"]
+
+[ext_resource type="Script" uid="uid://bl25bwdfbko1b" path="res://Scripts/Runes/slowing.gd" id="1_7ikq3"]
+[ext_resource type="PackedScene" uid="uid://dwc5irk035u0e" path="res://Scenes/Runes/base_rune.tscn" id="1_q5yqw"]
+
+[node name="Slowing" type="Node2D" unique_id=705663697]
+script = ExtResource("1_7ikq3")
+
+[node name="BaseRune" parent="." unique_id=2059048806 instance=ExtResource("1_q5yqw")]

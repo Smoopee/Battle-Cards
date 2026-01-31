@@ -13,7 +13,6 @@ func add_buff(buff_resource, source):
 	for i in get_tree().get_nodes_in_group("buff"):
 		if (i.buff_stats.name == new_buff.buff_stats.name 
 		and i.buff_stats.owner == get_tree().get_first_node_in_group("character")): 
-			print(i)
 			i.get_parent().additional_buff(source)
 			return
 	

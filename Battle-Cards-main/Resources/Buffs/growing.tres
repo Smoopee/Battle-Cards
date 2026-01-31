@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Buff_Resource" format=3 uid="uid://c8mgr2weoeuqw"]
+
+[ext_resource type="Script" uid="uid://cqvy84b4bd2mb" path="res://Resources/Buffs/buff_master_resource.gd" id="1_ry4c5"]
+
+[resource]
+script = ExtResource("1_ry4c5")
+buff_art_path = "res://Resources/Art/Runes/growing_rune.png"
+buff_scene_path = "res://Scenes/Buffs/growing_buff.tscn"
+name = "Growing"
+metadata/_custom_type_script = "uid://cqvy84b4bd2mb"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvroc13lcl75m"]
+[gd_scene format=3 uid="uid://cvroc13lcl75m"]
 
 [ext_resource type="Script" uid="uid://dw5hyqm6jutb6" path="res://Scripts/UI/Intermission/card_selector.gd" id="1_20arn"]
 [ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="2_3uvmj"]
@@ -16,26 +16,26 @@ shader_parameter/glow_radius = 10.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52q5g"]
 size = Vector2(140, 175)
 
-[node name="CardSelector" type="Node2D" groups=["card selector"]]
+[node name="CardSelector" type="Node2D" unique_id=1639993797 groups=["card selector"]]
 z_index = 2
 script = ExtResource("1_20arn")
 
-[node name="CardImage" type="Sprite2D" parent="."]
+[node name="CardImage" type="Sprite2D" parent="." unique_id=789399600]
 self_modulate = Color(0.9, 0.9, 0.9, 1)
 texture_filter = 1
 texture = ExtResource("2_st0ex")
 
-[node name="GlowEffect" type="Sprite2D" parent="."]
+[node name="GlowEffect" type="Sprite2D" parent="." unique_id=2016018329]
 material = SubResource("ShaderMaterial_46aay")
 position = Vector2(-3.09944e-06, 3.72529e-06)
 scale = Vector2(1.07692, 1.06316)
 texture = ExtResource("3_88gqv")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=156473197]
 collision_layer = 16
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1250712812]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_52q5g")
 

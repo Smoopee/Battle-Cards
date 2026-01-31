@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dmc5esg76lc7e"]
+
+[ext_resource type="PackedScene" uid="uid://byuun7s17ahy6" path="res://Scenes/Merchants/base_merchant.tscn" id="1_k6l4b"]
+[ext_resource type="Script" uid="uid://citvmi8kgjjda" path="res://Scripts/Merchants/inspector.gd" id="1_w36ly"]
+
+[node name="Inspector" type="Node2D" unique_id=359073295]
+script = ExtResource("1_w36ly")
+
+[node name="BaseMerchant" parent="." unique_id=1729207207 instance=ExtResource("1_k6l4b")]

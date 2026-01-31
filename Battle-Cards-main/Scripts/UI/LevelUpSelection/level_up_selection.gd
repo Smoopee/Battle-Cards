@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var player_inventory = $PlayerInventoryScreen
+@onready var player_inventory = get_tree().get_first_node_in_group("player cards")
 var screen_size
 
 var is_reward_setup = false

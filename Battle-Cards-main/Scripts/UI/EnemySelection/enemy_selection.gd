@@ -5,7 +5,7 @@ const COLLISION_MASK_CARD_SELECTOR = 16
 const COLLISION_MASK_ENEMY = 128
 const COLLISION_MASK_BIOME = 32
 
-@onready var player_inventory = $PlayerInventoryScreen
+@onready var player_inventory = get_tree().get_first_node_in_group("player cards")
 var screen_size
 var is_hoovering_on_card
 var card_being_dragged
@@ -59,10 +59,6 @@ func finish_drag():
 		Global.player_runes = get_tree().get_first_node_in_group("player runes").get_rune_array()
 		Global.save_function()
 		Global.current_scene = "battle_sim"
-		for i in get_tree().get_nodes_in_group("enemy"):
-			i.queue_free()
-		for j in get_tree().get_nodes_in_group("player"):
-			j.queue_free()
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/Battle/battle_sim.tscn")
 		queue_free()

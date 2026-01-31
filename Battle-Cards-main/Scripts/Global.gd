@@ -23,12 +23,14 @@ var ui_scaler = Vector2(1,1)
 @onready var player_deck = []
 @onready var player_skills = []
 @onready var player_consumables = []
+@onready var player_gadgets = []
 @onready var player_interrupts = []
 @onready var player_runes = []
 @onready var player_inventory_db = []
 @onready var player_deck_db
 @onready var player_skills_db
 @onready var player_consumables_db
+@onready var player_gadgets_db
 @onready var player_interrupts_db
 @onready var player_runes_db
 @onready var player_inventory = []
@@ -41,14 +43,17 @@ var rested_xp = 0
 @onready var current_enemy = load("res://Resources/Enemies/Trogg.tres")
 @onready var enemy_active_deck = []
 
+var number_of_inventory_slots = 5
 var intermission_tracker = 0
 var battle_tracker = 1
-var current_scene = ""
+var current_scene = "title_screen"
+var income = 5
 
 var skill_db_reference
 var card_db_reference
 var rune_db_reference
 var consumable_db_reference
+var gadget_db_reference
 var interrupt_db_reference
 
 var mouse_occupied = false
@@ -65,14 +70,17 @@ func _ready():
 	card_db_reference = preload("res://Resources/Cards/card_db.gd")
 	skill_db_reference = preload("res://Resources/Skills/skill_db.gd")
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
+	gadget_db_reference = preload("res://Resources/Gadgets/gadget_db.gd")
 	rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
 	interrupt_db_reference = preload("res://Resources/Interrupts/interrupt_db.gd")
 	
 	set_player_skills()
 	instantiate_player_skills()
 	set_player_consumables()
+	set_player_gadgets()
 	set_player_interrupts()
 	instantiate_player_consumables()
+	instantiate_player_gadgets()
 	set_player_runes()
 	instantiate_player_runes()
 	
@@ -141,6 +149,14 @@ func instantiate_player_consumables():
 		var consumable = load(consumable_db_reference.ITEMS[i]).duplicate()
 		player_consumables.push_back(consumable)
 
+func set_player_gadgets():
+	player_gadgets_db = []
+
+func instantiate_player_gadgets():
+	for i in player_gadgets_db:
+		var gadget = load(gadget_db_reference.ITEMS[i]).duplicate()
+		player_gadgets.push_back(gadget)
+
 func set_player_interrupts():
 	player_interrupts_db = ["Bide","Extra Oomph", "Bide"]
 
@@ -150,7 +166,7 @@ func instantiate_player_interrupts():
 		player_interrupts.push_back(interrupt)
 
 func set_player_runes():
-	player_runes_db = []
+	player_runes_db = ["Slowing", "Growing"]
 
 func instantiate_player_runes():
 	for i in player_runes_db:

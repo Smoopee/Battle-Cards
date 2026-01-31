@@ -1,6 +1,6 @@
 extends Node2D
 
-const COLLISION_MASK_CONSUMABLE = 32768
+const COLLISION_MASK_RUNE = 32768
 const COLLISION_MASK_PLAYER = 8
 const COLLISION_MASK_ENEMY = 128
 
@@ -46,7 +46,7 @@ func finish_drag():
 	
 	if raycast_check_for_enemy():
 		var enemy = raycast_check_for_enemy()
-		enemy.add_rune(rune_being_dragged.rune_stats.rune_name)
+		enemy.add_rune(rune_being_dragged.rune_stats)
 		rune_being_dragged.queue_free()
 		rune_reset()
 		return
@@ -59,7 +59,7 @@ func raycast_check_for_rune():
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CONSUMABLE
+	parameters.collision_mask = COLLISION_MASK_RUNE
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()

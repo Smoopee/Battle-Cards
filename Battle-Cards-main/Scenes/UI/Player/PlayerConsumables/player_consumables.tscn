@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6q0n1yria3h1"]
+[gd_scene format=3 uid="uid://c6q0n1yria3h1"]
 
 [ext_resource type="Script" uid="uid://4gtl7h0j1ofp" path="res://Scripts/UI/Player/PlayerConsumables/player_consumables.gd" id="1_wbi4k"]
 
-[node name="PlayerConsumables" type="Node2D" groups=["player consumables"]]
+[node name="PlayerConsumables" type="Node2D" unique_id=1568435268 groups=["player consumables"]]
+visible = false
 script = ExtResource("1_wbi4k")

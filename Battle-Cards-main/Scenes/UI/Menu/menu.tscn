@@ -21,8 +21,8 @@ script = ExtResource("1_vf0ft")
 show_behind_parent = true
 z_index = 2
 z_as_relative = false
-offset_right = 1893.0
-offset_bottom = 1094.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vf0ft")
 
 [node name="BGForRewardBox" type="Panel" parent="BGDimmer" unique_id=1057083572]

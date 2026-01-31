@@ -25,7 +25,6 @@ func add_skill(skill):
 	var new_instance = load(skill.skill_scene_path).instantiate()
 	new_instance.skill_stats = skill
 	new_instance.skill_stats.owner = get_tree().get_first_node_in_group("character")
-	print(new_instance.skill_stats.owner)
 	add_child(new_instance)
 	new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
 	organize_skills()

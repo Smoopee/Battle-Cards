@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cn7bmmty2rmay"]
+
+[ext_resource type="Script" uid="uid://fnm6hq44ik5u" path="res://Scripts/UI/Player/player_gadgets.gd" id="1_5jaj8"]
+
+[node name="PlayerGadgets" type="Node2D" unique_id=878448781 groups=["player gadgets"]]
+visible = false
+script = ExtResource("1_5jaj8")

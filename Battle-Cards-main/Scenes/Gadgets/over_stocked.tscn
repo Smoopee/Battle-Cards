@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3jyy1f3cc3is"]
+
+[ext_resource type="Script" uid="uid://du56nbobggvii" path="res://Scripts/Gadgets/over_stocked.gd" id="1_73l40"]
+[ext_resource type="PackedScene" uid="uid://isfnfx64qfg8" path="res://Scenes/Gadgets/base_gadget.tscn" id="2_4b4vp"]
+
+[node name="OverStocked" type="Node2D" unique_id=191248366]
+script = ExtResource("1_73l40")
+
+[node name="BaseGadget" parent="." unique_id=1250733867 instance=ExtResource("2_4b4vp")]

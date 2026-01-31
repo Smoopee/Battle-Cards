@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Gadgets_Resource" format=3 uid="uid://bo7ywln675w6o"]
+
+[ext_resource type="Script" uid="uid://bnmhwbrlf7hup" path="res://Resources/Gadgets/gadgets_master_resource.gd" id="1_w1d4r"]
+
+[resource]
+script = ExtResource("1_w1d4r")
+gadget_art_path = "res://Resources/Art/Gadgets/BigDeck.png"
+gadget_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
+gadget_scene_path = "res://Scenes/Gadgets/big_deck.tscn"
+name = "Big Deck"
+metadata/_custom_type_script = "uid://bnmhwbrlf7hup"

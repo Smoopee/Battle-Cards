@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Consumables_Resource" format=3 uid="uid://cf3mmmxuk77g6"]
+
+[ext_resource type="Script" uid="uid://xndgor03gv6d" path="res://Resources/Consumables/consumables_master_resource.gd" id="1_eeti8"]
+
+[resource]
+script = ExtResource("1_eeti8")
+consumable_art_path = "res://Resources/Art/Consumables/RagePotion.png"
+consumable_scene_path = "res://Scenes/Consumables/rage_potion.tscn"
+name = "Rage Potion"
+buy_price = 1
+target = "character"
+metadata/_custom_type_script = "uid://xndgor03gv6d"

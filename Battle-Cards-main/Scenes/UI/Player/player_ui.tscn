@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwfyxhnik18ry"]
+[gd_scene format=3 uid="uid://dwfyxhnik18ry"]
 
 [ext_resource type="Script" uid="uid://bpos2v35hdby8" path="res://Scripts/UI/Player/player_ui.gd" id="1_c845e"]
 
-[node name="PlayerUI" type="Control"]
+[node name="PlayerUI" type="Control" unique_id=832942095]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c845e")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=162442481]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -21,34 +21,34 @@ offset_right = 398.0
 offset_bottom = 12.0
 grow_vertical = 2
 
-[node name="PlayerGold" type="Label" parent="HBoxContainer"]
+[node name="PlayerGold" type="Label" parent="HBoxContainer" unique_id=975230942]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Gold"
 vertical_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=2025140659]
 layout_mode = 2
 
-[node name="PlayerXP" type="Label" parent="HBoxContainer"]
+[node name="PlayerXP" type="Label" parent="HBoxContainer" unique_id=6256604]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "XP"
 vertical_alignment = 1
 
-[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer" unique_id=656009109]
 layout_mode = 2
 
-[node name="PlayerLevel" type="Label" parent="HBoxContainer"]
+[node name="PlayerLevel" type="Label" parent="HBoxContainer" unique_id=1631078297]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Level"
 vertical_alignment = 1
 
-[node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator3" type="VSeparator" parent="HBoxContainer" unique_id=1169145397]
 layout_mode = 2
 
-[node name="CurrentBattle" type="Label" parent="HBoxContainer"]
+[node name="CurrentBattle" type="Label" parent="HBoxContainer" unique_id=1094801844]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Level"

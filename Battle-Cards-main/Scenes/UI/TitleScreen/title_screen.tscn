@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cm74upg60eq4p"]
+[gd_scene format=3 uid="uid://cm74upg60eq4p"]
 
 [ext_resource type="Script" uid="uid://b4b4y5pqiipcm" path="res://Scripts/UI/TitleScreen/title_screen.gd" id="1_0vmbg"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_8veqb"]
@@ -18,25 +18,25 @@ shader_parameter/glow_power = 2.0
 shader_parameter/glow_shift = 0.3
 shader_parameter/glow_radius = 10.0
 
-[node name="TitleScreen" type="Node2D" groups=["card manager"]]
+[node name="TitleScreen" type="Node2D" unique_id=1838872711 groups=["card manager"]]
 script = ExtResource("1_0vmbg")
 
-[node name="Start" type="Node2D" parent="."]
+[node name="Start" type="Node2D" parent="." unique_id=1336944834]
 position = Vector2(1031, 525)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("2_siocb")
 
-[node name="ColorRect" type="ColorRect" parent="Start"]
+[node name="ColorRect" type="ColorRect" parent="Start" unique_id=1287223761]
 self_modulate = Color(0.15294118, 0.15294118, 0.15294118, 0.74509805)
 offset_left = -49.333374
 offset_top = -64.0
 offset_right = 49.333313
 offset_bottom = 64.66669
 
-[node name="Sprite2D" type="Sprite2D" parent="Start"]
+[node name="Sprite2D" type="Sprite2D" parent="Start" unique_id=1322920558]
 texture = ExtResource("3_2k0xr")
 
-[node name="Label" type="Label" parent="Start"]
+[node name="Label" type="Label" parent="Start" unique_id=201161931]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -53,19 +53,19 @@ Here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="Start"]
+[node name="Area2D" type="Area2D" parent="Start" unique_id=145461524]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Start/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Start/Area2D" unique_id=1299351415]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_r0131")
 
-[node name="GlowEffect" type="Sprite2D" parent="Start"]
+[node name="GlowEffect" type="Sprite2D" parent="Start" unique_id=297676392]
 visible = false
 material = SubResource("ShaderMaterial_6wglg")
 position = Vector2(-3.787875e-05, -1.168251e-05)
 scale = Vector2(0.71794844, 0.7438595)
 texture = ExtResource("5_7u1fs")
 
-[node name="CardSelector" parent="." instance=ExtResource("1_8veqb")]
+[node name="CardSelector" parent="." unique_id=606592729 instance=ExtResource("1_8veqb")]

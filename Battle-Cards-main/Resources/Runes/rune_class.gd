@@ -26,7 +26,7 @@ func set_node_names():
 	z_index = 1
 
 func rune_shop_ui():
-	if rune_stats.rune_owner != get_tree().get_first_node_in_group("character"):
+	if rune_stats.owner != get_tree().get_first_node_in_group("character"):
 		shop_label.text =  str(rune_stats.buy_price)
 
 func toggle_shop_ui(show):

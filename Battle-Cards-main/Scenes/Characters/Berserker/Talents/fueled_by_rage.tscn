@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://7yiecmgd6411"]
+[gd_scene format=3 uid="uid://7yiecmgd6411"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Berserker/Talents/fueled_by_rage.gd" id="1_6yfeh"]
+[ext_resource type="Script" uid="uid://dkqs4dryc8q6m" path="res://Scripts/Characters/Berserker/Talents/fueled_by_rage.gd" id="1_6yfeh"]
 
-[node name="FueledByRage" type="Node2D"]
+[node name="FueledByRage" type="Node2D" unique_id=1423258718 groups=["talent"]]
 script = ExtResource("1_6yfeh")

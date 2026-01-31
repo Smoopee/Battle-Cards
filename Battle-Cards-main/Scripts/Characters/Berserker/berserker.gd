@@ -33,9 +33,7 @@ func _ready():
 	battle_sim = get_tree().get_first_node_in_group("battle sim")
 	set_stats()
 	set_talents()
-	set_stat_container()
 	
-	$RageBar.position = get_parent().position + Vector2(70, -38)
 	$PlayerHealthBar.max_value = character_stats.max_health
 	$PlayerHealthBar.value = character_stats.health
 	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
@@ -54,6 +52,7 @@ func set_stats() -> void:
 	character_stats.block = 0
 	character_stats.stun_counter = 0
 	character_stats.is_stunned = false
+	set_stat_container()
 
 func set_stat_container():
 	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack)
@@ -65,7 +64,7 @@ func set_talents():
 		if i == null: continue
 		var new_talent = load(i).instantiate()
 		$Talents.add_child(new_talent)
-		new_talent.set_talent()
+		#new_talent.set_talent()
 
 #SIGNALS ===========================================================================================
 func connect_signals(battle_sim):

@@ -68,6 +68,7 @@ func _ready():
 	if Global.current_scene != "battle_sim":
 		%Skills.visible = false
 	else: %Skills.visible = true
+	runes.instantiate_runes()
 
 func _process(delta):
 	if glow_effect:
@@ -79,7 +80,6 @@ func _process(delta):
 
 func setup():
 	set_stat_container()
-	set_runes()
 
 func set_stats() -> void:
 	adjust_stats()
@@ -127,44 +127,6 @@ func organize_skills():
 	for i in skills.get_children():
 		i.position = Vector2(x_offset + SKILL_X_POSITION, SKILL_Y_POSITION)
 		x_offset += 60
-
-#RUNES==============================================================================================
-func set_runes():
-	var already_owned = false
-	var rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
-	for i in character_stats.runes:
-		
-		for j in runes.get_children():
-			if j.rune_stats.rune_name == i: already_owned = true
-		
-		if rune_db_reference.ITEMS[i] != null and !already_owned:
-			var rune_resource = load(rune_db_reference.ITEMS[i]).duplicate()
-			var rune_scene = load(rune_resource.rune_scene_path).instantiate()
-			rune_scene.rune_stats = rune_resource
-			runes.add_child(rune_scene)
-			rune_scene.rune_stats.attached = true
-			#rune_scene.connect_rune()
-			
-		already_owned = false
-	orgainze_runes()
-
-func add_rune(rune):
-	character_stats.runes.push_back(rune)
-	set_runes()
-
-func orgainze_runes():
-	var counter = 0
-	var x_offset = 0
-	var y_offset = 0
-	
-	for i in runes.get_children():
-		if counter >= 5: 
-			x_offset = -32
-			y_offset = 0
-			counter = 0
-		i.position = Vector2(x_offset + RUNE_X_POSITION, y_offset + RUNE_Y_POSITION)
-		y_offset += 30
-		counter += 1
 
 #BUFFS/DEBUFFS =====================================================================================
 func add_buff(buff_resource, source):
@@ -373,6 +335,33 @@ func set_node_names():
 	enemy_image.texture = load(character_stats.enemy_art_path)
 	enemy_border.texture = load(character_stats.enemy_border_art_path)
 	z_index = 1
+	
+#Runes======================================================================================
+func set_runes():
+	for i in character_stats.runes:
+		var temp = load(i.rune_scene_path).instantiate().duplicate()
+		temp.rune_stats = i
+		runes.add_child(temp)
+	organize_runes()
+
+func add_rune(rune):
+	character_stats.runes.push_back(rune)
+	set_runes()
+
+func organize_runes():
+	var counter = 0
+	var x_offset = 0
+	var y_offset = 0
+	
+	for i in runes.get_children():
+		if counter >= 5: 
+			x_offset = -32
+			y_offset = 0
+			counter = 0
+		i.position = Vector2(x_offset + RUNE_X_POSITION, y_offset + RUNE_Y_POSITION)
+		y_offset += 30
+		counter += 1
+
 
 #WIP TOOLTIPS======================================================================================
 func toggle_tooltip_show():
