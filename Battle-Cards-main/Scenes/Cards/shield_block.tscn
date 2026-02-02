@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://iacjam0rseh3"]
+[gd_scene format=3 uid="uid://iacjam0rseh3"]
 
 [ext_resource type="Script" uid="uid://x7iejgm4juy7" path="res://Scripts/Cards/shield_block.gd" id="1_x5ji7"]
 [ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_klexa"]
 
-[node name="ShieldBlock" type="Node2D"]
+[node name="ShieldBlock" type="Node2D" unique_id=89820040]
 script = ExtResource("1_x5ji7")
 
-[node name="BaseCard" parent="." instance=ExtResource("2_klexa")]
+[node name="BaseCard" parent="." unique_id=1603081480 instance=ExtResource("2_klexa")]

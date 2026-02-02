@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cn7bmmty2rmay" path="res://Scenes/UI/Player/player_gadgets.tscn" id="8_flvq4"]
 [ext_resource type="Texture2D" uid="uid://c5v1kq45qxngx" path="res://Resources/Art/UIElements/block_symbol.png" id="9_vfrul"]
 [ext_resource type="PackedScene" uid="uid://beq5hrbn5bvp6" path="res://Scenes/UI/Player/items_ui.tscn" id="14_wm4uu"]
+[ext_resource type="Texture2D" uid="uid://civ7nytitgvth" path="res://Resources/UI/stagger_bar.png" id="15_6s682"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qj8m8"]
 size = Vector2(98, 128)
@@ -203,6 +204,34 @@ text = "3000/3000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PlayerStaggerBar" type="TextureProgressBar" parent="." unique_id=919374622]
+offset_left = -649.0
+offset_top = 117.0
+offset_right = 651.0
+offset_bottom = 141.0
+texture_under = ExtResource("6_tlmij")
+texture_over = ExtResource("7_d0ter")
+texture_progress = ExtResource("15_6s682")
+
+[node name="PlayerStaggerLabel" type="Label" parent="PlayerStaggerBar" unique_id=196728081]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.5
+offset_top = -17.5
+offset_right = 74.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "3000/3000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BlockSymbol" type="Sprite2D" parent="." unique_id=254393485]
 visible = false
 position = Vector2(85, -78)
@@ -233,3 +262,6 @@ text = "1
 "
 
 [node name="ItemsUI" parent="." unique_id=45935826 instance=ExtResource("14_wm4uu")]
+
+[node name="Line2D" type="Line2D" parent="." unique_id=18769613]
+position = Vector2(-218, -113)

@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="9_xotyc"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="10_s27e1"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="11_4cvw8"]
+[ext_resource type="Texture2D" uid="uid://civ7nytitgvth" path="res://Resources/UI/stagger_bar.png" id="14_vhyvu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sjjs4"]
 shader = ExtResource("3_4215w")
@@ -85,6 +86,38 @@ offset_left = -73.0
 offset_top = -85.0
 offset_right = 73.0
 offset_bottom = 89.0
+
+[node name="EnemyStaggerBar" type="TextureProgressBar" parent="EnemyUI" unique_id=158955738]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -579.0
+offset_top = -49.0
+offset_right = 721.0
+offset_bottom = -25.0
+texture_under = ExtResource("8_u54sm")
+texture_over = ExtResource("9_xotyc")
+texture_progress = ExtResource("14_vhyvu")
+
+[node name="EnemyStaggerLabel" type="Label" parent="EnemyUI/EnemyStaggerBar" unique_id=1136509483]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.5
+offset_top = -17.5
+offset_right = 74.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "3000/3000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EnemyHealthBar" type="TextureProgressBar" parent="EnemyUI" unique_id=536318409]
 unique_name_in_owner = true

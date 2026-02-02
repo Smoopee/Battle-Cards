@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://cm64pvuco5ufv"]
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://cm64pvuco5ufv"]
 
 [ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_c6ppb"]
 
@@ -9,6 +9,7 @@ card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/daunting_shout.tscn"
 name = "Daunting Shout"
 cd = 1
+base_cd = 1
 effect1 = 1
 effect2 = 3
 upgrade_level = 1

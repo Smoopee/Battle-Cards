@@ -27,8 +27,11 @@ func remove_debuff(debuff):
 	organize_debuffs()
 
 func organize_debuffs():
+	var buff_x_position = 30
+	var buff_y_position = Global.center_screen_y - 120
+
 	var x_offset = 0
 	for i in get_children():
-		i.position = position + Vector2(x_offset + DEBUFF_X_POSITION, DEBUFF_Y_POSITION)
+		i.global_position = Vector2(x_offset + buff_x_position, buff_y_position)
 		i.scale = Vector2(1,1)
 		x_offset += 50

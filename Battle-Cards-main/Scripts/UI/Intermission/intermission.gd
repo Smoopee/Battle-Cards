@@ -9,16 +9,22 @@ var screen_size
 var card_being_dragged
 
 func _ready():
-	get_tree().get_first_node_in_group("bottom ui").toggle_card_selection()
+	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
 	screen_size = get_viewport_rect().size
 	Global.intermission_tracker += 1
+	$SkipButton.position = Vector2(get_viewport().size.x - 200, Global.center_screen_y)
+	var character_y_position = 890
+	$CardSelector.position = Vector2(Global.center_screen_x, character_y_position)
+	$CardSelector.scale = Global.ui_scaler
+
 
 func _process(delta):
 	if card_being_dragged:
+		card_selector_reference.draw_a_line()
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
-	
+		
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
@@ -36,7 +42,7 @@ func finish_drag():
 	
 	if merchant_found:
 		Global.current_merchant = merchant_found.merchant_stats.duplicate()
-		card_being_dragged.position = merchant_found.global_position
+		card_selector_reference.hide_node()
 		card_being_dragged = null
 		if merchant_found.merchant_stats.merchant_type == "Town":
 			go_to_town()
@@ -58,7 +64,9 @@ func start_drag(card):
 	card.scale = Vector2(1, 1) * Global.ui_scaler
 	for i in get_tree().get_nodes_in_group("merchant"):
 		i.get_child(0).highlight_card(false)
+	card_selector_reference.show_node()
 	card_being_dragged.highlight_card(true)
+	
 
 func raycast_check_for_card_selector():
 	var space_state = get_world_2d().direct_space_state

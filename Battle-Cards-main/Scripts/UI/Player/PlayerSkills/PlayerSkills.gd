@@ -34,3 +34,9 @@ func organize_skills():
 	for i in get_children():
 		i.position = Vector2(x_offset + SKILL_X_POSITION, SKILL_Y_POSITION)
 		x_offset += 60
+
+func reset_skills():
+	for i in get_children():
+		i.queue_free()
+	
+	set_skills()

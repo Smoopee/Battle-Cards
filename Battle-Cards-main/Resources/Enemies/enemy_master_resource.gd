@@ -8,6 +8,8 @@ class_name Enemy_Resource
 @export var name: String
 @export var health: int
 @export var max_health: int
+@export var stagger: int
+@export var max_stagger: int
 @export var xp: int
 @export var gold: int
 @export var bleeding_dmg: int
@@ -23,3 +25,6 @@ class_name Enemy_Resource
 @export var runes: Array
 @export var biomes: Array
 @export var selection_tags: Array
+
+var can_be_staggered = true
+var staggered_counter: int

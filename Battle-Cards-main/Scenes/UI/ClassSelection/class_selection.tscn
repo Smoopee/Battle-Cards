@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4w3tmnyoiswv" path="res://Scripts/UI/ClassSelection/class_selection.gd" id="1_a56or"]
 [ext_resource type="PackedScene" uid="uid://cvroc13lcl75m" path="res://Scenes/UI/Intermission/card_selector.tscn" id="1_wqp7k"]
+[ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="4_5gjvt"]
 [ext_resource type="PackedScene" uid="uid://c4ybcekd8ere6" path="res://Scenes/Characters/Berserker/berserker_selection.tscn" id="4_pg3r6"]
 
 [node name="ClassSelection" type="Node2D" unique_id=1916002276]
@@ -38,3 +39,6 @@ theme_override_font_sizes/font_size = 32
 text = "CHOOSE YOUR CLASS"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CharacterImage" type="Sprite2D" parent="." unique_id=300765515]
+texture = ExtResource("4_5gjvt")

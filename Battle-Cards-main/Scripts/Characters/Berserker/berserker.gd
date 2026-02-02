@@ -2,6 +2,7 @@ extends Node2D
 
 signal rage_attack_gained
 signal health_changed
+signal stagger_changed
 
 signal physical_damage_dealt
 signal physical_damage_taken
@@ -37,6 +38,10 @@ func _ready():
 	$PlayerHealthBar.max_value = character_stats.max_health
 	$PlayerHealthBar.value = character_stats.health
 	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
+	
+	$PlayerStaggerBar.max_value = character_stats.max_stagger
+	$PlayerStaggerBar.value = character_stats.stagger
+	$PlayerStaggerBar/PlayerStaggerLabel.text = str(int($PlayerStaggerBar.value)) + "/" + str(int($PlayerStaggerBar.max_value))
 
 #SETUP  ===========================================================================================
 func set_stats() -> void:
@@ -75,6 +80,7 @@ func end_of_turn():
 	bleed_damage_keeper()
 	burn_damage_turn_keeper()
 	poison_damage_keeper()
+	stagger_keeper()
 	stun_keeper()
 
 func end_of_round():
@@ -111,6 +117,7 @@ func take_physical_damage(damage):
 	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
 	emit_signal("physical_damage_taken", receiving_physical_dmg)
 	change_health(-receiving_physical_dmg)
+	change_stagger(receiving_physical_dmg)
 	change_rage(receiving_physical_dmg)
 
 func deal_physical_damage(damage):
@@ -171,6 +178,15 @@ func stun_keeper():
 	if character_stats.stun_counter <= 0:
 		stun_toggle(false)
 
+func stagger_keeper():
+	if character_stats.staggered_counter >=1:
+		character_stats.staggered_counter -= 1
+		if character_stats.staggered_counter <= 0:
+			character_stats.stagger = 0
+			character_stats.can_be_staggered = true
+			change_stagger(0)
+ 
+
 func heal(amount):
 	emit_signal("heal_received", amount)
 	change_health(amount)
@@ -184,6 +200,21 @@ func change_health(amount):
 	$PlayerHealthBar.value = character_stats.health
 	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
 	emit_signal("health_changed")
+
+func change_stagger(amount):
+	if !character_stats.can_be_staggered: return
+	character_stats.stagger += amount
+	if character_stats.stagger >= character_stats.max_stagger: 
+		character_stats.staggered_counter = 2
+		character_stats.can_be_staggered = false
+		on_stun(2)
+	$PlayerStaggerBar.value = character_stats.stagger
+	$PlayerStaggerBar/PlayerStaggerLabel.text = str(int($PlayerStaggerBar.value)) + "/" + str(int($PlayerStaggerBar.max_value))
+	emit_signal("stagger_changed")
+
+func on_stun(turns):
+	character_stats.stun_counter = turns
+	stun_toggle(true)
 
 func stun_toggle(toggle):
 	if toggle: 

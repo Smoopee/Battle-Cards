@@ -29,6 +29,7 @@ func upgrade_card(num):
 			card_stats.buy_price = 12
 			card_stats.effect1 = 20
 			card_stats.cd = 1
+			card_stats.base_cd = 1
 		3:
 			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade3.png"
 			card_stats.upgrade_level = 3
@@ -36,12 +37,15 @@ func upgrade_card(num):
 			card_stats.buy_price = 24
 			card_stats.effect1 = 40
 			card_stats.cd = 0
+			card_stats.base_cd = 0
 		4:
 			card_stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade4.png"
 			card_stats.upgrade_level = 4
 			card_stats.sell_price = 48
 			card_stats.buy_price = 96
-			card_stats.effect1 = 50
+			card_stats.effect1 = 80
+			card_stats.cd = 0
+			card_stats.base_cd = 0
 			card_stats.buff_count = 2
 	
 	card.update_tooltip("Effect", "Block the next " + str(card_stats.effect1) + " physical damage")

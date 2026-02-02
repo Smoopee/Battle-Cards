@@ -18,8 +18,15 @@ func _ready():
 	$LoadGame.position =  Vector2(Global.center_screen_x + 200, 500)
 	$LoadGame.scale = Vector2(1.4,1.4) * Global.ui_scaler
 	
+	var character_y_position = 890
+	$CharacterImage.position = Vector2(Global.center_screen_x, character_y_position)
+	$CharacterImage.scale = Global.ui_scaler
+	$CardSelector.position = Vector2(Global.center_screen_x, character_y_position)
+	$CardSelector.scale = Global.ui_scaler
+	
 func _process(delta):
 	if card_being_dragged:
+		card_selector_reference.draw_a_line()
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
@@ -37,7 +44,7 @@ func _input(event):
 func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
-	
+	get_tree().get_first_node_in_group("card selector").show_node()
 	$NewGame.highlight_card(false)
 	$LoadGame.highlight_card(false)
 	card_being_dragged.highlight_card(true)
@@ -48,8 +55,8 @@ func finish_drag():
 	var load_game = raycast_check_for_load_game()
 	
 	if new_game:
-		card_being_dragged.position = new_game.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
+		card_selector_reference.hide_node()
 		card_being_dragged = null
 		new_game_function()
 		
@@ -71,7 +78,7 @@ func new_game_function():
 
 	Global.player_inventory = []
 	Global.player_deck = []
-	Global.player_gold = 100
+	Global.player_gold = 10000
 	Global.player_xp = 0
 	Global.player_level = 1
 	Global.player_class = ""

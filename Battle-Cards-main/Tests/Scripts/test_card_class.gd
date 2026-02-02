@@ -244,9 +244,10 @@ func toggle_cd():
 func toggle_shop_ui(show):
 	if show: card_shop_panel.visible = true
 	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
-	if !show:  card_shop_panel.visible = false
+	if !show: card_shop_panel.visible = false
 
 func card_reset():
+	card_stats.cd = card_stats.base_cd
 	card_stats.cd_remaining = 0
 	card_stats.on_cd = false
 	card_stats.mode = ""

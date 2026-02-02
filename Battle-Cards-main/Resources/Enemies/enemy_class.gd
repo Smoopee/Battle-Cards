@@ -1,6 +1,7 @@
 extends Node2D
 
 #class_name Enemy
+signal stagger_changed
 
 signal generate_reward
 signal health_changed
@@ -33,6 +34,8 @@ var skills : Node2D
 var enemy_ui : Control
 var enemy_health_bar : TextureProgressBar
 var enemy_health_label : Label
+var enemy_stagger_bar : TextureProgressBar
+var enemy_stagger_label : Label
 var gold_and_xp_box : VBoxContainer
 var enemy_gold : Label
 var enemy_xp : Label
@@ -67,7 +70,12 @@ func _ready():
 	set_node_names()
 	if Global.current_scene != "battle_sim":
 		%Skills.visible = false
-	else: %Skills.visible = true
+	else: 
+		%Skills.visible = true
+		enemy_stagger_bar.visible = true
+		enemy_stagger_bar.max_value = character_stats.max_stagger
+		enemy_stagger_bar.value = character_stats.stagger
+		enemy_stagger_label.text = str(int(enemy_stagger_bar.value)) + "/" + str(int(enemy_stagger_bar.max_value))
 	runes.instantiate_runes()
 
 func _process(delta):
@@ -104,6 +112,7 @@ func end_of_turn():
 	burn_damage_turn_keeper()
 	poison_damage_keeper()
 	stun_keeper()
+	stagger_keeper()
 
 func end_of_round(round):
 	burn_damage_round_keeper()
@@ -155,6 +164,7 @@ func take_physical_damage(damage):
 	if receiving_physical_dmg <= 0: receiving_physical_dmg = 0
 	emit_signal("physical_damage_taken", receiving_physical_dmg)
 	change_health(-receiving_physical_dmg)
+	change_stagger(receiving_physical_dmg)
 
 func deal_physical_damage(damage):
 	dealing_physical_dmg = damage
@@ -213,6 +223,14 @@ func stun_keeper():
 	if character_stats.stun_counter <= 0:
 		stun_toggle(false)
 
+func stagger_keeper():
+	if character_stats.staggered_counter >=1:
+		character_stats.staggered_counter -= 1
+		if character_stats.staggered_counter <= 0:
+			character_stats.stagger = 0
+			character_stats.can_be_staggered = true
+			change_stagger(0)
+
 func heal_function(amount):
 	emit_signal("heal_received")
 	change_health(amount)
@@ -226,6 +244,21 @@ func change_health(amount):
 	enemy_health_bar.value = character_stats.health
 	enemy_health_label.text = str(int(enemy_health_bar.value)) + "/" + str(int(enemy_health_bar.max_value))
 	emit_signal("health_changed")
+
+func change_stagger(amount):
+	if !character_stats.can_be_staggered: return
+	character_stats.stagger += amount
+	if character_stats.stagger >= character_stats.max_stagger: 
+		character_stats.staggered_counter = 2
+		character_stats.can_be_staggered = false
+		on_stun(2)
+	enemy_stagger_bar.value = character_stats.stagger
+	enemy_stagger_label.text = str(int(enemy_stagger_bar.value)) + "/" + str(int(enemy_stagger_bar.max_value))
+	emit_signal("stagger_changed")
+
+func on_stun(turns):
+	character_stats.stun_counter = turns
+	stun_toggle(true)
 
 func stun_toggle(toggle):
 	if toggle: 
@@ -315,6 +348,8 @@ func set_node_names():
 	enemy_ui = get_node('%EnemyUI')
 	enemy_health_bar = get_node('%EnemyHealthBar')
 	enemy_health_label = get_node('%EnemyHealthLabel')
+	enemy_stagger_bar = get_node('%EnemyStaggerBar')
+	enemy_stagger_label = get_node('%EnemyStaggerLabel')
 	gold_and_xp_box = get_node('%GoldAndXPBox')
 	enemy_gold = get_node('%EnemyGold')
 	enemy_xp = get_node('%EnemyXP')

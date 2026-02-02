@@ -2,6 +2,7 @@ extends Node2D
 
 const NUMBER_OF_DECKSLOTS = 7
 
+var battle_deck = []
 var deck_db = []
 var deck = []
 
@@ -17,7 +18,7 @@ func _ready():
 	
 	for i in $"../DeckCardSlots".get_children():
 		card_slot_array.push_front(i)
-		
+
 	create_inventory()
 	while card_slot_reference.size() < NUMBER_OF_DECKSLOTS:
 		card_slot_reference.push_back(null)
@@ -33,7 +34,8 @@ func create_inventory():
 			fill_card_slots(deck_db[i], card_position)
 			card_position += 1
 			continue
-		var card_scene = load(deck_db[i].card_scene_path).instantiate()
+		var card_scene 
+		card_scene = load(deck_db[i].card_scene_path).instantiate()
 		card_scene.card_stats = deck_db[i]
 		add_child(card_scene)
 		card_scene.upgrade_card(card_scene.card_stats.upgrade_level)

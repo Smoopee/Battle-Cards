@@ -214,6 +214,7 @@ func end_fight_cleanup():
 	$"../NextTurn".slot_player_cards()
 	get_tree().get_first_node_in_group("character").buff_reset()
 	get_tree().get_first_node_in_group("character").debuff_reset()
+	Global.current_scene = "battle rewards"
 	$"../BattleRewards".update_rewards()
 	$"../BattleRewards".visible = true
 	

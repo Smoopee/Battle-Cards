@@ -37,7 +37,8 @@ func create_inventory():
 			fill_card_slots(inventory_db[i], card_position)
 			card_position += 1
 			continue
-		var card_scene = load(inventory_db[i].card_scene_path).instantiate()
+		var card_scene 
+		card_scene = load(inventory_db[i].card_scene_path).instantiate()
 		card_scene.card_stats = inventory_db[i]
 		add_child(card_scene)
 		card_scene.get_node("BaseCard").upgrade_card(card_scene.card_stats.upgrade_level)

@@ -18,9 +18,16 @@ func _ready():
 	$BerserkerSelection.position = Vector2(Global.center_screen_x + 300, 500)
 	$BerserkerSelection2.position = Vector2(Global.center_screen_x, 500)
 	$BerserkerSelection3.position = Vector2(Global.center_screen_x - 300, 500)
+	
+	var character_y_position = 890
+	$CharacterImage.position = Vector2(Global.center_screen_x, character_y_position)
+	$CharacterImage.scale = Global.ui_scaler
+	$CardSelector.position = Vector2(Global.center_screen_x, character_y_position)
+	$CardSelector.scale = Global.ui_scaler
 
 func _process(delta):
 	if card_being_dragged:
+		card_selector_reference.draw_a_line()
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
@@ -44,14 +51,14 @@ func finish_drag():
 		Global.player_class = class_selected.set_class()
 		Global.player_stats = load("res://Resources/Character/berserker.tres").duplicate()
 		Global.save_function()
-		card_being_dragged.position = class_selected.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
+		card_selector_reference.hide_node()
 		card_being_dragged = null
 		Global.current_scene = "intermission"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		var temp = load("res://Scenes/Characters/Berserker/berserker.tscn").instantiate().duplicate()
 		get_tree().get_first_node_in_group("player").add_child(temp)
-		temp = load("res://Scenes/UI/PlayerInventory/player_cards.tscn").instantiate().duplicate()
+		temp = load("res://Scenes/UI/PlayerInventory/player_cards.tscn").instantiate()
 		get_parent().add_child(temp)
 		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
 		queue_free()
@@ -69,6 +76,7 @@ func start_drag(card):
 	$BerserkerSelection.highlight_card(false)
 	$BerserkerSelection2.highlight_card(false)
 	$BerserkerSelection3.highlight_card(false)
+	card_selector_reference.show_node()
 	card_being_dragged.highlight_card(true)
 
 func connect_card_signals(card):

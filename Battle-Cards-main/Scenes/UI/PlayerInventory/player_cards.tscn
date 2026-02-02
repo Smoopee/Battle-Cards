@@ -28,6 +28,7 @@ script = ExtResource("6_uxh4d")
 visible = false
 
 [node name="UpgradeButton" type="CheckButton" parent="." unique_id=170543241]
+visible = false
 offset_left = 38.0
 offset_top = 892.0
 offset_right = 278.0

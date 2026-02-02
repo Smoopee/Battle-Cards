@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="5_db4dq"]
 [ext_resource type="Script" uid="uid://cur7n7ijviqg6" path="res://Scripts/UI/StartScreen/load_game.gd" id="5_rj7o4"]
 [ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="6_b2pu5"]
+[ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="8_b2pu5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e27j"]
 size = Vector2(97, 126)
@@ -119,3 +120,6 @@ material = SubResource("ShaderMaterial_peuub")
 position = Vector2(-3.787875e-05, -1.168251e-05)
 scale = Vector2(0.71794844, 0.7438595)
 texture = ExtResource("6_b2pu5")
+
+[node name="CharacterImage" type="Sprite2D" parent="." unique_id=1506788954]
+texture = ExtResource("8_b2pu5")

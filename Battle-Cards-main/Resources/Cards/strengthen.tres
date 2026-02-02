@@ -1,50 +1,21 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://bdjo7rfe23rjg"]
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://bdjo7rfe23rjg"]
 
-[ext_resource type="Script" path="res://Resources/Cards/cards_master_resource.gd" id="1_hc35b"]
+[ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_hc35b"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_hc35b")
 card_art_path = "res://Resources/Cards/CardArt/Strengthen_card.png"
-full_art_scene_path = ""
-full_art_texture_path = ""
 card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/strengthen.tscn"
-card_upgrade_art_path = ""
 buff_scene_path = "res://Scenes/Buffs/strengthen_buff.tscn"
 name = "Strengthen"
-dmg = 0
 cd = 2
-cd_remaining = 0
-on_cd = false
-priority = 0
+base_cd = 2
 effect1 = 2
-effect2 = 0
-effect3 = 0
-effect4 = 0
-effect5 = 0
 buff_count = 1
-debuff_count = 0
-position = 0
-inventory_position = 0
-deck_position = 0
 upgrade_level = 1
-burn_dmg = 0
-poison_dmg = 0
-bleed_dmg = 0
-heal = 0
-critical_strike_chance = 0.0
-in_enemy_deck = false
 sell_price = 2
 buy_price = 4
-is_players = false
-item_enchant = ""
-screen_position = Vector2(0, 0)
-is_enchanted = false
 tags = ["Trogg", "Buff", "Berserker"]
 card_type = ["Buff", "Trogg"]
-is_discarded = false
-is_blank = false
-is_updated = false
-mode = ""
-card_rarity = 0

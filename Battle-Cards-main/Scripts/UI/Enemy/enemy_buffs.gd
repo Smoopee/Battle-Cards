@@ -1,9 +1,5 @@
 extends Node2D
 
-const BUFF_X_POSITION = -625
-const BUFF_Y_POSITION = -130
-
-
 #BUFFS ============================================================================================
 func add_buff(buff_resource, source):
 	var new_buff = load(buff_resource.buff_scene_path).instantiate()
@@ -27,8 +23,11 @@ func remove_buff(buff):
 	organize_buffs()
 
 func organize_buffs():
+	var buff_x_position = 30
+	var buff_y_position = Global.center_screen_y - 340
+
 	var x_offset = 0
 	for i in get_children():
-		i.position = position + Vector2(x_offset + BUFF_X_POSITION, BUFF_Y_POSITION)
+		i.global_position = Vector2(x_offset + buff_x_position, buff_y_position)
 		i.scale = Vector2(1,1)
 		x_offset += 50

@@ -14,8 +14,13 @@ func _ready():
 	card_selector_reference = $CardSelector
 	$Start.scale = Vector2(1.4,1.4) * Global.ui_scaler
 	
+	var character_y_position = 890
+	$CharacterImage.position = Vector2(Global.center_screen_x, character_y_position)
+	$CharacterImage.scale = Global.ui_scaler
+
 func _process(delta):
 	if card_being_dragged:
+		card_selector_reference.draw_a_line()
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x),
 			clamp(mouse_pos.y, 0, screen_size.y))
@@ -34,10 +39,10 @@ func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05) * Global.ui_scaler
 	var start_found = raycast_check_for_start()
 	if start_found:
-		card_being_dragged.position = start_found.position
 		card_being_dragged.get_node("Area2D").collision_layer = 8
 		card_being_dragged = null
 		Global.current_scene = "start_screen"
+		card_selector_reference.hide_node()
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		get_parent().add_scene("res://Scenes/UI/StartScreen/start_screen.tscn")
 		queue_free()
@@ -52,8 +57,10 @@ func start_drag(card):
 	card_being_dragged = card
 	card.scale = Vector2(1, 1) * Global.ui_scaler
 	$Start.highlight_card(false)
+	get_tree().get_first_node_in_group("card selector").show_node()
 	card_being_dragged.highlight_card(true)
-	
+
+
 #func connect_card_signals(card):
 	#card.connect("hoovered", on_hoovered_over_card)
 	#card.connect("hoovered_off", on_hoovered_off_card)

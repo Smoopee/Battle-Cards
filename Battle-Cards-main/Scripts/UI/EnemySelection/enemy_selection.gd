@@ -16,12 +16,13 @@ var speed = 2.0
 
 
 func _ready():
-	get_tree().get_first_node_in_group("bottom ui").toggle_card_selection()
+	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	
 func _process(delta):
 	if card_being_dragged:
+		card_selector_reference.draw_a_line()
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
 			clamp(mouse_pos.y, 0, screen_size.y))
@@ -51,7 +52,7 @@ func finish_drag():
 		$EnemyOrganizer.enemy_setup(biome_found.biome_stats.biome_name)
 
 	if enemy_found:
-		card_being_dragged.position = enemy_found.global_position
+		card_selector_reference.hide_node()
 		card_being_dragged = null
 		enemy_loader(enemy_found)
 		inventory_and_deck_save()
@@ -79,6 +80,7 @@ func start_drag(card):
 		i.get_child(0).highlight_card(false)
 	for i in get_tree().get_nodes_in_group("enemy"):
 		i.highlight_card(false)
+	card_selector_reference.show_node()
 	card_being_dragged.highlight_card(true)
 
 func raycast_check_for_card_selector():

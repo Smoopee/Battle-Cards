@@ -23,6 +23,7 @@ visible = false
 [node name="TooltipTimer" type="Timer" parent="." unique_id=1147560163]
 
 [node name="SkipButton" type="Button" parent="." unique_id=670665511]
+custom_minimum_size = Vector2(120, 70)
 offset_left = 1742.0
 offset_top = 894.0
 offset_right = 1814.0

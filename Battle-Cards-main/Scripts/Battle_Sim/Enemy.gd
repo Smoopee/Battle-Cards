@@ -35,6 +35,8 @@ func _ready():
 	enemy.get_node("BaseEnemy").set_stats()
 	enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
 
+
+
 func initial_build_deck():
 	enemy_deck = enemy.get_node("BaseEnemy").deck
 	

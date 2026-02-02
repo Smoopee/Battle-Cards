@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c0606xusrvjdu"]
+
+[ext_resource type="Texture2D" uid="uid://dcxnxlji53ouv" path="res://Resources/Art/UIElements/test_line.png" id="1_m1bdl"]
+[ext_resource type="Shader" uid="uid://b1aq2giws5g0w" path="res://Resources/Art/UIElements/animate_line.gdshader" id="1_wlfok"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1bdl"]
+shader = ExtResource("1_wlfok")
+
+[sub_resource type="Curve" id="Curve_m6fhs"]
+_data = [Vector2(0.1699029, 1), 0.0, 0.0, 0, 0, Vector2(0.58252424, 1), 0.0, 0.0, 0, 0, Vector2(0.97572815, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="CardArc" type="Line2D" unique_id=377589744]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_m1bdl")
+width = 20.0
+width_curve = SubResource("Curve_m6fhs")
+texture = ExtResource("1_m1bdl")
+texture_mode = 1
