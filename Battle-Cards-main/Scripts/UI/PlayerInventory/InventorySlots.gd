@@ -23,7 +23,7 @@ func _ready():
 
 
 func positioning():
-	inventory_y_position = get_viewport().size.y - 195
+	inventory_y_position = get_viewport().size.y - 155
 
 func add_card_to_hand(card_slot):
 	card_slot_array.push_front(card_slot)

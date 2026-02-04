@@ -1,19 +1,12 @@
-[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://ba7xhokhf1xe"]
+[gd_resource type="Resource" script_class="Skills_Resource" format=3 uid="uid://ba7xhokhf1xe"]
 
-[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_a558x"]
+[ext_resource type="Script" uid="uid://cghu34rbx53sr" path="res://Resources/Skills/skills_master_resource.gd" id="1_a558x"]
 
 [resource]
 script = ExtResource("1_a558x")
 skill_art_path = "res://Resources/Art/Skills/third_wheel.png"
-skill_upgrade_art_path = ""
+skill_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
 skill_scene_path = "res://Scenes/Skills/third_wheel.tscn"
 name = "Third Wheel"
 buy_price = 10
 upgrade_level = 1
-tags = []
-rarity = 0
-effect1 = 0
-effect2 = 0
-effect3 = 0
-effect4 = 0
-effect5 = 0

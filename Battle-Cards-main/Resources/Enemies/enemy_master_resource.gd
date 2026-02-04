@@ -15,7 +15,6 @@ class_name Enemy_Resource
 @export var bleeding_dmg: int
 @export var burning_dmg: int
 @export var poisoning_dmg: int
-@export var armor: int
 @export var attack: int
 @export var defense: int
 @export var block: int
@@ -25,6 +24,7 @@ class_name Enemy_Resource
 @export var runes: Array
 @export var biomes: Array
 @export var selection_tags: Array
+@export var card_pool: Array
 
 var can_be_staggered = true
 var staggered_counter: int

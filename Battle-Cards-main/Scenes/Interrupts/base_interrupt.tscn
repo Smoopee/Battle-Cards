@@ -36,6 +36,7 @@ collision_mask = 1048576
 shape = SubResource("RectangleShape2D_m8qjt")
 
 [node name="InterruptUI" type="Control" parent="." unique_id=238496922]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -23.0
@@ -45,6 +46,7 @@ offset_bottom = 23.0
 
 [node name="InfoLabel" type="Label" parent="InterruptUI" unique_id=19909923]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 0
 offset_left = 36.0
@@ -58,6 +60,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InfoPanel" type="Panel" parent="InterruptUI/InfoLabel" unique_id=1461277923]
+visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15

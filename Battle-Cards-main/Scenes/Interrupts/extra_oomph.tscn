@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c2r0gj1lxlalp" path="res://Scripts/Interrupts/extra_oomph.gd" id="1_ngpep"]
 
 [node name="ExtraOomph" type="Node2D" unique_id=1837266488]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_ngpep")
 
 [node name="BaseInterrupt" parent="." unique_id=5815808 instance=ExtResource("1_jhuu1")]

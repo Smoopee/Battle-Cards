@@ -2,5 +2,17 @@
 
 [ext_resource type="Script" uid="uid://do33aalw4oox6" path="res://Scripts/UI/character_ui.gd" id="1_luf4r"]
 
-[node name="CharacterUI" type="CanvasLayer" unique_id=733664454]
+[node name="CharacterUI" type="CanvasLayer" unique_id=733664454 groups=["character ui"]]
+visible = false
 script = ExtResource("1_luf4r")
+
+[node name="Inventory" type="Button" parent="." unique_id=1041367649]
+custom_minimum_size = Vector2(0, 100)
+offset_left = 1445.0
+offset_top = 765.0
+offset_right = 1597.0
+offset_bottom = 865.0
+toggle_mode = true
+text = "Inventory"
+
+[connection signal="toggled" from="Inventory" to="." method="_on_inventory_toggled"]

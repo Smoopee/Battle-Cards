@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://croprevextyhl" path="res://Scripts/Interrupts/bide.gd" id="1_r6gsb"]
 
 [node name="Bide" type="Node2D" unique_id=415095997]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_r6gsb")
 
 [node name="BaseInterrupt" parent="." unique_id=543281551 instance=ExtResource("1_ma5ed")]

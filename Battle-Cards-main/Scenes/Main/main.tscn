@@ -9,6 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://douvo7o182s2" path="res://Scenes/UI/UIElements/bottom_nav_bar.tscn" id="6_xlvfx"]
 [ext_resource type="PackedScene" uid="uid://8tsbvg40mdvi" path="res://Scenes/UI/character_ui.tscn" id="7_hryqi"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_y3v7k"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_hryqi"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_imbg2"]
+
 [sub_resource type="ButtonGroup" id="ButtonGroup_hfg1r"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_4e4y2"]
@@ -18,12 +24,6 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_vk4q2"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_wliom"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_2ok46"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_koken"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_es6iu"]
 
 [node name="Main" type="Node2D" unique_id=281713087 groups=["main"]]
 script = ExtResource("1_lixft")
@@ -35,14 +35,14 @@ script = ExtResource("1_lixft")
 [node name="Menu" parent="." unique_id=1055934563 instance=ExtResource("4_5yls4")]
 
 [node name="TalentTree" parent="." unique_id=1673084829 instance=ExtResource("5_p6jpk")]
-group1 = SubResource("ButtonGroup_hfg1r")
-group2 = SubResource("ButtonGroup_4e4y2")
-group3 = SubResource("ButtonGroup_6t3k2")
-group4 = SubResource("ButtonGroup_vk4q2")
-group5 = SubResource("ButtonGroup_wliom")
-group6 = SubResource("ButtonGroup_2ok46")
-group7 = SubResource("ButtonGroup_koken")
-group8 = SubResource("ButtonGroup_es6iu")
+group1 = SubResource("ButtonGroup_y3v7k")
+group2 = SubResource("ButtonGroup_hryqi")
+group3 = SubResource("ButtonGroup_imbg2")
+group4 = SubResource("ButtonGroup_hfg1r")
+group5 = SubResource("ButtonGroup_4e4y2")
+group6 = SubResource("ButtonGroup_6t3k2")
+group7 = SubResource("ButtonGroup_vk4q2")
+group8 = SubResource("ButtonGroup_wliom")
 
 [node name="BottomNavBar" parent="." unique_id=632432285 instance=ExtResource("6_xlvfx")]
 

@@ -50,6 +50,7 @@ script = ExtResource("1_2i22b")
 [node name="PlayerRunes" parent="." unique_id=1633574852 instance=ExtResource("4_p0pnd")]
 
 [node name="PlayerInterrupts" parent="." unique_id=216238792 instance=ExtResource("7_ruoki")]
+visible = true
 
 [node name="PlayerGadgets" parent="." unique_id=878448781 instance=ExtResource("8_flvq4")]
 
@@ -152,10 +153,10 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="StatContainer/Panel3/HBoxContainer" unique_id=2081848856]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = " Armor:"
+text = " Spd:"
 vertical_alignment = 1
 
-[node name="ArmorLabel" type="Label" parent="StatContainer/Panel3/HBoxContainer" unique_id=1663483486]
+[node name="SpeedLabel" type="Label" parent="StatContainer/Panel3/HBoxContainer" unique_id=1663483486]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -174,6 +175,13 @@ fill_mode = 3
 texture_under = ExtResource("3_mcllw")
 texture_progress = ExtResource("3_svegv")
 texture_progress_offset = Vector2(2, 0)
+
+[node name="RageLabel" type="Label" parent="RageBar" unique_id=687263338]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -20.0
+offset_right = 53.0
+text = "0"
 
 [node name="PlayerHealthBar" type="TextureProgressBar" parent="." unique_id=374077712]
 offset_left = -649.0
@@ -205,6 +213,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayerStaggerBar" type="TextureProgressBar" parent="." unique_id=919374622]
+visible = false
 offset_left = -649.0
 offset_top = 117.0
 offset_right = 651.0
@@ -233,7 +242,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BlockSymbol" type="Sprite2D" parent="." unique_id=254393485]
-visible = false
 position = Vector2(85, -78)
 texture = ExtResource("9_vfrul")
 

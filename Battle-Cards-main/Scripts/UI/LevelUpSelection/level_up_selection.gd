@@ -8,7 +8,7 @@ var is_reward_setup = false
 var is_reward_chosen = false
 
 func _ready():
-	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	screen_size = get_viewport_rect().size
 	$HeaderPanel.position.x = screen_size.x /2 - $HeaderPanel.size.x /2
 	$HeaderPanel.position.y = 100

@@ -39,6 +39,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	deck_reference = $Deck
 	inventory_reference = $Inventory
+	$Inventory/UpgradeButton.position = $InventorySlots.get_child($InventorySlots.get_child_count() - 1).position - Vector2(350, 0)
 	
 	for i in $DeckCardSlots.get_children():
 		deck_card_slot_array.push_front(i)
@@ -56,7 +57,6 @@ func _process(delta):
 			clamp(mouse_pos.y, 0, screen_size.y))
 			
 
-
 func update_inventory_slots():
 	$InventorySlots.update_inventory_slots()
 
@@ -66,12 +66,7 @@ func _input(event):
 		
 		if event.pressed:
 			card_being_dragged = raycast_check_for_card()
-			if full_art_toggle and $ClickTimer.time_left == 0: 
-				clear_full_art()
-			elif event.is_double_click():
-				click_card(card_being_dragged)
-				$ClickTimer.start(.5)
-			elif card_being_dragged:
+			if card_being_dragged:
 				card_being_dragged = card_being_dragged.get_parent()
 				start_drag(card_being_dragged)
 		else:
@@ -82,8 +77,13 @@ func start_drag(card):
 	emit_signal("started_card_drag")
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
-	card_previous_position = card.position
+	card_previous_position = card_being_dragged.position
+	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_DISABLED
 	Global.mouse_occupied = true
+	
+	for i in get_tree().get_nodes_in_group("card"):
+		if upgrade_check(card_being_dragged, i) and upgrade_mode and i.card_stats.is_players:
+			i.get_node("BaseCard").highlight_card(true)
 
 func finish_drag():
 	Global.mouse_occupied = false
@@ -105,6 +105,19 @@ func finish_drag():
 		sell_card(card_being_dragged)
 		card_reset()
 		return
+	
+	if raycast_check_for_card() and upgrade_mode:
+		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent()):
+			if inventory_card_slot_reference_index >= 0:
+				inventory_card_slot_reference[inventory_card_slot_reference_index] = null
+				inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
+			if deck_card_slot_reference_index >= 0:
+				deck_card_slot_reference[deck_card_slot_reference_index] = null
+				deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
+			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card().get_parent())
+			print("Upgrade card")
+			card_reset()
+			return
 	
 	if deck_card_slot_reference_index  > -1 and deck_card_slot_found != null:
 		previous_card_slot = deck_card_slot_reference_index
@@ -136,18 +149,6 @@ func finish_drag():
 			else: deck_to_inventory_swap(card_being_dragged, inventory_card_slot_found)
 		card_sorted = true
 	
-	if raycast_check_for_card() and upgrade_mode:
-		if upgrade_check(card_being_dragged, raycast_check_for_upgrade_card().get_parent()):
-			if inventory_card_slot_reference_index >= 0:
-				inventory_card_slot_reference[inventory_card_slot_reference_index] = null
-				inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
-			if deck_card_slot_reference_index >= 0:
-				deck_card_slot_reference[deck_card_slot_reference_index] = null
-				deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
-			var temp = upgrade_card(card_being_dragged, raycast_check_for_upgrade_card().get_parent())
-			print("Upgrade card")
-			card_reset()
-			return
 	
 	if raycast_check_for_deck_slot() and not deck_card_slot_found.card_in_slot and not card_being_dragged.card_stats.is_players:
 		buy_card_for_deck(card_being_dragged, deck_card_slot_found)
@@ -169,8 +170,11 @@ func finish_drag():
 			card_reset()
 			return
 	
-	if !card_sorted: inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
-	card_sorted = false
+	if !card_sorted: 
+		inventory_reference.animate_card_to_position(card_being_dragged, card_previous_position)
+		card_sorted = false
+		card_reset()
+		return
 	
 	if !card_being_dragged.card_stats.is_players:
 		animate_card_to_position(card_being_dragged, card_previous_position)
@@ -603,6 +607,10 @@ func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
+	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_INHERIT
+	
+	for i in get_tree().get_nodes_in_group("card"):
+		i.get_node("BaseCard").highlight_card(false)
 	card_being_dragged = null
 
 func toggle_sell_zone(toggle):

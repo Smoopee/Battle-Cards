@@ -31,11 +31,10 @@ func interrupt_effect(target):
 func toggle_info_ui(show):
 	if show: info_label.visible = true
 	if !show: info_label.visible = false
-	if interrupt_stats.stack_amount <= 1:  info_label.visible = false
+
 
 func update_stack_ui():
 	set_node_names()
-	info_label.text = str(interrupt_stats.stack_amount)
 
 func set_node_names():
 	info_label = get_node('%InfoLabel')

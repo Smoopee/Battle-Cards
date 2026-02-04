@@ -16,7 +16,7 @@ var speed = 2.0
 
 
 func _ready():
-	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)
 	screen_size = get_viewport_rect().size
 	card_selector_reference = $CardSelector
 	

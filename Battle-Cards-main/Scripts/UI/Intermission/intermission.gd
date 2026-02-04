@@ -9,14 +9,13 @@ var screen_size
 var card_being_dragged
 
 func _ready():
-	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)
 	screen_size = get_viewport_rect().size
 	Global.intermission_tracker += 1
 	$SkipButton.position = Vector2(get_viewport().size.x - 200, Global.center_screen_y)
 	var character_y_position = 890
 	$CardSelector.position = Vector2(Global.center_screen_x, character_y_position)
 	$CardSelector.scale = Global.ui_scaler
-
 
 func _process(delta):
 	if card_being_dragged:
@@ -136,29 +135,29 @@ func _on_skip_button_button_down():
 		get_parent().add_scene("res://Scenes/UI/EnemySelection/enemy_selection.tscn")
 		queue_free()
 
-func connect_card_signals(card):
-	card.connect("hovered_on", on_hovered_over)
-	card.connect("hovered_off", on_hovered_off)
+#func connect_card_signals(card):
+	#card.connect("hovered_on", on_hovered_over)
+	#card.connect("hovered_off", on_hovered_off)
 
-func on_hovered_over(card):
-	if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
-	if $ConsumableManger.consumable_being_dragged: return
-	card.mouse_exit = false
-	card.scale = Vector2(1.1, 1.1) * Global.ui_scaler
-	$TooltipTimer.start()
-	await $TooltipTimer.timeout
-	if card == null: return
-	if card.mouse_exit or card_being_dragged: return
-	card.toggle_tooltip_show()
-	card.scale = Vector2(2, 2) * Global.ui_scaler
-	card.z_index = 2
+#func on_hovered_over(card):
+	#if $PlayerInventoryScreen.card_being_dragged and $PlayerInventoryScreen.hover_on_upgrade_test == true: return
+	#if $ConsumableManger.consumable_being_dragged: return
+	#card.mouse_exit = false
+	#card.scale = Vector2(1.1, 1.1) * Global.ui_scaler
+	#$TooltipTimer.start()
+	#await $TooltipTimer.timeout
+	#if card == null: return
+	#if card.mouse_exit or card_being_dragged: return
+	#card.toggle_tooltip_show()
+	#card.scale = Vector2(2, 2) * Global.ui_scaler
+	#card.z_index = 2
 
-func on_hovered_off(card):
-	if card_being_dragged: return
-	card.mouse_exit = true
-	card.toggle_tooltip_hide()
-	card.scale = Vector2(1, 1) * Global.ui_scaler
-	card.z_index = 1
+#func on_hovered_off(card):
+	#if card_being_dragged: return
+	#card.mouse_exit = true
+	#card.toggle_tooltip_hide()
+	#card.scale = Vector2(1, 1) * Global.ui_scaler
+	#card.z_index = 1
 
 func _on_tooltip_timer_timeout():
 	pass # Replace with function body.

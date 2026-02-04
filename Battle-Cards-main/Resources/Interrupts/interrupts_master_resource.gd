@@ -7,8 +7,7 @@ class_name Interrupts_Resource
 @export var name: String
 @export var buy_price: int
 @export var target: String
-@export var stack_amount: int
-@export var max_stacks: int
+@export var rage_cost: int
 @export var tags: Array
 @export var consumbale_rarity: int
 @export var effect1: int

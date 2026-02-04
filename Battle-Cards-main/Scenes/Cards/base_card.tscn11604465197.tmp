@@ -5,19 +5,9 @@
 [ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="3_tjiti"]
 [ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="4_538n5"]
 [ext_resource type="Script" uid="uid://1pkoe7gnec6i" path="res://Scripts/Cards/Animation/card_animation_controller.gd" id="5_ik75v"]
-[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="6_evcl4"]
-[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="7_5ntdj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecdyd"]
 size = Vector2(146, 180)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqhm0"]
-shader = ExtResource("6_evcl4")
-shader_parameter/onoff = 0.0
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_power = 2.0
-shader_parameter/glow_shift = 0.3
-shader_parameter/glow_radius = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfkj0"]
 bg_color = Color(1, 1, 0.905882, 1)
@@ -70,12 +60,6 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1033819808]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_ecdyd")
-
-[node name="GlowEffect" type="Sprite2D" parent="." unique_id=840316712]
-visible = false
-material = SubResource("ShaderMaterial_eqhm0")
-position = Vector2(-2.861023e-06, -6.854534e-07)
-texture = ExtResource("7_5ntdj")
 
 [node name="CardUI" type="Control" parent="." unique_id=2114267779]
 unique_name_in_owner = true
@@ -236,3 +220,6 @@ unique_name_in_owner = true
 [node name="CardAnimationController" type="Node2D" parent="." unique_id=1889128889]
 visible = false
 script = ExtResource("5_ik75v")
+
+[connection signal="mouse_entered" from="CardUI" to="." method="_on_card_ui_mouse_entered"]
+[connection signal="mouse_exited" from="CardUI" to="." method="_on_card_ui_mouse_exited"]

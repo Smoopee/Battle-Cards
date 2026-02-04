@@ -24,16 +24,17 @@ script = ExtResource("5_3rxlr")
 [node name="Inventory" type="Node2D" parent="." unique_id=1130483334 groups=["player inventory"]]
 script = ExtResource("6_uxh4d")
 
-[node name="SellZone" parent="." unique_id=1795147361 instance=ExtResource("6_i6oqa")]
-visible = false
-
-[node name="UpgradeButton" type="CheckButton" parent="." unique_id=170543241]
-visible = false
+[node name="UpgradeButton" type="CheckButton" parent="Inventory" unique_id=170543241]
 offset_left = 38.0
 offset_top = 892.0
 offset_right = 278.0
-offset_bottom = 923.0
-text = "Upgrade Mode"
+offset_bottom = 932.0
+text = "Upgrade
+Mode"
+alignment = 1
+
+[node name="SellZone" parent="." unique_id=1795147361 instance=ExtResource("6_i6oqa")]
+visible = false
 
 [node name="DeckBG" type="TextureRect" parent="." unique_id=1505910761]
 visible = false
@@ -60,4 +61,4 @@ one_shot = true
 
 [node name="FullArt" type="Node2D" parent="." unique_id=1086372694 groups=["full art"]]
 
-[connection signal="toggled" from="UpgradeButton" to="." method="_on_upgrade_button_toggled"]
+[connection signal="toggled" from="Inventory/UpgradeButton" to="." method="_on_upgrade_button_toggled"]

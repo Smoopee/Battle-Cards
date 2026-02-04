@@ -1,11 +1,11 @@
 extends Node2D
 
 
-const INTERRUPT_Y_POSITION = 775
+const INTERRUPT_Y_POSITION = 785
 
 var interrupt_x_position = 0
 var interrupt_array = []
-var interrupt_width = 50
+var interrupt_width = 90
 
 
 func _ready():

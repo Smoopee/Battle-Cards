@@ -1,19 +1,12 @@
-[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://dm15d8xqblmbx"]
+[gd_resource type="Resource" script_class="Skills_Resource" format=3 uid="uid://dm15d8xqblmbx"]
 
-[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_j2cbx"]
+[ext_resource type="Script" uid="uid://cghu34rbx53sr" path="res://Resources/Skills/skills_master_resource.gd" id="1_j2cbx"]
 
 [resource]
 script = ExtResource("1_j2cbx")
 skill_art_path = "res://Resources/Art/Skills/paper_shield_skill.png"
-skill_upgrade_art_path = ""
+skill_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
 skill_scene_path = "res://Scenes/Skills/paper_shield.tscn"
 name = "Paper Shield"
 buy_price = 3
 upgrade_level = 1
-tags = []
-rarity = 0
-effect1 = 0
-effect2 = 0
-effect3 = 0
-effect4 = 0
-effect5 = 0

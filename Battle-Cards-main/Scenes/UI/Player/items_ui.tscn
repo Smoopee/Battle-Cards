@@ -28,13 +28,6 @@ toggle_mode = true
 button_group = ExtResource("2_xecul")
 text = "Items"
 
-[node name="InterruptsButton" type="Button" parent="VBoxContainer" unique_id=1545077990]
-layout_mode = 2
-size_flags_vertical = 3
-toggle_mode = true
-button_group = ExtResource("2_xecul")
-text = "Interrupts"
-
 [node name="GadgetsButton" type="Button" parent="VBoxContainer" unique_id=148878328]
 layout_mode = 2
 size_flags_vertical = 3
@@ -50,6 +43,5 @@ button_group = ExtResource("2_xecul")
 text = "Runes"
 
 [connection signal="toggled" from="VBoxContainer/ConsumablesButton" to="." method="_on_consumables_button_toggled"]
-[connection signal="toggled" from="VBoxContainer/InterruptsButton" to="." method="_on_interrupts_button_toggled"]
 [connection signal="toggled" from="VBoxContainer/GadgetsButton" to="." method="_on_gadgets_button_toggled"]
 [connection signal="toggled" from="VBoxContainer/RunesButton" to="." method="_on_runes_button_toggled"]

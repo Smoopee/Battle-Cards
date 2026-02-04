@@ -46,8 +46,8 @@ var attack_label : Label
 var attack_panel : Panel
 var defense_label : Label
 var defense_panel : Panel
-var armor_label : Label
-var armor_panel : Panel
+var speed_label : Label
+var speed_panel : Panel
 var stun_indicator : Panel
 var stun_label : Label
 var tooltip : Panel
@@ -95,7 +95,7 @@ func set_stats() -> void:
 func set_stat_container():
 	attack_label.text = "Atk: " + str(character_stats.attack)
 	defense_label.text = "Def: " + str(character_stats.defense)
-	armor_label.text = "Armor: " +  str(character_stats.armor)
+	speed_label.text = "Spd: " +  str(character_stats.speed)
 	
 	enemy_health_bar.max_value = character_stats.max_health
 	enemy_health_bar.value = character_stats.max_health
@@ -157,7 +157,6 @@ func set_deck():
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
 	receiving_physical_dmg = damage
-	receiving_physical_dmg -= character_stats.armor
 	receiving_physical_dmg -= character_stats.defense
 	if character_stats.is_stunned: 
 		receiving_physical_dmg *= 2
@@ -284,10 +283,6 @@ func change_defense(amount):
 	character_stats.defense += amount
 	defense_label.text = str(character_stats.defense)
 
-func change_armor(amount):
-	character_stats.armor += amount
-	armor_label.text = str(character_stats.armor)
-
 func change_max_health(amount):
 	character_stats.max_health *= amount
 	var health_difference = character_stats.max_health - character_stats.health
@@ -360,8 +355,8 @@ func set_node_names():
 	attack_panel = get_node('%AttackPanel')
 	defense_label = get_node('%DefenseLabel')
 	defense_panel = get_node('%DefensePanel')
-	armor_label = get_node('%ArmorLabel')
-	armor_panel = get_node('%ArmorPanel')
+	speed_label = get_node('%SpeedLabel')
+	speed_panel = get_node('%SpeedPanel')
 	stun_indicator = get_node('%StunIndicator')
 	stun_label = get_node('%StunLabel')
 	tooltip = get_node('%TooltipPanel')

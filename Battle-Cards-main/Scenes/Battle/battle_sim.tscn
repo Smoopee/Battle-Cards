@@ -39,7 +39,6 @@ script = ExtResource("9_wyqok")
 script = ExtResource("13_gppgb")
 
 [node name="Battle" type="Node2D" parent="." unique_id=1932347261 groups=["battle sim"]]
-visible = false
 script = ExtResource("12_05066")
 
 [node name="UI" type="Control" parent="." unique_id=1184303685]

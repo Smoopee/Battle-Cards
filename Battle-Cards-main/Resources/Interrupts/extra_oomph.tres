@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Interrupts_Resource" load_steps=2 format=3 uid="uid://c2vno74wuv8xi"]
+[gd_resource type="Resource" script_class="Interrupts_Resource" format=3 uid="uid://c2vno74wuv8xi"]
 
 [ext_resource type="Script" uid="uid://eppxtsbh15ld" path="res://Resources/Interrupts/interrupts_master_resource.gd" id="1_b5kwr"]
 
@@ -7,4 +7,5 @@ script = ExtResource("1_b5kwr")
 interrupt_art_path = "res://Resources/Art/Interrupts/ExtraOomph.png"
 interrupt_scene_path = "res://Scenes/Interrupts/extra_oomph.tscn"
 name = "Extra Oomph"
+rage_cost = 5
 metadata/_custom_type_script = "uid://eppxtsbh15ld"

@@ -1,6 +1,6 @@
 extends Node2D
 
-const SKILL_X_POSITION = 600
+const SKILL_X_POSITION = 300
 const SKILL_Y_POSITION = -40
 
 func _ready():

@@ -22,14 +22,6 @@ func effect(player_deck, enemy_deck, player, enemy):
 	if stats.heal > 0:
 		stats.owner.heal(stats.heal)
 	
-	if stats.prosperity > 0:
-		Global.player_gold += stats.prosperity
-		get_tree().get_first_node_in_group("bottom ui").change_player_gold()
-	
-	if stats.item_enchant == "Dejavu" and !stats.dejavu_used:
-		stats.dejavu_used = true
-		effect(player_deck, enemy_deck, player, enemy)
-	
 	if stats.item_enchant == "Lifesteal":
 		stats.owner.lifesteal(damage)
 	

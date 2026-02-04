@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://4ng4ao8e08p4"]
-
-[ext_resource type="PackedScene" uid="uid://bx8qx08c8nuhu" path="res://Tests/Scenes/test_card.tscn" id="1_h2ve0"]
-[ext_resource type="Script" path="res://Tests/Scripts/test_rock.gd" id="1_n5scf"]
-
-[node name="TestRock" type="Node2D"]
-script = ExtResource("1_n5scf")
-
-[node name="TestCard" parent="." instance=ExtResource("1_h2ve0")]

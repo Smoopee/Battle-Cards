@@ -6,7 +6,7 @@ var current_merhant_organizer
 var merchant_type 
 
 func _ready():
-	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)
 	var merchant = get_tree().get_first_node_in_group("merchant")
 	emit_signal("instantiate_merchant", merchant)
 	if merchant.merchant_stats.merchant_type == "Card":
@@ -14,7 +14,7 @@ func _ready():
 		$CardManager.process_mode = Node.PROCESS_MODE_INHERIT
 		$MerchantCards.create_merchant_inventory()
 		current_merhant_organizer = $MerchantCards
-		get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
+		get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	elif merchant.merchant_stats.merchant_type == "Skill":
 		merchant_type = "Skill"
 		$SkillManager.process_mode = Node.PROCESS_MODE_INHERIT

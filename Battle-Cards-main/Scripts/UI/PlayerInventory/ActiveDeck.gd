@@ -42,6 +42,7 @@ func create_inventory():
 		card_scene.get_node("BaseCard").update_card_ui()
 		card_scene.card_stats.inventory_position = card_position
 		card_scene.card_stats.is_players = true
+		card_scene.card_stats.in_active_zone = true
 		fill_card_slots(card_scene, card_position)
 		card_position += 1
 
@@ -56,7 +57,6 @@ func remove_card(card):
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, .1)
-
 
 func fill_card_slots(new_card, index):
 	card_slot_reference.push_back(new_card)

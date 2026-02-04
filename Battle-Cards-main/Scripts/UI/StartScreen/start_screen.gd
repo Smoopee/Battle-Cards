@@ -98,6 +98,8 @@ func new_game_function():
 	Global.instantiate_player_interrupts()
 	Global.set_player_gadgets()
 	Global.instantiate_player_gadgets()
+	Global.set_player_skills()
+	Global.instantiate_player_skills()
 	Global.set_player_runes()
 	Global.instantiate_player_runes()
 	

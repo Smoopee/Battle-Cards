@@ -5,6 +5,8 @@ signal scene_change
 var current_scene: String = ""
 var next_scene: String = ""
 
+var is_pre_battle = false
+
 func _ready():
 	add_scene("res://Scenes/UI/TitleScreen/title_screen.tscn")
 

@@ -12,6 +12,11 @@ visible = false
 z_index = 2
 script = ExtResource("1_20arn")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1061500114]
+layer = 2
+
+[node name="CardArc" parent="CanvasLayer" unique_id=377589744 groups=["card arc"] instance=ExtResource("5_uqdjq")]
+
 [node name="CardImage" type="Sprite2D" parent="." unique_id=789399600]
 self_modulate = Color(0.9, 0.9, 0.9, 1)
 texture_filter = 2
@@ -25,11 +30,6 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1250712812]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_52q5g")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1061500114]
-layer = 2
-
-[node name="CardArc" parent="CanvasLayer" unique_id=377589744 groups=["card arc"] instance=ExtResource("5_uqdjq")]
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

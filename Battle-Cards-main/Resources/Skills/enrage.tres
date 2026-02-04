@@ -1,19 +1,14 @@
-[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://dxpdwtp6i3tex"]
+[gd_resource type="Resource" script_class="Skills_Resource" format=3 uid="uid://dxpdwtp6i3tex"]
 
-[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_733od"]
+[ext_resource type="Script" uid="uid://cghu34rbx53sr" path="res://Resources/Skills/skills_master_resource.gd" id="1_733od"]
 
 [resource]
 script = ExtResource("1_733od")
 skill_art_path = "res://Resources/Art/Skills/enrage_skill.png"
-skill_upgrade_art_path = ""
+skill_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
 skill_scene_path = "res://Scenes/Skills/enrage.tscn"
 name = "Enrage"
 buy_price = 5
 upgrade_level = 1
 tags = ["Trogg", "Enemy"]
-rarity = 0
 effect1 = 20
-effect2 = 0
-effect3 = 0
-effect4 = 0
-effect5 = 0

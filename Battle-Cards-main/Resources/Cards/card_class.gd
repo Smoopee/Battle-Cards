@@ -1,9 +1,13 @@
 extends Node2D
 
-class_name Card
 
+@onready var card_stats = get_parent().card_stats
+@onready var glow_effect = $GlowEffect
+
+var glow_power = 3.0
+var speed = 2.0
 #UI=================================================================================================
-var tooltip : PopupPanel
+var tooltip : Panel
 var tooltip_container : VBoxContainer
 var dmg_panel : Panel
 var dmg_label : Label
@@ -17,12 +21,10 @@ var card_shop_panel : Panel
 var alt_dmg_label : Label
 var alt_dmg_panel : Panel
 var modifiers : Node2D
-var effects : Node2D
 var card_image : Sprite2D
 var upgrade_border : Sprite2D
 var card_border : Sprite2D
 var tooltip_name : Label
-
 
 #AUDIO==============================================================================================
 var audio : AudioStreamPlayer2D
@@ -33,8 +35,7 @@ var enchant_image : Sprite2D
 #COLLISION==========================================================================================
 var collision_shape : CollisionShape2D
 
-
-var card_stats: Cards_Resource = null
+#var card_stats: Cards_Resource = null
 var card_slotted = false
 var is_discarded = false
 var disabled_collision = false
@@ -42,11 +43,21 @@ var mouse_exit = false
 var effect_details
 
 func _ready():
+	self.scale = Global.ui_scaler
 	set_node_names()
+	get_tree().get_first_node_in_group("player cards").connect("started_card_drag", card_being_dragged)
+
+func _process(delta):
+	if glow_effect:
+		glow_power += delta * speed
+		if glow_power >= 2.0 and speed > 0 or glow_power <= 1.0 and speed < 0:
+			speed *= -1.0
+		$GlowEffect.modulate.a = glow_power/ 4
+		$GlowEffect.get_material().set_shader_parameter("glow_power", glow_power)
 
 func set_node_names():
-	tooltip = get_node('%PopupPanel')
-	tooltip_container = get_node('%TooltipContainer')
+	tooltip = get_node('%TooltipPanel')
+	tooltip_container = tooltip.get_child(0)
 	upgrade_border = get_node('%UpgradeBorder')
 	dmg_panel = get_node('%DamagPanel')
 	dmg_label = get_node('%DamageLabel')
@@ -60,7 +71,6 @@ func set_node_names():
 	alt_dmg_label = get_node('%AltDamageLabel')
 	alt_dmg_panel = get_node('%AltDamagePanel')
 	modifiers = get_node('%Modifiers')
-	effects = get_node('%Effects')
 	audio = get_node('%AudioStreamPlayer2D')
 	enchant_image = get_node('%ItemEnchantImage')
 	collision_shape = get_node('%CollisionShape2D')
@@ -72,16 +82,7 @@ func set_node_names():
 	card_image.texture = load(card_stats.card_art_path)
 	card_border.texture = load(card_stats.card_border_path)
 	#tooltip_name.text = str(card_stats.name) + "\n "
-	add_to_group("card")
-
-func effect(player_deck, enemy_deck, player, enemy):
-	effects.effect(player_deck, enemy_deck, player, enemy)
-
-func upgrade_card(num):
-	effects.upgrade_card(num)
-
-func item_enchant(enchant):
-	effects.item_enchant(enchant)
+	get_parent().add_to_group("card")
 
 func update_card_image():
 	upgrade_border.texture = load(card_stats.card_upgrade_art_path)
@@ -153,27 +154,36 @@ func change_item_enchant_image():
 	
 		_: enchant_image.texture = null
 
+func item_enchant(enchant):
+	get_parent().item_enchant(enchant)
+
+func upgrade_card(num):
+	get_parent().upgrade_card(num)
+
 func toggle_tooltip_show():
 	if tooltip_container.get_children() == []: return
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
-	var size = Vector2i(0,0)
-	var x_offset = 85
-	var y_offset = -105
+	var x_offset = 90
+	var y_offset = -75
+	tooltip.size = tooltip_container.size
+	tooltip.visible = true
 	
-	#Toggles when mouse is on right side of screen
+	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.popup(Rect2i(position + Vector2(x_offset, y_offset), size)) 
+		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
+		tooltip.position = Vector2(x_offset, y_offset)
 	else:
-		tooltip.popup(Rect2i(position, size)) 
-		tooltip.position = position + Vector2(-x_offset - tooltip.size.x , y_offset)
+		#tooltip.popup(Rect2i(get_parent().position, size)) 
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
-	tooltip.hide()
+	tooltip.visible = false
+	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -181,7 +191,7 @@ func update_tooltip(category, identifier, body = null, header = null):
 		if i.name == category: 
 			temp = i
 	if temp == null:
-		var new_tooltip = load("res://tooltip_bg.tscn").instantiate()
+		var new_tooltip = load("res://Scenes/UI/Tooltips/tooltip_bg.tscn").instantiate()
 		tooltip_container.add_child(new_tooltip)
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
@@ -223,18 +233,16 @@ func update_damage_label(type):
 		styleBox.set("bg_color", Color.GOLDENROD)
 		alt_dmg_panel.add_theme_stylebox_override("panel", styleBox)
 
-func attack_animation(user):
-	var tween = get_tree().create_tween()
-	if user.is_in_group("enemy"):
-		tween.tween_property(self, "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
-		tween.tween_property(self, "position", position + Vector2(0, 0), .5 * Global.COMBAT_SPEED )
-	else:
-		tween.tween_property(self, "position", position + Vector2(0, -64), .5 * Global.COMBAT_SPEED )
-		await tween.finished
-		audio.stream 
-		audio.play()
-		tween = get_tree().create_tween()
-		tween.tween_property(self, "position", position + Vector2(0, 64), .5 * Global.COMBAT_SPEED )
+func attack_animation(owner):
+	$CardAnimationController._attack_animation(owner)
+
+func moved_to_active_zone():
+	if get_tree().get_first_node_in_group("main").is_pre_battle:
+		$CardAnimationController._pre_battle_animation(card_stats.owner)
+
+func moved_to_inactive_zone():
+	if get_tree().get_first_node_in_group("main").is_pre_battle:
+		$CardAnimationController.stop_pre_battle_animation(card_stats.owner)
 
 func toggle_cd():
 	if card_stats.on_cd: 
@@ -245,9 +253,10 @@ func toggle_cd():
 func toggle_shop_ui(show):
 	if show: card_shop_panel.visible = true
 	if Global.current_scene == "shop" or  Global.current_scene == "AH" : return
-	if !show:  card_shop_panel.visible = false
+	if !show: card_shop_panel.visible = false
 
 func card_reset():
+	card_stats.cd = card_stats.base_cd
 	card_stats.cd_remaining = 0
 	card_stats.on_cd = false
 	card_stats.mode = ""
@@ -301,10 +310,19 @@ func load_full_art():
 	full_art.global_position = Vector2((get_viewport().size.x / 2) - 160, (get_viewport().size.y / 2) - 30)
 
 func _on_card_ui_mouse_entered():
-	if get_tree().get_first_node_in_group("player cards").card_being_dragged != null: return
-	scale = Vector2(1.1, 1.1)
+	if Global.mouse_occupied == true: return
+	scale = Vector2(1.1, 1.1) * Global.ui_scaler
 	toggle_tooltip_show()
 
 func _on_card_ui_mouse_exited():
-	scale = Vector2(1, 1)
+	scale = Vector2(1, 1) * Global.ui_scaler
 	toggle_tooltip_hide()
+
+func card_being_dragged():
+	toggle_tooltip_hide()
+
+func highlight_card(toggle):
+	if toggle:
+		$GlowEffect.visible = true
+	else:
+		$GlowEffect.visible = false

@@ -32,6 +32,10 @@ window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/collapse_folders/plugin.cfg")
+
 [gui]
 
 theme/custom_font="res://Resources/Fonts/PressStart2P.ttf"

@@ -61,6 +61,10 @@ func start_drag_card(card):
 	card_being_dragged.scale = Vector2(1.1, 1.1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card.global_position
+	
+	for i in get_tree().get_nodes_in_group("card"):
+		if upgrade_check(card_being_dragged, i) and i.card_stats.is_players:
+			i.get_node("BaseCard").highlight_card(true)
 
 func finish_drag_card():
 	print("finish drag")
@@ -263,6 +267,10 @@ func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
+	
+	for i in get_tree().get_nodes_in_group("card"):
+		i.get_node("BaseCard").highlight_card(false)
+		
 	card_being_dragged = null
 
 func _on_tooltip_timer_timeout():

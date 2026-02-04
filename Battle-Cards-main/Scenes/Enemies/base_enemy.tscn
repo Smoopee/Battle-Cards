@@ -250,7 +250,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ArmorLabel" type="Label" parent="EnemyUI/StatContainer" unique_id=1534695737]
+[node name="SpeedLabel" type="Label" parent="EnemyUI/StatContainer" unique_id=1534695737]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -259,7 +259,7 @@ text = "Def: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArmorPanel" type="Panel" parent="EnemyUI/StatContainer/ArmorLabel" unique_id=1035909385]
+[node name="SpeedPanel" type="Panel" parent="EnemyUI/StatContainer/SpeedLabel" unique_id=1035909385]
 unique_name_in_owner = true
 show_behind_parent = true
 layout_mode = 1

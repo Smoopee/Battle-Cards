@@ -1,19 +1,12 @@
-[gd_resource type="Resource" script_class="Skills_Resource" load_steps=2 format=3 uid="uid://cmmu5slt48ibo"]
+[gd_resource type="Resource" script_class="Skills_Resource" format=3 uid="uid://cmmu5slt48ibo"]
 
-[ext_resource type="Script" path="res://Resources/Skills/skills_master_resource.gd" id="1_ru0gb"]
+[ext_resource type="Script" uid="uid://cghu34rbx53sr" path="res://Resources/Skills/skills_master_resource.gd" id="1_ru0gb"]
 
 [resource]
 script = ExtResource("1_ru0gb")
 skill_art_path = "res://Resources/Art/Skills/building_momentum_skill.png"
-skill_upgrade_art_path = ""
+skill_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
 skill_scene_path = "res://Scenes/Skills/building_momentum.tscn"
 name = "Building Momentum"
-buy_price = 0
 upgrade_level = 1
 tags = ["Berserker", "Attack"]
-rarity = 0
-effect1 = 0
-effect2 = 0
-effect3 = 0
-effect4 = 0
-effect5 = 0

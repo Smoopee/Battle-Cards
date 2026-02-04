@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Cards_Resource" load_steps=2 format=3 uid="uid://d0ewg5d51b5qc"]
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://d0ewg5d51b5qc"]
 
 [ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_3jgpo"]
 
@@ -12,5 +12,5 @@ card_scene_path = "res://Scenes/Cards/strike.tscn"
 name = "Strike"
 dmg = 100
 upgrade_level = 1
-tags = ["Berserker"]
+tags = ["Berserker", null, null]
 card_type = ["Attack"]

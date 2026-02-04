@@ -60,16 +60,6 @@ offset_right = 121.0
 offset_bottom = 10.0
 texture = ExtResource("2_3dam2")
 
-[node name="Character" type="Button" parent="ColorRect/HBoxContainer" unique_id=497654286]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Character"
-
-[node name="InventoryButton" type="Button" parent="ColorRect/HBoxContainer" unique_id=1603083857]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Inventory"
-
 [node name="BackButton" type="Button" parent="ColorRect/HBoxContainer" unique_id=313869372]
 visible = false
 custom_minimum_size = Vector2(0, 100)
@@ -83,7 +73,5 @@ layout_mode = 2
 text = "Menu"
 
 [connection signal="button_down" from="ColorRect/HBoxContainer/TalentButton" to="." method="_on_talent_button_button_down"]
-[connection signal="button_down" from="ColorRect/HBoxContainer/Character" to="." method="_on_character_button_down"]
-[connection signal="button_down" from="ColorRect/HBoxContainer/InventoryButton" to="." method="_on_inventory_pressed"]
 [connection signal="button_down" from="ColorRect/HBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
 [connection signal="button_down" from="ColorRect/HBoxContainer/MenuButton" to="." method="_on_menu_button_down"]

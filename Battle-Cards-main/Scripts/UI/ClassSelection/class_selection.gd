@@ -61,6 +61,7 @@ func finish_drag():
 		temp = load("res://Scenes/UI/PlayerInventory/player_cards.tscn").instantiate()
 		get_parent().add_child(temp)
 		get_parent().add_scene("res://Scenes/UI/Intermission/intermission.tscn")
+		get_tree().get_first_node_in_group("character ui").visible = true
 		queue_free()
 	else:
 		$BerserkerSelection.highlight_card(true)

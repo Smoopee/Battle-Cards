@@ -47,7 +47,7 @@ class_name Cards_Resource
 @export var is_updated: bool
 @export var mode: String
 @export var card_rarity: int
+
+var in_active_zone: bool
 var owner
 var target
-var dejavu_used = false
-var prosperity: int

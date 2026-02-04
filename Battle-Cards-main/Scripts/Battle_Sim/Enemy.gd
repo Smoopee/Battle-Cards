@@ -35,8 +35,6 @@ func _ready():
 	enemy.get_node("BaseEnemy").set_stats()
 	enemy.get_node("BaseEnemy").get_node("EnemyUI").get_node("GoldAndXPBox").visible = false
 
-
-
 func initial_build_deck():
 	enemy_deck = enemy.get_node("BaseEnemy").deck
 	
@@ -64,8 +62,9 @@ func initial_build_deck():
 			new_card.card_stats.target = get_tree().get_first_node_in_group("character")
 			new_card.card_stats.in_enemy_deck = true
 			new_card.card_stats.deck_position = card_position
+			new_card.card_stats.in_active_zone = true
 			new_card.get_node("BaseCard").update_card_ui()
-		
+
 		card_position += 1
 	return deck
 

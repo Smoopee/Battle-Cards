@@ -1,6 +1,6 @@
 extends Node2D
 
-signal rage_attack_gained
+
 signal health_changed
 signal stagger_changed
 
@@ -27,8 +27,8 @@ var temp_physical_damage = 0
 
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
-var rage_attack_increase = 5
 var additional_rage_generation = 0
+var rage = 0
 
 func _ready():
 	battle_sim = get_tree().get_first_node_in_group("battle sim")
@@ -52,7 +52,6 @@ func set_stats() -> void:
 	character_stats.burning_dmg = 0
 	character_stats.poisoning_dmg = 0
 	character_stats.attack = 0
-	character_stats.armor = 0
 	character_stats.defense = 0
 	character_stats.block = 0
 	character_stats.stun_counter = 0
@@ -62,7 +61,7 @@ func set_stats() -> void:
 func set_stat_container():
 	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack)
 	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text =  str(character_stats.defense)
-	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text =  str(character_stats.armor)
+	$StatContainer/Panel3/HBoxContainer/SpeedLabel.text = str(character_stats.speed)
 
 func set_talents():
 	for i in Global.player_talent_array:
@@ -109,7 +108,6 @@ func debuff_reset():
 #COMBAT FUNCTIONS ==================================================================================
 func take_physical_damage(damage):
 	receiving_physical_dmg = damage
-	receiving_physical_dmg -= character_stats.armor
 	receiving_physical_dmg -= character_stats.defense
 	receiving_physical_dmg = block_damage(damage)
 	if character_stats.is_stunned: 
@@ -228,11 +226,13 @@ func stun_toggle(toggle):
 #UI CHANGES ========================================================================================
 func change_rage(value):
 	var rage_bar = $RageBar
+	var rage_label = $RageBar/RageLabel
 	rage_bar.value += value
+	rage_label.text = str(int(rage_bar.value))
+	rage = int(rage_bar.value)
 	if  rage_bar.value  >= 100:
-		rage_bar.value = 0
-		rage_bar.max_value += 10
-		rage_attack_buff()
+		rage_bar.value = 100
+	
 
 func change_attack(amount):
 	character_stats.attack += amount
@@ -241,10 +241,6 @@ func change_attack(amount):
 func change_defense(amount):
 	character_stats.defense += amount
 	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(character_stats.defense)
-
-func change_armor(amount):
-	character_stats.armor += amount
-	$StatContainer/Panel3/HBoxContainer/ArmorLabel.text = str(character_stats.armor)
 
 func change_block():
 	$BlockSymbol.visible = true
@@ -260,9 +256,6 @@ func block_damage(damage):
 	change_block()
 	return mitigated_damage
 
-func rage_attack_buff():
-	var buff_resource = load("res://Resources/Buffs/raging.tres")
-	add_buff(buff_resource, self)
 
 #OTHER =============================================================================================
 func active_deck_access():

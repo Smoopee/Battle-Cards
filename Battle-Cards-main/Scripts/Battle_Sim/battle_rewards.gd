@@ -35,7 +35,7 @@ func update_rewards():
 
 
 func card_reward(enemy_reward):
-	get_tree().get_first_node_in_group("bottom ui").toggle_inventory(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	var new_scene = load(enemy_reward.card_scene_path).instantiate()
 	new_scene.card_stats = enemy_reward
 	add_child(new_scene)
@@ -52,7 +52,7 @@ func card_reward(enemy_reward):
 
 
 func skill_reward(enemy_reward):
-	get_tree().get_first_node_in_group("bottom ui").toggle_character(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)
 	var new_scene = load(enemy_reward.skill_scene_path).instantiate()
 	enemy_reward = player_skill_upgrade_match(enemy_reward)
 	new_scene.skill_stats = enemy_reward

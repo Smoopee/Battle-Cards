@@ -19,42 +19,45 @@ func initialize_deck():
 	create_deck()
 
 func get_card_selection():
-	match difficulty:
-		1:
-			for i in card_db_reference.ITEMS:
-				var temp = load(card_db_reference.ITEMS[i])
-				for j in temp.tags:
-					for k in selection_tags:
-						if j.find(k) >= 0 and temp.card_rarity <= 1:
-							card_selection.push_back(temp)
-		2:
-			for i in card_db_reference.ITEMS:
-				var temp = load(card_db_reference.ITEMS[i])
-				for j in temp.tags:
-					for k in selection_tags:
-						if j.find(k) >= 0 and temp.card_rarity <= 2:
-							card_selection.push_back(temp)
-		3:
-			for i in card_db_reference.ITEMS:
-				var temp = load(card_db_reference.ITEMS[i])
-				for j in temp.tags:
-					for k in selection_tags:
-						if j.find(k) >= 0 and temp.card_rarity <= 2:
-							card_selection.push_back(temp)
-		4:
-			for i in card_db_reference.ITEMS:
-				var temp = load(card_db_reference.ITEMS[i])
-				for j in temp.tags:
-					for k in selection_tags:
-						if j.find(k) >= 0 and temp.card_rarity <= 3:
-							card_selection.push_back(temp)
-		_:
-			for i in card_db_reference.ITEMS:
-				var temp = load(card_db_reference.ITEMS[i])
-				for j in temp.tags:
-					for k in selection_tags:
-						if j.find(k) >= 0 and temp.card_rarity <= 4:
-							card_selection.push_back(temp)
+	for i in get_parent().character_stats.card_pool:
+		var card = load(card_db_reference.ITEMS[i]).duplicate()
+		card_selection.push_back(card)
+	#match difficulty:
+		#1:
+			#for i in card_db_reference.ITEMS:
+				#var temp = load(card_db_reference.ITEMS[i])
+				#for j in temp.tags:
+					#for k in selection_tags:
+						#if j.find(k) >= 0 and temp.card_rarity <= 1:
+							#card_selection.push_back(temp)
+		#2:
+			#for i in card_db_reference.ITEMS:
+				#var temp = load(card_db_reference.ITEMS[i])
+				#for j in temp.tags:
+					#for k in selection_tags:
+						#if j.find(k) >= 0 and temp.card_rarity <= 2:
+							#card_selection.push_back(temp)
+		#3:
+			#for i in card_db_reference.ITEMS:
+				#var temp = load(card_db_reference.ITEMS[i])
+				#for j in temp.tags:
+					#for k in selection_tags:
+						#if j.find(k) >= 0 and temp.card_rarity <= 2:
+							#card_selection.push_back(temp)
+		#4:
+			#for i in card_db_reference.ITEMS:
+				#var temp = load(card_db_reference.ITEMS[i])
+				#for j in temp.tags:
+					#for k in selection_tags:
+						#if j.find(k) >= 0 and temp.card_rarity <= 3:
+							#card_selection.push_back(temp)
+		#_:
+			#for i in card_db_reference.ITEMS:
+				#var temp = load(card_db_reference.ITEMS[i])
+				#for j in temp.tags:
+					#for k in selection_tags:
+						#if j.find(k) >= 0 and temp.card_rarity <= 4:
+							#card_selection.push_back(temp)
 
 func create_deck():
 	for i in range(0, enemy_deck_size):
