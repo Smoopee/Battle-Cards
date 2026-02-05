@@ -187,10 +187,10 @@ func toggle_tooltip_show():
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
 		tooltip.global_position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
 	
-	
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
+	tooltip_layer.visible = false
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp

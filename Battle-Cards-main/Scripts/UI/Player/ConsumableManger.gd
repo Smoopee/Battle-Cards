@@ -30,6 +30,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			print("3")
 			var consumable = raycast_check_for_consumable()
 			if consumable:
 				start_drag(consumable)
@@ -44,10 +45,9 @@ func start_drag(consumable):
 	consumable.scale = Vector2(1.5, 1.5) * Global.ui_scaler
 	consumable_previous_position = consumable.global_position
 	consumable.toggle_info_ui(false)
-	Global.mouse_occupied = true
+
 
 func finish_drag():
-	Global.mouse_occupied = false
 	consumable_used = false
 	consumable_leftover = false
 	

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dluppe6lcdir0"]
+[gd_scene format=3 uid="uid://dluppe6lcdir0"]
 
 [ext_resource type="Script" uid="uid://mf28s6g1rycu" path="res://Scripts/UI/Player/ConsumableManger.gd" id="1_nt64y"]
 
-[node name="ConsumableManger" type="Node2D"]
+[node name="ConsumableManger" type="Node2D" unique_id=1339905554]
 script = ExtResource("1_nt64y")

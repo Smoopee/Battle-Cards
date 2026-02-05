@@ -34,8 +34,7 @@ var full_art_toggle = false
 var deck_is_full = true
 var inventory_is_full = true
 
-var click_timer = 0.0
-var is_dragging = false
+
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
@@ -54,9 +53,6 @@ func _ready():
 	inventory_card_slot_reference = inventory_reference.card_slot_reference
 
 func _process(delta):
-	if is_dragging: click_timer += 1 * delta # Increments while pressing
-	else: click_timer = 0.0 # Reset when not pressing
-	
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), 
@@ -68,29 +64,16 @@ func update_inventory_slots():
 
 #INPUT AND DRAG FUNCTIONS---------------------------------------------------------------------------
 func _input(event):
-	var click_threshold: float = 0.2
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			for i in get_tree().get_nodes_in_group("tooltip"):
-				i.visible = false
+			print("1")
 			card_being_dragged = raycast_check_for_card()
 			if card_being_dragged:
 				card_being_dragged = card_being_dragged.get_parent()
-				is_dragging = true
 				start_drag(card_being_dragged)
-				
-		elif event.is_released():
-			if is_dragging:
-				if click_timer < click_threshold: # Considered a click
-					card_being_dragged.global_position = card_previous_position
-					card_being_dragged.get_node("BaseCard").toggle_tooltip_show()
-					card_reset()
-					is_dragging = false
-					return
-				else:
-					if card_being_dragged:
-						finish_drag()
-				is_dragging = false
+		else:
+			if card_being_dragged:
+				finish_drag()
 
 func start_drag(card):
 	emit_signal("started_card_drag")
@@ -98,14 +81,13 @@ func start_drag(card):
 	card_being_dragged.z_index = 2
 	card_previous_position = card_being_dragged.position
 	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_DISABLED
-	Global.mouse_occupied = true
+
 	
 	for i in get_tree().get_nodes_in_group("card"):
 		if upgrade_check(card_being_dragged, i) and upgrade_mode and i.card_stats.is_players:
 			i.get_node("BaseCard").highlight_card(true)
 
 func finish_drag():
-	Global.mouse_occupied = false
 	var deck_card_slot_found = raycast_check_for_deck_slot()
 	var inventory_card_slot_found = raycast_check_for_inventory_slot()
 	var sell_zone_found = raycast_check_for_sell_zone()
