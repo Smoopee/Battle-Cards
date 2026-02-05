@@ -2,51 +2,43 @@ extends Panel
 
 @onready var player_consumables = $"../PlayerConsumables"
 @onready var player_runes = $"../PlayerRunes"
-@onready var player_gadgets = $"../PlayerGadgets"
+
 
 
 func hide_inventory():
 	player_consumables.visible = false
 	player_runes.visible = false
-	player_gadgets.visible = false
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)
 
 
 func toggle_consumables(toggle):
 	if toggle:
 		player_consumables.visible = true
 		player_runes.visible = false
-		player_gadgets.visible = false
 	else: hide_inventory()
 
 func toggle_runes(toggle):
 	if toggle:
 		player_consumables.visible = false
 		player_runes.visible = true
-		player_gadgets.visible = false
 	else: hide_inventory()
 
-func toggle_gadgets(toggle):
+func toggle_side_deck(toggle):
 	if toggle:
-		player_consumables.visible = false
-		player_runes.visible = false
-		player_gadgets.visible = true
+		get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	else: hide_inventory()
 
 func toggle_interrupts(toggle):
 	if toggle:
 		player_consumables.visible = false
 		player_runes.visible = false
-		player_gadgets.visible = false
 	else: hide_inventory()
 
-	
 func _on_consumables_button_toggled(toggled_on: bool) -> void:
 	toggle_consumables(toggled_on)
 
-
-func _on_gadgets_button_toggled(toggled_on: bool) -> void:
-	toggle_gadgets(toggled_on)
-
+func _on_side_deck_button_toggled(toggled_on: bool) -> void:
+	toggle_side_deck(toggled_on)
 
 func _on_runes_button_toggled(toggled_on: bool) -> void:
 	toggle_runes(toggled_on)

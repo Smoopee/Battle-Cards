@@ -21,19 +21,20 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
+[node name="SideDeckButton" type="Button" parent="VBoxContainer" unique_id=148878328]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.66
+toggle_mode = true
+button_group = ExtResource("2_xecul")
+text = "Inventory"
+
 [node name="ConsumablesButton" type="Button" parent="VBoxContainer" unique_id=891827078]
 layout_mode = 2
 size_flags_vertical = 3
 toggle_mode = true
 button_group = ExtResource("2_xecul")
 text = "Items"
-
-[node name="GadgetsButton" type="Button" parent="VBoxContainer" unique_id=148878328]
-layout_mode = 2
-size_flags_vertical = 3
-toggle_mode = true
-button_group = ExtResource("2_xecul")
-text = "Gadgets"
 
 [node name="RunesButton" type="Button" parent="VBoxContainer" unique_id=1996811244]
 layout_mode = 2
@@ -42,6 +43,6 @@ toggle_mode = true
 button_group = ExtResource("2_xecul")
 text = "Runes"
 
+[connection signal="toggled" from="VBoxContainer/SideDeckButton" to="." method="_on_side_deck_button_toggled"]
 [connection signal="toggled" from="VBoxContainer/ConsumablesButton" to="." method="_on_consumables_button_toggled"]
-[connection signal="toggled" from="VBoxContainer/GadgetsButton" to="." method="_on_gadgets_button_toggled"]
 [connection signal="toggled" from="VBoxContainer/RunesButton" to="." method="_on_runes_button_toggled"]

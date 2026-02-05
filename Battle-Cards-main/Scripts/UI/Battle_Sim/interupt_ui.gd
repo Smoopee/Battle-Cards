@@ -5,9 +5,6 @@ extends Control
 var turn_interupt_array = [false, false, false, false, false, false, false]
 
 
-func _ready():
-	pass
-
 func set_size_and_position():
 	var screen_size = get_viewport_rect().size
 	self.size.x = $"../Enemy".total_card_area_width
@@ -16,6 +13,7 @@ func set_size_and_position():
 	organizer.size.x = self.size.x
 
 func interupt_reset():
+	$MasterToggle.button_pressed = false
 	for i in organizer.get_children():
 		i.button_pressed = false
 

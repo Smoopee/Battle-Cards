@@ -7,6 +7,7 @@ visible = false
 script = ExtResource("1_luf4r")
 
 [node name="Inventory" type="Button" parent="." unique_id=1041367649]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 offset_left = 1445.0
 offset_top = 765.0

@@ -16,7 +16,7 @@ func _ready():
 
 func skill_effect1():
 	var rng = RandomNumberGenerator.new()
-	counter = rng.randi_range(1, 10)
+	counter = rng.randi_range(1, 8)
 	skill.info_label.visible = true
 	skill.info_label.text = str(counter)
 

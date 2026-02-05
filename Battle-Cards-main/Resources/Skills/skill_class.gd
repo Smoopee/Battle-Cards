@@ -11,6 +11,7 @@ var skill_image: Sprite2D
 var upgrade_border: Sprite2D
 var tooltip_container : VBoxContainer
 var tooltip : Panel
+var tooltip_layer : CanvasLayer
 
 
 func _ready():
@@ -38,7 +39,8 @@ func set_node_names():
 	info_label = get_node('%InfoLabel')
 	skill_image = get_node('%SkillImage')
 	upgrade_border = get_node('%UpgradeBorder')
-	tooltip = get_node('%TooltipPanel')
+	tooltip_layer = get_node('%TooltipLayer')
+	tooltip = tooltip_layer.get_child(0)
 	tooltip_container = tooltip.get_child(0)
 	
 	skill_image.texture = load(skill_stats.skill_art_path)
@@ -54,22 +56,26 @@ func toggle_tooltip_show():
 	var y_offset = -($SkillUI.size.y /2) + 11
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
+	tooltip_layer.visible = true
+	self.scale = Vector2(1.2, 1.2)
+
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
 		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
-		tooltip.position = Vector2(x_offset, y_offset)
+		tooltip.position = Vector2(x_offset, y_offset) + self.global_position
 	else:
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
 		
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
-	#tooltip.hide()
+	tooltip_layer.visible = false
+	self.scale = Vector2(1, 1)
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp

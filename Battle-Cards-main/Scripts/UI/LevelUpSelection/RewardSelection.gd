@@ -35,4 +35,4 @@ func load_skill_rewards():
 	
 	creator.get_inventory()
 	creator.create_skill_selection()
-	get_tree().get_first_node_in_group("character ui").toggle_character(true)
+	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)

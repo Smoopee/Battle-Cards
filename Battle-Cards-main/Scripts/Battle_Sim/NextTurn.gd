@@ -7,7 +7,6 @@ func next_turn():
 	cd_handler(get_tree().get_nodes_in_group("card"))
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
 	slot_player_cards()
-	get_tree().get_first_node_in_group("character ui").is_battling = false
 	get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	$"..".start_pre_battle_animation()
 	$"../InteruptUI".visible = true
@@ -46,7 +45,6 @@ func slot_player_cards():
 		count += 1
 
 func end_fight():
-	get_tree().get_first_node_in_group("character ui").is_battling = false
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
 	$"../ConsumableManger".visible = false
 	

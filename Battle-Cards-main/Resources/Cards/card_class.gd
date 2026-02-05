@@ -15,6 +15,8 @@ var cd_panel : Panel
 var cd_label : Label
 var cd_overlay_label : Label
 var cd_overlay_panel : Panel
+var stun_overlay_label : Label
+var stun_overlay_panel : Panel
 var ui : Control
 var card_shop_label: Label
 var card_shop_panel : Panel
@@ -25,6 +27,7 @@ var card_image : Sprite2D
 var upgrade_border : Sprite2D
 var card_border : Sprite2D
 var tooltip_name : Label
+var tooltip_layer : CanvasLayer
 
 #AUDIO==============================================================================================
 var audio : AudioStreamPlayer2D
@@ -56,7 +59,8 @@ func _process(delta):
 		$GlowEffect.get_material().set_shader_parameter("glow_power", glow_power)
 
 func set_node_names():
-	tooltip = get_node('%TooltipPanel')
+	tooltip_layer = get_node('%TooltipLayer')
+	tooltip = tooltip_layer.get_child(0)
 	tooltip_container = tooltip.get_child(0)
 	upgrade_border = get_node('%UpgradeBorder')
 	dmg_panel = get_node('%DamagPanel')
@@ -65,6 +69,8 @@ func set_node_names():
 	cd_label = get_node('%CDLabel')
 	cd_overlay_panel = get_node('%CDOverlayPanel')
 	cd_overlay_label = get_node('%CDOverlayLabel')
+	stun_overlay_panel = get_node('%StunOverlayPanel')
+	stun_overlay_label = get_node('%StunOverlayLabel')
 	ui = get_node('%CardUI')
 	card_shop_label= get_node('%ShopLabel')
 	card_shop_panel = get_node('%ShopPanel')
@@ -169,21 +175,22 @@ func toggle_tooltip_show():
 	var y_offset = -75
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
+	tooltip_layer.visible = true
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
 		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
-		tooltip.position = Vector2(x_offset, y_offset)
+		tooltip.global_position = Vector2(x_offset, y_offset) + self.global_position
 	else:
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
-
+		tooltip.global_position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
+	
+	
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
-	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -243,6 +250,12 @@ func moved_to_active_zone():
 func moved_to_inactive_zone():
 	if get_tree().get_first_node_in_group("main").is_pre_battle:
 		$CardAnimationController.stop_pre_battle_animation(card_stats.owner)
+
+func toggle_stun_overlay(toggle):
+	if toggle:
+		stun_overlay_panel.visible = true
+	else:
+		stun_overlay_panel.visible = false
 
 func toggle_cd():
 	if card_stats.on_cd: 

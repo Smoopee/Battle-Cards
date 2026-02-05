@@ -3,22 +3,11 @@ extends CanvasLayer
 var screen = ""
 
 var inventory_toggle = false
-var is_battling = false
-
-func _ready():
-	pass
-#
-#func toggle_card_selection():
-	#hide_player_cards()
-	#hide_character()
-	#show_card_selector()
-	#show_player_health_bar()
 
 
 func toggle_inventory(toggle):
 	var start_pos = get_tree().get_first_node_in_group("player cards").get_node("InventorySlots").get_child(0)
 	$Inventory.global_position = start_pos.global_position + Vector2(100, -60)
-	if is_battling: return
 	if toggle == true:
 		$Inventory.text = "Character"
 		show_player_cards()
@@ -29,13 +18,17 @@ func toggle_inventory(toggle):
 		show_deck_slots()
 		hide_character()
 		show_player_health_bar()
+		$Inventory.button_pressed = true
+		$Inventory.visible = true
 		
 	else:
-		#$Inventory.position = Vector2(Global.center_screen_x + 105, 810)
-		$Inventory.text = "Inventory"
+		#$Inventory.position = Vector2(Global.center_screen_x + 505, 810)
+		#$Inventory.text = "Inventory"
 		show_character()
 		hide_player_side_deck_slots()
 		hide_side_deck()
+		$Inventory.button_pressed = false
+		$Inventory.visible = false
 		
 
 func toggle_combat_ui(toggle):
@@ -144,13 +137,6 @@ func show_player_health_bar():
 	get_tree().get_first_node_in_group("character").get_node("PlayerConsumables").visible = false
 	get_tree().get_first_node_in_group("character").get_node("PlayerRunes").visible = false
 	get_tree().get_first_node_in_group("character").get_node("PlayerInterrupts").visible = false
-	
-
-#func hide_player_health_bar():
-	#get_tree().get_first_node_in_group("player").visible = true
-	#get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = false
-	#get_tree().get_first_node_in_group("character").get_node("RageBar").visible = false
-	#get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
 
 
 func _on_inventory_toggled(toggled_on: bool) -> void:

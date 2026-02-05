@@ -32,8 +32,6 @@ var player
 var player_card
 var enemy_card
 
-var physical_damage
-
 var is_battle_interupted = false
 
 
@@ -195,7 +193,6 @@ func interupt_battle():
 	$"../ButtonController".show_interrupt_button()
 	is_battle_interupted = true
 	get_tree().get_first_node_in_group("player interrupts").enable_interrupts()
-	get_tree().get_first_node_in_group("character ui").is_battling = false
 	player_card.get_node("BaseCard").enable_collision()
 	enemy_card.get_node("BaseCard").enable_collision()
 
@@ -272,7 +269,6 @@ func during_combat_ui_toggle():
 	$"../ConsumableManger".visible = true
 	$"../ConsumableManger".process_mode = Node.PROCESS_MODE_INHERIT
 	
-	get_tree().get_first_node_in_group("character ui").is_battling = true
 	get_tree().get_first_node_in_group("character ui").toggle_combat_ui(true)
 	
 	player_deck_list = player_deck.build_deck()
@@ -288,6 +284,5 @@ func _on_interupt_continue_button_pressed() -> void:
 	get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_INHERIT
 	player_card.get_node("BaseCard").disable_collision()
 	enemy_card.get_node("BaseCard").disable_collision()
-	get_tree().get_first_node_in_group("character ui").is_battling = true
 	is_battle_interupted = false
 	$"../ButtonController".hide_buttons()

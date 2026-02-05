@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ddglqu7gnlvwk" path="res://Scripts/Battle_Sim/NextTurn.gd" id="13_gppgb"]
 [ext_resource type="Script" uid="uid://bh6nuqw7ax3wf" path="res://Scripts/Battle_Sim/button_controller.gd" id="15_mckkd"]
 [ext_resource type="Script" uid="uid://dh4fwgqkdmhgc" path="res://Scripts/UI/Battle_Sim/interupt_ui.gd" id="16_juoq6"]
+[ext_resource type="Script" uid="uid://d3tj6g10ufw64" path="res://Scripts/Battle_Sim/active_spots.gd" id="16_kogdo"]
 [ext_resource type="Script" uid="uid://cj5mdiosnctnu" path="res://Scripts/Battle_Sim/CardTransform.gd" id="17_2744l"]
 [ext_resource type="Texture2D" uid="uid://c12wp1wrs4gke" path="res://Resources/Art/UIElements/checkbox_is_checked.png" id="17_qbs3y"]
 [ext_resource type="Texture2D" uid="uid://c7ve57560id0r" path="res://Resources/Art/UIElements/checkbox_not_checked.png" id="18_wyqok"]
@@ -33,6 +34,7 @@ visible = false
 [node name="ConsumableManger" parent="." unique_id=87852657 instance=ExtResource("10_1g37w")]
 
 [node name="SkillManager" type="Node2D" parent="." unique_id=1084665185]
+visible = false
 script = ExtResource("9_wyqok")
 
 [node name="NextTurn" type="Node2D" parent="." unique_id=1491844787]
@@ -366,6 +368,9 @@ offset_top = 619.0
 offset_right = 1890.0
 offset_bottom = 643.0
 text = "Continue"
+
+[node name="ActiveSpots" type="Node2D" parent="." unique_id=312433141]
+script = ExtResource("16_kogdo")
 
 [connection signal="timeout" from="AnimationTimer" to="." method="_on_timer_timeout"]
 [connection signal="toggled" from="InteruptUI/HBox/CheckBox" to="InteruptUI" method="_on_check_box_toggled"]

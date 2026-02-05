@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://tg83lmmkajyp"]
+
+[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="1_eansn"]
+
+[node name="TooltipLayer" type="CanvasLayer" unique_id=1878210227 groups=["tooltip"]]
+layer = 2
+
+[node name="TooltipPanel" parent="." unique_id=1334532923 instance=ExtResource("1_eansn")]

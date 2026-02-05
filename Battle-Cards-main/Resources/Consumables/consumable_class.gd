@@ -10,6 +10,7 @@ var info_label: Label
 var image: Sprite2D
 var tooltip : Panel
 var tooltip_container : VBoxContainer
+var tooltip_layer : CanvasLayer
 
 func _ready():
 	self.scale = Global.ui_scaler
@@ -42,7 +43,8 @@ func set_node_names():
 	shop_panel = get_node('%ShopPanel')
 	info_label = get_node('%InfoLabel')
 	image = get_node('%ConsumableImage')
-	tooltip = get_node('%TooltipPanel')
+	tooltip_layer = get_node('%TooltipLayer')
+	tooltip = tooltip_layer.get_child(0)
 	tooltip_container = tooltip.get_child(0)
 	
 	image.texture = load(consumable_stats.consumable_art_path)
@@ -58,19 +60,23 @@ func toggle_tooltip_show():
 	var y_offset = -5
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
+	tooltip_layer.visible = true
+	self.scale = Vector2(1.2, 1.2)
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.position = Vector2(x_offset, y_offset)
+		tooltip.position = Vector2(x_offset, y_offset) + self.global_position
 	else:
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
 		
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
+	tooltip_layer.visible = false
+	self.scale = Vector2(1, 1)
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -83,11 +89,4 @@ func update_tooltip(category, identifier, body = null, header = null):
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
 		temp.update_tooltip(category, identifier, body, header)
-
-func _on_consumable_ui_mouse_entered():
-	scale = Vector2(1.1, 1.1)
-	toggle_tooltip_show()
-
-func _on_consumable_ui_mouse_exited():
-	scale = Vector2(1, 1)
-	toggle_tooltip_hide()
+	
