@@ -9,8 +9,9 @@ func next_turn():
 	slot_player_cards()
 	get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	$"..".start_pre_battle_animation()
-	$"../InteruptUI".visible = true
-	$"../InteruptUI".interupt_reset()
+	$"../InterruptUI".visible = true
+	$"../InterruptUI".interrupt_reset()
+	get_tree().get_first_node_in_group("active spots").apply_active_effects()
 
 func cd_handler(cards):
 	for i in cards:
@@ -26,6 +27,8 @@ func slot_player_cards():
 		if i.card_stats.owner == get_tree().get_nodes_in_group("character")[0]:
 			i.scale = Vector2(1, 1)
 			i.get_node("BaseCard").enable_collision()
+			
+			i.z_index = 1
 	
 	var count = 0
 	for i in get_tree().get_first_node_in_group("player cards").deck_card_slot_reference:
@@ -46,7 +49,7 @@ func slot_player_cards():
 
 func end_fight():
 	get_tree().get_first_node_in_group("enemy deck").build_deck()
-	$"../ConsumableManger".visible = false
+	#$"../ConsumableManger".visible = false
 	
 	for i in get_tree().get_nodes_in_group("card"):
 		i.get_node("BaseCard").card_reset()

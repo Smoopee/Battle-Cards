@@ -51,10 +51,11 @@ func set_node_names():
 	z_index = 1
 
 #WIP TOOLTIPS======================================================================================
-func toggle_tooltip_show():
+func toggle_tooltip_show(location):
 	if tooltip_container.get_children() == []: return
-	toggle_shop_ui(true)
+	if get_viewport() == null: return
 	var mouse_pos = get_viewport().get_mouse_position()
+	toggle_shop_ui(true)
 	var correction = true
 	var x_offset = 40
 	var y_offset = -5
@@ -67,9 +68,9 @@ func toggle_tooltip_show():
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.position = Vector2(x_offset, y_offset) + self.global_position
+		tooltip.position = Vector2(x_offset, y_offset) + location
 	else:
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + location
 		
 
 func toggle_tooltip_hide():

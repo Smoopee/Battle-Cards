@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://k35e3pbkbmrg"]
+
+[ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_rtfxt"]
+
+[resource]
+script = ExtResource("1_rtfxt")
+card_art_path = "res://Resources/Art/Cards/bite_card.png"
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
+card_scene_path = "res://Scenes/Cards/bite.tscn"
+name = "Bite"
+dmg = 2
+effect1 = 1
+debuff_duration = 5
+upgrade_level = 1
+metadata/_custom_type_script = "uid://crcatuq0050jq"

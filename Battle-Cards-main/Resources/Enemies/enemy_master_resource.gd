@@ -26,5 +26,7 @@ class_name Enemy_Resource
 @export var selection_tags: Array
 @export var card_pool: Array
 
+var can_be_stunned = true
 var can_be_staggered = true
+var can_gain_stagger = true
 var staggered_counter: int

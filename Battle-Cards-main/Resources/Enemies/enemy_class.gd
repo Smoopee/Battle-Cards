@@ -2,7 +2,8 @@ extends Node2D
 
 #class_name Enemy
 signal stagger_changed
-
+signal staggered
+signal stunned
 signal generate_reward
 signal health_changed
 signal physical_damage_dealt
@@ -52,6 +53,7 @@ var stun_indicator : Panel
 var stun_label : Label
 var tooltip : Panel
 var tooltip_container : VBoxContainer
+var tooltip_layer : CanvasLayer
 var glow_power = 3.0
 var speed = 2.0
 
@@ -70,8 +72,10 @@ func _ready():
 	set_node_names()
 	if Global.current_scene != "battle_sim":
 		%Skills.visible = false
+		%Skills.process_mode = Node.PROCESS_MODE_DISABLED
 	else: 
 		%Skills.visible = true
+		%Skills.process_mode = Node.PROCESS_MODE_INHERIT
 		enemy_stagger_bar.visible = true
 		enemy_stagger_bar.max_value = character_stats.max_stagger
 		enemy_stagger_bar.value = character_stats.stagger
@@ -227,7 +231,7 @@ func stagger_keeper():
 		character_stats.staggered_counter -= 1
 		if character_stats.staggered_counter <= 0:
 			character_stats.stagger = 0
-			character_stats.can_be_staggered = true
+			character_stats.can_gain_stagger = true
 			change_stagger(0)
 
 func heal_function(amount):
@@ -245,11 +249,14 @@ func change_health(amount):
 	emit_signal("health_changed")
 
 func change_stagger(amount):
-	if !character_stats.can_be_staggered: return
+	if !character_stats.can_gain_stagger: return
 	character_stats.stagger += amount
 	if character_stats.stagger >= character_stats.max_stagger: 
+		emit_signal("staggered")
+		if !character_stats.can_be_staggered:
+			return
 		character_stats.staggered_counter = 2
-		character_stats.can_be_staggered = false
+		character_stats.can_gain_stagger = false
 		on_stun(2)
 	enemy_stagger_bar.value = character_stats.stagger
 	enemy_stagger_label.text = str(int(enemy_stagger_bar.value)) + "/" + str(int(enemy_stagger_bar.max_value))
@@ -282,6 +289,10 @@ func change_attack(amount):
 func change_defense(amount):
 	character_stats.defense += amount
 	defense_label.text = str(character_stats.defense)
+
+func change_speed(amount):
+	character_stats.speed += amount
+	speed_label.text = str(character_stats.speed)
 
 func change_max_health(amount):
 	character_stats.max_health *= amount
@@ -359,7 +370,8 @@ func set_node_names():
 	speed_panel = get_node('%SpeedPanel')
 	stun_indicator = get_node('%StunIndicator')
 	stun_label = get_node('%StunLabel')
-	tooltip = get_node('%TooltipPanel')
+	tooltip_layer = get_node('%TooltipLayer')
+	tooltip = tooltip_layer.get_child(0)
 	tooltip_container = tooltip.get_child(0)
 	
 	enemy_image.texture = load(character_stats.enemy_art_path)
@@ -394,25 +406,31 @@ func organize_runes():
 
 
 #WIP TOOLTIPS======================================================================================
-func toggle_tooltip_show():
+func toggle_tooltip_show(location):
 	if tooltip_container.get_children() == []: return
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
 	var x_offset = (%EnemyUI.size.x /2) + 20
 	var y_offset = -(%EnemyUI.size.y /2) + 11
+	enemy_image.scale = Vector2(1.25, 1.25)
+	enemy_border.scale = Vector2(1.25, 1.25)
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
+	tooltip_layer.visible = true
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
-		tooltip.position = Vector2(x_offset, y_offset)
+		tooltip.position = Vector2(x_offset, y_offset) + location
 	else:
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + location
 
 func toggle_tooltip_hide():
 	tooltip.visible = false
+	tooltip_layer.visible = false
+	enemy_image.scale = Vector2(1, 1)
+	enemy_border.scale = Vector2(1, 1)
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -433,10 +451,3 @@ func highlight_card(being_dragged):
 	else:
 		z_index = 1
 		$GlowEffect.visible = true
-
-func _on_enemy_ui_mouse_entered():
-	if Global.mouse_occupied == true: return
-	toggle_tooltip_show()
-
-func _on_enemy_ui_mouse_exited():
-	toggle_tooltip_hide()

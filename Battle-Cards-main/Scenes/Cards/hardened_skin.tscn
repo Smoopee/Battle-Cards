@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://djrps6c3myp8"]
+[gd_scene format=3 uid="uid://djrps6c3myp8"]
 
-[ext_resource type="Script" path="res://Scripts/Cards/HardenedSkin.gd" id="1_y6pkr"]
+[ext_resource type="Script" uid="uid://bpr6sxssy1ndd" path="res://Scripts/Cards/HardenedSkin.gd" id="1_y6pkr"]
 [ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_lymk0"]
 
-[node name="HardenedSkin" type="Node2D"]
+[node name="HardenedSkin" type="Node2D" unique_id=1595178153]
 script = ExtResource("1_y6pkr")
 
-[node name="BaseCard" parent="." instance=ExtResource("2_lymk0")]
+[node name="BaseCard" parent="." unique_id=1454395865 instance=ExtResource("2_lymk0")]

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dgyqbk4qxrqsl"]
+
+[ext_resource type="Script" uid="uid://1a8tjp3t3rvg" path="res://Scripts/Abilities/battle_stance.gd" id="1_b4ddl"]
+[ext_resource type="PackedScene" uid="uid://qer4441imvbe" path="res://Scenes/Abilities/base_ability.tscn" id="1_k26lg"]
+
+[node name="BattleStance" type="Node2D" unique_id=1898533353]
+script = ExtResource("1_b4ddl")
+
+[node name="BaseAbility" parent="." unique_id=1028670782 instance=ExtResource("1_k26lg")]

@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4eqel671j6v4"]
+[gd_scene format=3 uid="uid://c4eqel671j6v4"]
 
 [ext_resource type="Script" uid="uid://dn283db6jwixm" path="res://Scripts/Merchants/rand_dom.gd" id="1_3hf8x"]
 [ext_resource type="PackedScene" uid="uid://byuun7s17ahy6" path="res://Scenes/Merchants/base_merchant.tscn" id="2_3hf8x"]
 
-[node name="RandDom" type="Node2D"]
+[node name="RandDom" type="Node2D" unique_id=1122380896]
 script = ExtResource("1_3hf8x")
 
-[node name="BaseMerchant" parent="." instance=ExtResource("2_3hf8x")]
+[node name="BaseMerchant" parent="." unique_id=1609325222 instance=ExtResource("2_3hf8x")]

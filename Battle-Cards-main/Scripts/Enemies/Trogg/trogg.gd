@@ -5,6 +5,7 @@ extends Node2D
 
 
 var character_stats: Enemy_Resource = null
+var enemy_deck 
 
 func _ready():
 	tooltip_enemy()
@@ -14,7 +15,21 @@ func _ready():
 	character.set_stat_container()
 	character.set_enemy_gold()
 	character.set_enemy_xp()
+	
+	enemy_deck_function()
 
+func enemy_deck_function():
+	enemy_deck = [
+		"Rock",
+		"Rock",
+		"Rock",
+		"Rock",
+		"Daunting Shout",
+		"Strengthen",
+		"Rock"
+	]
+	
+	return enemy_deck
 func tooltip_enemy():
 	character.update_tooltip(str(character_stats.name), 
 	"Flavor Text", 

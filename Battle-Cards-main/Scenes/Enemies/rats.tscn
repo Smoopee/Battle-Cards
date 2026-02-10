@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cevfloo8i2vdt"]
+[gd_scene format=3 uid="uid://cevfloo8i2vdt"]
 
 [ext_resource type="PackedScene" uid="uid://bwwv3sibc50m4" path="res://Scenes/Enemies/base_enemy.tscn" id="1_062ph"]
-[ext_resource type="Script" path="res://Scripts/Enemies/Rats/rats.gd" id="1_c5r5q"]
+[ext_resource type="Script" uid="uid://cjo2lsqek57kp" path="res://Scripts/Enemies/Rats/rats.gd" id="1_c5r5q"]
 
-[node name="Rats" type="Node2D"]
+[node name="Rats" type="Node2D" unique_id=748189893]
 script = ExtResource("1_c5r5q")
 
-[node name="BaseEnemy" parent="." instance=ExtResource("1_062ph")]
+[node name="BaseEnemy" parent="." unique_id=1369513174 instance=ExtResource("1_062ph")]

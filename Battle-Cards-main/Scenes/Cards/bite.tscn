@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c4dyd6go3iv51"]
+
+[ext_resource type="Script" uid="uid://sky0kwmqqbuq" path="res://Scripts/Cards/bite.gd" id="1_3g65t"]
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="1_8dvuk"]
+
+[node name="Bite" type="Node2D" unique_id=1282143025]
+script = ExtResource("1_3g65t")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("1_8dvuk")]

@@ -9,4 +9,7 @@ const ITEMS = {
 	"Swarm" : "res://Resources/Cards/swarm.tres",
 	"Strengthen" : "res://Resources/Cards/strengthen.tres",
 	#"Double Up" : "res://Resources/Cards/double_up.tres",
+	"Seethe" : "res://Resources/Cards/seethe.tres",
+	"Constrict" : "res://Resources/Cards/constrict.tres",
+	"Bite" : "res://Resources/Cards/bite.tres"
 }

@@ -6,6 +6,7 @@ const CONSUMABLE_Y_HORIZONTAL_POSITION = 950
 
 
 func _ready():
+	self.scale = Global.ui_scaler
 	set_consumables()
 
 func set_consumables():

@@ -18,7 +18,7 @@ func upgrade_card(num):
 			stats.upgrade_level = 1
 			stats.sell_price = 3
 			stats.buy_price = 6
-			stats.effect1 = 1
+			stats.effect1 = 2
 		2: 
 			stats.card_upgrade_art_path = "res://Resources/Cards/CardArt/upgrade2.png"
 			stats.upgrade_level = 2
@@ -40,7 +40,7 @@ func upgrade_card(num):
 	
 	card.update_tooltip(str(stats.name),
 	"Effect", 
-	"Increase Armor by " + str(stats.effect1) + " for " + str(stats.effect2) + " rounds", 
+	"Increase Defense by " + str(stats.effect1) + " for " + str(stats.buff_duration) + " rounds", 
 	"Effect: ")
 	card.update_card_ui()
 

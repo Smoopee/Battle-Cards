@@ -11,5 +11,5 @@ func _ready():
 func tooltip_biome():
 	biome.update_tooltip(str(biome_stats.biome_name), 
 	"Flavor Text", 
-	"Likes to smash", 
+	"Mountains as big as your mom.", 
 	"")

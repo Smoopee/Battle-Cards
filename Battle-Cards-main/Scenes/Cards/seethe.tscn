@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b6nawwftp6cyb"]
+
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="1_bb3sk"]
+[ext_resource type="Script" uid="uid://bwplrw6lmfd8y" path="res://Scripts/Cards/seethe.gd" id="1_e3qiw"]
+
+[node name="Seethe" type="Node2D" unique_id=609756866]
+script = ExtResource("1_e3qiw")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("1_bb3sk")]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Buff_Resource" format=3 uid="uid://cux51c07anl6o"]
+
+[ext_resource type="Script" uid="uid://cqvy84b4bd2mb" path="res://Resources/Buffs/buff_master_resource.gd" id="1_cj6mb"]
+
+[resource]
+script = ExtResource("1_cj6mb")
+buff_art_path = "res://Resources/Art/Buffs/seethe_buff.png"
+buff_scene_path = "res://Scenes/Buffs/seethe_buff.tscn"
+name = "Seethe"
+individual_stacks = true
+metadata/_custom_type_script = "uid://cqvy84b4bd2mb"

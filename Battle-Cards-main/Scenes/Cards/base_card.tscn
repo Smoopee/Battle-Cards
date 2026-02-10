@@ -27,10 +27,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f82xu"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ntdj"]
 bg_color = Color(0.18297315, 0.046994187, 0.0045691063, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f82xu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8qkf"]
 bg_color = Color(0.688023, 0.596125, 0.233008, 1)
@@ -147,6 +147,23 @@ text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="StunOverlayPanel" type="Panel" parent="CardUI" unique_id=819415724]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0.8392157)
+layout_mode = 0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 144.0
+offset_bottom = 177.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ntdj")
+
+[node name="StunOverlayLabel" type="Label" parent="CardUI/StunOverlayPanel" unique_id=1315964468]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+
 [node name="CDOverlayPanel" type="Panel" parent="CardUI" unique_id=1864959174]
 unique_name_in_owner = true
 visible = false
@@ -175,23 +192,6 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="StunOverlayPanel" type="Panel" parent="CardUI" unique_id=819415724]
-unique_name_in_owner = true
-visible = false
-self_modulate = Color(1, 1, 1, 0.8392157)
-layout_mode = 0
-offset_left = -2.0
-offset_top = -3.0
-offset_right = 144.0
-offset_bottom = 177.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_5ntdj")
-
-[node name="StunOverlayLabel" type="Label" parent="CardUI/StunOverlayPanel" unique_id=1315964468]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 16.0
 
 [node name="ShopPanel" type="Panel" parent="CardUI" unique_id=682612006]
 unique_name_in_owner = true

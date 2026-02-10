@@ -11,5 +11,5 @@ func _ready():
 func tooltip_merchant():
 	merchant.update_tooltip(str(merchant_stats.merchant_name), 
 	"Flavor Text", 
-	"Likes to smash", 
+	"Sells random skills.", 
 	"")

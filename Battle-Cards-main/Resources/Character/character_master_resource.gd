@@ -17,9 +17,13 @@ class_name Character_Resource
 @export var attack: int
 @export var defense: int
 @export var block: int
+@export var rage: int
+@export var max_rage: int
 @export var speed: int
 @export var is_stunned: bool
 @export var stun_counter: int
 
+var can_be_stunned = true
 var can_be_staggered = true
+var can_gain_stagger = true
 var staggered_counter: int

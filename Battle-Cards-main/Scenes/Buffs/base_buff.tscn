@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw76pl3mtet8k"]
+[gd_scene format=3 uid="uid://bw76pl3mtet8k"]
 
-[ext_resource type="Script" path="res://Resources/Buffs/buff_class.gd" id="1_yepgx"]
-[ext_resource type="Texture2D" uid="uid://ini0j8y2vxsm" path="res://Resources/Art/Consumables/cheese_consumable.png" id="2_jbn4d"]
-[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="3_l8fgb"]
+[ext_resource type="Script" uid="uid://bicxuveg1pybw" path="res://Resources/Buffs/buff_class.gd" id="1_yepgx"]
+[ext_resource type="Texture2D" uid="uid://43dxdgf1gs4f" path="res://Resources/Art/Buffs/strengthen_buff.png" id="2_3221l"]
+[ext_resource type="PackedScene" uid="uid://tg83lmmkajyp" path="res://Scenes/UI/Tooltips/tooltip_layer.tscn" id="3_3221l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vu5fm"]
 bg_color = Color(1, 1, 1, 1)
@@ -12,14 +12,17 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[node name="BaseBuff" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3221l"]
+size = Vector2(48, 48)
+
+[node name="BaseBuff" type="Node2D" unique_id=1627073231]
 script = ExtResource("1_yepgx")
 
-[node name="BuffImage" type="Sprite2D" parent="."]
+[node name="BuffImage" type="Sprite2D" parent="." unique_id=369410252]
 unique_name_in_owner = true
-texture = ExtResource("2_jbn4d")
+texture = ExtResource("2_3221l")
 
-[node name="BuffUI" type="Control" parent="."]
+[node name="BuffUI" type="Control" parent="." unique_id=1143101176]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -12.0
@@ -27,20 +30,20 @@ offset_top = -12.0
 offset_right = 12.0
 offset_bottom = 12.0
 
-[node name="BuffCounters" type="Label" parent="BuffUI"]
+[node name="BuffCounters" type="Label" parent="BuffUI" unique_id=1041433367]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 7.0
-offset_top = 18.0
-offset_right = 17.0
-offset_bottom = 28.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 34.0
+offset_bottom = 34.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuffCounterPanel" type="Panel" parent="BuffUI/BuffCounters"]
+[node name="BuffCounterPanel" type="Panel" parent="BuffUI/BuffCounters" unique_id=1314492265]
 unique_name_in_owner = true
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 11)
@@ -52,8 +55,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vu5fm")
 
-[node name="TooltipPanel" parent="." instance=ExtResource("3_l8fgb")]
+[node name="TooltipLayer" parent="." unique_id=1878210227 instance=ExtResource("3_3221l")]
 unique_name_in_owner = true
 
-[connection signal="mouse_entered" from="BuffUI" to="." method="_on_buff_ui_mouse_entered"]
-[connection signal="mouse_exited" from="BuffUI" to="." method="_on_buff_ui_mouse_exited"]
+[node name="Area2D" type="Area2D" parent="." unique_id=1058612351]
+collision_layer = 16777216
+collision_mask = 16777216
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=341150843]
+shape = SubResource("RectangleShape2D_3221l")

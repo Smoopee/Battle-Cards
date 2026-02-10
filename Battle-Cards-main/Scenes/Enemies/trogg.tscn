@@ -6,4 +6,4 @@
 [node name="Trogg" type="Node2D" unique_id=1699443149]
 script = ExtResource("1_762y3")
 
-[node name="BaseEnemy" parent="." unique_id=98685813 groups=["base enemy"] instance=ExtResource("1_np1mh")]
+[node name="BaseEnemy" parent="." unique_id=98685813 instance=ExtResource("1_np1mh")]

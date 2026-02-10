@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Skills_Resource" format=3 uid="uid://b8kei3ofpdl41"]
+
+[ext_resource type="Script" uid="uid://cghu34rbx53sr" path="res://Resources/Skills/skills_master_resource.gd" id="1_mqdox"]
+
+[resource]
+script = ExtResource("1_mqdox")
+skill_art_path = "res://Resources/Art/Skills/shed_skin_skill.png"
+skill_upgrade_art_path = "res://Resources/Art/Skills/skill_upgrade1.png"
+skill_scene_path = "res://Scenes/Skills/shed_skin.tscn"
+name = "Shed Skin"
+buy_price = 2
+upgrade_level = 1
+tags = ["Snake", "Enemy"]
+metadata/_custom_type_script = "uid://cghu34rbx53sr"

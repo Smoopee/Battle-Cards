@@ -3,7 +3,8 @@ extends Node2D
 
 signal health_changed
 signal stagger_changed
-
+signal staggered
+signal stunned
 signal physical_damage_dealt
 signal physical_damage_taken
 signal bleeding_damage_applied
@@ -28,20 +29,15 @@ var temp_physical_damage = 0
 #Berserker Mechanics==============================================================================
 var rage_degeneration = -3
 var additional_rage_generation = 0
-var rage = 0
+
 
 func _ready():
 	battle_sim = get_tree().get_first_node_in_group("battle sim")
 	set_stats()
 	set_talents()
-	
-	$PlayerHealthBar.max_value = character_stats.max_health
-	$PlayerHealthBar.value = character_stats.health
-	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
-	
-	$PlayerStaggerBar.max_value = character_stats.max_stagger
-	$PlayerStaggerBar.value = character_stats.stagger
-	$PlayerStaggerBar/PlayerStaggerLabel.text = str(int($PlayerStaggerBar.value)) + "/" + str(int($PlayerStaggerBar.max_value))
+	set_health()
+	set_rage()
+	set_stagger()
 
 #SETUP  ===========================================================================================
 func set_stats() -> void:
@@ -53,6 +49,8 @@ func set_stats() -> void:
 	character_stats.poisoning_dmg = 0
 	character_stats.attack = 0
 	character_stats.defense = 0
+	character_stats.stagger = 0
+	character_stats.rage = 0
 	character_stats.block = 0
 	character_stats.stun_counter = 0
 	character_stats.is_stunned = false
@@ -69,6 +67,30 @@ func set_talents():
 		var new_talent = load(i).instantiate()
 		$Talents.add_child(new_talent)
 		#new_talent.set_talent()
+
+func set_stagger():
+	$PlayerStaggerBar.max_value = character_stats.max_stagger
+	$PlayerStaggerBar.value = character_stats.stagger
+	$PlayerStaggerBar/PlayerStaggerLabel.text = str(int($PlayerStaggerBar.value)) + "/" + str(int($PlayerStaggerBar.max_value))
+
+func set_rage():
+	$RageBar.max_value = character_stats.max_rage
+	$RageBar.value = character_stats.rage
+	$RageBar/RageLabel.text = str(int($RageBar.value)) + "/" + str(int($RageBar.max_value))
+
+func set_health():
+	$PlayerHealthBar.max_value = character_stats.max_health
+	$PlayerHealthBar.value = character_stats.health
+	$PlayerHealthBar/PlayerHealthLabel.text = str(int($PlayerHealthBar.value)) + "/" + str(int($PlayerHealthBar.max_value))
+
+
+func end_fight_reset():
+	buff_reset()
+	debuff_reset()
+	set_stats()
+	set_stagger()
+	set_rage()
+	change_block()
 
 #SIGNALS ===========================================================================================
 func connect_signals(battle_sim):
@@ -181,7 +203,7 @@ func stagger_keeper():
 		character_stats.staggered_counter -= 1
 		if character_stats.staggered_counter <= 0:
 			character_stats.stagger = 0
-			character_stats.can_be_staggered = true
+			character_stats.can_gain_stagger = true
 			change_stagger(0)
  
 
@@ -200,11 +222,14 @@ func change_health(amount):
 	emit_signal("health_changed")
 
 func change_stagger(amount):
-	if !character_stats.can_be_staggered: return
+	if !character_stats.can_gain_stagger: return
 	character_stats.stagger += amount
-	if character_stats.stagger >= character_stats.max_stagger: 
+	if character_stats.stagger >= character_stats.max_stagger:
+		emit_signal("staggered")
+		if !character_stats.can_be_staggered:
+			return
 		character_stats.staggered_counter = 2
-		character_stats.can_be_staggered = false
+		character_stats.can_gain_stagger = false
 		on_stun(2)
 	$PlayerStaggerBar.value = character_stats.stagger
 	$PlayerStaggerBar/PlayerStaggerLabel.text = str(int($PlayerStaggerBar.value)) + "/" + str(int($PlayerStaggerBar.max_value))
@@ -227,12 +252,11 @@ func stun_toggle(toggle):
 func change_rage(value):
 	var rage_bar = $RageBar
 	var rage_label = $RageBar/RageLabel
-	rage_bar.value += value
+	character_stats.rage += value
+	if character_stats.rage >= character_stats.max_rage:
+		character_stats.rage = character_stats.max_rage
+	rage_bar.value = character_stats.rage
 	rage_label.text = str(int(rage_bar.value))
-	rage = int(rage_bar.value)
-	if  rage_bar.value  >= 100:
-		rage_bar.value = 100
-	
 
 func change_attack(amount):
 	character_stats.attack += amount
@@ -241,6 +265,10 @@ func change_attack(amount):
 func change_defense(amount):
 	character_stats.defense += amount
 	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(character_stats.defense)
+
+func change_speed(amount):
+	character_stats.speed += amount
+	$StatContainer/Panel3/HBoxContainer/SpeedLabel.text = str(character_stats.speed)
 
 func change_block():
 	$BlockSymbol.visible = true

@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://j36aoncuwt8h" path="res://Scripts/Battle_Sim/Battle.gd" id="12_05066"]
 [ext_resource type="Script" uid="uid://ddglqu7gnlvwk" path="res://Scripts/Battle_Sim/NextTurn.gd" id="13_gppgb"]
 [ext_resource type="Script" uid="uid://bh6nuqw7ax3wf" path="res://Scripts/Battle_Sim/button_controller.gd" id="15_mckkd"]
-[ext_resource type="Script" uid="uid://dh4fwgqkdmhgc" path="res://Scripts/UI/Battle_Sim/interupt_ui.gd" id="16_juoq6"]
+[ext_resource type="Script" uid="uid://dh4fwgqkdmhgc" path="res://Scripts/UI/Battle_Sim/interrupt_ui.gd" id="16_juoq6"]
 [ext_resource type="Script" uid="uid://d3tj6g10ufw64" path="res://Scripts/Battle_Sim/active_spots.gd" id="16_kogdo"]
 [ext_resource type="Script" uid="uid://cj5mdiosnctnu" path="res://Scripts/Battle_Sim/CardTransform.gd" id="17_2744l"]
 [ext_resource type="Texture2D" uid="uid://c12wp1wrs4gke" path="res://Resources/Art/UIElements/checkbox_is_checked.png" id="17_qbs3y"]
@@ -27,6 +27,9 @@ script = ExtResource("2_ti0s5")
 
 [node name="Enemy" type="Node2D" parent="." unique_id=532331475 groups=["enemy deck"]]
 script = ExtResource("3_7ul7h")
+
+[node name="ActiveSpots" type="Node2D" parent="." unique_id=312433141 groups=["active spots"]]
+script = ExtResource("16_kogdo")
 
 [node name="BattleRewards" parent="." unique_id=674275797 instance=ExtResource("9_326y0")]
 visible = false
@@ -260,7 +263,7 @@ script = ExtResource("17_2744l")
 [node name="PlayOrder" type="Timer" parent="." unique_id=288780830]
 wait_time = 0.3
 
-[node name="InteruptUI" type="Control" parent="." unique_id=957415517]
+[node name="InterruptUI" type="Control" parent="." unique_id=957415517]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 784.0
@@ -269,7 +272,7 @@ offset_right = 1191.0
 offset_bottom = 599.0
 script = ExtResource("16_juoq6")
 
-[node name="HBox" type="HBoxContainer" parent="InteruptUI" unique_id=1805894656]
+[node name="HBox" type="HBoxContainer" parent="InterruptUI" unique_id=1805894656]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 offset_right = 407.0
@@ -277,7 +280,7 @@ offset_bottom = 54.0
 size_flags_vertical = 4
 alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="InteruptUI/HBox" unique_id=1059992189]
+[node name="CheckBox" type="CheckBox" parent="InterruptUI/HBox" unique_id=1059992189]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
@@ -285,49 +288,49 @@ theme_override_icons/icon = SubResource("AtlasTexture_02f8f")
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="CheckBox2" type="CheckBox" parent="InteruptUI/HBox" unique_id=363632864]
+[node name="CheckBox2" type="CheckBox" parent="InterruptUI/HBox" unique_id=363632864]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="CheckBox3" type="CheckBox" parent="InteruptUI/HBox" unique_id=404396484]
+[node name="CheckBox3" type="CheckBox" parent="InterruptUI/HBox" unique_id=404396484]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="CheckBox4" type="CheckBox" parent="InteruptUI/HBox" unique_id=1401209194]
+[node name="CheckBox4" type="CheckBox" parent="InterruptUI/HBox" unique_id=1401209194]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="CheckBox5" type="CheckBox" parent="InteruptUI/HBox" unique_id=12596064]
+[node name="CheckBox5" type="CheckBox" parent="InterruptUI/HBox" unique_id=12596064]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="CheckBox6" type="CheckBox" parent="InteruptUI/HBox" unique_id=1199094869]
+[node name="CheckBox6" type="CheckBox" parent="InterruptUI/HBox" unique_id=1199094869]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="CheckBox7" type="CheckBox" parent="InteruptUI/HBox" unique_id=333724326]
+[node name="CheckBox7" type="CheckBox" parent="InterruptUI/HBox" unique_id=333724326]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_icons/checked = ExtResource("17_qbs3y")
 theme_override_icons/unchecked = ExtResource("18_wyqok")
 
-[node name="MasterToggle" type="CheckBox" parent="InteruptUI" unique_id=2108516603]
+[node name="MasterToggle" type="CheckBox" parent="InterruptUI" unique_id=2108516603]
 layout_mode = 0
 offset_left = -63.0
 offset_right = -4.0
@@ -345,7 +348,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("15_mckkd")
 
-[node name="InteruptContinueButton" type="Button" parent="ButtonController" unique_id=417667483]
+[node name="InterruptContinueButton" type="Button" parent="ButtonController" unique_id=417667483]
 layout_mode = 0
 offset_left = 1746.0
 offset_top = 551.0
@@ -369,18 +372,15 @@ offset_right = 1890.0
 offset_bottom = 643.0
 text = "Continue"
 
-[node name="ActiveSpots" type="Node2D" parent="." unique_id=312433141]
-script = ExtResource("16_kogdo")
-
 [connection signal="timeout" from="AnimationTimer" to="." method="_on_timer_timeout"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox" to="InteruptUI" method="_on_check_box_toggled"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox2" to="InteruptUI" method="_on_check_box_2_toggled"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox3" to="InteruptUI" method="_on_check_box_3_toggled"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox4" to="InteruptUI" method="_on_check_box_4_toggled"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox5" to="InteruptUI" method="_on_check_box_5_toggled"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox6" to="InteruptUI" method="_on_check_box_6_toggled"]
-[connection signal="toggled" from="InteruptUI/HBox/CheckBox7" to="InteruptUI" method="_on_check_box_7_toggled"]
-[connection signal="toggled" from="InteruptUI/MasterToggle" to="InteruptUI" method="_on_master_toggle_toggled"]
-[connection signal="pressed" from="ButtonController/InteruptContinueButton" to="Battle" method="_on_interupt_continue_button_pressed"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox" to="InterruptUI" method="_on_check_box_toggled"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox2" to="InterruptUI" method="_on_check_box_2_toggled"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox3" to="InterruptUI" method="_on_check_box_3_toggled"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox4" to="InterruptUI" method="_on_check_box_4_toggled"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox5" to="InterruptUI" method="_on_check_box_5_toggled"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox6" to="InterruptUI" method="_on_check_box_6_toggled"]
+[connection signal="toggled" from="InterruptUI/HBox/CheckBox7" to="InterruptUI" method="_on_check_box_7_toggled"]
+[connection signal="toggled" from="InterruptUI/MasterToggle" to="InterruptUI" method="_on_master_toggle_toggled"]
+[connection signal="pressed" from="ButtonController/InterruptContinueButton" to="Battle" method="_on_interrupt_continue_button_pressed"]
 [connection signal="button_down" from="ButtonController/StartButton" to="Battle" method="_on_start_button_button_down"]
 [connection signal="button_down" from="ButtonController/ContinueButton" to="Battle" method="_on_continue_button_button_down"]

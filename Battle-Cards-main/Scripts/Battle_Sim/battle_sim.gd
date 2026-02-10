@@ -7,6 +7,8 @@ func _ready():
 	$NextTurn.initial_build()
 	
 	start_pre_battle_animation()
+	get_tree().get_first_node_in_group("active spots").set_up_arrays()
+	get_tree().get_first_node_in_group("active spots").apply_active_effects()
 
 func start_pre_battle_animation():
 	for i in get_tree().get_nodes_in_group("card"):

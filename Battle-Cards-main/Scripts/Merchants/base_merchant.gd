@@ -8,6 +8,7 @@ var speed = 2.0
 var tooltip : Panel
 var tooltip_container : VBoxContainer
 var tooltip_name : Label
+var tooltip_layer : CanvasLayer
 var merchant_image : Sprite2D
 var merchant_border : Sprite2D
 var ui : Control
@@ -33,7 +34,8 @@ func _process(delta):
 		$GlowEffect.get_material().set_shader_parameter("glow_power", glow_power)
 
 func set_node_names():
-	tooltip = get_node('%TooltipPanel')
+	tooltip_layer = get_node('%TooltipLayer')
+	tooltip = tooltip_layer.get_child(0)
 	tooltip_container = tooltip.get_child(0)
 	ui = get_node('%MerchantUI')
 	collision_shape = get_node('%CollisionShape2D')
@@ -179,7 +181,7 @@ func enable_collision():
 	ui.mouse_filter = Control.MOUSE_FILTER_STOP
 	disabled_collision = false
 
-func toggle_tooltip_show():
+func toggle_tooltip_show(location):
 	if tooltip_container.get_children() == []: return
 	var mouse_pos = get_viewport().get_mouse_position()
 	var correction = true
@@ -187,19 +189,25 @@ func toggle_tooltip_show():
 	var y_offset = -75
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
+	tooltip_layer.visible = true
+	self.scale = Vector2(1.2, 1.2)
+	highlight_card(false)
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
 		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
-		tooltip.position = Vector2(x_offset, y_offset)
+		tooltip.position = Vector2(x_offset, y_offset) + location
 	else:
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + location
 
 func toggle_tooltip_hide():
 	tooltip.visible = false
+	tooltip_layer.visible = false
+	self.scale = Vector2(1, 1)
+	highlight_card(true)
 	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):

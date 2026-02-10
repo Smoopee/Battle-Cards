@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://qer4441imvbe"]
+
+[ext_resource type="Script" uid="uid://gce3lalo2yol" path="res://Resources/Abilities/ability_class.gd" id="1_xiu8v"]
+[ext_resource type="Texture2D" uid="uid://bie7e04f8xpn2" path="res://Resources/Art/Abilities/battle_stance_ability.png" id="4_hv28h"]
+[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="4_mv0w1"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="5_kktuv"]
+[ext_resource type="PackedScene" uid="uid://tg83lmmkajyp" path="res://Scenes/UI/Tooltips/tooltip_layer.tscn" id="6_hv28h"]
+[ext_resource type="Texture2D" uid="uid://biynlyhg22qi0" path="res://Resources/Art/Abilities/ability_border.png" id="6_kktuv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kktuv"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkm6u"]
+shader = ExtResource("4_mv0w1")
+shader_parameter/onoff = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8qjt"]
+size = Vector2(59, 59)
+
+[node name="BaseAbility" type="Node2D" unique_id=1028670782]
+script = ExtResource("1_xiu8v")
+
+[node name="Border" type="Sprite2D" parent="." unique_id=221613006]
+texture = ExtResource("6_kktuv")
+
+[node name="AbilityUI" type="Control" parent="." unique_id=238496922]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 25.0
+offset_bottom = 25.0
+mouse_filter = 2
+
+[node name="InfoLabel" type="Label" parent="AbilityUI" unique_id=19909923]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 0
+offset_left = 39.0
+offset_top = 39.0
+offset_right = 49.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoPanel" type="Panel" parent="AbilityUI/InfoLabel" unique_id=1461277923]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kktuv")
+
+[node name="GlowEffect" type="Sprite2D" parent="." unique_id=973731455]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_qkm6u")
+position = Vector2(-0.49999994, -0.49999842)
+scale = Vector2(0.41666666, 0.33157897)
+texture = ExtResource("5_kktuv")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1618590400]
+collision_layer = 1048576
+collision_mask = 1048576
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1220029783]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_m8qjt")
+
+[node name="TooltipLayer" parent="." unique_id=1878210227 instance=ExtResource("6_hv28h")]
+unique_name_in_owner = true
+
+[node name="AbilityImage" type="Sprite2D" parent="." unique_id=11866536]
+unique_name_in_owner = true
+texture = ExtResource("4_hv28h")

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://di8kkpo8eoada"]
+
+[ext_resource type="Script" uid="uid://bxqj6ig2f2lkk" path="res://Scripts/Skills/shed_skin.gd" id="1_h08ei"]
+[ext_resource type="PackedScene" uid="uid://cx4hatbep7l2s" path="res://Scenes/Skills/base_skill.tscn" id="1_yvcv8"]
+
+[node name="ShedSkin" type="Node2D" unique_id=1855899215]
+script = ExtResource("1_h08ei")
+
+[node name="BaseSkill" parent="." unique_id=1674251778 instance=ExtResource("1_yvcv8")]

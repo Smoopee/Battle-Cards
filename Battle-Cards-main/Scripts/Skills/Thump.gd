@@ -16,9 +16,29 @@ func _ready():
 
 func skill_effect1():
 	var rng = RandomNumberGenerator.new()
-	counter = rng.randi_range(1, 8)
+	counter = rng.randi_range(1, 7)
 	skill.info_label.visible = true
 	skill.info_label.text = str(counter)
+	
+	skill.update_tooltip(str(stats.name), 
+	"Effect", 
+	"On turn " + str(counter) + ", stun the enmey for 2 turns" , 
+	"Effect: ")
+	skill.update_skill_image()
+
+	get_tree().get_first_node_in_group("active spots").add_to_active_effects(counter - 1, _in_active_spot, skill_stats.target)
+	get_tree().get_first_node_in_group("active spots").add_to_remove_effects(counter - 1, _removed_from_active_spot, skill_stats.target)
+	if counter >= 7: return
+	get_tree().get_first_node_in_group("active spots").add_to_active_effects(counter, _in_active_spot, skill_stats.target)
+	get_tree().get_first_node_in_group("active spots").add_to_remove_effects(counter, _removed_from_active_spot, skill_stats.target)
+
+func _in_active_spot(active_card):
+	if active_card == null: return
+	active_card.get_node("BaseCard").toggle_stun_overlay(true)
+
+func _removed_from_active_spot(active_card):
+	if active_card == null: return
+	active_card.get_node("BaseCard").toggle_stun_overlay(false)
 
 func skill_effect2():
 	if counter == 0: return
@@ -50,7 +70,7 @@ func upgrade_skill(num):
 	
 	skill.update_tooltip(str(stats.name), 
 	"Effect", 
-	"On the turn " + str(counter) + ", stun the enmey for 2 turns" , 
+	"On turn " + str(counter) + ", stun the enmey for 2 turns" , 
 	"Effect: ")
 	skill.update_skill_image()
 

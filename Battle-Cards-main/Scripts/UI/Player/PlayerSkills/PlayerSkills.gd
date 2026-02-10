@@ -1,6 +1,6 @@
 extends Node2D
 
-const SKILL_X_POSITION = 300
+const SKILL_X_POSITION = 600
 const SKILL_Y_POSITION = -40
 
 func _ready():
@@ -30,7 +30,6 @@ func add_skill(skill):
 	organize_skills()
 
 func organize_skills():
-	print("IN ORGANIZE PLAYER SKILL")
 	var x_offset = 0
 	for i in get_children():
 		i.position = Vector2(x_offset + SKILL_X_POSITION, SKILL_Y_POSITION)

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://4upwwtb4irk8"]
+[gd_scene format=3 uid="uid://4upwwtb4irk8"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/enemy_skills_node.gd" id="1_bvpd2"]
+[ext_resource type="Script" uid="uid://bw0t7rha0ylgd" path="res://Scripts/Enemies/enemy_skills_node.gd" id="1_bvpd2"]
 
-[node name="Skills" type="Node2D"]
+[node name="Skills" type="Node2D" unique_id=534180133]
 script = ExtResource("1_bvpd2")

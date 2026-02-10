@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Abilities_Resource" format=3 uid="uid://c2vno74wuv8xi"]
+
+[ext_resource type="Script" uid="uid://eppxtsbh15ld" path="res://Resources/Abilities/abilities_master_resource.gd" id="1_41hvs"]
+
+[resource]
+script = ExtResource("1_41hvs")
+ability_art_path = "res://Resources/Art/Abilities/ExtraOomph.png"
+ability_scene_path = "res://Scenes/Abilities/extra_oomph.tscn"
+name = "Extra Oomph"
+cost = 5
+metadata/_custom_type_script = "uid://eppxtsbh15ld"

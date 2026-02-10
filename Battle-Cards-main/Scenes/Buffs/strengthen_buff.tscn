@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://vkekekplsm5c"]
+[gd_scene format=3 uid="uid://vkekekplsm5c"]
 
-[ext_resource type="Script" path="res://Scripts/Buffs/StrengthenBuff.gd" id="1_4q2kg"]
+[ext_resource type="Script" uid="uid://dkur1tgmv70pr" path="res://Scripts/Buffs/StrengthenBuff.gd" id="1_4q2kg"]
 [ext_resource type="PackedScene" uid="uid://bw76pl3mtet8k" path="res://Scenes/Buffs/base_buff.tscn" id="2_nf22c"]
 
-[node name="StrengthenBuff" type="Node2D"]
+[node name="StrengthenBuff" type="Node2D" unique_id=502175112]
 script = ExtResource("1_4q2kg")
 
-[node name="BaseBuff" parent="." instance=ExtResource("2_nf22c")]
+[node name="BaseBuff" parent="." unique_id=653523789 instance=ExtResource("2_nf22c")]

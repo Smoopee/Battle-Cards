@@ -47,7 +47,7 @@ func set_node_names():
 	z_index = 1
 
 #WIP TOOLTIPS======================================================================================
-func toggle_tooltip_show():
+func toggle_tooltip_show(location):
 	if tooltip_container.get_children() == []: return
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -65,10 +65,10 @@ func toggle_tooltip_show():
 	
 	if correction == false:
 		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
-		tooltip.position = Vector2(x_offset, y_offset) + self.global_position
+		tooltip.position = Vector2(x_offset, y_offset) + location
 	else:
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + location
 		
 
 func toggle_tooltip_hide():
@@ -88,11 +88,3 @@ func update_tooltip(category, identifier, body = null, header = null):
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
 		temp.update_tooltip(category, identifier, body, header)
-
-func _on_skill_ui_mouse_entered():
-	scale = Vector2(1.1, 1.1)
-	toggle_tooltip_show()
-
-func _on_skill_ui_mouse_exited():
-	scale = Vector2(1, 1)
-	toggle_tooltip_hide()

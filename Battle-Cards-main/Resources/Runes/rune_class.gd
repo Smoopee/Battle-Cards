@@ -7,6 +7,7 @@ extends Node2D
 var shop_label: Label
 var shop_panel: Panel
 var rune_image: Sprite2D
+var tooltip_layer: CanvasLayer
 var tooltip: Panel
 var tooltip_container: VBoxContainer
 
@@ -19,7 +20,8 @@ func set_node_names():
 	shop_label = get_node('%ShopLabel')
 	shop_panel = get_node('%ShopPanel')
 	rune_image = get_node('%RuneImage')
-	tooltip = get_node('%TooltipPanel')
+	tooltip_layer = get_node('%TooltipLayer')
+	tooltip = tooltip_layer.get_child(0)
 	tooltip_container = tooltip.get_child(0)
 	
 	rune_image.texture = load(rune_stats.rune_art_path)
@@ -35,7 +37,7 @@ func toggle_shop_ui(show):
 	if !show: shop_panel.visible = false
 
 #WIP TOOLTIPS======================================================================================
-func toggle_tooltip_show():
+func toggle_tooltip_show(location):
 	if tooltip_container.get_children() == []: return
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -44,21 +46,24 @@ func toggle_tooltip_show():
 	var y_offset = -($RuneUI.size.y /2) + 11
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
+	tooltip_layer.visible = true
+	
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
 		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
-		tooltip.position = Vector2(x_offset, y_offset)
+		tooltip.position = Vector2(x_offset, y_offset) + location
 	else:
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
-		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset)
+		tooltip.position = Vector2(-x_offset - tooltip.size.x, y_offset) + location
 		
 
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
+	tooltip_layer.visible = false
 	#tooltip.hide()
 
 func update_tooltip(category, identifier, body = null, header = null):
@@ -72,12 +77,3 @@ func update_tooltip(category, identifier, body = null, header = null):
 		new_tooltip.create_tooltip(category, identifier, body, header)
 	else:
 		temp.update_tooltip(category, identifier, body, header)
-
-func _on_area_2d_mouse_entered():
-	if get_tree().get_first_node_in_group("player cards").card_being_dragged != null: return
-	scale = Vector2(1.1, 1.1)
-	toggle_tooltip_show()
-
-func _on_area_2d_mouse_exited():
-	scale = Vector2(1, 1)
-	toggle_tooltip_hide()

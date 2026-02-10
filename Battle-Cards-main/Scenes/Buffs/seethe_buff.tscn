@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c8vwvpwf8xi1e"]
+
+[ext_resource type="Script" uid="uid://cj7ob7st2j5fr" path="res://Scripts/Buffs/seethe_buff.gd" id="1_fqbwq"]
+[ext_resource type="PackedScene" uid="uid://bw76pl3mtet8k" path="res://Scenes/Buffs/base_buff.tscn" id="2_7c3po"]
+
+[node name="SeetheBuff" type="Node2D" unique_id=1130819170]
+script = ExtResource("1_fqbwq")
+
+[node name="BaseBuff" parent="." unique_id=1627073231 instance=ExtResource("2_7c3po")]

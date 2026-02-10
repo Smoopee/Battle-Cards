@@ -32,7 +32,7 @@ var player
 var player_card
 var enemy_card
 
-var is_battle_interupted = false
+var is_battle_interrupted = false
 
 
 func _ready():
@@ -75,12 +75,12 @@ func combat(player_deck_list, enemy_deck_list):
 		enemy_card = enemy_deck_list[i]
 		
 		emit_signal("start_of_turn")
-		interupt_check(i)
+		interrupt_check(i)
 		
 		player_deck.play_card(player_card)
 		enemy_node.play_card(enemy_card)
 		
-		if is_battle_interupted: await $"../ButtonController/InteruptContinueButton".button_down
+		if is_battle_interrupted: await $"../ButtonController/InterruptContinueButton".button_down
 		await get_tree().create_timer(.6 * Global.COMBAT_SPEED).timeout
 		
 		play_card()
@@ -188,16 +188,16 @@ func stun_check(character):
 	else: return true
 
 #==================Non Battle Functions============================================================
-func interupt_battle():
+func interrupt_battle():
 	#get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_DISABLED
 	$"../ButtonController".show_interrupt_button()
-	is_battle_interupted = true
-	get_tree().get_first_node_in_group("player interrupts").enable_interrupts()
+	is_battle_interrupted = true
+	get_tree().get_first_node_in_group("player abilities").enable_abilities()
 	player_card.get_node("BaseCard").enable_collision()
 	enemy_card.get_node("BaseCard").enable_collision()
 
-func interupt_check(turn):
-	if $"../InteruptUI".turn_interupt_array[turn]: interupt_battle()
+func interrupt_check(turn):
+	if $"../InterruptUI".turn_interrupt_array[turn]: interrupt_battle()
 
 func next_turn_handler():
 	next_turn.next_turn()
@@ -209,8 +209,7 @@ func end_fight_cleanup():
 	emit_signal("end_fight")
 	$"../CardTransform".revert_cards()
 	$"../NextTurn".slot_player_cards()
-	get_tree().get_first_node_in_group("character").buff_reset()
-	get_tree().get_first_node_in_group("character").debuff_reset()
+	get_tree().get_first_node_in_group("character").end_fight_reset()
 	Global.current_scene = "battle rewards"
 	$"../BattleRewards".update_rewards()
 	$"../BattleRewards".visible = true
@@ -223,15 +222,19 @@ func end_fight_cleanup():
 
 func _on_start_button_button_down():
 	during_combat_ui_toggle()
-	$"../InteruptUI".visible = false
+	$"../InterruptUI".visible = false
 	$"..".stop_pre_battle_animation()
+	get_tree().get_first_node_in_group("active spots").remove_active_effects()
+	get_tree().get_first_node_in_group("active spots").reset_active_spots()
 	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
 func _on_continue_button_button_down():
 	during_combat_ui_toggle()
-	$"../InteruptUI".visible = false
+	$"../InterruptUI".visible = false
 	$"..".stop_pre_battle_animation()
+	get_tree().get_first_node_in_group("active spots").remove_active_effects()
+	get_tree().get_first_node_in_group("active spots").reset_active_spots()
 	emit_signal("start_of_round")
 	combat(player_deck_list, enemy_deck_list)
 
@@ -279,10 +282,10 @@ func during_combat_ui_toggle():
 		if i == null: continue
 		i.visible = false
  
-func _on_interupt_continue_button_pressed() -> void:
-	get_tree().get_first_node_in_group("player interrupts").disable_interrupts()
+func _on_interrupt_continue_button_pressed() -> void:
+	get_tree().get_first_node_in_group("player abilities").disable_abilities()
 	get_tree().get_first_node_in_group("player cards").process_mode = Node.PROCESS_MODE_INHERIT
 	player_card.get_node("BaseCard").disable_collision()
 	enemy_card.get_node("BaseCard").disable_collision()
-	is_battle_interupted = false
+	is_battle_interrupted = false
 	$"../ButtonController".hide_buttons()

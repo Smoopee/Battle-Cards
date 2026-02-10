@@ -46,9 +46,12 @@ func upgrade_card(num):
 			card_stats.effect1 = 80
 			card_stats.cd = 0
 			card_stats.base_cd = 0
-			card_stats.buff_count = 2
+			card_stats.buff_duration = 2
 	
-	card.update_tooltip("Effect", "Block the next " + str(card_stats.effect1) + " physical damage")
+	card.update_tooltip(str(stats.name), 
+	"Effect", 
+	"Increase your block by " + str(stats.effect1) + ".", 
+	"Effect: ")
 	card.update_card_ui()
 
 func item_enchant(enchant):

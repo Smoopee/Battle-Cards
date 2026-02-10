@@ -166,7 +166,7 @@ func item_enchant(enchant):
 func upgrade_card(num):
 	get_parent().upgrade_card(num)
 
-func toggle_tooltip_show():
+func toggle_tooltip_show(location):
 	if tooltip_container.get_children() == []: return
 	toggle_shop_ui(true)
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -176,21 +176,23 @@ func toggle_tooltip_show():
 	tooltip.size = tooltip_container.size
 	tooltip.visible = true
 	tooltip_layer.visible = true
+	self.scale = Vector2(1.25, 1.25)
 	
 	#Toggles when mouse is on LEFT side of screen
 	if mouse_pos.x <= get_viewport_rect().size.x/2: correction = false
 	
 	if correction == false:
 		#tooltip.popup(Rect2i(get_parent().position + Vector2(x_offset, y_offset), size)) 
-		tooltip.global_position = Vector2(x_offset, y_offset) + self.global_position
+		tooltip.global_position = Vector2(x_offset, y_offset) + location
 	else:
 		#tooltip.popup(Rect2i(get_parent().position, size)) 
-		tooltip.global_position = Vector2(-x_offset - tooltip.size.x, y_offset) + self.global_position
+		tooltip.global_position = Vector2(-x_offset - tooltip.size.x, y_offset) + location
 	
 func toggle_tooltip_hide():
 	toggle_shop_ui(false)
 	tooltip.visible = false
 	tooltip_layer.visible = false
+	self.scale = Vector2(1, 1)
 
 func update_tooltip(category, identifier, body = null, header = null):
 	var temp
@@ -322,14 +324,14 @@ func load_full_art():
 	full_art.fill_info()
 	full_art.global_position = Vector2((get_viewport().size.x / 2) - 160, (get_viewport().size.y / 2) - 30)
 
-func _on_card_ui_mouse_entered():
-	if Global.mouse_occupied == true: return
-	scale = Vector2(1.1, 1.1) * Global.ui_scaler
-	toggle_tooltip_show()
-
-func _on_card_ui_mouse_exited():
-	scale = Vector2(1, 1) * Global.ui_scaler
-	toggle_tooltip_hide()
+#func _on_card_ui_mouse_entered():
+	#if Global.mouse_occupied == true: return
+	#scale = Vector2(1.1, 1.1) * Global.ui_scaler
+	#toggle_tooltip_show()
+#
+#func _on_card_ui_mouse_exited():
+	#scale = Vector2(1, 1) * Global.ui_scaler
+	#toggle_tooltip_hide()
 
 func card_being_dragged():
 	toggle_tooltip_hide()

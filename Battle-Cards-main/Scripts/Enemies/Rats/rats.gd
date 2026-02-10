@@ -4,7 +4,7 @@ extends Node2D
 @onready var stats = character_stats
 @onready var character = $BaseEnemy
 
-
+var enemy_deck
 var character_stats: Enemy_Resource = null
 
 func _ready():
@@ -15,6 +15,18 @@ func _ready():
 	character.set_runes()
 	character.set_enemy_gold()
 	character.set_enemy_xp()
+
+func enemy_deck_function():
+	enemy_deck = [
+		"Swarm",
+		"Swarm",
+		"Swarm",
+		"Swarm",
+		"Swarm",
+		"Swarm",
+		"Swarm"
+	]
+	return enemy_deck
 
 func tooltip_enemy():
 	character.update_tooltip(str(character_stats.name), 

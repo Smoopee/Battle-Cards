@@ -19,44 +19,44 @@ func effect(player_deck, enemy_deck, player, enemy):
 	
 	#ENCHANTS EFFECTS===============================================================================
 	
-	if stats.bleed_dmg > 0:
-		stats.target.apply_bleeding_damage(stats.bleed_dmg)
-	
-	if stats.burn_dmg > 0:
-		stats.target.apply_burning_damage(stats.burn_dmg)
-	
-	if stats.poison_dmg > 0:
-		stats.target.apply_poisoning_damage(stats.poison_dmg)
-	
-	if stats.heal > 0:
-		stats.owner.heal(stats.heal)
-	
-	if stats.prosperity > 0:
-		Global.player_gold += stats.prosperity
-		get_tree().get_first_node_in_group("bottom ui").change_player_gold()
-	
-	if stats.item_enchant == "Dejavu" and !stats.dejavu_used:
-		stats.dejavu_used = true
-		effect(player_deck, enemy_deck, player, enemy)
-	
-	if stats.item_enchant == "Lifesteal":
-		stats.owner.lifesteal(damage)
-	
-	if stats.item_enchant == "Exhaust":
-		var target = get_tree().get_first_node_in_group("battle sim").enemy_card
-		if stats.owner == enemy: target = get_tree().get_first_node_in_group("battle sim").player_card
-		target.add_modifier(load("res://Scenes/Modifiers/exhaust_modifier.tscn").instantiate())
-	
-	if stats.item_enchant == "Rapid":
-		var temp_array = []
-		for i in stats.owner.active_deck_access():
-			if i == null: continue
-			if i.cd_remaining > 1:
-				temp_array.push_back(i)
+	#if stats.bleed_dmg > 0:
+		#stats.target.apply_bleeding_damage(stats.bleed_dmg)
+	#
+	#if stats.burn_dmg > 0:
+		#stats.target.apply_burning_damage(stats.burn_dmg)
+	#
+	#if stats.poison_dmg > 0:
+		#stats.target.apply_poisoning_damage(stats.poison_dmg)
+	#
+	#if stats.heal > 0:
+		#stats.owner.heal(stats.heal)
+	#
+	#if stats.prosperity > 0:
+		#Global.player_gold += stats.prosperity
+		#get_tree().get_first_node_in_group("bottom ui").change_player_gold()
+	#
+	#if stats.item_enchant == "Dejavu" and !stats.dejavu_used:
+		#stats.dejavu_used = true
+		#effect(player_deck, enemy_deck, player, enemy)
+	#
+	#if stats.item_enchant == "Lifesteal":
+		#stats.owner.lifesteal(damage)
+	#
+	#if stats.item_enchant == "Exhaust":
+		#var target = get_tree().get_first_node_in_group("battle sim").enemy_card
+		#if stats.owner == enemy: target = get_tree().get_first_node_in_group("battle sim").player_card
+		#target.add_modifier(load("res://Scenes/Modifiers/exhaust_modifier.tscn").instantiate())
+	#
+	#if stats.item_enchant == "Rapid":
+		#var temp_array = []
+		#for i in stats.owner.active_deck_access():
+			#if i == null: continue
+			#if i.cd_remaining > 1:
+				#temp_array.push_back(i)
 		
-		temp_array.shuffle()
-		if temp_array.size() == 0: return
-		temp_array[0].cd_remaining -= 1
+		#temp_array.shuffle()
+		#if temp_array.size() == 0: return
+		#temp_array[0].cd_remaining -= 1
 
 func upgrade_card(num):
 	match num:

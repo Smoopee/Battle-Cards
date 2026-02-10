@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dt0ya4xvwf842" path="res://Resources/UI/health_bar_under.png" id="8_u54sm"]
 [ext_resource type="Texture2D" uid="uid://bg17x4moack4" path="res://Resources/UI/health_bar_border.png" id="9_xotyc"]
 [ext_resource type="Texture2D" uid="uid://cxmblkhdw7e8x" path="res://Resources/UI/health_bar.png" id="10_s27e1"]
-[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="11_4cvw8"]
+[ext_resource type="PackedScene" uid="uid://tg83lmmkajyp" path="res://Scenes/UI/Tooltips/tooltip_layer.tscn" id="14_sjjs4"]
 [ext_resource type="Texture2D" uid="uid://civ7nytitgvth" path="res://Resources/UI/stagger_bar.png" id="14_vhyvu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sjjs4"]
@@ -36,7 +36,7 @@ height = 24
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j1tnv"]
 bg_color = Color(0.6, 0.6, 0.6, 0.615686)
 
-[node name="BaseEnemy" type="Node2D" unique_id=1369513174]
+[node name="BaseEnemy" type="Node2D" unique_id=1369513174 groups=["base enemy"]]
 script = ExtResource("1_dvpn2")
 
 [node name="EnemyImage" type="Sprite2D" parent="." unique_id=514146124]
@@ -289,8 +289,5 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "1
 "
 
-[node name="TooltipPanel" parent="." unique_id=184987963 instance=ExtResource("11_4cvw8")]
+[node name="TooltipLayer" parent="." unique_id=1878210227 instance=ExtResource("14_sjjs4")]
 unique_name_in_owner = true
-
-[connection signal="mouse_entered" from="EnemyUI" to="." method="_on_enemy_ui_mouse_entered"]
-[connection signal="mouse_exited" from="EnemyUI" to="." method="_on_enemy_ui_mouse_exited"]

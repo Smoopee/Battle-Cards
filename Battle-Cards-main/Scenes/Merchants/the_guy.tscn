@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://jthsray2ioku"]
+[gd_scene format=3 uid="uid://jthsray2ioku"]
 
 [ext_resource type="Script" uid="uid://bqu7tc3u1moj6" path="res://Scripts/Merchants/the_guy.gd" id="1_nochm"]
 [ext_resource type="PackedScene" uid="uid://byuun7s17ahy6" path="res://Scenes/Merchants/base_merchant.tscn" id="2_8n4e8"]
 
-[node name="TheGuy" type="Node2D"]
+[node name="TheGuy" type="Node2D" unique_id=388007486]
 script = ExtResource("1_nochm")
 
-[node name="BaseMerchant" parent="." instance=ExtResource("2_8n4e8")]
+[node name="BaseMerchant" parent="." unique_id=539762080 instance=ExtResource("2_8n4e8")]

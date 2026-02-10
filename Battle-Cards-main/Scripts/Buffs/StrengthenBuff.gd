@@ -14,11 +14,14 @@ func initialize(source):
 	tooltip_effect()
 
 func additional_buff(source):
+	source_stats = source.card_stats
 	buff.change_counter(source_stats.effect1)
 	stats.owner.change_attack(source_stats.effect1)
+	
+	tooltip_effect()
 
 func tooltip_effect():
 	buff.update_tooltip(str(stats.name), 
 	"Effect", 
-	"Increase Atk by " + str(source_stats.effect1), 
+	"Increase Atk by " + str(stats.count), 
 	"Effect:")

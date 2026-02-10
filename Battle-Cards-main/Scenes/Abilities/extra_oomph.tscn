@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bufqg64818f1u"]
+
+[ext_resource type="PackedScene" uid="uid://qer4441imvbe" path="res://Scenes/Abilities/base_ability.tscn" id="1_jhuu1"]
+[ext_resource type="Script" uid="uid://c2r0gj1lxlalp" path="res://Scripts/Abilities/extra_oomph.gd" id="1_ngpep"]
+
+[node name="ExtraOomph" type="Node2D" unique_id=1837266488]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_ngpep")
+
+[node name="BaseAbility" parent="." unique_id=1028670782 instance=ExtResource("1_jhuu1")]

@@ -1,0 +1,258 @@
+[gd_scene format=3 uid="uid://c8brlil8m85rn"]
+
+[ext_resource type="Script" uid="uid://bcl5f33dm88h7" path="res://Resources/Cards/card_class.gd" id="1_pdchh"]
+[ext_resource type="Texture2D" uid="uid://cbar7wb4edetf" path="res://Resources/Cards/CardArt/strike_card.png" id="2_fto3c"]
+[ext_resource type="AudioStream" uid="uid://cxommy0d3l3gi" path="res://Resources/Sound/SoundEffectsCard/snd_damage.wav" id="3_tjiti"]
+[ext_resource type="Script" uid="uid://1pkoe7gnec6i" path="res://Scripts/Cards/Animation/card_animation_controller.gd" id="5_ik75v"]
+[ext_resource type="Shader" uid="uid://dme8q462mcrjg" path="res://Shaders/card_selector.gdshader" id="6_evcl4"]
+[ext_resource type="Texture2D" uid="uid://boqov0yviery2" path="res://Resources/Art/UIElements/glow_effect1.png" id="7_5ntdj"]
+[ext_resource type="PackedScene" uid="uid://tg83lmmkajyp" path="res://Scenes/UI/Tooltips/tooltip_layer.tscn" id="8_5ntdj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecdyd"]
+size = Vector2(146, 180)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqhm0"]
+shader = ExtResource("6_evcl4")
+shader_parameter/onoff = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 2.0
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfkj0"]
+bg_color = Color(1, 1, 0.905882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f82xu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ntdj"]
+bg_color = Color(0.18297315, 0.046994187, 0.0045691063, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s8qkf"]
+bg_color = Color(0.688023, 0.596125, 0.233008, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1a7nb"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="BaseCard" type="Node2D" unique_id=337425828]
+script = ExtResource("1_pdchh")
+
+[node name="CardImage" type="Sprite2D" parent="." unique_id=1645763780]
+unique_name_in_owner = true
+texture_filter = 1
+texture = ExtResource("2_fto3c")
+
+[node name="CardBorder" type="Sprite2D" parent="." unique_id=145630967]
+unique_name_in_owner = true
+
+[node name="UpgradeBorder" type="Sprite2D" parent="." unique_id=1328046477]
+unique_name_in_owner = true
+
+[node name="ItemEnchantImage" type="Sprite2D" parent="." unique_id=294282254]
+unique_name_in_owner = true
+position = Vector2(50, 64.4)
+
+[node name="Modifiers" type="Node2D" parent="." unique_id=696205121]
+unique_name_in_owner = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1853971313]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1033819808]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_ecdyd")
+
+[node name="GlowEffect" type="Sprite2D" parent="." unique_id=840316712]
+visible = false
+material = SubResource("ShaderMaterial_eqhm0")
+position = Vector2(-2.861023e-06, -6.854534e-07)
+texture = ExtResource("7_5ntdj")
+
+[node name="CardUI" type="Control" parent="." unique_id=2114267779]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -71.0
+offset_top = -87.0
+offset_right = 71.0
+offset_bottom = 91.0
+
+[node name="DmgNumContainer" type="HBoxContainer" parent="CardUI" unique_id=199438709]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.6
+offset_bottom = 17.4
+grow_horizontal = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="DamagPanel" type="Panel" parent="CardUI/DmgNumContainer" unique_id=771370387]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pfkj0")
+
+[node name="DamageLabel" type="Label" parent="CardUI/DmgNumContainer/DamagPanel" unique_id=1408030315]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = -1.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AltDamagePanel" type="Panel" parent="CardUI/DmgNumContainer" unique_id=1926053254]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pfkj0")
+
+[node name="AltDamageLabel" type="Label" parent="CardUI/DmgNumContainer/AltDamagePanel" unique_id=1928280642]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CDOverlayPanel" type="Panel" parent="CardUI" unique_id=1864959174]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.415686, 0.415686, 0.415686, 0.839216)
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.99999
+offset_right = 144.0
+offset_bottom = 177.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f82xu")
+
+[node name="CDOverlayLabel" type="Label" parent="CardUI/CDOverlayPanel" unique_id=1357361719]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StunOverlayPanel" type="Panel" parent="CardUI" unique_id=819415724]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0.8392157)
+layout_mode = 0
+offset_left = -2.0
+offset_top = -3.0
+offset_right = 144.0
+offset_bottom = 177.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ntdj")
+
+[node name="StunOverlayLabel" type="Label" parent="CardUI/StunOverlayPanel" unique_id=1315964468]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+
+[node name="ShopPanel" type="Panel" parent="CardUI" unique_id=682612006]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -2.0
+offset_top = 147.4
+offset_right = 28.0
+offset_bottom = 177.4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s8qkf")
+
+[node name="ShopLabel" type="Label" parent="CardUI/ShopPanel" unique_id=814451356]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CDPanel" type="Panel" parent="CardUI" unique_id=532016571]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 56.0
+offset_top = 155.4
+offset_right = 86.0
+offset_bottom = 185.4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1a7nb")
+
+[node name="CDLabel" type="Label" parent="CardUI/CDPanel" unique_id=1106001004]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=13714063]
+unique_name_in_owner = true
+stream = ExtResource("3_tjiti")
+
+[node name="CardAnimationController" type="Node2D" parent="." unique_id=1889128889]
+visible = false
+script = ExtResource("5_ik75v")
+
+[node name="TooltipLayer" parent="." unique_id=1878210227 instance=ExtResource("8_5ntdj")]
+unique_name_in_owner = true

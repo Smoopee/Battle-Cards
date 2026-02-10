@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Enemy_Resource" load_steps=2 format=3 uid="uid://btv83dlrgpbl"]
+[gd_resource type="Resource" script_class="Enemy_Resource" format=3 uid="uid://btv83dlrgpbl"]
 
-[ext_resource type="Script" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_g6prq"]
+[ext_resource type="Script" uid="uid://bkgc1aggfc5wx" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_g6prq"]
 
 [resource]
 script = ExtResource("1_g6prq")
@@ -10,18 +10,8 @@ enemy_scene_path = "res://Scenes/Enemies/rats.tscn"
 name = "Rats"
 health = 150
 max_health = 150
+max_stagger = 15
 xp = 4
 gold = 15
-bleeding_dmg = 0
-burning_dmg = 0
-poisoning_dmg = 0
-armor = 0
-attack = 0
-defense = 0
-block = 0
-speed = 0
-is_stunned = false
-stun_counter = 0
-runes = []
 biomes = ["Forest", "Desert"]
 selection_tags = ["Rats"]

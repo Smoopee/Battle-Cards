@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhpfl1qbnk7f5"]
+[gd_scene format=3 uid="uid://bhpfl1qbnk7f5"]
 
-[ext_resource type="Script" path="res://Scripts/Buffs/HardenedSkinBuff.gd" id="1_p1fqb"]
+[ext_resource type="Script" uid="uid://b4e8p43yhthek" path="res://Scripts/Buffs/HardenedSkinBuff.gd" id="1_p1fqb"]
 [ext_resource type="PackedScene" uid="uid://bw76pl3mtet8k" path="res://Scenes/Buffs/base_buff.tscn" id="2_sm22x"]
 
-[node name="HardenedSkinBuff" type="Node2D"]
+[node name="HardenedSkinBuff" type="Node2D" unique_id=1068346939]
 script = ExtResource("1_p1fqb")
 
-[node name="BaseBuff" parent="." instance=ExtResource("2_sm22x")]
+[node name="BaseBuff" parent="." unique_id=2021096301 instance=ExtResource("2_sm22x")]

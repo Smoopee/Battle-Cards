@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Debuff_Resource" format=3 uid="uid://1sf4vs2x4dnm"]
+
+[ext_resource type="Script" uid="uid://brj8e36ip5rpl" path="res://Resources/Debuffs/debuff_master_resource.gd" id="1_8tau4"]
+
+[resource]
+script = ExtResource("1_8tau4")
+debuff_art_path = "res://Resources/Art/Debuffs/constrict_debuff.png"
+debuff_scene_path = "res://Scenes/Debuffs/constrict_debuff.tscn"
+name = "Constrict"
+individual_stacks = true
+metadata/_custom_type_script = "uid://brj8e36ip5rpl"

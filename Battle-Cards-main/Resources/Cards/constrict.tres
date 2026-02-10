@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://cibuo8wy7rjy2"]
+
+[ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_ufmse"]
+
+[resource]
+script = ExtResource("1_ufmse")
+card_art_path = "res://Resources/Art/Cards/constrict_card.png"
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
+card_scene_path = "res://Scenes/Cards/constrict.tscn"
+name = "Constrict"
+dmg = 3
+effect1 = 3
+effect2 = 2
+debuff_duration = 3
+tags = ["Snake"]
+metadata/_custom_type_script = "uid://crcatuq0050jq"

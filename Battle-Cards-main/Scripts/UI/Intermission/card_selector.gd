@@ -33,7 +33,7 @@ func show_node():
 
 func _get_points():
 	var points := []
-	var start :=  Vector2(Global.center_screen_x, 810)
+	var start :=  Vector2(Global.center_screen_x, 850)
 	var target = get_global_mouse_position()
 	var distance = (target-start)
 	
@@ -57,7 +57,34 @@ func draw_a_line():
 	var temp_points = _get_points()
 	
 	$CanvasLayer/CardArc.points = temp_points
-	look_at(temp_points[6])
+	var line_length = temp_points[0].distance_to(temp_points[12])
+	if line_length >= 0 and line_length < 100:
+		look_at(temp_points[6])
+	if line_length >= 100 and line_length < 200:
+		look_at(temp_points[6])
+	if line_length >= 200 and line_length < 300:
+		look_at(temp_points[7])
+	if line_length >= 300 and line_length < 400:
+		look_at(temp_points[8])
+	if line_length >= 400 and line_length < 500:
+		look_at(temp_points[8])
+	if line_length >= 500 and line_length < 600:
+		look_at(temp_points[9])
+	if line_length >= 600 and line_length < 700:
+		look_at(temp_points[9])
+	if line_length >= 700 and line_length < 800:
+		look_at(temp_points[10])
+	if line_length >= 800 and line_length < 900:
+		look_at(temp_points[10])
+	if line_length >= 900 and line_length < 1000:
+		look_at(temp_points[10])
+	if line_length >= 1000 and line_length < 1100:
+		look_at(temp_points[11])
+	if line_length >= 1100 and line_length < 1200:
+		look_at(temp_points[11])
+	if line_length >= 1200:
+		look_at(temp_points[12])
+		print("12")
 
 #func on_hoovered_over_card():
 	#highlight_card(true)

@@ -10,4 +10,5 @@ name = "Berserker"
 health = 120
 max_health = 120
 max_stagger = 10
+max_rage = 100
 speed = 11

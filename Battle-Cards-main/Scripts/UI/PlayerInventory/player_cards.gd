@@ -1,6 +1,8 @@
+
 extends Node2D
 
 signal started_card_drag
+signal card_moved
 
 var playerData = PlayerData.new()
 
@@ -66,7 +68,6 @@ func update_inventory_slots():
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print("1")
 			card_being_dragged = raycast_check_for_card()
 			if card_being_dragged:
 				card_being_dragged = card_being_dragged.get_parent()
@@ -80,7 +81,7 @@ func start_drag(card):
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card_being_dragged.position
-	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_DISABLED
+	#card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_DISABLED
 
 	
 	for i in get_tree().get_nodes_in_group("card"):
@@ -317,6 +318,8 @@ func move_from_inventory_to_deck(card_being_dragged, deck_slot):
 		inventory_card_slot_reference[inventory_card_slot_reference_index] = null
 		inventory_card_slot_array[inventory_card_slot_reference_index].card_in_slot = false
 	print("I am Here 1")
+	
+	emit_signal("card_moved")
 
 func move_from_deck_to_inventory(card_being_dragged, inventory_slot):
 	if deck_reference == card_being_dragged.get_parent():
@@ -330,6 +333,8 @@ func move_from_deck_to_inventory(card_being_dragged, inventory_slot):
 		deck_card_slot_reference[deck_card_slot_reference_index] = null
 		deck_card_slot_array[deck_card_slot_reference_index].card_in_slot = false
 	print("I am Here 7")
+	
+	emit_signal("card_moved")
 
 func deck_sorting(card_being_dragged, deck_slot):
 	card_being_dragged.position = deck_slot.position
@@ -382,6 +387,7 @@ func deck_sorting(card_being_dragged, deck_slot):
 					temp_card = second_temp
 					loop_counter += 1
 					print("I am Here 5")
+	emit_signal("card_moved")
 
 func inventory_to_deck_swap(card_being_dragged, deck_slot):
 	var deck_full = true
@@ -455,7 +461,9 @@ func inventory_to_deck_swap(card_being_dragged, deck_slot):
 		inventory_card_slot_reference.remove_at(inventory_card_slot_reference_index)
 		inventory_card_slot_reference.insert(inventory_card_slot_reference_index, temp_card)
 		print("I am Here 17")
-
+	
+	emit_signal("card_moved")
+	
 func inventory_sorting(card_being_dragged, inventory_card_slot_found):
 	card_being_dragged.position = inventory_card_slot_found.position
 	inventory_card_slot_found.card_in_slot = true 
@@ -505,7 +513,9 @@ func inventory_sorting(card_being_dragged, inventory_card_slot_found):
 					temp_card = second_temp
 					loop_counter += 1
 					print("I am Here 11")
-
+					
+	emit_signal("card_moved")
+	
 func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 	var inventory_full = true
 	deck_reference.remove_child(card_being_dragged)
@@ -578,7 +588,9 @@ func deck_to_inventory_swap(card_being_dragged, inventory_slot):
 		deck_card_slot_reference.remove_at(deck_card_slot_reference_index)
 		deck_card_slot_reference.insert(deck_card_slot_reference_index, temp_card)
 		print("I am Here 12")
-
+	
+	emit_signal("card_moved")
+	
 func buy_card_for_deck(card, deck_slot):
 	card.get_node("BaseCard").get_node("Area2D").collision_layer = COLLISION_MASK_CARD
 	card.get_node("BaseCard").get_node("Area2D").collision_mask = COLLISION_MASK_CARD
@@ -608,7 +620,7 @@ func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
-	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_INHERIT
+	#card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_INHERIT
 	
 	for i in get_tree().get_nodes_in_group("card"):
 		i.get_node("BaseCard").highlight_card(false)

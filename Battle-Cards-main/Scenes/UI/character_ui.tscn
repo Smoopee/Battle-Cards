@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://8tsbvg40mdvi"]
 
 [ext_resource type="Script" uid="uid://do33aalw4oox6" path="res://Scripts/UI/character_ui.gd" id="1_luf4r"]
+[ext_resource type="Texture2D" uid="uid://dxfpkx4alkxkg" path="res://Resources/Art/Classes/berserker.png" id="2_h7ykt"]
+[ext_resource type="Texture2D" uid="uid://cetmsd4e8yhpo" path="res://Resources/Art/UIElements/gold_coin.png" id="3_wdmfk"]
 
 [node name="CharacterUI" type="CanvasLayer" unique_id=733664454 groups=["character ui"]]
-visible = false
 script = ExtResource("1_luf4r")
 
 [node name="Inventory" type="Button" parent="." unique_id=1041367649]
-visible = false
 custom_minimum_size = Vector2(0, 100)
 offset_left = 1445.0
 offset_top = 765.0
@@ -15,5 +15,14 @@ offset_right = 1597.0
 offset_bottom = 865.0
 toggle_mode = true
 text = "Inventory"
+
+[node name="Sprite2D" type="Sprite2D" parent="Inventory" unique_id=1539561208]
+position = Vector2(78.5, 52.5)
+scale = Vector2(1.0342466, 0.5611111)
+texture = ExtResource("2_h7ykt")
+
+[node name="Gold" type="Sprite2D" parent="." unique_id=1875084079]
+position = Vector2(672, 896)
+texture = ExtResource("3_wdmfk")
 
 [connection signal="toggled" from="Inventory" to="." method="_on_inventory_toggled"]

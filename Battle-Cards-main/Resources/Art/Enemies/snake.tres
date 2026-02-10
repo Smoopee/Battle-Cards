@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Enemy_Resource" format=3 uid="uid://6l1s6g8062yd"]
+
+[ext_resource type="Script" uid="uid://bkgc1aggfc5wx" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_p5hhe"]
+
+[resource]
+script = ExtResource("1_p5hhe")
+enemy_art_path = "res://Resources/Cards/CardArt/snake_enemy.png"
+enemy_border_art_path = "res://Resources/Art/UIElements/Borders/enemy_border.png"
+enemy_scene_path = "res://Scenes/Enemies/snake.tscn"
+name = "Snake"
+health = 50
+max_health = 50
+max_stagger = 10
+xp = 10
+gold = 10
+speed = 6
+biomes = ["Desert"]
+selection_tags = ["Snake"]
+metadata/_custom_type_script = "uid://bkgc1aggfc5wx"

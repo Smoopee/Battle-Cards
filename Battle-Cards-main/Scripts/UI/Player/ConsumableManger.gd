@@ -30,7 +30,6 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			print("3")
 			var consumable = raycast_check_for_consumable()
 			if consumable:
 				start_drag(consumable)

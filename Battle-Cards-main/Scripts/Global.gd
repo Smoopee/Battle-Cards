@@ -24,14 +24,14 @@ var ui_scaler = Vector2(1,1)
 @onready var player_skills = []
 @onready var player_consumables = []
 @onready var player_gadgets = []
-@onready var player_interrupts = []
+@onready var player_abilities = []
 @onready var player_runes = []
 @onready var player_inventory_db = []
 @onready var player_deck_db
 @onready var player_skills_db
 @onready var player_consumables_db
 @onready var player_gadgets_db
-@onready var player_interrupts_db
+@onready var player_abilities_db
 @onready var player_runes_db
 @onready var player_inventory = []
 @onready var player_talent_array = []
@@ -54,7 +54,7 @@ var card_db_reference
 var rune_db_reference
 var consumable_db_reference
 var gadget_db_reference
-var interrupt_db_reference
+var ability_db_reference
 
 var mouse_occupied = false
 #var card_node_reference = 3
@@ -72,13 +72,13 @@ func _ready():
 	consumable_db_reference = preload("res://Resources/Consumables/consumable_db.gd")
 	gadget_db_reference = preload("res://Resources/Gadgets/gadget_db.gd")
 	rune_db_reference = preload("res://Resources/Runes/rune_db.gd")
-	interrupt_db_reference = preload("res://Resources/Interrupts/interrupt_db.gd")
+	ability_db_reference = preload("res://Resources/Abilities/ability_db.gd")
 	
 	set_player_skills()
 	instantiate_player_skills()
 	set_player_consumables()
 	set_player_gadgets()
-	set_player_interrupts()
+	set_player_abilities()
 	instantiate_player_consumables()
 	instantiate_player_gadgets()
 	set_player_runes()
@@ -125,7 +125,7 @@ func instantiate_player_inventory():
 		player_inventory.push_back(card)
 
 func set_player_deck():
-	player_deck_db = ["Strike", "Strike", "Strike", "Strike", "Shield Block", "Shield Block", "Shield Block"]
+	player_deck_db = ["Seethe", "Strike", "Strike", "Strike", "Shield Block", "Shield Block", "Shield Block"]
 
 func instantiate_player_deck():
 	for i in player_deck_db:
@@ -134,7 +134,7 @@ func instantiate_player_deck():
 		player_deck.push_back(card)
 
 func set_player_skills():
-	player_skills_db = ["Enrage", "Steady Temper", "Thump"]
+	player_skills_db = []
 
 func instantiate_player_skills():
 	for i in player_skills_db:
@@ -157,13 +157,13 @@ func instantiate_player_gadgets():
 		var gadget = load(gadget_db_reference.ITEMS[i]).duplicate()
 		player_gadgets.push_back(gadget)
 
-func set_player_interrupts():
-	player_interrupts_db = ["Bide","Extra Oomph", "Bide"]
+func set_player_abilities():
+	player_abilities_db = ["Battle Stance"]
 
-func instantiate_player_interrupts():
-	for i in player_interrupts_db:
-		var interrupt = load(interrupt_db_reference.ITEMS[i]).duplicate()
-		player_interrupts.push_back(interrupt)
+func instantiate_player_abilities():
+	for i in player_abilities_db:
+		var ability = load(ability_db_reference.ITEMS[i]).duplicate()
+		player_abilities.push_back(ability)
 
 func set_player_runes():
 	player_runes_db = ["Slowing", "Growing"]

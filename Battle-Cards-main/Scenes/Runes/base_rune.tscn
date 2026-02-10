@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgju6k6sv2onp" path="res://Resources/Runes/rune_class.gd" id="1_82u5h"]
 [ext_resource type="Texture2D" uid="uid://diso5woo0pt0g" path="res://Resources/Art/Runes/concealed_rune.png" id="2_ifx8c"]
-[ext_resource type="PackedScene" uid="uid://do64c04vimntg" path="res://Scenes/UI/Tooltips/tooltip_panel.tscn" id="3_ijl05"]
+[ext_resource type="PackedScene" uid="uid://tg83lmmkajyp" path="res://Scenes/UI/Tooltips/tooltip_layer.tscn" id="3_3jir3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6lwp"]
 bg_color = Color(0.688023, 0.596125, 0.233008, 1)
@@ -58,8 +58,5 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TooltipPanel" parent="." unique_id=828733968 instance=ExtResource("3_ijl05")]
+[node name="TooltipLayer" parent="." unique_id=1878210227 instance=ExtResource("3_3jir3")]
 unique_name_in_owner = true
-
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

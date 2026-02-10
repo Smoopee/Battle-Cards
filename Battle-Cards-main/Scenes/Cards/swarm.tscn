@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy1w5won66t8p"]
+[gd_scene format=3 uid="uid://cy1w5won66t8p"]
 
-[ext_resource type="Script" path="res://Scripts/Cards/Swarm.gd" id="1_4rrox"]
+[ext_resource type="Script" uid="uid://cyfw8eye5fdd1" path="res://Scripts/Cards/Swarm.gd" id="1_4rrox"]
 [ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_tkemi"]
 
-[node name="Swarm" type="Node2D"]
+[node name="Swarm" type="Node2D" unique_id=149523485]
 script = ExtResource("1_4rrox")
 
-[node name="BaseCard" parent="." instance=ExtResource("2_tkemi")]
+[node name="BaseCard" parent="." unique_id=122145176 instance=ExtResource("2_tkemi")]

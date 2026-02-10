@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dnedsbjti3jyn"]
+
+[ext_resource type="Script" uid="uid://cda57yevqbcy8" path="res://Scripts/Debuffs/bite_debuff.gd" id="1_jdnyx"]
+[ext_resource type="PackedScene" uid="uid://b61bvmyuvxun1" path="res://Scenes/Debuffs/base_debuff.tscn" id="1_o34rt"]
+
+[node name="BiteDebuff" type="Node2D" unique_id=1775355185]
+script = ExtResource("1_jdnyx")
+
+[node name="BaseDebuff" parent="." unique_id=1243131108 instance=ExtResource("1_o34rt")]

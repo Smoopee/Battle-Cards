@@ -51,7 +51,8 @@ func show_character():
 	get_tree().get_first_node_in_group("character").get_node("PlayerHealthBar").visible = true
 	get_tree().get_first_node_in_group("character").get_node("ItemsUI").visible = true
 	get_tree().get_first_node_in_group("character").get_node("PlayerSkills").visible = true
-	get_tree().get_first_node_in_group("character").get_node("PlayerInterrupts").visible = true
+	get_tree().get_first_node_in_group("character").get_node("PlayerAbilities").visible = true
+	show_player_stagger_bar()
 	character.visible = true
 	character.process_mode = Node.PROCESS_MODE_INHERIT
 
@@ -125,6 +126,12 @@ func show_deck_slots():
 	deck_slots.visible = true
 	deck_slots.process_mode = Node.PROCESS_MODE_INHERIT
 
+func show_player_stagger_bar():
+	get_tree().get_first_node_in_group("character").get_node("PlayerStaggerBar").visible = true
+
+func hide_player_stagger_bar():
+	get_tree().get_first_node_in_group("character").get_node("PlayerStaggerBar").visible = false
+
 func show_player_health_bar():
 	get_tree().get_first_node_in_group("player").visible = true
 	get_tree().get_first_node_in_group("character").get_node("ClassImage").visible = false
@@ -136,8 +143,8 @@ func show_player_health_bar():
 	get_tree().get_first_node_in_group("character").get_node("BlockSymbol").visible = false
 	get_tree().get_first_node_in_group("character").get_node("PlayerConsumables").visible = false
 	get_tree().get_first_node_in_group("character").get_node("PlayerRunes").visible = false
-	get_tree().get_first_node_in_group("character").get_node("PlayerInterrupts").visible = false
-
+	get_tree().get_first_node_in_group("character").get_node("PlayerAbilities").visible = false
+	hide_player_stagger_bar()
 
 func _on_inventory_toggled(toggled_on: bool) -> void:
 	if toggled_on == true:

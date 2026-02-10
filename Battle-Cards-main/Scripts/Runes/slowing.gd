@@ -6,6 +6,8 @@ extends Node2D
 
 var rune_stats: Runes_Resource = null
 
+func _ready():
+	tooltip_effect()
 
 func activate_rune():
 	get_tree().get_first_node_in_group("battle sim").connect("end_of_round", rune_effect1)

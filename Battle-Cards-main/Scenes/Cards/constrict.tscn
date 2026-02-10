@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://hdd3eigffhkg"]
+
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="1_1cx2k"]
+[ext_resource type="Script" uid="uid://begdmg623yb8i" path="res://Scripts/Cards/constrict.gd" id="1_jj4ne"]
+
+[node name="Constrict" type="Node2D" unique_id=512936905]
+script = ExtResource("1_jj4ne")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("1_1cx2k")]

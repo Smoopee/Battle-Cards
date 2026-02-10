@@ -11,20 +11,20 @@ func _ready() -> void:
 
 func show_start_button():
 	$StartButton.visible = true
-	$InteruptContinueButton.visible = false
+	$InterruptContinueButton.visible = false
 	$ContinueButton.visible = false
 
 func show_continue_button():
 	$StartButton.visible = false
-	$InteruptContinueButton.visible = false
+	$InterruptContinueButton.visible = false
 	$ContinueButton.visible = true
 
 func show_interrupt_button():
 	$StartButton.visible = false
-	$InteruptContinueButton.visible = true
+	$InterruptContinueButton.visible = true
 	$ContinueButton.visible = false
 
 func hide_buttons():
 	$StartButton.visible = false
-	$InteruptContinueButton.visible = false
+	$InterruptContinueButton.visible = false
 	$ContinueButton.visible = false

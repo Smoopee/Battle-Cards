@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Debuff_Resource" format=3 uid="uid://ce66xuh7ht514"]
+
+[ext_resource type="Script" uid="uid://brj8e36ip5rpl" path="res://Resources/Debuffs/debuff_master_resource.gd" id="1_rbtjd"]
+
+[resource]
+script = ExtResource("1_rbtjd")
+debuff_art_path = "res://Resources/Art/Debuffs/bite_debuff.png"
+debuff_scene_path = "res://Scenes/Debuffs/bite_debuff.tscn"
+name = "Bite"
+metadata/_custom_type_script = "uid://brj8e36ip5rpl"

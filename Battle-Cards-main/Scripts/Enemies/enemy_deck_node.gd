@@ -19,9 +19,14 @@ func initialize_deck():
 	create_deck()
 
 func get_card_selection():
-	for i in get_parent().character_stats.card_pool:
-		var card = load(card_db_reference.ITEMS[i]).duplicate()
-		card_selection.push_back(card)
+	pass
+		
+	
+	#for i in get_parent().character_stats.card_pool:
+		#var card = load(card_db_reference.ITEMS[i]).duplicate()
+		#card_selection.push_back(card)
+		
+		
 	#match difficulty:
 		#1:
 			#for i in card_db_reference.ITEMS:
@@ -60,9 +65,16 @@ func get_card_selection():
 							#card_selection.push_back(temp)
 
 func create_deck():
-	for i in range(0, enemy_deck_size):
-		var selection = random_card_selection().duplicate()
-		enemy_deck.push_front(selection)
+	var temp_deck = get_parent().get_parent().enemy_deck_function()
+	print(get_parent().get_parent())
+	print(temp_deck)
+	for i in temp_deck:
+		var card = load(card_db_reference.ITEMS[i]).duplicate()
+		enemy_deck.push_front(card)
+	
+	#for i in range(0, enemy_deck_size):
+		#var selection = random_card_selection().duplicate()
+		#enemy_deck.push_front(selection)
 	
 	card_upgrade_function()
 	card_enchantment_function()

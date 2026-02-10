@@ -21,8 +21,8 @@ class_name Cards_Resource
 @export var effect3: int
 @export var effect4: int
 @export var effect5: int
-@export var buff_count: int
-@export var debuff_count: int
+@export var buff_duration: int
+@export var debuff_duration: int
 @export var position: int
 @export var inventory_position: int
 @export var deck_position: int

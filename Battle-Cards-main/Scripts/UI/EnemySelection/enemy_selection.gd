@@ -14,7 +14,6 @@ var card_selector_reference
 var glow_power = 3.0
 var speed = 2.0
 
-
 func _ready():
 	get_tree().get_first_node_in_group("character ui").toggle_inventory(false)
 	screen_size = get_viewport_rect().size
@@ -30,13 +29,12 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			$TooltipTimer.stop()
 			var enemy = raycast_check_for_enemy()
 			var card = raycast_check_for_card_selector()
 			if card:
 				start_drag(card)
-			if enemy:
-				display_enemy_cards(enemy)
+			#if enemy:
+				#display_enemy_cards(enemy)
 		else:
 			if card_being_dragged:
 				finish_drag()

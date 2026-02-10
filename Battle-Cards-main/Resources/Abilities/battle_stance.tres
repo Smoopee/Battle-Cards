@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Abilities_Resource" format=3 uid="uid://dhuwdh2n48wkj"]
+
+[ext_resource type="Script" uid="uid://eppxtsbh15ld" path="res://Resources/Abilities/abilities_master_resource.gd" id="1_bcs2r"]
+
+[resource]
+script = ExtResource("1_bcs2r")
+ability_art_path = "res://Resources/Art/Abilities/battle_stance_ability.png"
+ability_scene_path = "res://Scenes/Abilities/battle_stance.tscn"
+name = "Battle Stance"
+metadata/_custom_type_script = "uid://eppxtsbh15ld"

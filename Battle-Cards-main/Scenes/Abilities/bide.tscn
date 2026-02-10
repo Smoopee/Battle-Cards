@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://j11g5gefon81"]
+
+[ext_resource type="PackedScene" uid="uid://qer4441imvbe" path="res://Scenes/Abilities/base_ability.tscn" id="1_ma5ed"]
+[ext_resource type="Script" uid="uid://croprevextyhl" path="res://Scripts/Abilities/bide.gd" id="1_r6gsb"]
+
+[node name="Bide" type="Node2D" unique_id=415095997]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_r6gsb")
+
+[node name="BaseAbility" parent="." unique_id=1028670782 instance=ExtResource("1_ma5ed")]
