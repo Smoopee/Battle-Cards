@@ -46,7 +46,6 @@ func create_inventory():
 		fill_card_slots(card_scene, card_position)
 		card_position += 1
 
-
 func fetch_inventory(deck = Global.player_deck):
 	deck_db = deck
 

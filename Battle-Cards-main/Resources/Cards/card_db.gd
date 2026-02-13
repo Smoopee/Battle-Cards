@@ -11,5 +11,10 @@ const ITEMS = {
 	#"Double Up" : "res://Resources/Cards/double_up.tres",
 	"Seethe" : "res://Resources/Cards/seethe.tres",
 	"Constrict" : "res://Resources/Cards/constrict.tres",
-	"Bite" : "res://Resources/Cards/bite.tres"
+	"Bite" : "res://Resources/Cards/bite.tres",
+	"Run Away" : "res://Resources/Cards/run_away.tres",
+	"Charge" : "res://Resources/Cards/charge.tres",
+	"Fireball" : "res://Resources/Cards/fireball.tres",
+	"Incantation Fireball" : "res://Resources/Cards/incantation_fireball.tres",
+	"Bolster" : "res://Resources/Cards/bolster.tres"
 }

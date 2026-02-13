@@ -27,6 +27,7 @@ button_group = ExtResource("2_xecul")
 text = "Inventory"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SideDeckButton" unique_id=1635838326]
+visible = false
 layout_mode = 0
 offset_left = -65.0
 offset_top = -1.0

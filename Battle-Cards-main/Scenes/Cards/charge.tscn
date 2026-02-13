@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d0g25kafpf1ot"]
+
+[ext_resource type="Script" uid="uid://ddtnp7yjqr3bt" path="res://Scripts/Cards/charge.gd" id="1_hkfea"]
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="1_y1xm6"]
+
+[node name="Charge" type="Node2D" unique_id=1393367625]
+script = ExtResource("1_hkfea")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("1_y1xm6")]

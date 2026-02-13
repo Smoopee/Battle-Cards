@@ -32,9 +32,9 @@ func set_deck():
 			continue
 		deck.push_back(deck_db[i])
 		if first_test: deck_db[i].upgrade_card(deck_db[i].card_stats.upgrade_level)
-		deck_db[i].item_enchant(deck_db[i].card_stats.item_enchant)
 		deck_db[i].card_stats.owner = get_tree().get_first_node_in_group("character")
 		deck_db[i].card_stats.target = get_tree().get_first_node_in_group("enemy")
+		deck_db[i].get_node("BaseCard").connect_signals()
 		deck_db[i].card_stats.is_players = true
 		deck_db[i].card_stats.deck_position = counter
 		counter += 1
@@ -45,9 +45,9 @@ func set_deck():
 		if i == null:
 			continue
 		i.upgrade_card(i.card_stats.upgrade_level)
-		i.item_enchant(i.card_stats.item_enchant)
 		i.card_stats.owner = get_tree().get_first_node_in_group("character")
 		i.card_stats.target = get_tree().get_first_node_in_group("enemy")
+		i.get_node("BaseCard").connect_signals()
 		i.card_stats.is_players = true
 	return deck
 
@@ -84,7 +84,6 @@ func build_deck():
 			
 		counter += 1
 	build_deck_position()
-
 	return deck
 
 func play_card(card):

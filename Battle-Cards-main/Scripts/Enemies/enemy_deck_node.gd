@@ -66,8 +66,6 @@ func get_card_selection():
 
 func create_deck():
 	var temp_deck = get_parent().get_parent().enemy_deck_function()
-	print(get_parent().get_parent())
-	print(temp_deck)
 	for i in temp_deck:
 		var card = load(card_db_reference.ITEMS[i]).duplicate()
 		enemy_deck.push_front(card)

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bppddritwplj2"]
+
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="1_fxdw0"]
+[ext_resource type="Script" uid="uid://bwvt67fhjsnyl" path="res://Scripts/Cards/run_away.gd" id="1_ltmiv"]
+
+[node name="RunAway" type="Node2D" unique_id=651549781]
+script = ExtResource("1_ltmiv")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("1_fxdw0")]

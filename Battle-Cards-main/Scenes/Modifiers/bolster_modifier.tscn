@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://rgkdqfxn333"]
+
+[ext_resource type="Script" uid="uid://xjs6pbbtjdhp" path="res://Scripts/Modifiers/bolster_modifier.gd" id="1_blva1"]
+[ext_resource type="PackedScene" uid="uid://yni7o3vf7llb" path="res://Scenes/Modifiers/base_modifier.tscn" id="2_iaywu"]
+
+[node name="BolsterModifier" type="Node2D" unique_id=253936254]
+script = ExtResource("1_blva1")
+
+[node name="BaseModifier" parent="." unique_id=1051502535 instance=ExtResource("2_iaywu")]

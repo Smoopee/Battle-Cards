@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Enemy_Resource" format=3 uid="uid://b5rrqiau604yq"]
+
+[ext_resource type="Script" uid="uid://bkgc1aggfc5wx" path="res://Resources/Enemies/enemy_master_resource.gd" id="1_81xbx"]
+
+[resource]
+script = ExtResource("1_81xbx")
+enemy_art_path = "res://Resources/Art/Enemies/boar_enemy.png"
+enemy_border_art_path = "res://Resources/Art/UIElements/Borders/enemy_border.png"
+enemy_scene_path = "res://Scenes/Enemies/boar.tscn"
+name = "Boar"
+health = 30
+max_health = 30
+max_stagger = 5
+xp = 1
+gold = 5
+biomes = ["Forest"]
+selection_tags = ["Boar"]
+metadata/_custom_type_script = "uid://bkgc1aggfc5wx"

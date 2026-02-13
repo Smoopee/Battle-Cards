@@ -12,4 +12,6 @@ dmg = 2
 effect1 = 1
 debuff_duration = 5
 upgrade_level = 1
+tags = ["Attack"]
+card_type = ["Attack"]
 metadata/_custom_type_script = "uid://crcatuq0050jq"

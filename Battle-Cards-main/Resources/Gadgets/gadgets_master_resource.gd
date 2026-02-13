@@ -16,6 +16,7 @@ class_name Gadgets_Resource
 @export var effect4: int
 @export var effect5: int
 @export var is_activated: bool
+@export var non_purchasable: bool
 var attached_to
 var inventory_position
 var screen_position

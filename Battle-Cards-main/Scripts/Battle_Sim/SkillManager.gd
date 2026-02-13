@@ -93,7 +93,6 @@ func get_skill():
 	get_tree().get_first_node_in_group("player skills").add_skill(skill_being_dragged.skill_stats)
 	skill_being_dragged.queue_free()
 
-
 func animate_skill_to_position(skill, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(skill, "position", new_position, 0.1)

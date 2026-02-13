@@ -13,6 +13,7 @@ class_name Runes_Resource
 @export var effect3: int
 @export var effect4: int
 @export var effect5: int
+@export var non_purchasable: bool
 var stack_amount: int
 var owner
 var inventory_position

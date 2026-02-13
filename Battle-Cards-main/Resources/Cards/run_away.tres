@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://bfxp6vp77maov"]
+
+[ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_6vbqn"]
+
+[resource]
+script = ExtResource("1_6vbqn")
+card_art_path = "res://Resources/Art/Cards/run_away_card.png"
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
+card_scene_path = "res://Scenes/Cards/run_away.tscn"
+name = "Run Away"
+priority = 1
+upgrade_level = 1
+tags = ["Boar"]
+combo = 1
+metadata/_custom_type_script = "uid://crcatuq0050jq"

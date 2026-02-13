@@ -1,9 +1,8 @@
 extends Node2D
 
 
-const ABILITY_Y_POSITION = 790
-
-var ability_x_position = 0
+var ability_y_position =  790 #1000 #
+var ability_x_position = 960
 var ability_array = []
 var ability_width = 90
 
@@ -12,6 +11,7 @@ func _ready():
 	set_abilities()
 
 func set_abilities():
+	print("Set Abilities")
 	var player_abilities = Global.player_abilities
 
 	for i in player_abilities:
@@ -20,9 +20,12 @@ func set_abilities():
 		add_child(new_instance)
 		new_instance.get_node("BaseAbility").toggle_info_ui(true)
 		new_instance.get_node("BaseAbility").update_ability_image()
+		new_instance.set_ability()
 	organize_abilities()
 
+
 func add_ability(ability):
+	print("Add ability")
 	for i in get_children():
 		if i.ability_stats.name == ability.name:
 			i.get_node("BaseAbility").toggle_info_ui(true)
@@ -36,14 +39,20 @@ func add_ability(ability):
 	organize_abilities()
 
 func organize_abilities():
+	print("Organize Ability")
+	print(get_children())
+	var x_offset = 0
 	for i in get_children():
-		i.scale = Vector2(1.5,1.5)
-		ability_array.push_front(i)
-		update_ability_positions()
+		i.global_position = Vector2(x_offset + ability_x_position, ability_y_position)
+		x_offset += 60
+		
+	#for i in get_children():
+		#ability_array.push_front(i)
+		#update_ability_positions()
 
 func update_ability_positions():
 	for i in range(ability_array.size()):
-		var new_position = Vector2(calculate_ability_position(i), ABILITY_Y_POSITION)
+		var new_position = Vector2(calculate_ability_position(i), ability_y_position)
 		var ability = ability_array[i]
 		ability.global_position = new_position 
 
@@ -53,16 +62,23 @@ func calculate_ability_position(index):
 	return x_offset
 
 func get_ability_array():
+	print("Get ability array")
 	var ability_array = []
 	for i in get_children():
 		ability_array.push_back(i.ability_stats)
 	
 	return ability_array
 
+func reset_abilities():
+	print("Reset abilities")
+	for i in get_children():
+		remove_child(i)
+		i.queue_free()
+	
+	set_abilities()
+
 func enable_abilities():
-	for i in get_tree().get_nodes_in_group("ability"):
-		i.image_button.disabled = false
+	pass
 
 func disable_abilities():
-	for i in get_tree().get_nodes_in_group("ability"):
-		i.image_button.disabled = true
+	pass

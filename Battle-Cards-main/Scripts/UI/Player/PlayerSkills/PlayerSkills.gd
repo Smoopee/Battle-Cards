@@ -8,6 +8,7 @@ func _ready():
 
 #SKILLS ===========================================================================================
 func set_skills():
+	print("Set Skills")
 	var player_skills = Global.player_skills
 
 	for i in player_skills:
@@ -17,8 +18,7 @@ func set_skills():
 		new_instance.skill_stats.target = get_tree().get_first_node_in_group("enemy")
 		add_child(new_instance)
 		new_instance.upgrade_skill(new_instance.skill_stats.upgrade_level)
-		
-	
+
 	organize_skills()
 
 func add_skill(skill):

@@ -16,6 +16,7 @@ class_name Consumables_Resource
 @export var effect3: int
 @export var effect4: int
 @export var effect5: int
+@export var non_purchasable: bool
 var inventory_position
 var screen_position
 var consumable_owner

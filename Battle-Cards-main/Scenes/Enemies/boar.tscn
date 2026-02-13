@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dhcq8kbv38lvl"]
+
+[ext_resource type="PackedScene" uid="uid://bwwv3sibc50m4" path="res://Scenes/Enemies/base_enemy.tscn" id="1_btw4b"]
+[ext_resource type="Script" uid="uid://c4shjr8m0v4a6" path="res://Scripts/Enemies/boar.gd" id="1_d4w50"]
+
+[node name="Boar" type="Node2D" unique_id=1088544364]
+script = ExtResource("1_d4w50")
+
+[node name="BaseEnemy" parent="." unique_id=1369513174 instance=ExtResource("1_btw4b")]

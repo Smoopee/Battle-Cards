@@ -14,3 +14,5 @@ effect1 = 3
 debuff_duration = 2
 upgrade_level = 1
 tags = ["Berserker", "Trogg"]
+has_weighting = true
+first_position_weighting = 99

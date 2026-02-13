@@ -15,6 +15,7 @@ class_name Skills_Resource
 @export var effect3: int
 @export var effect4: int
 @export var effect5: int
+@export var non_purchasable: bool
 var attached_to
 var inventory_position
 var screen_position

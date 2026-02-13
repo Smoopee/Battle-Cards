@@ -12,7 +12,7 @@ var is_being_dragged = false
 
 func _ready():
 	center_screen_x = get_viewport().size.x / 2
-	home_position = Vector2(Global.center_screen_x, 890)
+	home_position = Vector2(Global.center_screen_x, 920)
 	self.position = home_position
 	original_rotation = self.rotation
 	self.scale = Global.ui_scaler
@@ -33,7 +33,7 @@ func show_node():
 
 func _get_points():
 	var points := []
-	var start :=  Vector2(Global.center_screen_x, 850)
+	var start :=  Vector2(Global.center_screen_x, 870)
 	var target = get_global_mouse_position()
 	var distance = (target-start)
 	

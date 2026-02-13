@@ -33,7 +33,6 @@ class_name Cards_Resource
 @export var heal: int
 @export var critical_strike_chance: float
 @export var in_enemy_deck: bool
-#@export var block : int
 @export var sell_price: int
 @export var buy_price: int
 @export var is_players: bool
@@ -47,7 +46,15 @@ class_name Cards_Resource
 @export var is_updated: bool
 @export var mode: String
 @export var card_rarity: int
+@export var non_purchasable: bool
 
+@export var has_weighting: bool
+@export var has_combo: bool
+@export var combo: int
+@export var first_position_weighting: int
+@export var inexorable: bool
+
+var temp_dmg = 0
 var in_active_zone: bool
 var owner
 var target

@@ -6,10 +6,9 @@ extends Node2D
 var card_stats: Cards_Resource = null
 
 func effect(player_deck, enemy_deck, player, enemy):
-	var damage = stats.dmg
+	var damage = stats.dmg + stats.temp_dmg
 	damage = stats.owner.deal_physical_damage(damage)
 	stats.target.take_physical_damage(damage)
-	
 
 func upgrade_card(num):
 	match num:
@@ -44,8 +43,6 @@ func upgrade_card(num):
 	"Effect: ")
 	card.upgrade_card_ui()
 
-func item_enchant(enchant):
-	pass
 
-func update_card_ui():
-	card.update_card_ui()
+#func update_card_ui():
+	#card.update_card_ui()

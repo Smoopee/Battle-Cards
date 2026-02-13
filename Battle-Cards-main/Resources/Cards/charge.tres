@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://ch40sc03xkjh1"]
+
+[ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_2ccb7"]
+
+[resource]
+script = ExtResource("1_2ccb7")
+card_art_path = "res://Resources/Art/Cards/charge_card.png"
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
+card_scene_path = "res://Scenes/Cards/charge.tscn"
+name = "Charge"
+dmg = 20
+tags = ["Enemy", "Attack"]
+card_type = ["Attack"]
+combo = 2
+metadata/_custom_type_script = "uid://crcatuq0050jq"

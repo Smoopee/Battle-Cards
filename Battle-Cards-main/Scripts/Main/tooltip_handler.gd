@@ -18,9 +18,19 @@ var is_dragging = false
 var found_object
 var previous_position
 
+var popup = false
+
 func _process(delta):
 	if is_dragging: click_timer += 1 * delta # Increments while pressing
 	else: click_timer = 0.0 # Reset when not pressing
+	
+	if click_timer > 1 and previous_position.distance_to(get_global_mouse_position()) < 50:
+		if !popup:
+			found_object.toggle_tooltip_show(previous_position)
+			found_object.add_to_group("focus object")
+			is_dragging = false
+			found_object = null
+			popup = true
 
 func _input(event):
 	var click_threshold: float = 0.2
@@ -33,6 +43,8 @@ func _input(event):
 			if found_object:
 				is_dragging = true
 				previous_position = found_object.global_position
+				
+				
 		elif event.is_released():
 			if is_dragging:
 				if click_timer < click_threshold: # Considered a click
@@ -40,20 +52,24 @@ func _input(event):
 						raycast_check_for_player_ability().button_pressed()
 						is_dragging = false
 						found_object = null
+						popup = false
 						return
 						
 					found_object.toggle_tooltip_show(previous_position)
 					found_object.add_to_group("focus object")
 					is_dragging = false
 					found_object = null
+					popup = false
 					return
 				if click_timer > click_threshold  and previous_position.distance_to(get_global_mouse_position()) < 100:
 					found_object.toggle_tooltip_show(previous_position)
 					found_object.add_to_group("focus object")
 					is_dragging = false
 					found_object = null
+					popup = false
 				is_dragging = false
 			found_object = null
+			popup = false
 
 func set_raycast_object():
 	if raycast_check_for_skill(): return raycast_check_for_skill()

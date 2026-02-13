@@ -55,6 +55,7 @@ func get_skill_selection():
 							skill_selection.push_back(temp)
 
 func create_skill_array():
+	return
 	for i in range(0, 1):
 		var selection = random_skill_selection().duplicate()
 		enemy_skills.push_front(selection)

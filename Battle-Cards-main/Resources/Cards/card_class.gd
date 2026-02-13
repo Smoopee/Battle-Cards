@@ -91,15 +91,27 @@ func set_node_names():
 	get_parent().add_to_group("card")
 
 func update_card_image():
+	card_stats = get_parent().stats
 	upgrade_border.texture = load(card_stats.card_upgrade_art_path)
-	dmg_label.text = str(card_stats.dmg)
 	
-	if card_stats.dmg == 0: dmg_panel.visible = false
+	var temp = 0
+	if card_stats.owner != null and Global.current_scene == "battle_sim":
+		temp = card_stats.owner.character_stats.attack
+	
+	dmg_label.text = str(card_stats.dmg + card_stats.temp_dmg + temp)
+	
+	if card_stats.card_type.find("Attack") < 0: 
+		dmg_panel.visible = false
+	else:
+		dmg_panel.visible = true
 	
 	if card_stats.cd > 0:
 		cd_panel.visible = true
 		cd_label.text = str(card_stats.cd)
 	else: cd_panel.visible = false
+
+func toggle_attack():
+	update_card_image()
 
 func disable_collision():
 	collision_shape.disabled = true
@@ -275,6 +287,8 @@ func card_reset():
 	card_stats.cd_remaining = 0
 	card_stats.on_cd = false
 	card_stats.mode = ""
+	card_stats.temp_dmg = 0
+	remove_modifiers()
 	update_card_ui()
 
 func change_cd_remaining(amount):
@@ -292,14 +306,22 @@ func change_cd(amount):
 	else: card_stats.on_cd = true
 	update_card_ui()
 
-func add_modifier(modifier):
+func add_modifier(modifier_resource, source):
+	var new_modifier = load(modifier_resource.modifier_scene_path).instantiate()
+	new_modifier.modifier_stats = modifier_resource.duplicate()
+	new_modifier.modifier_stats.attached_to = self
+	
 	for i in get_tree().get_nodes_in_group("modifier"):
-		if (i.name == modifier.name and i.attached_to == self): 
-			i.additional_modifier(self)
+
+		if (i.modifier_stats.name == modifier_resource.name 
+		and !i.modifier_stats.individual_stacks
+		and i.modifier_stats.attached_to == self): 
+			i.get_parent().additional_modifier(self)
 			return
 	
-	modifiers.add_child(modifier)
-	modifier.modifier_initializer(self)
+
+	modifiers.add_child(new_modifier)
+	new_modifier.initialize(source)
 	organzie_card_modifiers()
 
 func organzie_card_modifiers():
@@ -315,6 +337,11 @@ func organzie_card_modifiers():
 		i.position = Vector2(x_offset + 62, y_offset + -80)
 		y_offset += 30
 		counter += 1
+
+func remove_modifiers():
+	for i in modifiers.get_children():
+		modifiers.remove_child(i)
+		i.queue_free()
 
 func load_full_art():
 	var full_art = load(card_stats.full_art_scene_path).instantiate()
@@ -341,3 +368,7 @@ func highlight_card(toggle):
 		$GlowEffect.visible = true
 	else:
 		$GlowEffect.visible = false
+
+func connect_signals():
+	card_stats.owner.connect("attack_changed", update_card_image)
+	print(self.get_parent())

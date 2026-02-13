@@ -61,7 +61,6 @@ func combat(player_deck_list, enemy_deck_list):
 
 	print("It is turn " + str(round_counter))
 	
-	
 	player_deck.build_deck_position()
 	enemy_node.build_deck_position()
 	
@@ -119,7 +118,9 @@ func play_card():
 	else: second = player_card
 	
 	if first == player_card:
-		if !player_card.card_stats.on_cd and stun_check(player_card.card_stats.owner): 
+		if (!player_card.card_stats.on_cd and 
+		(stun_check(player_card.card_stats.owner)
+		or player_card.card_stats.inexorable)): 
 			emit_signal("card_etb", player_card)
 			player_card.get_node("BaseCard").attack_animation(player_card.card_stats.owner)
 			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
@@ -128,24 +129,30 @@ func play_card():
 		play_order_timer.start()
 		await play_order_timer.timeout
 		
-		if !enemy_card.card_stats.on_cd and stun_check(enemy_card.card_stats.owner):
+		if (!enemy_card.card_stats.on_cd and 
+		(stun_check(enemy_card.card_stats.owner)
+		or enemy_card.card_stats.inexorable)):
 			emit_signal("card_etb", enemy_card)
 			enemy_card.get_node("BaseCard").attack_animation(enemy_card.card_stats.owner)
 			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
 	else:
-		if !enemy_card.card_stats.on_cd and stun_check(enemy_card.card_stats.owner): 
+		if (!enemy_card.card_stats.on_cd and 
+		(stun_check(enemy_card.card_stats.owner)
+		or enemy_card.card_stats.inexorable)):
 			emit_signal("card_etb", enemy_card)
-			enemy_card.attack_animation(enemy_card.card_stats.owner)
+			enemy_card.get_node("BaseCard").attack_animation(enemy_card.card_stats.owner)
 			enemy_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(enemy_card)
 		
 		play_order_timer.start()
 		await play_order_timer.timeout
 		
-		if !player_card.card_stats.on_cd and stun_check(player_card.card_stats.owner):
+		if (!player_card.card_stats.on_cd and 
+		(stun_check(player_card.card_stats.owner)
+		or player_card.card_stats.inexorable)):
 			emit_signal("card_etb", player_card)
-			player_card.attack_animation(player_card.card_stats.owner)
+			player_card.get_node("BaseCard").attack_animation(player_card.card_stats.owner)
 			player_card.effect(player_deck_list, enemy_deck_list, player, enemy)
 			cooldown_keeper(player_card)
 
@@ -205,12 +212,13 @@ func next_turn_handler():
 	$"../ButtonController".show_continue_button()
 
 func end_fight_cleanup():
+	Global.current_scene = "battle rewards"
 	next_turn.end_fight()
 	emit_signal("end_fight")
 	$"../CardTransform".revert_cards()
 	$"../NextTurn".slot_player_cards()
 	get_tree().get_first_node_in_group("character").end_fight_reset()
-	Global.current_scene = "battle rewards"
+	
 	$"../BattleRewards".update_rewards()
 	$"../BattleRewards".visible = true
 	

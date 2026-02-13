@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Modifier_Resource" format=3 uid="uid://cuhxg12qn32br"]
+
+[ext_resource type="Script" uid="uid://b6h1ydalcyooj" path="res://Resources/Modifiers/modifiers_master_resource.gd" id="1_hx4os"]
+
+[resource]
+script = ExtResource("1_hx4os")
+modifier_art_path = "res://Resources/Art/Modifiers/swarm_modifier.png"
+modifier_scene_path = "res://Scenes/Modifiers/bolster_modifier.tscn"
+name = "Bolstered"
+metadata/_custom_type_script = "uid://b6h1ydalcyooj"

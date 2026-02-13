@@ -81,7 +81,7 @@ func start_drag(card):
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 2
 	card_previous_position = card_being_dragged.position
-	#card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_DISABLED
+	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_DISABLED
 
 	
 	for i in get_tree().get_nodes_in_group("card"):
@@ -277,12 +277,12 @@ func upgrade_check(upgrade_card, base_card):
 	return true
 
 func upgrade_card(upgrade_card, base_card):
-	var temp_enchant = base_card.card_stats.item_enchant
-	var temp_enchant2 = upgrade_card.card_stats.item_enchant
-	if temp_enchant != null:
-		base_card.item_enchant(temp_enchant) 
-	if temp_enchant2 != null:
-		base_card.item_enchant(temp_enchant2) 
+	#var temp_enchant = base_card.card_stats.item_enchant
+	#var temp_enchant2 = upgrade_card.card_stats.item_enchant
+	#if temp_enchant != null:
+		#base_card.item_enchant(temp_enchant) 
+	#if temp_enchant2 != null:
+		#base_card.item_enchant(temp_enchant2) 
 	upgrade_card.queue_free()
 	base_card.upgrade_card(base_card.card_stats.upgrade_level + 1)
 	print("Upgrade card end")
@@ -620,11 +620,12 @@ func card_reset():
 	#card_being_dragged.get_node("CardUI").mouse_filter = Control.MOUSE_FILTER_STOP
 	card_being_dragged.scale = Vector2(1, 1)
 	card_being_dragged.z_index = 1
-	#card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_INHERIT
+	card_being_dragged.get_node("BaseCard").get_node("Area2D").process_mode = PROCESS_MODE_INHERIT
 	
 	for i in get_tree().get_nodes_in_group("card"):
 		i.get_node("BaseCard").highlight_card(false)
 	card_being_dragged = null
+	
 
 func toggle_sell_zone(toggle):
 	if toggle:

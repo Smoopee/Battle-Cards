@@ -3,6 +3,7 @@ extends Node2D
 func _ready():
 	get_tree().get_first_node_in_group("character ui").toggle_inventory(true)
 	get_tree().get_first_node_in_group("player skills").reset_skills()
+	get_tree().get_first_node_in_group("player abilities").reset_abilities()
 	get_tree().get_first_node_in_group("main").is_pre_battle = true
 	$NextTurn.initial_build()
 	

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://yni7o3vf7llb"]
+
+[ext_resource type="Script" uid="uid://dmrx866peve1r" path="res://Scripts/Modifiers/base_modifier.gd" id="1_sevm0"]
+[ext_resource type="Texture2D" uid="uid://dmdojwagd23wl" path="res://Resources/Art/Modifiers/swarm_modifier.png" id="2_35gig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqi8p"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[node name="BaseModifier" type="Node2D" unique_id=1051502535]
+script = ExtResource("1_sevm0")
+
+[node name="ModifierImage" type="Sprite2D" parent="." unique_id=855173588]
+unique_name_in_owner = true
+texture = ExtResource("2_35gig")
+
+[node name="ModifierfUI" type="Control" parent="." unique_id=1805301286]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+
+[node name="ModifierCounters" type="Label" parent="ModifierfUI" unique_id=297909529]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 32.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ModifierCounterPanel" type="Panel" parent="ModifierfUI/ModifierCounters" unique_id=1009161424]
+unique_name_in_owner = true
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 11)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hqi8p")

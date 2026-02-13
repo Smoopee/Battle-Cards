@@ -85,6 +85,7 @@ func new_game_function():
 	Global.player_talent_array = []
 	Global.battle_tracker = 1
 	Global.player_skills = []
+	Global.player_abilities = []
 	Global.player_consumables = []
 	Global.player_runes = []
 	Global.player_gadgets = []

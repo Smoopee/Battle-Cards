@@ -4,5 +4,6 @@ const ENEMIES = {
 	#"Frooty" : "res://Resources/Enemies/frooty.tres",
 	#"Rat King" : "res://Resources/Enemies/rat_king.tres",
 	"Rats" : "res://Resources/Enemies/rats.tres",
-	"Snake" : "res://Resources/Art/Enemies/snake.tres"
+	"Snake" : "res://Resources/Art/Enemies/snake.tres",
+	#"Boar" : "res://Resources/Enemies/boar.tres"
 }

@@ -3,6 +3,8 @@ extends Node2D
 
 signal health_changed
 signal stagger_changed
+signal attack_changed
+signal defense_changed
 signal staggered
 signal stunned
 signal physical_damage_dealt
@@ -91,6 +93,7 @@ func end_fight_reset():
 	set_stagger()
 	set_rage()
 	change_block()
+
 
 #SIGNALS ===========================================================================================
 func connect_signals(battle_sim):
@@ -260,10 +263,12 @@ func change_rage(value):
 
 func change_attack(amount):
 	character_stats.attack += amount
+	emit_signal("attack_changed")
 	$StatContainer/Panel/HBoxContainer/AttackLabel.text = str(character_stats.attack) 
 
 func change_defense(amount):
 	character_stats.defense += amount
+	emit_signal("defense_changed")
 	$StatContainer/Panel2/HBoxContainer/DefenseLabel.text = str(character_stats.defense)
 
 func change_speed(amount):

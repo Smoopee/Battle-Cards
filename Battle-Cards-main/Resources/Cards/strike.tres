@@ -12,5 +12,5 @@ card_scene_path = "res://Scenes/Cards/strike.tscn"
 name = "Strike"
 dmg = 100
 upgrade_level = 1
-tags = ["Berserker", null, null]
+tags = ["Berserker", "Attack"]
 card_type = ["Attack"]

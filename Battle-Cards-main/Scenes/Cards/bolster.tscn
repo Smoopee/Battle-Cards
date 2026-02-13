@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://l2r4e7yvrs6r"]
+
+[ext_resource type="Script" uid="uid://12gcyf7q1u35" path="res://Scripts/Cards/bolster.gd" id="1_m4dlf"]
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_gn0es"]
+
+[node name="Bolster" type="Node2D" unique_id=676119813]
+script = ExtResource("1_m4dlf")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("2_gn0es")]

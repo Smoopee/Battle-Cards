@@ -42,26 +42,3 @@ func upgrade_card(num):
 	"Buff Atk by " + str(stats.effect1), 
 	"Effect: ")
 	card.update_card_ui()
-
-func item_enchant(enchant):
-	match enchant:
-		"Bleed":
-			stats.item_enchant = "Bleed"
-			stats.bleed_dmg = 6
-			stats.sell_price *= 2
-			stats.buy_price *= 2
-		"Exhaust":
-			stats.item_enchant = "Exhaust"
-		"Dejavu":
-			stats.item_enchant = "Dejavu"
-		"Fiery":
-			stats.item_enchant = "Fiery"
-		"Lifesteal":
-			stats.item_enchant = "Lifesteal"
-		"Rapid":
-			stats.item_enchant = "Rapid"
-		"Restoration":
-			stats.item_enchant = "Restoration"
-		"Toxic":
-			stats.item_enchant = "Toxic"
-	card.update_card_ui()

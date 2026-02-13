@@ -56,7 +56,6 @@ func initial_build_deck():
 			new_card.card_stats = enemy_deck[i]
 			add_child(new_card)
 			new_card.upgrade_card(new_card.card_stats.upgrade_level)
-			new_card.item_enchant(new_card.card_stats.item_enchant)
 			new_card.card_stats.is_players = false
 			new_card.card_stats.owner = get_tree().get_first_node_in_group("enemy")
 			new_card.card_stats.target = get_tree().get_first_node_in_group("character")
@@ -102,13 +101,15 @@ func animate_card_to_discard_position(card):
 #==================================================================================================
 func build_deck():
 	var blank = load("res://Resources/Cards/blank.tres")
-	enemy_inventory = []
-	
+	enemy_inventory = [null, null, null, null, null, null, null]
+	var temp_deck = []
 	for i in get_children():
 		if i.is_in_group("card"):
-			enemy_inventory.push_back(i)
+			temp_deck.push_back(i)
 	
-	enemy_inventory.shuffle()
+	
+	enemy_deck_randomizer(temp_deck)
+	
 
 	var card_position = 0
 	for i in enemy_inventory:
@@ -134,6 +135,49 @@ func build_deck():
 	deck = enemy_inventory
 	emit_signal("build_enemy_deck")
 	return enemy_inventory
+
+func enemy_deck_randomizer(card_choices):
+	var rng = RandomNumberGenerator.new()
+	var selection 
+	
+	var array_to_erase = []
+	for i in card_choices:
+		if i.get_node("BaseCard").card_stats.has_weighting and !i.get_node("BaseCard").card_stats.on_cd:
+			if i.get_node("BaseCard").card_stats.first_position_weighting >= rng.randi_range(0,99):
+				if enemy_inventory[0] == null:
+					enemy_inventory[0] = i
+				elif enemy_inventory[1] == null:
+					enemy_inventory[1] = i
+				elif enemy_inventory[2] == null:
+					enemy_inventory[2] = i
+				array_to_erase.push_front(i)
+
+	for i in array_to_erase:
+		if card_choices.find(i) > -1:
+			card_choices.erase(i)
+			
+	var num_of_non_nulls = 0
+	for i in enemy_inventory:
+		if i != null:
+			num_of_non_nulls += 1
+	
+	for i in card_choices:
+		if i.get_node("BaseCard").card_stats.combo == 2:
+			selection = rng.randi_range(num_of_non_nulls + 1, enemy_inventory.size()-1)
+			enemy_inventory[selection] = i
+			card_choices.erase(i)
+			for  j in card_choices:
+				if j.get_node("BaseCard").card_stats.combo == 1:
+					enemy_inventory[selection - 1] = j
+					card_choices.erase(j)
+					
+	for i in enemy_inventory:
+		if i == null:
+			selection = rng.randi_range(0,card_choices.size()-1)
+			enemy_inventory[enemy_inventory.find(i)] = card_choices[selection]
+			card_choices.erase(card_choices[selection])
+
+
 
 func update_hand_positions():
 	for i in range(enemy_inventory.size()):

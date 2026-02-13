@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cards_Resource" format=3 uid="uid://uiabgoaddbq1"]
+
+[ext_resource type="Script" uid="uid://crcatuq0050jq" path="res://Resources/Cards/cards_master_resource.gd" id="1_8lekh"]
+
+[resource]
+script = ExtResource("1_8lekh")
+card_art_path = "res://Resources/Art/Cards/fireball_card.png"
+card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
+card_scene_path = "res://Scenes/Cards/fireball.tscn"
+name = "Firball"
+dmg = 10
+upgrade_level = 1
+tags = ["Attack"]
+card_type = ["Attack"]
+non_purchasable = true
+metadata/_custom_type_script = "uid://crcatuq0050jq"

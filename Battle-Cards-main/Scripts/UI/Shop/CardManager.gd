@@ -193,6 +193,7 @@ func buy_card_for_deck(card, deck_slot):
 	deck_card_slot_reference.remove_at(deck_card_slot_index)
 	deck_card_slot_reference.insert(deck_card_slot_index, card_being_dragged)
 	card.card_stats.is_players = true
+	card.card_stats.owner = get_tree().get_first_node_in_group("character")
 	card.get_node("BaseCard").card_shop_ui()
 	update_player_gold()
 
@@ -212,6 +213,7 @@ func buy_card_for_inventory(card, inventory_slot):
 	inventory_card_slot_reference.remove_at(inventory_card_slot_index)
 	inventory_card_slot_reference.insert(inventory_card_slot_index, card_being_dragged)
 	card.card_stats.is_players = true
+	card.card_stats.owner = get_tree().get_first_node_in_group("character")
 	card.get_node("BaseCard").card_shop_ui()
 	update_player_gold()
 

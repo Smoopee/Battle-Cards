@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://piihao2rjojd"]
+
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="1_4o7oj"]
+[ext_resource type="Script" uid="uid://d2uumdb2hns2v" path="res://Scripts/Cards/incantation_fireball.gd" id="1_sll2r"]
+
+[node name="IncantationFireball" type="Node2D" unique_id=1966112715]
+script = ExtResource("1_sll2r")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("1_4o7oj")]

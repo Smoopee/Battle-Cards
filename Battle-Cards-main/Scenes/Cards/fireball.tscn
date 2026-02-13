@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c5vy2gu4p8ebc"]
+
+[ext_resource type="Script" uid="uid://djvkijg4d270m" path="res://Scripts/Cards/fireball.gd" id="1_1vtcy"]
+[ext_resource type="PackedScene" uid="uid://c8brlil8m85rn" path="res://Scenes/Cards/base_card.tscn" id="2_bmlfk"]
+
+[node name="Fireball" type="Node2D" unique_id=1792760362]
+script = ExtResource("1_1vtcy")
+
+[node name="BaseCard" parent="." unique_id=337425828 instance=ExtResource("2_bmlfk")]

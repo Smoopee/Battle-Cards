@@ -7,4 +7,6 @@ script = ExtResource("1_bcs2r")
 ability_art_path = "res://Resources/Art/Abilities/battle_stance_ability.png"
 ability_scene_path = "res://Scenes/Abilities/battle_stance.tscn"
 name = "Battle Stance"
+effect1 = 5
+effect2 = 3
 metadata/_custom_type_script = "uid://eppxtsbh15ld"

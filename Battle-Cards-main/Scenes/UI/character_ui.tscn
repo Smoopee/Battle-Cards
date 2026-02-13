@@ -17,6 +17,7 @@ toggle_mode = true
 text = "Inventory"
 
 [node name="Sprite2D" type="Sprite2D" parent="Inventory" unique_id=1539561208]
+visible = false
 position = Vector2(78.5, 52.5)
 scale = Vector2(1.0342466, 0.5611111)
 texture = ExtResource("2_h7ykt")

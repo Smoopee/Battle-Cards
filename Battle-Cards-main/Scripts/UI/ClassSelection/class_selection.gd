@@ -57,6 +57,7 @@ func finish_drag():
 		Global.current_scene = "intermission"
 		await get_tree().get_first_node_in_group("main").scene_transition(1, 1.0)
 		var temp = load("res://Scenes/Characters/Berserker/berserker.tscn").instantiate().duplicate()
+		temp.character_stats = load("res://Resources/Character/berserker.tres")
 		get_tree().get_first_node_in_group("player").add_child(temp)
 		temp = load("res://Scenes/UI/PlayerInventory/player_cards.tscn").instantiate()
 		get_parent().add_child(temp)

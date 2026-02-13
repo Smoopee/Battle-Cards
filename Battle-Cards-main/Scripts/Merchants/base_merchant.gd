@@ -88,12 +88,14 @@ func get_card_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
+			if temp.non_purchasable: continue
 			inventory_selection.push_back(temp)
 	
 	else:
 		for i in merchant_stats.selection_tags:
 			for j in db_reference.ITEMS:
 				var temp = load(db_reference.ITEMS[j])
+				if temp.non_purchasable: continue
 				if temp.tags.find(i) > -1 : 
 					inventory_selection.push_back(temp)
 
@@ -101,12 +103,14 @@ func get_skill_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
+			if temp.non_purchasable: continue
 			inventory_selection.push_back(temp)
 	
 	else:
 		for i in merchant_stats.selection_tags:
 			for j in db_reference.ITEMS:
 				var temp = load(db_reference.ITEMS[j])
+				if temp.non_purchasable: continue
 				if temp.tags.find(i) > -1 : 
 					inventory_selection.push_back(temp)
 
@@ -114,12 +118,14 @@ func get_gadget_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
+			if temp.non_purchasable: continue
 			inventory_selection.push_back(temp)
 	
 	else:
 		for i in merchant_stats.selection_tags:
 			for j in db_reference.ITEMS:
 				var temp = load(db_reference.ITEMS[j])
+				if temp.non_purchasable: continue
 				if temp.tags.find(i) > -1 : 
 					inventory_selection.push_back(temp)
 
@@ -127,12 +133,14 @@ func get_consumable_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
+			if temp.non_purchasable: continue
 			inventory_selection.push_back(temp)
 	
 	else:
 		for i in merchant_stats.selection_tags:
 			for j in db_reference.ITEMS:
 				var temp = load(db_reference.ITEMS[j])
+				if temp.non_purchasable: continue
 				if temp.tags.find(i) > -1 : 
 					inventory_selection.push_back(temp)
 
@@ -140,12 +148,14 @@ func get_rune_selection():
 	if merchant_stats.selection_tags == []:
 		for i in db_reference.ITEMS:
 			var temp = load(db_reference.ITEMS[i])
+			if temp.non_purchasable: continue
 			inventory_selection.push_back(temp)
 	
 	else:
 		for i in merchant_stats.selection_tags:
 			for j in db_reference.ITEMS:
 				var temp = load(db_reference.ITEMS[j])
+				if temp.non_purchasable: continue
 				if temp.tags.find(i) > -1 : 
 					inventory_selection.push_back(temp)
 

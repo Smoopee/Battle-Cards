@@ -15,7 +15,7 @@ func _ready():
 func skill_effect(damage):
 	if one_shot == false: return
 	if damage >= 6:
-		get_tree().get_first_node_in_group("character").receiving_physical_dmg = 0
+		skill_stats.owner.receiving_physical_dmg = 0
 		one_shot = false
 		skill.skill_image.self_modulate.a = .5
 		skill.upgrade_border.self_modulate.a = .5

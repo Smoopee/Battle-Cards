@@ -24,9 +24,9 @@ func enemy_deck_function():
 		"Rock",
 		"Rock",
 		"Rock",
-		"Daunting Shout",
+		"Rock",
 		"Strengthen",
-		"Rock"
+		"Daunting Shout"
 	]
 	
 	return enemy_deck

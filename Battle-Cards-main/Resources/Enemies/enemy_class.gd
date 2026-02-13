@@ -3,6 +3,8 @@ extends Node2D
 #class_name Enemy
 signal stagger_changed
 signal staggered
+signal attack_changed
+signal defense_changed
 signal stunned
 signal generate_reward
 signal health_changed
@@ -284,10 +286,12 @@ func set_enemy_xp():
 
 func change_attack(amount):
 	character_stats.attack += amount
+	emit_signal("attack_changed")
 	attack_label.text = "Atk: " + str(character_stats.attack) 
 
 func change_defense(amount):
 	character_stats.defense += amount
+	emit_signal("defense_changed")
 	defense_label.text = str(character_stats.defense)
 
 func change_speed(amount):

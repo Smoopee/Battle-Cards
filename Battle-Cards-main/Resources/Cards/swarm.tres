@@ -9,5 +9,7 @@ card_border_path = "res://Resources/Art/UIElements/Borders/berserker_border.png"
 card_scene_path = "res://Scenes/Cards/swarm.tscn"
 name = "Swarm"
 dmg = 1
+effect1 = 1
 upgrade_level = 1
 tags = ["Rats", "Rat King", "Enemy"]
+card_type = ["Attack"]
